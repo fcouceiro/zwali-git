@@ -1,5 +1,8 @@
 package com.me.zwali;
-import org.newdawn.slick.opengl.Texture;
+
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 public class UnStaticObj extends StaticObj
@@ -8,9 +11,9 @@ public class UnStaticObj extends StaticObj
 	boolean alive;
 
 	
-	public UnStaticObj ( Vector pos, Vector size, Texture im, int Health)
+	public UnStaticObj ( Vector pos, Vector size, Sprite im, int Health, SpriteBatch batch)
 	{
-		super ( pos, size, im);
+		super (pos, size, im, batch);
 		this.Health = Health;
 		alive = true;
 	}

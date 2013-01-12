@@ -7,9 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
-import org.newdawn.slick.opengl.TextureLoader;
 
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Textures {
 	
@@ -165,7 +169,7 @@ public class Textures {
 	 Texture bar_buildmodeon;
 	 Texture bar_buildmodeoff;
 	 
-	public void loadTextures()
+	public void loadTextures() throws FileNotFoundException
 	{
 		wv1 = loadTexture("/menus/wave_in");
 		wv2 = loadTexture("/menus/wave_in2");
@@ -241,7 +245,7 @@ public class Textures {
 		
 	}
 	
-	private void loadFont()
+	private void loadFont() throws FileNotFoundException
 	{
 		A = loadTexture("/fonts/OSD/A");
 		B = loadTexture("/fonts/OSD/B");
@@ -308,41 +312,36 @@ public class Textures {
 
 	
 	
-	private Texture loadTexture(String key)
+	private Texture loadTexture(String key) throws FileNotFoundException
 	{
-		try
-		{
-			return (TextureLoader.getTexture("PNG", new FileInputStream(new File("res/textures/" + key +".png"))) );
+		try{
+		Texture a = new Texture(Gdx.files.internal("res/textures/" + key +".png"));
+		a.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		return (a);
 		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
+		finally{
+		
 		}
-		catch( IOException e)
-		{
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
-	public void draw(Texture t)
-	{
-	
-	glLoadIdentity();
-	glPushMatrix();
-	
-	t.bind();
-	glTranslatef((float)(160),(float)(545), 0.0f);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0);
-	glVertex2i(0, 0); // Upper-left
-	glTexCoord2f(1, 0);
-	glVertex2i(50, 0); // Upper-right
-	glTexCoord2f(1, 1);
-	glVertex2i(50,50); // Bottom-right
-	glTexCoord2f(0, 1);
-	glVertex2i(0, 50);
-	glEnd();
-	glPopMatrix();
-	}
+//	public void draw(Texture t, SpriteBatch batch)
+//	{
+//	Sprite a = new Sprite(t);
+//	glLoadIdentity();
+//	glPushMatrix();
+//	
+//	t.bind();
+//	glTranslatef((float)(160),(float)(545), 0.0f);
+//	glBegin(GL_QUADS);
+//	glTexCoord2f(0, 0);
+//	glVertex2i(0, 0); // Upper-left
+//	glTexCoord2f(1, 0);
+//	glVertex2i(50, 0); // Upper-right
+//	glTexCoord2f(1, 1);
+//	glVertex2i(50,50); // Bottom-right
+//	glTexCoord2f(0, 1);
+//	glVertex2i(0, 50);
+//	glEnd();
+//	glPopMatrix();
+//	}
 }

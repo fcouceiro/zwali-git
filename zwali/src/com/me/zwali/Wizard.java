@@ -1,25 +1,19 @@
 package com.me.zwali;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2i;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.newdawn.slick.opengl.Texture;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 
 public class Wizard {
 
-	Texture t, tbox;
+	Sprite t, tbox, itembox;
 	Textures textures;
 	Vector pos;
 	Vector size;
@@ -33,9 +27,15 @@ public class Wizard {
 	
 	public Wizard( Vector posk, Vector sizek, Textures T, Player pl)
 	{
+		
 		this.textures = T;
-		this.t = T.wizard;
-		this.tbox = T.box;
+		this.t = new Sprite(T.wizard);
+		this.tbox = new Sprite(T.box);
+		t.setOrigin(0, 0);
+		t.setSize((float)sizek.x,(float)sizek.y);
+		t.setPosition((float)posk.x, (float)posk.y);
+		tbox.setOrigin(0, 0);
+		tbox.setSize((float)sizek.x,(float)sizek.y);
 		this.pos = posk;
 		this.size = sizek;
 		this.menu = new Text(T);
@@ -59,26 +59,13 @@ public class Wizard {
 		itens.add(new Item(8, T, pl));
 	}
 	
-	private void draw(Vector Disp, Vector playerpos, Player pl)
+	private void draw(Vector Disp, Vector playerpos, Player pl, SpriteBatch batch)
 	{
-		glLoadIdentity();
-		glPushMatrix();
+		
 
 		//Page
-		t.bind();
-		glTranslatef((float)(pos.x - Disp.x),(float)(pos.y - Disp.y), 0.0f);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex2i(0, 0); // Upper-left
-		glTexCoord2f(1, 0);
-		glVertex2i((int)size.x, 0); // Upper-right
-		glTexCoord2f(1, 1);
-		glVertex2i((int)size.x,(int)size.y); // Bottom-right
-		glTexCoord2f(0, 1);
-		glVertex2i(0, (int)size.y);
-
-		glEnd();
-		glPopMatrix();
+		t.setPosition((float)(pos.x - Disp.x),(float)(pos.y - Disp.y));
+		t.draw(batch);
 		
 		if(playerpos.x >= 1550 && playerpos.x <= 1730 && playerpos.y >= 1550 && playerpos.y <= 1680) //�rea verde
 		{
@@ -94,41 +81,16 @@ public class Wizard {
 			this.instrucao2.draw();
 			
 			//Box
-			glLoadIdentity();
-			glPushMatrix();
-			tbox.bind();
-			glTranslatef((float)(1765 - Disp.x),(float)(1620 - Disp.y), 0.0f);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);
-			glVertex2i(0, 0); // Upper-left
-			glTexCoord2f(1, 0);
-			glVertex2i((int)size.x, 0); // Upper-right
-			glTexCoord2f(1, 1);
-			glVertex2i((int)size.x,(int)size.y); // Bottom-right
-			glTexCoord2f(0, 1);
-			glVertex2i(0, (int)size.y);
-			glEnd();
-			glPopMatrix();
-			
+			tbox.setPosition((float)(1765 - Disp.x), (float)(1620 - Disp.y));
+			tbox.draw(batch);
 			
 			
 			
 			//item na box
-			glLoadIdentity();
-			glPushMatrix();
-			(itens.get(counter)).img.bind();
-			glTranslatef((float)(1774 - Disp.x),(float)(1628 - Disp.y), 0.0f);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);
-			glVertex2i(0, 0); // Upper-left
-			glTexCoord2f(1, 0);
-			glVertex2i(73, 0); // Upper-right
-			glTexCoord2f(1, 1);
-			glVertex2i(73,74); // Bottom-right
-			glTexCoord2f(0, 1);
-			glVertex2i(0, 74);
-			glEnd();
-			glPopMatrix();
+			itens.get(counter).img.setSize(73,74);
+			itens.get(counter).img.setPosition((float)(1774 - Disp.x),(float)(1628 - Disp.y));
+			(itens.get(counter)).img.draw(batch);
+			
 			
 			switch(counter){
 			case 4: //Se for power -> Buscar a arma equipada de momento e mostrar quantos upgrades tem
@@ -354,11 +316,10 @@ public class Wizard {
 		}
 	}
 	
-	public void animateWaveIncoming(int WaveNr, int timer)
+	public void animateWaveIncoming(int WaveNr, int timer, SpriteBatch batch)
 	{
 		
-		glLoadIdentity();
-		glPushMatrix();
+		
 
 		//Page
 		if((timer/30) % 2 == 0)
@@ -367,29 +328,20 @@ public class Wizard {
 			textures.wv2.bind();
 		
 		int h = 228 / 2;
-		int w = textures.wv1.getImageWidth() / 2 + 10;
-		glTranslatef((float)(272),(float)(30), 0.0f);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex2i(0, 0); // Upper-left
-		glTexCoord2f(1, 0);
-		glVertex2i((int)w, 0); // Upper-right
-		glTexCoord2f(1, 1);
-		glVertex2i((int)w,(int)h); // Bottom-right
-		glTexCoord2f(0, 1);
-		glVertex2i(0, (int)h);
-
-		glEnd();
-		glPopMatrix();
+		int w = textures.wv1.getWidth() / 2 + 10;
+		Sprite a = new Sprite(textures.wv1);
+		a.setSize(w, h);
+		a.setPosition((float)(272),(float)(30));
+		a.draw(batch);
 		
 		this.Wavenr.drawString(Integer.toString(WaveNr),new Vector(435, 100), 10);
 		this.Wavenr.setPos(new Vector(432, 95));
 		this.Wavenr.draw();
 	}
 	
-	public void showup(Vector Disp, Vector playerpos, Player pl)	
+	public void showup(Vector Disp, Vector playerpos, Player pl, SpriteBatch batch)	
 	{
-		this.draw(Disp, playerpos, pl);
+		this.draw(Disp, playerpos, pl, batch);
 	}
 	
 }
