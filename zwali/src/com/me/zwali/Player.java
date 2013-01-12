@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.lwjgl.input.Mouse;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 
 
 class Player extends Entity
@@ -347,9 +349,9 @@ class Player extends Entity
 		}
 		
 		
-		public void draw( Vector Disp)
+		public void draw( Vector Disp, SpriteBatch batch)
 		{
-			super.draw( Disp);
+			super.draw( Disp, batch);
 		}
 		
 		public void addGun( Weapon w)

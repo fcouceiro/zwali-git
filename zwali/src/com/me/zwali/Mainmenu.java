@@ -1,18 +1,16 @@
 package com.me.zwali;
-import static org.lwjgl.opengl.GL11.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.opengl.Texture;
+
+import com.badlogic.gdx.graphics.Texture;
+
 
 
 public class Mainmenu
 {
 	Textures imagesource;
 	boolean start;
-	Sound sound;
 	int time = 0;
 	int timer = 30;
 	
@@ -22,9 +20,8 @@ public class Mainmenu
 	Vector mpos = new Vector(0,0);
 	
 
-	public Mainmenu(Textures img, Sound s)
+	public Mainmenu(Textures img, )
 	{
-		this.sound = s;
 		this.imagesource = img;
 		this.start = false;
 	}
@@ -67,20 +64,14 @@ public class Mainmenu
 			}
 			else if(start && mpos.x < 250)
 			{
-				sound.stopAll();
-				sound.playOnce(sound.maintheme);
 				start = false;
 			}
 			else if(start && mpos.x > 550)
 			{
-				sound.stopAll();
-				sound.playOnce(sound.maintheme);
 				start = false;
 			}
 			else if(start && mpos.y < 330)
 			{
-				sound.stopAll();
-				sound.playOnce(sound.maintheme);
 				start = false;
 			}
 			else if(start && mpos.x > 325 && mpos.x < 475)

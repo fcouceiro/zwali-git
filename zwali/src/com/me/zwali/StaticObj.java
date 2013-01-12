@@ -1,5 +1,7 @@
 package com.me.zwali;
-import org.newdawn.slick.opengl.Texture;
+
+import com.badlogic.gdx.graphics.Texture;
+
 
 public class StaticObj extends Entity 
 {

@@ -1,7 +1,7 @@
 package com.me.zwali;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Item 
 {
@@ -168,23 +168,12 @@ public class Item
 			
 	}*/
 	
-	public void draw(Vector disp)
+	public void draw(Vector disp, SpriteBatch batch)
 	{
-		glLoadIdentity();
-		glPushMatrix();
-		img.bind();
-		glTranslatef((float)(Pos.x - disp.x), (float)(Pos.y - disp.y), 0.0f);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex2i(0, 0); // Upper-left
-		glTexCoord2f(1, 0);
-		glVertex2i(32, 0); // Upper-right
-		glTexCoord2f(1, 1);
-		glVertex2i(32,32); // Bottom-right
-		glTexCoord2f(0, 1);
-		glVertex2i(0, 32);
-		glEnd();
-		glPopMatrix();
+		img.setPosition((float)(Pos.x - disp.x), (float)(Pos.y - disp.y));
+		img.setSize(32,32);
+		img.draw(batch);
+		
 	}
 	
 	boolean Collide (Player player1)
