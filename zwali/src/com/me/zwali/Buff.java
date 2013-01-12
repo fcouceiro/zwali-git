@@ -12,7 +12,7 @@ public class Buff
 	int timerbuff = 3600;
 	boolean activeBuff;
 	
-	public Buff(Texture t,int type)
+	public Buff(Sprite t,int type)
 	{
 		this.activeBuff = false;
 		this.buffIM = new Sprite(t);

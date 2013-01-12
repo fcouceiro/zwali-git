@@ -3,13 +3,13 @@ package com.me.zwali;
 
 import org.lwjgl.input.Mouse;
 
-import com.badlogic.gdx.graphics.Texture;
-
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 public class Mainmenu
 {
-	Textures imagesource;
+
 	boolean start;
 	int time = 0;
 	int timer = 30;
@@ -18,15 +18,15 @@ public class Mainmenu
 	Vector btnHowtoplay = new Vector(70,380);
 	Vector btnAbout = new Vector(530,380);
 	Vector mpos = new Vector(0,0);
-	
+	SpriteBatch batch;
 
-	public Mainmenu(Textures img, )
+	public Mainmenu(SpriteBatch batch)
 	{
-		this.imagesource = img;
+		this.batch = batch;
 		this.start = false;
 	}
 	
-	public int update()
+	public int update(SpriteBatch batch)
 	{
 		mpos.x = Mouse.getX();
 		mpos.y = 600 - Mouse.getY();
@@ -116,7 +116,7 @@ public class Mainmenu
 	private void drawBtn(int btn)
 	{
 		if (!start) {
-		Texture btnImg=null;
+		Sprite btnImg=null;
 		Vector Pos = null;
 		
 		switch(btn)
@@ -124,45 +124,33 @@ public class Mainmenu
 		case 0:
 			
 				if (this.collide(0)) {
-					btnImg = imagesource.mainmenu_btnPlay_h;
+					btnImg = Textures.mainmenu_btnPlay_h;
 				} else
-					btnImg = imagesource.mainmenu_btnPlay;
+					btnImg = Textures.mainmenu_btnPlay;
 				Pos = this.btnPlay;
 			
 			
 			break;
 		case 1:
 			if(this.collide(1))
-				btnImg = imagesource.mainmenu_btnHowtoPlay_h;	
+				btnImg = Textures.mainmenu_btnHowtoPlay_h;	
 			else
-				btnImg = imagesource.mainmenu_btnHowtoPlay;
+				btnImg = Textures.mainmenu_btnHowtoPlay;
 			Pos = this.btnHowtoplay;
 			break;
 		case 2:
 			if(this.collide(2))
-				btnImg = imagesource.mainmenu_btnAbout_h;	
+				btnImg = Textures.mainmenu_btnAbout_h;	
 			else
-				btnImg = imagesource.mainmenu_btnAbout;
+				btnImg = Textures.mainmenu_btnAbout;
 			Pos = this.btnAbout;
 			break;
 		}
 		
-		
-			glLoadIdentity();
-			glPushMatrix();
-			btnImg.bind();
-			glTranslatef((float) Pos.x, (float) Pos.y, 0.0f);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);
-			glVertex2i(0, 0); // Upper-left
-			glTexCoord2f(1, 0);
-			glVertex2i(200, 0); // Upper-right
-			glTexCoord2f(1, 1);
-			glVertex2i(200, 200); // Bottom-right
-			glTexCoord2f(0, 1);
-			glVertex2i(0, 200);
-			glEnd();
-			glPopMatrix();
+			btnImg.setSize(200, 200);
+			btnImg.setPosition((float) Pos.x, (float) Pos.y);
+			btnImg.draw(batch);
+
 		}
 		else this.drawDificuldade();
 		
@@ -170,51 +158,28 @@ public class Mainmenu
 	
 	private void drawDificuldade()
 	{
-		Texture imgtobind=imagesource.mainmenu_dificuldade;
+		Sprite imgtobind=Textures.mainmenu_dificuldade;
 		if(mpos.x > 325 && mpos.x < 475)
 		{
-			if(mpos.y > 432 && mpos.y < 444) imgtobind = imagesource.mainmenu_dificuldade_rockie;
-			if(mpos.y > 450 && mpos.y < 462) imgtobind = imagesource.mainmenu_dificuldade_regular;
-			if(mpos.y > 470 && mpos.y < 482) imgtobind = imagesource.mainmenu_dificuldade_veteran;
-			if(mpos.y > 498 && mpos.y < 522) imgtobind = imagesource.mainmenu_dificuldade_survival;
+			if(mpos.y > 432 && mpos.y < 444) imgtobind = Textures.mainmenu_dificuldade_rockie;
+			if(mpos.y > 450 && mpos.y < 462) imgtobind = Textures.mainmenu_dificuldade_regular;
+			if(mpos.y > 470 && mpos.y < 482) imgtobind = Textures.mainmenu_dificuldade_veteran;
+			if(mpos.y > 498 && mpos.y < 522) imgtobind = Textures.mainmenu_dificuldade_survival;
 			
 		}
-		else imgtobind = imagesource.mainmenu_dificuldade;
+		else imgtobind = Textures.mainmenu_dificuldade;
 		
-		glLoadIdentity();
-		glPushMatrix();
-		imgtobind.bind();
-		glTranslatef((float)150,(float)330, 0.0f);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex2i(0, 0); // Upper-left
-		glTexCoord2f(1, 0);
-		glVertex2i(512, 0); // Upper-right
-		glTexCoord2f(1, 1);
-		glVertex2i(512,256); // Bottom-right
-		glTexCoord2f(0, 1);
-		glVertex2i(0, 256);
-		glEnd();
-		glPopMatrix();
+		imgtobind.setSize(512, 256);
+		imgtobind.setPosition((float)150,(float)330);
+		imgtobind.draw(batch);
 	}
 	
 	private void draw()
 	{
-		glLoadIdentity();
-		glPushMatrix();
-		imagesource.mainmenuIM.bind();
-		glTranslatef(-20.0f,0.0f, 0.0f);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex2i(0, 0); // Upper-left
-		glTexCoord2f(1, 0);
-		glVertex2i(800, 0); // Upper-right
-		glTexCoord2f(1, 1);
-		glVertex2i(800,600); // Bottom-right
-		glTexCoord2f(0, 1);
-		glVertex2i(0, 600);
-		glEnd();
-		glPopMatrix();
+		Textures.mainmenuIM.setPosition(-20.0f,0);
+		Textures.mainmenuIM.setSize(800,600);
+		Textures.mainmenuIM.draw(batch);
+
 	}
 	
 }

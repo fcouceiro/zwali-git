@@ -322,14 +322,15 @@ public class Wizard {
 		
 
 		//Page
+		Sprite a = null;
 		if((timer/30) % 2 == 0)
-			textures.wv1.bind();
+			a = Textures.wv1;
 		else
-			textures.wv2.bind();
+			a = textures.wv2;
 		
 		int h = 228 / 2;
-		int w = textures.wv1.getWidth() / 2 + 10;
-		Sprite a = new Sprite(textures.wv1);
+		int w = (int) (Textures.wv1.getWidth() / 2 + 10);
+
 		a.setSize(w, h);
 		a.setPosition((float)(272),(float)(30));
 		a.draw(batch);

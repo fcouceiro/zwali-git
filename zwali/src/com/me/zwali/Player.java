@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 class Player extends Entity
 	{
-	 	Textures t;
+	
 		Vector constraint;
 		Vector PlayerVel;
 		int constspeed = 3;
@@ -57,10 +57,10 @@ class Player extends Entity
 		int UpgACC;
 		
 		
-		Player(Vector pos, Textures t, int armor)
+		Player(Vector pos, int armor)
 		{
-			super( pos, new Vector (90,90), true,  t.playerPistolIM );
-			this.t = t;
+			super( pos, new Vector (90,90), true,  Textures.playerPistolIM );
+		
 			this.speed = 5;
 			this.alive = true;
 			this.nSpeed = 5;
@@ -98,14 +98,14 @@ class Player extends Entity
 			this.UpgPwrMinigun = 0;
 		
 			
-			buffsList.add(new Buff(t._0,0)); 
-			buffsList.add(new Buff(t._0,1)); 
-			buffsList.add(new Buff(t._0,2)); 
-			buffsList.add(new Buff(t._0,3)); 
-			buffsList.add(new Buff(t._0,4));
-			buffsList.add(new Buff(t._0,5)); 
-			buffsList.add(new Buff(t._0,6)); 
-			buffsList.add(new Buff(t._0,7)); 
+			buffsList.add(new Buff(Textures._0,0)); 
+			buffsList.add(new Buff(Textures._0,1)); 
+			buffsList.add(new Buff(Textures._0,2)); 
+			buffsList.add(new Buff(Textures._0,3)); 
+			buffsList.add(new Buff(Textures._0,4));
+			buffsList.add(new Buff(Textures._0,5)); 
+			buffsList.add(new Buff(Textures._0,6)); 
+			buffsList.add(new Buff(Textures._0,7)); 
 		}
 
 		public void recoil( Vector dir, int temp)

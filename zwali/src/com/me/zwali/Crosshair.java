@@ -1,13 +1,13 @@
 package com.me.zwali;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 
 
 public class Crosshair extends Entity
 {
 
-	Crosshair(Vector pos, Vector size, Texture T) 
+	Crosshair(Vector pos, Vector size, Sprite T) 
 	{
 		super(pos, size, false, T);		
 	}

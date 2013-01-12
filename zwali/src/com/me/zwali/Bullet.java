@@ -1,6 +1,6 @@
 package com.me.zwali;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
@@ -12,7 +12,7 @@ public class Bullet extends Entity
 		int timerExplode;
 		Explosion s;
 		int exp = 0;
-		Bullet( Vector pos, Vector velT, Texture t, int speed, int power,Textures textures)
+		Bullet( Vector pos, Vector velT, Sprite t, int speed, int power,Textures textures)
 		{
 			super( pos, new Vector (3,12),false,  t);
 			this.alive = true;
@@ -34,7 +34,7 @@ public class Bullet extends Entity
 			vel.y = 0;
 			if( Explo)
 			{
-				s = new Explosion(this.pos, new Vector (100,100), T);
+				s = new Explosion(this.pos, new Vector (100,100));
 				timerExplode = 0;
 				explode = true;
 			}

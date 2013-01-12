@@ -2,13 +2,12 @@ package com.me.zwali;
 import java.util.List;
 import java.util.Random;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 
 	public class Enemy extends Entity
 	{
 		private boolean alive;
-		private boolean SeePlayer;
 		boolean right;
 		int MaxHealth;
 		
@@ -32,7 +31,7 @@ import com.badlogic.gdx.graphics.Texture;
 		
 		Random rdm;
 		
-		Enemy( Vector pos,Texture T, int type, int difficulty)
+		Enemy( Vector pos,Sprite T, int type, int difficulty)
 		{
 			super( pos, new Vector(68, 60),true,  T );
 			this.type = type;
@@ -74,7 +73,7 @@ import com.badlogic.gdx.graphics.Texture;
 			this.SightAngle = (float) 1;
 			this.SightRadiiSQ = 100000;
 			
-			this.SeePlayer = false;
+		
 			
 			this.State = 0; // Move
 			

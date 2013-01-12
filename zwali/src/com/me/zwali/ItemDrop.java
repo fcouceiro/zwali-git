@@ -1,6 +1,8 @@
 package com.me.zwali;
 import java.util.*;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 
 
 public class ItemDrop
@@ -18,12 +20,12 @@ public class ItemDrop
 		//add items
 	}
 
-	public void update(Player pl,Vector disp)
+	public void update(Player pl,Vector disp, SpriteBatch batch)
 	{
 		
 		for(Item item:itemsdropped)
 		{
-			item.draw(disp);
+			item.draw(disp, batch);
 			if(item.Collide(pl))
 			{
 				item.alive = false;

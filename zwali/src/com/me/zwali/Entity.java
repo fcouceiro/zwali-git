@@ -1,6 +1,5 @@
 package com.me.zwali;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -26,7 +25,7 @@ public class Entity {
 	
 	Sprite image;
 	
-	Entity( Vector pos, Vector size, boolean circle, Texture T)
+	Entity( Vector pos, Vector size, boolean circle, Sprite T)
 	{
 		this.pos = pos;
 		this.size = size;
@@ -34,7 +33,7 @@ public class Entity {
 		this.angle = 0;
 		this.power = 0;
 		collisions = new Collision();
-		image = new Sprite(T);
+		image = T;
 		image.setSize((float)size.x, (float)size.y);
 		this.circle = circle;
 	}

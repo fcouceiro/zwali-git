@@ -2,7 +2,6 @@ package com.me.zwali;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,7 +11,7 @@ public class HUD extends Entity
 	Vector posE;
 	Sprite x;
 	
-	HUD(Vector pos, Vector size, Texture T) 
+	HUD(Vector pos, Vector size, Sprite T) 
 	{
 		super(pos, size,false, T);
 		this.x.setSize((float)pos.x, (float)pos.y);

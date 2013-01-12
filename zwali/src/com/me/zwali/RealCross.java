@@ -4,7 +4,6 @@ package com.me.zwali;
 import java.lang.Math;
 
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -16,7 +15,7 @@ public class RealCross extends Crosshair {
 	Vector Upsize;
 	int radii;
 	
-	public RealCross( Vector pos, Vector size, Texture Side)
+	public RealCross( Vector pos, Vector size, Sprite Side)
 	{
 		super(pos, size, Side);
 		this.Side = new Sprite(Side);

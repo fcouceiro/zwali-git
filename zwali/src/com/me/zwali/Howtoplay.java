@@ -6,17 +6,20 @@ import java.util.List;
 import org.lwjgl.input.Mouse;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 
 public class Howtoplay 
 {
-	private List<Texture> Pages = new ArrayList<Texture>(10);
-	Texture pageIM;
-	Texture btnNextIM, btnPrevIM, btnNext_hIM, btnPrev_hIM, btnmainMenuIM, btnmainMenu_hIM;
+	private List<Sprite> Pages = new ArrayList<Sprite>(10);
+	Sprite pageIM;
+	Sprite btnNextIM, btnPrevIM, btnNext_hIM, btnPrev_hIM, btnmainMenuIM, btnmainMenu_hIM;
 	Vector nextPos,prevPos, mainMenuPos, nextSize, prevSize, mainMenuSize;
 	private int mx,my,timeclick,timerclick;
 	public int curPage;
+	SpriteBatch batch;
 	
 	public void setCurPage(int n)
 	{
@@ -31,25 +34,26 @@ public class Howtoplay
 		else System.out.println("---Erro na page index!---");
 	}
 	
-	public Howtoplay(Textures imgsource)
+	public Howtoplay(SpriteBatch batch)
 	{
-		Pages.add(imgsource.page1);
-		Pages.add(imgsource.page2);
-		Pages.add(imgsource.page3);
-		Pages.add(imgsource.page4);
-		Pages.add(imgsource.page5);
-		Pages.add(imgsource.page6);
+		this.batch = batch;
+		Pages.add(Textures.page1);
+		Pages.add(Textures.page2);
+		Pages.add(Textures.page3);
+		Pages.add(Textures.page4);
+		Pages.add(Textures.page5);
+		Pages.add(Textures.page6);
 		
 		this.curPage = 0;
 		this.timeclick = 0;
 		this.timerclick = 15;
 		
-		btnNextIM = imgsource.btnNext;
-		btnNext_hIM = imgsource.btnNext_h;
-		btnPrevIM = imgsource.btnPrev;
-		btnPrev_hIM = imgsource.btnPrev_h;
-		btnmainMenuIM = imgsource.btnmainMenu;
-		btnmainMenu_hIM = imgsource.btnmainMenu_h;
+		btnNextIM = Textures.btnNext;
+		btnNext_hIM = Textures.btnNext_h;
+		btnPrevIM = Textures.btnPrev;
+		btnPrev_hIM = Textures.btnPrev_h;
+		btnmainMenuIM = Textures.btnmainMenu;
+		btnmainMenu_hIM = Textures.btnmainMenu_h;
 		
 		
 		nextPos = new Vector(632,500);
@@ -64,7 +68,7 @@ public class Howtoplay
 	
 	public boolean update()
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
+		
 		mx=Mouse.getX();
 		my=600 - Mouse.getY();
 		
@@ -93,68 +97,37 @@ public class Howtoplay
 	
 	private void drawNext()
 	{
-		glLoadIdentity();
-		glPushMatrix();
-		//btnNext
-				if(mx>nextPos.x && mx<(nextPos.x + nextSize.x - 50) && my>nextPos.y && my<(nextPos.y + nextSize.y - 100)) btnNext_hIM.bind();
-				else btnNextIM.bind();
-				glTranslatef((float)nextPos.x,(float)nextPos.y, 0.0f);
-				glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);
-				glVertex2i(0, 0); // Upper-left
-				glTexCoord2f(1, 0);
-				glVertex2i((int)nextSize.x, 0); // Upper-right
-				glTexCoord2f(1, 1);
-				glVertex2i((int)nextSize.x,(int)nextSize.y); // Bottom-right
-				glTexCoord2f(0, 1);
-				glVertex2i(0, (int)nextSize.y);
+
+				Sprite a = null;
+				if(mx>nextPos.x && mx<(nextPos.x + nextSize.x - 50) && my>nextPos.y && my<(nextPos.y + nextSize.y - 100)) a = btnNext_hIM;
+				else a = btnNextIM;
+				a.setPosition((float)nextPos.x,(float)nextPos.y);
+				a.setSize((float)nextSize.x,(float)nextSize.y);
+				a.draw(batch);
 				
-				glEnd();
-				glPopMatrix();
 	}
 	
 	private void drawPrev()
 	{
-		glLoadIdentity();
-		glPushMatrix();
-		//btnPrev
-				if(mx>prevPos.x && mx<(prevPos.x + prevSize.x-5) && my>prevPos.y && my<(prevPos.y + prevSize.y - 100)) btnPrev_hIM.bind();
-				else btnPrevIM.bind();
-				glTranslatef((float)prevPos.x,(float)prevPos.y, 0.0f);
-				glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);
-				glVertex2i(0, 0); // Upper-left
-				glTexCoord2f(1, 0);
-				glVertex2i((int)prevSize.x, 0); // Upper-right
-				glTexCoord2f(1, 1);
-				glVertex2i((int)prevSize.x,(int)prevSize.y); // Bottom-right
-				glTexCoord2f(0, 1);
-				glVertex2i(0, (int)prevSize.y);
+
+				Sprite a = null;
+				if(mx>prevPos.x && mx<(prevPos.x + prevSize.x-5) && my>prevPos.y && my<(prevPos.y + prevSize.y - 100)) a=btnPrev_hIM;
+				else a=btnPrevIM;
+				a.setPosition((float)prevPos.x,(float)prevPos.y);
+				a.setSize((int)prevSize.x,(int)prevSize.y);
+				a.draw(batch);
 				
-				glEnd();
-				glPopMatrix();
 	}
 	private void drawmainMenu()
 	{
-		glLoadIdentity();
-		glPushMatrix();
-		
+				Sprite a = null;
 				if(mx>mainMenuPos.x && mx<(mainMenuPos.x + mainMenuSize.x - 73) && my>mainMenuPos.y && my<(mainMenuPos.y + mainMenuSize.y - 36)) 
-					btnmainMenu_hIM.bind();
+					a = btnmainMenu_hIM;
 				else 
-					btnmainMenuIM.bind();
-				glTranslatef((float)mainMenuPos.x,(float)mainMenuPos.y, 0.0f);
-				glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);
-				glVertex2i(0, 0); // Upper-left
-				glTexCoord2f(1, 0);
-				glVertex2i((int)mainMenuSize.x, 0); // Upper-right
-				glTexCoord2f(1, 1);
-				glVertex2i((int)mainMenuSize.x,(int)mainMenuSize.y); // Bottom-right
-				glTexCoord2f(0, 1);
-				glVertex2i(0, (int)mainMenuSize.y);
-				glEnd();
-				glPopMatrix();
+					a = btnmainMenuIM;
+				a.setPosition((float)mainMenuPos.x,(float)mainMenuPos.y);
+				a.setSize((int)mainMenuSize.x,(int)mainMenuSize.y);
+				a.draw(batch);
 	}
 	
 	private void draw()
@@ -168,24 +141,11 @@ public class Howtoplay
 	
 	private void drawBG()
 	{
-		glLoadIdentity();
-		glPushMatrix();
-		
 		//Page
-		pageIM.bind();
-		glTranslatef(0.0f,0.0f, 0.0f);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex2i(0, 0); // Upper-left
-		glTexCoord2f(1, 0);
-		glVertex2i(800, 0); // Upper-right
-		glTexCoord2f(1, 1);
-		glVertex2i(800,600); // Bottom-right
-		glTexCoord2f(0, 1);
-		glVertex2i(0, 600);
+		pageIM.setPosition(0,0);
+		pageIM.setSize(800,600);
+		pageIM.draw(batch);
 
-		glEnd();
-		glPopMatrix();
 	}
 	
 	
