@@ -1,18 +1,23 @@
 package com.me.zwali;
-import org.newdawn.slick.opengl.Texture;
-import static org.lwjgl.opengl.GL11.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class HUD extends Entity
 {
 	List <Entity> enemSpotted = new ArrayList<Entity>(10);
 	Vector posE;
-	Texture x;
+	Sprite x;
+	
 	HUD(Vector pos, Vector size, Texture T) 
 	{
 		super(pos, size,false, T);
-		this.x = T;
+		this.x.setSize((float)pos.x, (float)pos.y);
+		x.setOrigin(0,0);
+		this.x = new Sprite(T);
 	}
 	
 	public void AddEnem(Entity ent)
@@ -20,7 +25,7 @@ public class HUD extends Entity
 		enemSpotted.add(ent);
 	}
 	
-	public boolean Update(Vector PPOS)
+	public boolean Update(Vector PPOS,SpriteBatch batch)
 	{
 		
 		for(Entity enem:enemSpotted)
@@ -29,7 +34,7 @@ public class HUD extends Entity
 			this.posE = new Vector((((-1)*pos.x*200)/800)+700,(((-1)*pos.y*200)/600)+100);
 			if(Math.sqrt(pos.SizeSQ()) < 400)
 			{
-			this.drawEnem();
+			this.drawEnem(batch);
 			
 			}
 		}
@@ -38,25 +43,11 @@ public class HUD extends Entity
 		
 	}
 	
-	private void drawEnem()
+	private void drawEnem(SpriteBatch batch)
 	{
-		glLoadIdentity();
-		glPushMatrix();
-		
-		x.bind();
-		
-		glTranslatef((float)posE.x, (float)posE.y, 0.0f); 
-				
-		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);
-			glVertex2i(0, 0); // Upper-left
-            glTexCoord2f(1, 0);
-            glVertex2i(10, 0); // Upper-right
-            glTexCoord2f(1, 1);
-            glVertex2i(10, 10); // Bottom-right
-            glTexCoord2f(0, 1);
-            glVertex2i(0, 10);
-        glEnd();	
-        glPopMatrix();
+		x.setSize(10,10);
+		x.setPosition((float)posE.x, (float)posE.y);
+		x.draw(batch);
+
 	}
 }

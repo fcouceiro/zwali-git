@@ -53,9 +53,9 @@ public class Textures {
 	 //End of Items
 	 
 	 //explosion
-	 Texture exp1;
-	 Texture exp2;
-	 Texture exp3;
+	 static Texture exp1;
+	 static Texture exp2;
+	 static Texture exp3;
 	 
 	 //wavein
 	 Texture wv1;
@@ -169,13 +169,17 @@ public class Textures {
 	 Texture bar_buildmodeon;
 	 Texture bar_buildmodeoff;
 	 
+	 static Sprite expl1,expl2,expl3;
 	public void loadTextures() throws FileNotFoundException
 	{
 		wv1 = loadTexture("/menus/wave_in");
 		wv2 = loadTexture("/menus/wave_in2");
 		exp1 = loadTexture("/explosion/exp1");
+		expl1 = new Sprite(exp1);
 		exp2 = loadTexture("/explosion/exp2");
+		expl2 = new Sprite(exp2);
 		exp3 = loadTexture("/explosion/exp3");
+		expl3 = new Sprite(exp3);
 		Crosshair2IM = loadTexture("crosshair");
 		CrosshairIM = loadTexture("crosshair2");
 		CrossUp = loadTexture("CrossUp");

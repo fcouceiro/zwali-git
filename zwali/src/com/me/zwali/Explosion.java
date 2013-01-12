@@ -4,16 +4,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Explosion extends Entity
 {
-	Textures t;
+	
 	Vector Pos;
 	Vector Size;
 	int expf = 0;
 	static Sprite exp1,exp2,exp3;
 	
-	public Explosion(Vector Pos, Vector Size, Textures exp)
+	public Explosion(Vector Pos, Vector Size)
 	{
-		super(Pos, Size, false,exp.exp1);
-		exp1 = ;
+		super(Pos, Size, false,Textures.exp1);
+		exp1 = Textures.expl1;
+		exp2 = Textures.expl2;
+		exp3 = Textures.expl3;
 	}
 	
 	public void animate(double angle2)
@@ -23,19 +25,19 @@ public class Explosion extends Entity
 		{
 		case 0:
 			expf++;
-			this.image = new Sprite(t.exp1);
+			this.image = exp1;
 			break;
 		case 1:
 			expf++;
-			this.image = t.exp2;
+			this.image = exp2;
 			break;
 		case 2:
 			expf++;
-			this.image = t.exp3;
+			this.image = exp3;
 			break;
 		case 3:
 			expf=0;
-			this.image = t.exp3;
+			this.image = exp3;
 			break;
 		}
 	}

@@ -1,8 +1,6 @@
 package com.me.zwali;
-import static org.lwjgl.opengl.GL11.*;
 
-
-import org.newdawn.slick.opengl.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 
 public class Item 
@@ -14,7 +12,7 @@ public class Item
 	Vector Size;
 	Vector PosI;
 	Vector Pos;
-	Texture img;
+	Sprite img;
 	
 	boolean Drag;
 	boolean canDrop;
@@ -35,49 +33,49 @@ public class Item
 		{
 		case 0: //Medic kit
 			this.price = 30;
-			this.img = t.Medkit;
+			this.img = new Sprite(t.Medkit);
 			this.Name = "Medic Kit";
 			//this.ammoType = 0;
 			break;
 		case 1: //ammo
 			this.price = 20;
 			this.Name = "Ammo";
-			this.img = t.Ammo; 
+			this.img = new Sprite(t.Ammo); 
 			//this.ammoType = 1;
 			break;
 		case 2: //resources
 			this.price = 40;
 			this.Name = "Resources";
-			this.img = t.Resources;
+			this.img = new Sprite(t.Resources);
 			break;
 			//this.ammoType = 2;
 		case 3://armor
 			this.price = 30; 
 			this.Name = "Armor";
-			this.img = t.Armor;
+			this.img = new Sprite(t.Armor);
 			break;
 		case 4://power
 			this.Name = "Power";
-			this.img = t.Power;
+			this.img = new Sprite(t.Power);
 			break;	
 		case 5://Accuracy
 			this.Name = "Accuracy";
-			this.img = t.Accuracy;
+			this.img = new Sprite(t.Accuracy);
 			break;	
 		case 6: //Random buff
 			this.price = 60;
 			this.Name = "Random buff";
-			this.img = t.rdmBuff;
+			this.img = new Sprite(t.rdmBuff);
 			break;	
 		case 7: //Shotgun
 			this.price = 1500;
 			this.Name = "Shotgun";
-			this.img = t.shotgun;
+			this.img = new Sprite(t.shotgun);
 			break;	
 		case 8: //Minigun
 			this.price = 7500;
 			this.Name = "Minigun";
-			this.img = t.minigun;
+			this.img = new Sprite(t.minigun);
 			break;	
 		}
 		this.alive = true;

@@ -1,21 +1,12 @@
 package com.me.zwali;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2i;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.opengl.Texture;
+
+import com.badlogic.gdx.graphics.Texture;
+
 
 
 public class Howtoplay 
@@ -26,7 +17,6 @@ public class Howtoplay
 	Vector nextPos,prevPos, mainMenuPos, nextSize, prevSize, mainMenuSize;
 	private int mx,my,timeclick,timerclick;
 	public int curPage;
-	Sound soundmanager;
 	
 	public void setCurPage(int n)
 	{
@@ -41,7 +31,7 @@ public class Howtoplay
 		else System.out.println("---Erro na page index!---");
 	}
 	
-	public Howtoplay(Textures imgsource, Sound sndmngr)
+	public Howtoplay(Textures imgsource)
 	{
 		Pages.add(imgsource.page1);
 		Pages.add(imgsource.page2);
@@ -54,8 +44,6 @@ public class Howtoplay
 		this.timeclick = 0;
 		this.timerclick = 15;
 		
-		this.soundmanager = sndmngr;
-		
 		btnNextIM = imgsource.btnNext;
 		btnNext_hIM = imgsource.btnNext_h;
 		btnPrevIM = imgsource.btnPrev;
@@ -65,11 +53,11 @@ public class Howtoplay
 		
 		
 		nextPos = new Vector(632,500);
-		nextSize = new Vector(btnNextIM.getImageWidth(),btnNextIM.getImageHeight());
+		nextSize = new Vector(btnNextIM.getWidth(),btnNextIM.getHeight());
 		prevPos = new Vector(90,500);
-		prevSize = new Vector(btnPrevIM.getImageWidth(),btnPrevIM.getImageHeight());
+		prevSize = new Vector(btnPrevIM.getWidth(),btnPrevIM.getHeight());
 		mainMenuPos = new Vector(330, 520);
-		mainMenuSize = new Vector(btnmainMenuIM.getImageWidth(),btnmainMenuIM.getImageHeight());
+		mainMenuSize = new Vector(btnmainMenuIM.getWidth(),btnmainMenuIM.getHeight());
 	}
 	
 	
@@ -98,16 +86,6 @@ public class Howtoplay
 					return false;
 			}
 			
-		}
-		else
-		{
-				if (mx > nextPos.x && mx < (nextPos.x + nextSize.x)
-						&& my > nextPos.y && my < (nextPos.y + nextSize.y)) {
-					soundmanager.playFXOnce(soundmanager.btnHover);
-				} else if (mx > prevPos.x && mx < (prevPos.x + prevSize.x)
-						&& my > prevPos.y && my < (prevPos.y + prevSize.y)) {
-					soundmanager.playFXOnce(soundmanager.btnHover);
-				}
 		}
 		return true;
 	}
