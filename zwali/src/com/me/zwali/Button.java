@@ -1,5 +1,7 @@
 package com.me.zwali;
-import org.lwjgl.input.Mouse;
+
+import com.badlogic.gdx.Gdx;
+
 
 public class Button
 {
@@ -17,7 +19,7 @@ public class Button
 	
 	public boolean Quit(Vector mousepos)
 	{
-			if(Mouse.isButtonDown(0) && mousepos.x > UL.x && mousepos.y > UL.y && mousepos.x < BR.x && mousepos.y < BR.y)
+			if(Gdx.input.isTouched() && mousepos.x > UL.x && mousepos.y > UL.y && mousepos.x < BR.x && mousepos.y < BR.y)
 			{			
 				return true;
 			}		

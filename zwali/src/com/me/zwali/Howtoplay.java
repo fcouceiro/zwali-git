@@ -3,9 +3,7 @@ package com.me.zwali;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Mouse;
-
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -69,15 +67,15 @@ public class Howtoplay
 	public boolean update()
 	{
 		
-		mx=Mouse.getX();
-		my=600 - Mouse.getY();
+		mx=Gdx.input.getX();
+		my=600 - Gdx.input.getY();
 		
 		timeclick++;
 		pageIM = Pages.get(curPage);
 		
 		this.draw();
 		
-		if(Mouse.isButtonDown(0))
+		if(Gdx.input.isTouched())
 		{
 			if (this.timeclick >= this.timerclick) 
 			{

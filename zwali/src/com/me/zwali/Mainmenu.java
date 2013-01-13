@@ -1,8 +1,6 @@
 package com.me.zwali;
 
-
-import org.lwjgl.input.Mouse;
-
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -28,11 +26,11 @@ public class Mainmenu
 	
 	public int update(SpriteBatch batch)
 	{
-		mpos.x = Mouse.getX();
-		mpos.y = 600 - Mouse.getY();
+		mpos.x = Gdx.input.getX();
+		mpos.y = 600 - Gdx.input.getY();
 		
 		//if(Mouse.isButtonDown(0))
-		if(Mouse.isButtonDown(0))
+		if(Gdx.input.isTouched())
 		{
 			if(!start && mpos.x > (this.btnPlay.x + 20) && mpos.x < (this.btnPlay.x + 177) && mpos.y > (this.btnPlay.y + 30) && mpos.y < (this.btnPlay.y + 74))
 			{

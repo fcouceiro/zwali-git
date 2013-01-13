@@ -200,7 +200,7 @@ public class Textures {
 		}
 	}
 	
-	public void dispose()
+	public static void dispose()
 	{
 		
 		

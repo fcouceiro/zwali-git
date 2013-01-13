@@ -14,23 +14,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Wizard {
 
 	Sprite t, tbox, itembox;
-	Textures textures;
+	
 	Vector pos;
 	Vector size;
-	Text menu, instrucao, instrucao2, instrucao3, instrucao4, nome_item, power, accuracy;
-	Text Wavenr;
+	CharSequence menu, instrucao, instrucao2, instrucao3, instrucao4, nome_item, power, accuracy;
+	CharSequence Wavenr;
 	int counter = 0;
 	boolean wizardmode = false;
 	Random rdm = new Random();
 	
 	List <Item> itens = new ArrayList<Item>(10);
 	
-	public Wizard( Vector posk, Vector sizek, Textures T, Player pl)
+	public Wizard( Vector posk, Vector sizek, Player pl)
 	{
-		
-		this.textures = T;
-		this.t = new Sprite(T.wizard);
-		this.tbox = new Sprite(T.box);
+
+		this.t = new Sprite(Textures.wizard);
+		this.tbox = new Sprite(Textures.box);
 		t.setOrigin(0, 0);
 		t.setSize((float)sizek.x,(float)sizek.y);
 		t.setPosition((float)posk.x, (float)posk.y);
@@ -38,16 +37,7 @@ public class Wizard {
 		tbox.setSize((float)sizek.x,(float)sizek.y);
 		this.pos = posk;
 		this.size = sizek;
-		this.menu = new Text(T);
-		this.instrucao = new Text(T);
-		this.instrucao2 = new Text(T);
-		this.instrucao3 = new Text(T);
-		this.instrucao4 = new Text(T);
-		this.nome_item = new Text(T);
-		this.power = new Text(T);
-		this.accuracy = new Text(T);
-		this.Wavenr = new Text(T);
-		
+
 		itens.add(new Item(0, T, pl));
 		itens.add(new Item(1, T, pl));
 		itens.add(new Item(2, T, pl));
@@ -62,7 +52,7 @@ public class Wizard {
 	private void draw(Vector Disp, Vector playerpos, Player pl, SpriteBatch batch)
 	{
 		
-
+		
 		//Page
 		t.setPosition((float)(pos.x - Disp.x),(float)(pos.y - Disp.y));
 		t.draw(batch);
@@ -70,12 +60,9 @@ public class Wizard {
 		if(playerpos.x >= 1550 && playerpos.x <= 1730 && playerpos.y >= 1550 && playerpos.y <= 1680) //�rea verde
 		{
 			wizardmode = true;
-			this.menu.drawString("Welcome Adventurer" , new Vector(1490,1750), 10);
-			this.menu.setPos(new Vector(1490 - Disp.x, 1750 - Disp.y));
-			this.menu.draw();
-			this.instrucao.drawString("ENTER - buy" , new Vector(1500,1760), 10);
-			this.instrucao.setPos(new Vector(1500 - Disp.x, 1760 - Disp.y));
-			this.instrucao.draw();
+			Conceito.font.draw(batch,"Welcome Adventurer" , (float)(1490 - Disp.x), (float)(1750- Disp.y));
+			
+			Conceito.font.draw(batch,"ENTER - buy" , (float)(1500- Disp.x),(float)(1760 - Disp.y));
 			this.instrucao2.drawString("<- -> - Navigate" , new Vector(1500,1770), 10);
 			this.instrucao2.setPos(new Vector(1500 - Disp.x, 1770 - Disp.y));
 			this.instrucao2.draw();

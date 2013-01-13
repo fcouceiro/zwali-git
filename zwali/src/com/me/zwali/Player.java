@@ -2,8 +2,7 @@ package com.me.zwali;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Mouse;
-
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
@@ -212,8 +211,8 @@ class Player extends Entity
 			
 			this.UpdatePos(BACK);
 		
-			int MouseX = Mouse.getX();
-			int MouseY = consts.HEIGHT - Mouse.getY();
+			int MouseX = Gdx.input.getX();
+			int MouseY = consts.HEIGHT - Gdx.input.getY();
 			
 			Vector DispMouse = new Vector (MouseX-( pos.x - Disp.x), MouseY - ( pos.y - Disp.y) );
 			
