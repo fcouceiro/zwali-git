@@ -114,7 +114,7 @@ public class Entity {
 	
 	public void draw( Vector Disp, SpriteBatch batch)
 	{
-		image.setRotation((float) angle - 90);
+		image.setRotation((float) angle);
 		image.setOrigin((float)( size.x/2), (float)(size.y/2));
 		image.setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
 		image.draw(batch);

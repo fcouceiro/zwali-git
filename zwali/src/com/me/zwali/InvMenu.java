@@ -12,7 +12,7 @@ public class InvMenu
 {
 	Vector Pos;
 	Vector Size;
-	Vector stringPos = new Vector(50, 570);
+
 	public CharSequence string;
 	List <Sprite> topImages = new ArrayList<Sprite>(10);
 	SpriteBatch batch;
@@ -42,7 +42,7 @@ public class InvMenu
 	
 	private void drawWp()
 	{
-		topImages.get(1).setPosition((float)117, (float)570);
+		topImages.get(1).setPosition((float)117, (float)-32);
 		topImages.get(1).setSize(64,64);
 		topImages.get(1).draw(batch);
 	}

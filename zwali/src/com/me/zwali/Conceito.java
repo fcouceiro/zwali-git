@@ -225,9 +225,6 @@ public class Conceito implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 	
-		
-		System.out.println(MouseX);
-		System.out.println(MouseY);
 		MPOS = new Vector( MouseX, MouseY);
 		Cross.setPos( MPOS);
 
@@ -492,7 +489,7 @@ public class Conceito implements ApplicationListener {
 			Vector Disp = backG.getDisp();
 			
 			MouseX = Gdx.input.getX();
-			MouseY = consts.HEIGHT - Gdx.input.getY();
+			MouseY = Gdx.input.getY();
 			
 			Barril.setPos( new Vector( MPOS.x + Disp.x, MPOS.y + Disp.y));
 

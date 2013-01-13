@@ -1,5 +1,6 @@
 package com.me.zwali;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 
@@ -14,7 +15,8 @@ public class Crosshair extends Entity
 	
 	void setPos ( Vector pos)
 	{
-		this.pos = pos;
+		this.pos.x = pos.x;
+		this.pos.y = pos.y;
 	}
 
 }
