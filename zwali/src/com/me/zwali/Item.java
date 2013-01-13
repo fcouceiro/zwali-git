@@ -24,7 +24,7 @@ public class Item
 	
 	boolean alive;
 	
-	public Item (int type, Textures t, Player pl)
+	public Item (int type, Player pl)
 	{
 		this.Type = type;
 		this.Size = new Vector(25,25);
@@ -33,49 +33,49 @@ public class Item
 		{
 		case 0: //Medic kit
 			this.price = 30;
-			this.img = new Sprite(t.Medkit);
+			this.img = Textures.Medkit;
 			this.Name = "Medic Kit";
 			//this.ammoType = 0;
 			break;
 		case 1: //ammo
 			this.price = 20;
 			this.Name = "Ammo";
-			this.img = new Sprite(t.Ammo); 
+			this.img = Textures.Ammo; 
 			//this.ammoType = 1;
 			break;
 		case 2: //resources
 			this.price = 40;
 			this.Name = "Resources";
-			this.img = new Sprite(t.Resources);
+			this.img = Textures.Resources;
 			break;
 			//this.ammoType = 2;
 		case 3://armor
 			this.price = 30; 
 			this.Name = "Armor";
-			this.img = new Sprite(t.Armor);
+			this.img = Textures.Armor;
 			break;
 		case 4://power
 			this.Name = "Power";
-			this.img = new Sprite(t.Power);
+			this.img = Textures.Power;
 			break;	
 		case 5://Accuracy
 			this.Name = "Accuracy";
-			this.img = new Sprite(t.Accuracy);
+			this.img = Textures.Accuracy;
 			break;	
 		case 6: //Random buff
 			this.price = 60;
 			this.Name = "Random buff";
-			this.img = new Sprite(t.rdmBuff);
+			this.img = Textures.rdmBuff;
 			break;	
 		case 7: //Shotgun
 			this.price = 1500;
 			this.Name = "Shotgun";
-			this.img = new Sprite(t.shotgun);
+			this.img = Textures.shotgun;
 			break;	
 		case 8: //Minigun
 			this.price = 7500;
 			this.Name = "Minigun";
-			this.img = new Sprite(t.minigun);
+			this.img = Textures.minigun;
 			break;	
 		}
 		this.alive = true;

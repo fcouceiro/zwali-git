@@ -19,9 +19,9 @@ public class Background
 	Vector size;
 	static Constants CON  = new Constants();
 
-	Background( Texture img, Vector size) 
+	Background( Sprite img, Vector size) 
 	{
-		this.image = new Sprite(img);
+		this.image = img;
 		this.image.setOrigin(0,0);
 		this.image.setSize((float)size.x, (float)size.y);
 		this.Display = new Vector( 624 , 724 );	

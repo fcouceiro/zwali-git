@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Textures {
 	
@@ -206,24 +207,12 @@ public class Textures {
 		
 	}
 	
-//	public void draw(static Sprite t, SpriteBatch batch)
-//	{
-//	Sprite a = new Sprite(t);
-//	glLoadIdentity();
-//	glPushMatrix();
-//	
-//	t.bind();
-//	glTranslatef((float)(160),(float)(545), 0.0f);
-//	glBegin(GL_QUADS);
-//	glTexCoord2f(0, 0);
-//	glVertex2i(0, 0); // Upper-left
-//	glTexCoord2f(1, 0);
-//	glVertex2i(50, 0); // Upper-right
-//	glTexCoord2f(1, 1);
-//	glVertex2i(50,50); // Bottom-right
-//	glTexCoord2f(0, 1);
-//	glVertex2i(0, 50);
-//	glEnd();
-//	glPopMatrix();
-//	}
+	public static void draw(Sprite t, SpriteBatch batch)
+	{
+	
+	t.setSize(50, 50);
+	t.setPosition((float)(160),(float)(545));
+	t.draw(batch);
+	
+	}
 }

@@ -7,19 +7,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Bullet extends Entity
 	{
 		private boolean alive;
-		Textures T;	
+
 		private boolean explode;
 		int timerExplode;
 		Explosion s;
 		int exp = 0;
-		Bullet( Vector pos, Vector velT, Sprite t, int speed, int power,Textures textures)
+		Bullet( Vector pos, Vector velT, Sprite t, int speed, int power)
 		{
 			super( pos, new Vector (3,12),false,  t);
 			this.alive = true;
 			this.vel = velT;
 			this.speed = speed;
 			this.power = power;
-			T = textures;
+		
 		}
 		
 		

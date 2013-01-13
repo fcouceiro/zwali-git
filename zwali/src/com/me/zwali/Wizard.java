@@ -38,15 +38,15 @@ public class Wizard {
 		this.pos = posk;
 		this.size = sizek;
 
-		itens.add(new Item(0, T, pl));
-		itens.add(new Item(1, T, pl));
-		itens.add(new Item(2, T, pl));
-		itens.add(new Item(3, T, pl));
-		itens.add(new Item(4, T, pl));
-		itens.add(new Item(5, T, pl));
-		itens.add(new Item(6, T, pl));
-		itens.add(new Item(7, T, pl));
-		itens.add(new Item(8, T, pl));
+		itens.add(new Item(0, pl));
+		itens.add(new Item(1, pl));
+		itens.add(new Item(2, pl));
+		itens.add(new Item(3, pl));
+		itens.add(new Item(4, pl));
+		itens.add(new Item(5, pl));
+		itens.add(new Item(6, pl));
+		itens.add(new Item(7, pl));
+		itens.add(new Item(8, pl));
 	}
 	
 	private void draw(Vector Disp, Vector playerpos, Player pl, SpriteBatch batch)
@@ -313,7 +313,7 @@ public class Wizard {
 		if((timer/30) % 2 == 0)
 			a = Textures.wv1;
 		else
-			a = textures.wv2;
+			a = Textures.wv2;
 		
 		int h = 228 / 2;
 		int w = (int) (Textures.wv1.getWidth() / 2 + 10);
@@ -322,9 +322,7 @@ public class Wizard {
 		a.setPosition((float)(272),(float)(30));
 		a.draw(batch);
 		
-		this.Wavenr.drawString(Integer.toString(WaveNr),new Vector(435, 100), 10);
-		this.Wavenr.setPos(new Vector(432, 95));
-		this.Wavenr.draw();
+		Conceito.font.draw(batch,Integer.toString(WaveNr),432, 95);
 	}
 	
 	public void showup(Vector Disp, Vector playerpos, Player pl, SpriteBatch batch)	
