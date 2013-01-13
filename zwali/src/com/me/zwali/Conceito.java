@@ -98,9 +98,12 @@ public class Conceito implements ApplicationListener {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		camera = new OrthographicCamera(w, h);
+
 		
 		batch = new SpriteBatch();
+
 		batch.getTransformMatrix().setToTranslation(-1*(w/2), -1*(h/2), 0);
+		
 		
 		hasKeyboard = false;
 		MyInputProcessor inputProcessor = new MyInputProcessor();

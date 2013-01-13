@@ -67,8 +67,8 @@ public class Howtoplay
 	public boolean update()
 	{
 		
-		mx=Gdx.input.getX();
-		my=600 - Gdx.input.getY();
+		mx= Gdx.input.getX();
+		my= Gdx.input.getY();
 		
 		timeclick++;
 		pageIM = Pages.get(curPage);
@@ -119,11 +119,11 @@ public class Howtoplay
 	private void drawmainMenu()
 	{
 				Sprite a = null;
-				if(mx>mainMenuPos.x && mx<(mainMenuPos.x + mainMenuSize.x - 73) && my>mainMenuPos.y && my<(mainMenuPos.y + mainMenuSize.y - 36)) 
+				if(mx>mainMenuPos.x && mx<(mainMenuPos.x + mainMenuSize.x - 73) && my>mainMenuPos.y +10  && my<(mainMenuPos.y + mainMenuSize.y - 19 )) 
 					a = btnmainMenu_hIM;
 				else 
 					a = btnmainMenuIM;
-				a.setPosition((float)mainMenuPos.x,(float)mainMenuPos.y);
+				a.setPosition((float)mainMenuPos.x, 520 - (float)mainMenuPos.y);
 				a.setSize((int)mainMenuSize.x,(int)mainMenuSize.y);
 				a.draw(batch);
 	}

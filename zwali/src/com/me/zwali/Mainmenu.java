@@ -12,9 +12,9 @@ public class Mainmenu
 	int time = 0;
 	int timer = 30;
 	
-	Vector btnPlay = new Vector(300,360);
-	Vector btnHowtoplay = new Vector(70,380);
-	Vector btnAbout = new Vector(530,380);
+	Vector btnPlay = new Vector(300,0);
+	Vector btnHowtoplay = new Vector(70,-20);
+	Vector btnAbout = new Vector(530,-20);
 	Vector mpos = new Vector(0,0);
 	SpriteBatch batch;
 
@@ -30,22 +30,21 @@ public class Mainmenu
 		mpos.y = Gdx.input.getY();
 		
 		//if(Mouse.isButtonDown(0))
-		if(Gdx.input.isTouched())
+		if(Gdx.input.justTouched())
 		{
-			if(!start && mpos.x > (this.btnPlay.x + 20) && mpos.x < (this.btnPlay.x + 177) && mpos.y > (this.btnPlay.y + 30) && mpos.y < (this.btnPlay.y + 74))
+			if(!start && mpos.x > (this.btnPlay.x + 20) && mpos.x < (this.btnPlay.x + 177) && mpos.y > (this.btnPlay.y + 434) && mpos.y < (this.btnPlay.y + 470))
 			{
 				//start = true;
 				//sound.stopAll();
 				//sound.playOnce(sound.startsound);
 				this.start = true;
-				
 			}
-			else if(!start && mpos.x > (this.btnHowtoplay.x + 18) && mpos.x < (this.btnHowtoplay.x + 178) && mpos.y > (this.btnHowtoplay.y + 38) && mpos.y < (this.btnHowtoplay.y + 76))
+			else if(!start && mpos.x > (this.btnHowtoplay.x + 18) && mpos.x < (this.btnHowtoplay.x + 178) && mpos.y > (this.btnHowtoplay.y + 474) && mpos.y < (this.btnHowtoplay.y + 512))
 			{
 				
 				return 5;
 			}
-			else if(mpos.x > (this.btnAbout.x + 18) && mpos.x < (this.btnAbout.x + 178) && mpos.y > (this.btnAbout.y + 38) && mpos.y < (this.btnAbout.y + 76))
+			else if(mpos.x > (this.btnAbout.x + 18) && mpos.x < (this.btnAbout.x + 178) && mpos.y > (this.btnAbout.y + 474) && mpos.y < (this.btnAbout.y + 512))
 			{
 				if(time >= timer)
 				{
@@ -99,13 +98,13 @@ public class Mainmenu
 		switch(btn)
 		{
 		case 0:
-			if(mpos.x > (this.btnPlay.x + 20) && mpos.x < (this.btnPlay.x + 177) && mpos.y > (this.btnPlay.y + 30) && mpos.y < (this.btnPlay.y + 74)) return true;
+			if(mpos.x > (this.btnPlay.x + 20) && mpos.x < (this.btnPlay.x + 177) && mpos.y > (this.btnPlay.y + 434) && mpos.y < (this.btnPlay.y + 470)) return true;
 			break;
 		case 1:
-			if(mpos.x > (this.btnHowtoplay.x + 18) && mpos.x < (this.btnHowtoplay.x + 178) && mpos.y > (this.btnHowtoplay.y + 38) && mpos.y < (this.btnHowtoplay.y + 76)) return true;
+			if(mpos.x > (this.btnHowtoplay.x + 18) && mpos.x < (this.btnHowtoplay.x + 178) && mpos.y > (this.btnHowtoplay.y + 474) && mpos.y < (this.btnHowtoplay.y + 512)) return true;
 			break;
 		case 2:
-			if(mpos.x > (this.btnAbout.x + 18) && mpos.x < (this.btnAbout.x + 178) && mpos.y > (this.btnAbout.y + 38) && mpos.y < (this.btnAbout.y + 76)) return true;
+			if(mpos.x > (this.btnAbout.x + 18) && mpos.x < (this.btnAbout.x + 178) && mpos.y > (this.btnAbout.y + 474) && mpos.y < (this.btnAbout.y + 512)) return true;
 			break;
 		}
 		return false;
@@ -159,16 +158,16 @@ public class Mainmenu
 		Sprite imgtobind=Textures.mainmenu_dificuldade;
 		if(mpos.x > 325 && mpos.x < 475)
 		{
-			if(mpos.y > 432 && mpos.y < 444) imgtobind = Textures.mainmenu_dificuldade_rockie;
-			if(mpos.y > 450 && mpos.y < 462) imgtobind = Textures.mainmenu_dificuldade_regular;
-			if(mpos.y > 470 && mpos.y < 482) imgtobind = Textures.mainmenu_dificuldade_veteran;
-			if(mpos.y > 498 && mpos.y < 522) imgtobind = Textures.mainmenu_dificuldade_survival;
+			if(mpos.y > 292 && mpos.y < 307) imgtobind = Textures.mainmenu_dificuldade_rockie;
+			if(mpos.y > 310 && mpos.y < 325) imgtobind = Textures.mainmenu_dificuldade_regular;
+			if(mpos.y > 328 && mpos.y < 343) imgtobind = Textures.mainmenu_dificuldade_veteran;
+			if(mpos.y > 355 && mpos.y < 380) imgtobind = Textures.mainmenu_dificuldade_survival;
 			
 		}
 		else imgtobind = Textures.mainmenu_dificuldade;
 		
 		imgtobind.setSize(512, 256);
-		imgtobind.setPosition((float)150,(float)330);
+		imgtobind.setPosition((float)150,(float)150);
 		imgtobind.draw(batch);
 	}
 	
