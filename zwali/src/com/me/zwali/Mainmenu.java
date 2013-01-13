@@ -67,16 +67,20 @@ public class Mainmenu
 			{
 				start = false;
 			}
-			else if(start && mpos.y < 330)
+			else if(start && mpos.y < 291)
+			{
+				start = false;
+			}
+			else if(start && mpos.y > 381)
 			{
 				start = false;
 			}
 			else if(start && mpos.x > 325 && mpos.x < 475)
 			{
-				if(mpos.y > 432 && mpos.y < 444) return 1;
-				if(mpos.y > 450 && mpos.y < 462) return 2;
-				if(mpos.y > 470 && mpos.y < 482) return 3;
-				if(mpos.y > 498 && mpos.y < 522) return 4;
+				if(mpos.y > 292 && mpos.y < 307) return 1;
+				if(mpos.y > 310 && mpos.y < 325) return 2;
+				if(mpos.y > 328 && mpos.y < 343) return 3;
+				if(mpos.y > 355 && mpos.y < 380) return 4;
 				
 			}
 			

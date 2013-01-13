@@ -84,7 +84,7 @@ public class Howtoplay
 					this.setCurPage(curPage + 1);
 				} else if (mx>prevPos.x && mx<(prevPos.x + prevSize.x-5) && my>prevPos.y && my<(prevPos.y + prevSize.y - 100)) {
 					this.setCurPage(curPage - 1);
-				} else if (mx>mainMenuPos.x && mx<(mainMenuPos.x + mainMenuSize.x - 73) && my>mainMenuPos.y && my<(mainMenuPos.y + mainMenuSize.y - 36))
+				} else if (mx>mainMenuPos.x && mx<(mainMenuPos.x + mainMenuSize.x - 73) && my>mainMenuPos.y +10  && my<(mainMenuPos.y + mainMenuSize.y - 19))
 					return false;
 			}
 			
@@ -97,10 +97,10 @@ public class Howtoplay
 	{
 
 				Sprite a = null;
-				if(mx>nextPos.x && mx<(nextPos.x + nextSize.x - 50) && my>nextPos.y && my<(nextPos.y + nextSize.y - 100)) a = btnNext_hIM;
+				if(mx>nextPos.x && mx<(nextPos.x + nextSize.x ) && my>nextPos.y && my<(nextPos.y + nextSize.y )) a = btnNext_hIM;
 				else a = btnNextIM;
-				a.setPosition((float)nextPos.x,(float)nextPos.y);
-				a.setSize((float)nextSize.x,(float)nextSize.y);
+				a.setPosition((float)nextPos.x,470 - (float)nextPos.y);
+				a.setSize((float)nextSize.x, (float)nextSize.y);
 				a.draw(batch);
 				
 	}
@@ -109,9 +109,9 @@ public class Howtoplay
 	{
 
 				Sprite a = null;
-				if(mx>prevPos.x && mx<(prevPos.x + prevSize.x-5) && my>prevPos.y && my<(prevPos.y + prevSize.y - 100)) a=btnPrev_hIM;
+				if(mx>prevPos.x && mx<(prevPos.x + prevSize.x-5) &&  my>prevPos.y && my<(prevPos.y + prevSize.y - 100)) a=btnPrev_hIM;
 				else a=btnPrevIM;
-				a.setPosition((float)prevPos.x,(float)prevPos.y);
+				a.setPosition((float)prevPos.x, 470 - (float)prevPos.y);
 				a.setSize((int)prevSize.x,(int)prevSize.y);
 				a.draw(batch);
 				

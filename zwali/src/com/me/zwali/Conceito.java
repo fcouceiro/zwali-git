@@ -216,7 +216,7 @@ public class Conceito implements ApplicationListener {
 	@Override
 	public void render() {	
 		MouseX = Gdx.input.getX();
-		MouseY = 600 - Gdx.input.getY();
+		MouseY = Gdx.input.getY();
 		input();
 		//hasKeyboard = false;
 		Gdx.gl.glClearColor(1, 1, 1, 1);
