@@ -63,9 +63,8 @@ public class Wizard {
 			Conceito.font.draw(batch,"Welcome Adventurer" , (float)(1490 - Disp.x), (float)(1750- Disp.y));
 			
 			Conceito.font.draw(batch,"ENTER - buy" , (float)(1500- Disp.x),(float)(1760 - Disp.y));
-			this.instrucao2.drawString("<- -> - Navigate" , new Vector(1500,1770), 10);
-			this.instrucao2.setPos(new Vector(1500 - Disp.x, 1770 - Disp.y));
-			this.instrucao2.draw();
+			Conceito.font.draw(batch,"<- -> - Navigate" , 1500,1770);
+			
 			
 			//Box
 			tbox.setPosition((float)(1765 - Disp.x), (float)(1620 - Disp.y));
@@ -85,89 +84,71 @@ public class Wizard {
 				case 0:
 					if(pl.UpgPwrPistol < 3)
 					{
-					this.power.drawString("Price: "+ ((pl.UpgPwrPistol+1)*100 + pl.UpgPwrPistol*100) + "XP", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
-					this.power.draw();
+						
+					Conceito.font.draw(batch, "Price: "+ (Integer.toString((pl.UpgPwrPistol+1)*100 + pl.UpgPwrPistol*100)) + "XP", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
+		
 					}
 					else
-						this.power.drawString("Price: ---", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
-					this.power.draw();
-					this.power.drawString("Power: " + pl.UpgPwrPistol + "/3", new Vector(1765 - Disp.x, 1720 - Disp.y), 10);
-					this.power.setPos(new Vector(1765 - Disp.x, 1720 - Disp.y));
-					this.power.draw();
+						Conceito.font.draw(batch, "Price: ---", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
+					
+					Conceito.font.draw(batch, "Power: " + pl.UpgPwrPistol + "/3", (float)(1765 - Disp.x), (float)(1720 - Disp.y));
+					
 					
 					break;
 				case 1:
 					if(pl.UpgPwrMinigun < 3)
 					{
-					this.power.drawString("Price: "+ ((pl.UpgPwrMinigun+1)*500  + pl.UpgPwrMinigun*200) + "XP", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
-					this.power.draw();
+					Conceito.font.draw(batch, "Price: "+ ((pl.UpgPwrMinigun+1)*500  + pl.UpgPwrMinigun*200) + "XP", (float)(1765 - Disp.x), (float)( 1740 - Disp.y));
 					}
 					else
-						this.power.drawString("Price: ---", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
-					this.power.drawString("Power: " + pl.UpgPwrMinigun + "/3", new Vector(1765 - Disp.x, 1720 - Disp.y), 10);
-					this.power.setPos(new Vector(1765 - Disp.x, 1720 - Disp.y));
-					this.power.draw();
-					
+						Conceito.font.draw(batch, "Price: ---", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
+					Conceito.font.draw(batch, "Power: " + pl.UpgPwrMinigun + "/3", (float)(1765 - Disp.x), (float)(1720 - Disp.y));		
 					break;
 				case 2:
 					if(pl.UpgPwrShotgun < 3)
 					{
-					this.power.drawString("Price: "+ ((pl.UpgPwrShotgun+1)*250  + pl.UpgPwrShotgun*100) + "XP", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
-					this.power.draw();
+					Conceito.font.draw(batch, "Price: "+ ((pl.UpgPwrShotgun+1)*250  + pl.UpgPwrShotgun*100) + "XP", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
 					}
 					else
-						this.power.drawString("Price: ---", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
-					this.power.drawString("Power: " + pl.UpgPwrShotgun + "/3", new Vector(1765 - Disp.x, 1720 - Disp.y), 10);
-					this.power.setPos(new Vector(1765 - Disp.x, 1720 - Disp.y));
-					this.power.draw();
-					
+						Conceito.font.draw(batch, "Price: ---", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
+					Conceito.font.draw(batch, "Power: " + pl.UpgPwrShotgun + "/3",(float)(1765 - Disp.x), (float)(1720 - Disp.y));					
 					break;
 				}
 				break;
 			case 5:
-				this.accuracy.drawString("Accuracy: " + pl.UpgACC + "/3", new Vector(1765 - Disp.x, 1720 - Disp.y), 10);
-				this.accuracy.setPos(new Vector(1765 - Disp.x, 1720 - Disp.y));
-				this.accuracy.draw();
+				Conceito.font.draw(batch, "Accuracy: " + pl.UpgACC + "/3", (float)(1765 - Disp.x), (float)(1720 - Disp.y));
 				if(pl.UpgACC < 3)
-					this.accuracy.drawString("Price: " +  (((pl.UpgACC+1)*100) + (pl.UpgACC*250)) + "XP", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
+					Conceito.font.draw(batch, "Price: " +  (((pl.UpgACC+1)*100) + (pl.UpgACC*250)) + "XP", (float)(1765 - Disp.x),(float)( 1740 - Disp.y));
 				else
-					this.power.drawString("Price: ---", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
-				this.accuracy.draw();
+					Conceito.font.draw(batch, "Price: ---", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
 				break;
 			}
 			
-			this.instrucao3.drawString("Preview ",new Vector(1765 - Disp.x, 1600 - Disp.y), 10);
-			this.instrucao3.setPos(new Vector(1765 - Disp.x, 1600 - Disp.y));
-			this.instrucao3.draw();
+			Conceito.font.draw(batch, "Preview ",(float)(1765 - Disp.x), (float)(1600 - Disp.y));
 			
 			if( counter!= 4 && counter!= 5 && counter != 1)
 			{
 			//Instru��es da box
 				
 				
-				this.instrucao4.drawString("Name - " + itens.get(counter).Name,new Vector(1765 - Disp.x, 1740 - Disp.y), 10); //Adicionar o item
-				this.instrucao4.setPos(new Vector(1765 - Disp.x, 1720 - Disp.y));
-				this.instrucao4.draw();
+				Conceito.font.draw(batch, "Name - " + itens.get(counter).Name,(float)(1765 - Disp.x), (float)(1740 - Disp.y)); //Adicionar o item
+				
 			
-				this.instrucao4.drawString("Price: " + itens.get(counter).price + "$", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
-				this.instrucao4.draw();
+				Conceito.font.draw(batch, "Price: " + itens.get(counter).price + "$", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
 			}
 			else if(counter == 1)
 			{
-				this.instrucao3.drawString("Preview ",new Vector(1765 - Disp.x, 1600 - Disp.y), 10);
-				this.instrucao3.setPos(new Vector(1765 - Disp.x, 1600 - Disp.y));
-				this.instrucao3.draw();
-				this.instrucao4.drawString("Nome - " + itens.get(counter).Name,new Vector(1765 - Disp.x, 1740 - Disp.y), 10); //Adicionar o item
-				this.instrucao4.setPos(new Vector(1765 - Disp.x, 1720 - Disp.y));
-				this.instrucao4.draw();
+				Conceito.font.draw(batch, "Preview ",(float)(1765 - Disp.x), (float)(1600 - Disp.y));
+				Conceito.font.draw(batch,"Nome - " + itens.get(counter).Name,(float)(1765 - Disp.x), (float)(1740 - Disp.y)); //Adicionar o item
+				
 				
 				if(pl.CurGun == 0)
-					this.instrucao4.drawString("Price: 20$", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
+					Conceito.font.draw(batch,"Price: 20$", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
 				else if(pl.CurGun == 1)
-					this.instrucao4.drawString("Price: 250$", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
+					Conceito.font.draw(batch, "Price: 250$", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
 				else if(pl.CurGun == 1)
-					this.instrucao4.drawString("Price: 90$", new Vector(1765 - Disp.x, 1740 - Disp.y), 10);
-				this.instrucao4.draw();
+					Conceito.font.draw(batch, "Price: 90$", (float)(1765 - Disp.x), (float)(1740 - Disp.y));
+				
 			}
 		}
 		else wizardmode = false;
