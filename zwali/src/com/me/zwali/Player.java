@@ -59,7 +59,7 @@ class Player extends Entity
 		Player(Vector pos, int armor)
 		{
 			super( pos, new Vector (90,90), true,  Textures.playerPistolIM );
-		
+			image.setOrigin(image.getWidth() / 2, image.getHeight() /2);
 			this.speed = 5;
 			this.alive = true;
 			this.nSpeed = 5;
@@ -212,7 +212,7 @@ class Player extends Entity
 			this.UpdatePos(BACK);
 		
 			int MouseX = Gdx.input.getX();
-			int MouseY = consts.HEIGHT - Gdx.input.getY();
+			int MouseY = Gdx.input.getY();
 			
 			Vector DispMouse = new Vector (MouseX-( pos.x - Disp.x), MouseY - ( pos.y - Disp.y) );
 			

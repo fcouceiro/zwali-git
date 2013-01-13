@@ -1,20 +1,20 @@
 package com.me.zwali;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 
 public class MyInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
-		
-		Conceito.hasKeyboard = true;
+		System.out.println(keycode);
 		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -28,6 +28,7 @@ public class Conceito implements ApplicationListener {
 	Stats stats = new Stats();
 	Stats stats2;
 	Random rdm;
+	InvMenu invmenu;
 	ItemDrop drop;
 	Builder obra;
 	Mainmenu mainmenu;
@@ -98,12 +99,9 @@ public class Conceito implements ApplicationListener {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		camera = new OrthographicCamera(w, h);
-
 		
 		batch = new SpriteBatch();
-
 		batch.getTransformMatrix().setToTranslation(-1*(w/2), -1*(h/2), 0);
-		
 		
 		hasKeyboard = false;
 		MyInputProcessor inputProcessor = new MyInputProcessor();
@@ -179,6 +177,7 @@ public class Conceito implements ApplicationListener {
 		
 		rdm = new Random();
 		
+		invmenu = new InvMenu(batch);
 		//Ã�rvores
 				for(int i = 0; i < 15; i++)
 				{
@@ -216,26 +215,22 @@ public class Conceito implements ApplicationListener {
 
 	@Override
 	public void render() {	
+		MouseX = Gdx.input.getX();
+		MouseY = 600 - Gdx.input.getY();
 		input();
-		hasKeyboard = false;
+		//hasKeyboard = false;
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 	
-		MouseX = Gdx.input.getX();
-		MouseY = Gdx.input.getY();
+		
 		System.out.println(MouseX);
 		System.out.println(MouseY);
 		MPOS = new Vector( MouseX, MouseY);
-		
-		input();
-		
 		Cross.setPos( MPOS);
-		
-		
-		
+
 		if( STATE == 0)
 		{
 			this.gameLoop();
@@ -772,13 +767,16 @@ public class Conceito implements ApplicationListener {
 			
 			//String draw area
 			updateLog();
-		
-			font.draw(batch,Integer.toString(Player1.Health) + "/" + Integer.toString(Player1.armor), 250,580);
-			font.draw(batch,Integer.toString(Player1.buildQuant), 460,552);
-			font.draw(batch,Integer.toString(Player1.money), 460,568);	
-			font.draw(batch,Integer.toString(Player1.XP), 460,584);
-			font.draw(batch,(Integer.toString(Player1.InvListWeapons.get(Player1.CurGun).ammo) + "/" + Player1.InvListWeapons.get(Player1.CurGun).ammoTotal), 20,581);
+			invmenu.update(this.buildMode);
+			
+			font.draw(batch,Integer.toString(Player1.Health) + " / " + Integer.toString(Player1.armor), 265,20);
+			font.draw(batch,Integer.toString(Player1.buildQuant), 460,53);
+			font.draw(batch,Integer.toString(Player1.money), 460,37);	
+			font.draw(batch,Integer.toString(Player1.XP), 460,20);
+			font.draw(batch,(Integer.toString(Player1.InvListWeapons.get(Player1.CurGun).ammo) + "/" + Player1.InvListWeapons.get(Player1.CurGun).ammoTotal), 20,20);
 			//End
+			
+			
 			
 			//weapons on bar
 			switch(Player1.CurGun)
@@ -892,10 +890,7 @@ public class Conceito implements ApplicationListener {
 
 		
 		
-			
-			if(hasKeyboard){
-				
-				if(Gdx.input.isKeyPressed(Keys.ESCAPE))//Keyboard.KEY_ESCAPE)
+				if(Gdx.input.getInputProcessor().keyDown(Keys.ESCAPE))//Keyboard.KEY_ESCAPE)
 				{
 					quit = true;
 				}
@@ -1009,7 +1004,7 @@ public class Conceito implements ApplicationListener {
 				{
 					wizard.buy(Player1);
 				}
-			}else{
+		
 				if(Gdx.input.isKeyPressed(Keys.A))
 				{
 					Player1.setVelX( 0 );
@@ -1035,7 +1030,7 @@ public class Conceito implements ApplicationListener {
 					Player1.ReloadWeapon();
 				}
 				
-			}
+		
 		
 		
 	}
