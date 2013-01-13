@@ -217,7 +217,10 @@ class Player extends Entity
 			Vector DispMouse = new Vector (MouseX-( pos.x - Disp.x), MouseY - ( pos.y - Disp.y) );
 			
 			angle = Math.atan2( DispMouse.y, DispMouse.x);
-			angle = 90+((angle*180)/(Math.PI));
+			angle = ((angle*180)/(Math.PI));
+			System.out.println(angle);
+			
+	
 			
 			DispMouse.normalize();
 			InvListWeapons.get(CurGun).Update();

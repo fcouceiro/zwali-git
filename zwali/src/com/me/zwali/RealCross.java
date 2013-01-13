@@ -40,15 +40,15 @@ public class RealCross extends Crosshair {
 		
 
 		Side.setSize((float)Upsize.x, (float)Upsize.y);
-		Side.setPosition((float)pos.x, (float)pos.y - radii);
+		Side.setPosition((float)(pos.x), (float)(pos.y- Upsize.y) - radii +2);
 		Side.draw(batch);
 		
-		Side.setSize((float)Upsize.y, (float)Upsize.x);
-		Side.setPosition((float)pos.x + radii, (float)pos.y );
+		Side.setSize((float)Sidesize.x, (float)Sidesize.y);
+		Side.setPosition((float)(pos.x + radii), (float)pos.y );
 		Side.draw(batch);
 		
-		Side.setSize((float)Upsize.y, (float)Upsize.x);
-		Side.setPosition((float)pos.x - radii, (float)pos.y );
+		Side.setSize((float)Sidesize.x, (float)Sidesize.y);
+		Side.setPosition((float)(pos.x- Sidesize.x)  - radii +2, (float)pos.y );
 		Side.draw(batch);
 		
 		
