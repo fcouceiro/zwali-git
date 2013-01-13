@@ -1,9 +1,8 @@
 
 package com.me.zwali;
-
-
-
 import com.badlogic.gdx.ApplicationListener;
+
+import java.io.FileNotFoundException;
 import java.util.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -20,7 +19,7 @@ public class Conceito implements ApplicationListener {
 	static BitmapFont font;
 	
 	private Player Player1;
-	
+	Stack <CharSequence> Log = new Stack<CharSequence>();
 	
 	Wizard wizard;
 	Textures t = new Textures();
@@ -93,13 +92,25 @@ public class Conceito implements ApplicationListener {
 	
 	@Override
 	public void create() {		
+		Log.add("Bem-vindo ao Zwali! ");
+		Log.add(" ");
+		Log.add("");
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		camera = new OrthographicCamera(w, h);
+		
 		batch = new SpriteBatch();
+		batch.getTransformMatrix().setToTranslation(-1*(w/2), -1*(h/2), 0);
+		
 		hasKeyboard = false;
 		MyInputProcessor inputProcessor = new MyInputProcessor();
 		Gdx.input.setInputProcessor(inputProcessor);
+		try {
+			Textures.loadTextures();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		font = new BitmapFont();
 		
 		STATE = 2;
@@ -134,17 +145,17 @@ public class Conceito implements ApplicationListener {
 		
 		
 		//Barris de guardiï¿½â€¹o ao wizard
-		backG.addOBJ( new StaticObj( new Vector( 1848, 1600), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 1928, 1600), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 2008, 1600), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 1768, 1620), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 1768, 1700), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 1688, 1740), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 1628, 1740), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 1540, 1720), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 1500, 1800), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 1480, 1880), new Vector( 80, 80), null ));
-		backG.addOBJ( new StaticObj( new Vector( 1480, 1960), new Vector( 80, 80), null ));
+		backG.addOBJ( new StaticObj( new Vector( 1848, 1600), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1928, 1600), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 2008, 1600), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1768, 1620), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1768, 1700), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1688, 1740), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1628, 1740), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1540, 1720), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1500, 1800), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1480, 1880), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1480, 1960), new Vector( 80, 80), Textures.Red ));
 		
 		//SafeHouse. 4cantos: (834,834) (1214,834) (834,1214) (1214,1214)
 		backG.addOBJ( new StaticObj( new Vector( 834, 834), new Vector( 80, 80), Textures.BarrelIM ));
@@ -211,8 +222,9 @@ public class Conceito implements ApplicationListener {
 		batch.begin();
 	
 		MouseX = Gdx.input.getX();
-		MouseY = consts.HEIGHT - Gdx.input.getY();
-		
+		MouseY = Gdx.input.getY();
+		System.out.println(MouseX);
+		System.out.println(MouseY);
 		MPOS = new Vector( MouseX, MouseY);
 		
 		input();
@@ -756,7 +768,7 @@ public class Conceito implements ApplicationListener {
 		
 			
 			//String draw area
-			this.Log.updateLog();
+			updateLog();
 		
 			font.draw(batch,Integer.toString(Player1.Health) + "/" + Integer.toString(Player1.armor), 250,580);
 			font.draw(batch,Integer.toString(Player1.buildQuant), 460,552);
@@ -787,6 +799,17 @@ public class Conceito implements ApplicationListener {
 	
 	@Override
 	public void resize(int width, int height) {
+	}
+	
+	private void updateLog()
+	{
+		CharSequence tres = Log.get(2);
+		CharSequence dois = Log.get(1);
+		CharSequence um = Log.get(0);
+		//Vector(583, 553)
+		font.draw(batch, um, 583, 433);
+		font.draw(batch, dois, 583, 448);
+		font.draw(batch, tres, 583, 463);
 	}
 	
 	private void input()
@@ -868,6 +891,7 @@ public class Conceito implements ApplicationListener {
 		
 			
 			if(hasKeyboard){
+				
 				if(Gdx.input.isKeyPressed(Keys.ESCAPE))//Keyboard.KEY_ESCAPE)
 				{
 					quit = true;

@@ -118,6 +118,7 @@ public class Entity {
 		{
 		image.setOrigin((float)( size.x/2), (float)(size.y/2));
 		image.setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);
+		if(angle != 0)
 		image.rotate((float)angle);
 		image.draw(batch);
 		}

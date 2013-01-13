@@ -97,14 +97,14 @@ class Player extends Entity
 			this.UpgPwrMinigun = 0;
 		
 			
-			buffsList.add(new Buff(Textures._0,0)); 
-			buffsList.add(new Buff(Textures._0,1)); 
-			buffsList.add(new Buff(Textures._0,2)); 
-			buffsList.add(new Buff(Textures._0,3)); 
-			buffsList.add(new Buff(Textures._0,4));
-			buffsList.add(new Buff(Textures._0,5)); 
-			buffsList.add(new Buff(Textures._0,6)); 
-			buffsList.add(new Buff(Textures._0,7)); 
+			buffsList.add(new Buff(0)); 
+			buffsList.add(new Buff(1)); 
+			buffsList.add(new Buff(2)); 
+			buffsList.add(new Buff(3)); 
+			buffsList.add(new Buff(4));
+			buffsList.add(new Buff(5)); 
+			buffsList.add(new Buff(6)); 
+			buffsList.add(new Buff(7)); 
 		}
 
 		public void recoil( Vector dir, int temp)
@@ -251,6 +251,7 @@ class Player extends Entity
 		void setVelX ( double x)
 		{
 			PlayerVel.x = x;
+			System.out.println(x);
 		}
 		
 		void setVelY ( double y)

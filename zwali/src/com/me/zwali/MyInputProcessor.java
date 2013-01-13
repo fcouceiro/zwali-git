@@ -7,6 +7,7 @@ public class MyInputProcessor implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
+		
 		Conceito.hasKeyboard = true;
 		return false;
 	}

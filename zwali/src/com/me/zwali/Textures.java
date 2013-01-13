@@ -118,7 +118,7 @@ public class Textures {
 		expl2 = new Sprite(loadTexture("/explosion/exp2"));
 		expl3 = new Sprite(loadTexture("/explosion/exp3"));
 		Crosshair2IM = loadTexture("crosshair");
-		CrosshairIM = loadTexture("crosshair2");
+		//CrosshairIM = loadTexture("crosshair2");
 		CrossUp = loadTexture("CrossUp");
 		CrossSide = loadTexture("CrossSide");
 		playerPistolIM = loadTexture("/player/player_pistol");

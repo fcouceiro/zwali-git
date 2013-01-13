@@ -88,7 +88,7 @@ public class ItemDrop
 						rand = 2;
 					}
 				}
-				Item x = new Item (rand, T, pl) ;
+				Item x = new Item (rand, pl) ;
 				itemsdropped.add(x);
 				itemsdropped.get(itemsdropped.indexOf(x)).Pos = pos;
 				itemsdropped.get(itemsdropped.indexOf(x)).Pos.x += disp.x;

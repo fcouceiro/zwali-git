@@ -27,7 +27,7 @@ public class Mainmenu
 	public int update(SpriteBatch batch)
 	{
 		mpos.x = Gdx.input.getX();
-		mpos.y = 600 - Gdx.input.getY();
+		mpos.y = Gdx.input.getY();
 		
 		//if(Mouse.isButtonDown(0))
 		if(Gdx.input.isTouched())
@@ -174,10 +174,9 @@ public class Mainmenu
 	
 	private void draw()
 	{
-		Textures.mainmenuIM.setPosition(-20.0f,0);
+		Textures.mainmenuIM.setPosition(0,0);
 		Textures.mainmenuIM.setSize(800,600);
 		Textures.mainmenuIM.draw(batch);
-
 	}
 	
 }
