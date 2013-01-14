@@ -59,7 +59,7 @@ class Player extends Entity
 		Player(Vector pos, int armor)
 		{
 			super( pos, new Vector (90,90), true,  Textures.playerPistolIM );
-			image.setOrigin(image.getWidth() / 2, image.getHeight() /2);
+			image.setOrigin(0, 0);
 			this.speed = 5;
 			this.alive = true;
 			this.nSpeed = 5;
@@ -356,6 +356,14 @@ class Player extends Entity
 		{
 			super.draw( Disp, batch);
 		}
+		
+//		public void draw( Vector Disp, SpriteBatch batch)
+//		{
+//			image.setRotation((float) angle);
+//			image.setOrigin(45, 45);
+//			image.setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+//			image.draw(batch);
+//		}
 		
 		public void addGun( Weapon w)
 		{
