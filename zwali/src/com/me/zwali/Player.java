@@ -218,8 +218,8 @@ class Player extends Entity
 			
 			angle = Math.atan2( DispMouse.y, DispMouse.x);
 			angle = -90 +((angle*180)/(Math.PI));
-			System.out.println(angle);
-			
+			//System.out.println(angle);
+			System.out.println(pos.x + " y = " + pos.y);
 	
 			
 			DispMouse.normalize();
@@ -254,7 +254,7 @@ class Player extends Entity
 		public static void setVelX ( double x)
 		{
 			PlayerVel.x = x;
-			System.out.println(x);
+			//System.out.println(x);
 		}
 		
 		public static void setVelY ( double y)

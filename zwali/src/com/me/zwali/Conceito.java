@@ -126,8 +126,8 @@ public class Conceito implements ApplicationListener {
 		drop = new ItemDrop(t);
 		
 		
-		waves.add(new Wave(new Vector( 200, 200), 1,150));
-		waves.add(new Wave(new Vector( 2048 -200, 200), 1,150));
+		waves.add(new Wave(new Vector( 200, 1800), 1,150));
+		waves.add(new Wave(new Vector( 2048 -200, 1800), 1,150));
 		
 		stats.PlayerAtingido = 0;
 		stats.PlayerDisparos = 0;
@@ -146,17 +146,17 @@ public class Conceito implements ApplicationListener {
 		
 		
 		//Barris de guardiï¿½â€¹o ao wizard
-		backG.addOBJ( new StaticObj( new Vector( 1848, 1600), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 1928, 1600), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 2008, 1600), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 1768, 1620), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 1768, 1700), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 1688, 1740), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 1628, 1740), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 1540, 1720), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 1500, 1800), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 1480, 1880), new Vector( 80, 80), Textures.Red ));
-		backG.addOBJ( new StaticObj( new Vector( 1480, 1960), new Vector( 80, 80), Textures.Red ));
+		backG.addOBJ( new StaticObj( new Vector( 1890, 340), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 1928, 250), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 2008, 200), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 1810, 380), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 1810-80, 380), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 1688, 300), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 1608, 260), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 1540, 260), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 1500, 180), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 1480, 100), new Vector( 80, 80), Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( 1480, 40), new Vector( 80, 80), Textures.BarrelIM ));
 		
 		//SafeHouse. 4cantos: (834,834) (1214,834) (834,1214) (1214,1214)
 		backG.addOBJ( new StaticObj( new Vector( 834, 834), new Vector( 80, 80), Textures.BarrelIM ));
@@ -186,7 +186,7 @@ public class Conceito implements ApplicationListener {
 					
 					int x =  rdm.nextInt(1800);
 					int y =  rdm.nextInt(1800);
-					while(((x >= 800 && x <= 1250) && (y >= 800 && y <= 1250)) || ((x >= 1440 && x <= 2050) && ( y >= 1600 && y <= 1960)))
+					while(((x >= 800 && x <= 1250) && (y >= 760 && y <= 1250)) || ((x >= 1414 && x <= 2050) && ( y >= 0 && y <= 453)))
 					{
 						x = rdm.nextInt(1800);
 						y = rdm.nextInt(1800);
@@ -349,7 +349,7 @@ public class Conceito implements ApplicationListener {
 				{
 					Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
 					timeWarmup++;
-					System.out.println("Ta em warm up" + timeWarmup);
+					//System.out.println("Ta em warm up" + timeWarmup);
 					if (timeWarmup >= 300 && timeWarmup < 600) {
 						waveincoming = true;
 						
@@ -385,7 +385,7 @@ public class Conceito implements ApplicationListener {
 					
 					int x =  rdm.nextInt(1800);
 					int y =  rdm.nextInt(1800);
-					while(((x >= 800 && x <= 1250) && (y >= 800 && y <= 1250)) || ((x >= 1440 && x <= 2050) && ( y >= 1600 && y <= 1960)) || x == Player1.pos.x && y == Player1.pos.y)
+					while(((x >= 800 && x <= 1250) && (y >= 760 && y <= 1250)) || ((x >= 1440 && x <= 2050) && ( y >= 0 && y <= 453)) || x == Player1.pos.x && y == Player1.pos.y)
 					{
 						x = rdm.nextInt(1800);
 						y = rdm.nextInt(1800);
@@ -963,7 +963,7 @@ public class Conceito implements ApplicationListener {
 					
 				if(Gdx.input.isKeyPressed(Keys.DPAD_RIGHT) && time_wiz >= timer_wiz)
 				{
-					if(Player1.pos.x >= 1550 && Player1.pos.x <= 1730 && Player1.pos.y >= 1550 && Player1.pos.y <= 1680) //Wiz area
+					if(Player1.pos.x >= 1550 && Player1.pos.x <= 1730 && Player1.pos.y >= 250 &&  Player1.pos.y <= 380) //Wiz area
 					{
 					wizard.counter++;
 					if(wizard.counter == 9)
@@ -973,7 +973,7 @@ public class Conceito implements ApplicationListener {
 				}
 				if(Gdx.input.isKeyPressed(Keys.DPAD_LEFT)  && time_wiz >= timer_wiz)
 				{
-					if(Player1.pos.x >= 1550 && Player1.pos.x <= 1730 && Player1.pos.y >= 1550 && Player1.pos.y <= 1680)
+					if(Player1.pos.x >= 1550 && Player1.pos.x <= 1730 && Player1.pos.y >= 250 &&  Player1.pos.y <= 380)
 					{
 					wizard.counter--;
 					if(wizard.counter < 0)
