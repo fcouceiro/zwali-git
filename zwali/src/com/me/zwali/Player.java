@@ -11,7 +11,7 @@ class Player extends Entity
 	{
 	
 		Vector constraint;
-		Vector PlayerVel;
+		static Vector PlayerVel;
 		int constspeed = 3;
 		int KillstreakCont;
 		
@@ -83,7 +83,7 @@ class Player extends Entity
 			}
 			
 			this.hasGun[0] = true;
-			this.PlayerVel = new Vector(0,0);			
+			Player.PlayerVel = new Vector(0,0);			
 			
 			this.Health = Integer.parseInt(matriz.getFromMatrizHeroi(consts.HEROI, 1));
 			this.MaxHp = this.Health;
@@ -212,12 +212,12 @@ class Player extends Entity
 			this.UpdatePos(BACK);
 		
 			int MouseX = Gdx.input.getX();
-			int MouseY = Gdx.input.getY();
+			int MouseY = 600 -Gdx.input.getY();
 			
 			Vector DispMouse = new Vector (MouseX-( pos.x - Disp.x), MouseY - ( pos.y - Disp.y) );
 			
 			angle = Math.atan2( DispMouse.y, DispMouse.x);
-			angle = ((angle*180)/(Math.PI));
+			angle = -90 +((angle*180)/(Math.PI));
 			System.out.println(angle);
 			
 	
@@ -251,18 +251,18 @@ class Player extends Entity
 			return (this.ACCdefault-2);
 		}
 		
-		void setVelX ( double x)
+		public static void setVelX ( double x)
 		{
 			PlayerVel.x = x;
 			System.out.println(x);
 		}
 		
-		void setVelY ( double y)
+		public static void setVelY ( double y)
 		{
 			PlayerVel.y = y;
 		}
 		
-		void setVel( Vector a)
+		public static void setVel( Vector a)
 		{
 			PlayerVel = a;
 		}

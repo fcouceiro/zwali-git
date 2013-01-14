@@ -137,9 +137,11 @@ public class Weapon
 	
 		if( reloading)
 		{
+			InvMenu.reloading = true;
 			reloadTimer++;
 			if( reloadTimer >= RELOADTIME)
 			{
+				InvMenu.reloading = false;
 				reloading = false;
 			}
 		}

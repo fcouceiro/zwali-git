@@ -12,7 +12,8 @@ public class InvMenu
 {
 	Vector Pos;
 	Vector Size;
-
+	static boolean reloading = false;
+	
 	public CharSequence string;
 	List <Sprite> topImages = new ArrayList<Sprite>(10);
 	SpriteBatch batch;
@@ -34,7 +35,8 @@ public class InvMenu
 	public void update(boolean buildMode)
 	{
 		this.drawBAR();
-		//this.drawMK();
+		if(InvMenu.reloading)
+		this.drawOutofammo();
 		this.drawWp();
 		this.drawStroke();
 	}
@@ -54,11 +56,11 @@ public class InvMenu
 		topImages.get(4).draw(batch);
 	}
 	
-	private void drawMK()
+	private void drawOutofammo()
 	{
-		topImages.get(2).setPosition((float)400, (float)578);
-		topImages.get(2).setSize((float)75,(float)36);
-		topImages.get(2).draw(batch);
+		topImages.get(3).setPosition((float)10, (float)0);
+		topImages.get(3).setSize((float)90,(float)50);
+		topImages.get(3).draw(batch);
 	}
 	
 	private void drawBAR()

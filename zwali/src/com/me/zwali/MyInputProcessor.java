@@ -1,6 +1,4 @@
 package com.me.zwali;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
 
@@ -8,13 +6,43 @@ public class MyInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		System.out.println(keycode);
+		if(keycode == Keys.A)
+		{
+			Player.setVelX( -1 );
+		}
+		if(keycode == Keys.D)
+		{
+			Player.setVelX( 1 );
+		}
+		if(keycode == Keys.W)
+		{
+			Player.setVelY( 1 );
+		}
+		if(keycode == Keys.S)
+		{
+			Player.setVelY (-1);
+		}
 		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
+		if(keycode == Keys.A)
+		{
+			Player.setVelX( 0 );
+		}
+		if(keycode == Keys.D)
+		{
+			Player.setVelX( 0 );
+		}
+		if(keycode == Keys.W)
+		{
+			Player.setVelY( 0 );
+		}
+		if(keycode == Keys.S)
+		{
+			Player.setVelY( 0 );
+		}
 		return false;
 	}
 

@@ -44,7 +44,6 @@ public class Conceito implements ApplicationListener {
 	boolean quit = false;
 	boolean restart=false;
 	boolean decision=false;
-	boolean buildTrigger;
 	boolean buildMode;
 	boolean WarmUp = true;
 	boolean WarmUpBegins = false;
@@ -80,7 +79,7 @@ public class Conceito implements ApplicationListener {
 	List <Enemy> enem = new ArrayList<Enemy>(10);
 	
 	int logLength = 5;
-	
+	public static List <Keys> keyboard;
 	float a = 0;
 	long lastFrame;
 	int fps;
@@ -89,13 +88,13 @@ public class Conceito implements ApplicationListener {
 	boolean waveincoming = false;
 	RealCross Cross;
 	Crosshair Barril;
-	Achievements achieves = new Achievements();
+
 	
 	@Override
 	public void create() {		
 		Log.add("Bem-vindo ao Zwali! ");
-		Log.add(" ");
-		Log.add("");
+		Log.add("Teste ");
+		Log.add("Teste");
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		camera = new OrthographicCamera(w, h);
@@ -103,6 +102,7 @@ public class Conceito implements ApplicationListener {
 		batch = new SpriteBatch();
 		batch.getTransformMatrix().setToTranslation(-1*(w/2), -1*(h/2), 0);
 		
+		keyboard = new ArrayList<Keys>(10);
 		hasKeyboard = false;
 		MyInputProcessor inputProcessor = new MyInputProcessor();
 		Gdx.input.setInputProcessor(inputProcessor);
@@ -115,7 +115,7 @@ public class Conceito implements ApplicationListener {
 		font = new BitmapFont();
 		
 		STATE = 2;
-		this.achieves.populate();
+
 		Player1 = new Player( new Vector(1024, 1024), 60);
 		wizard = new Wizard(new Vector(1575, 1675), new Vector(90,90), Player1);
 		Cross = new RealCross( new Vector(0,0), new Vector(2,20), Textures.CrossSide);
@@ -216,7 +216,7 @@ public class Conceito implements ApplicationListener {
 	@Override
 	public void render() {	
 		MouseX = Gdx.input.getX();
-		MouseY = Gdx.input.getY();
+		MouseY = 600 - Gdx.input.getY();
 		input();
 		//hasKeyboard = false;
 		Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -489,7 +489,7 @@ public class Conceito implements ApplicationListener {
 			Vector Disp = backG.getDisp();
 			
 			MouseX = Gdx.input.getX();
-			MouseY = Gdx.input.getY();
+			MouseY = 600 -Gdx.input.getY();
 			
 			Barril.setPos( new Vector( MPOS.x + Disp.x, MPOS.y + Disp.y));
 
@@ -763,9 +763,9 @@ public class Conceito implements ApplicationListener {
 		
 			
 			//String draw area
-			updateLog();
-			invmenu.update(this.buildMode);
 			
+			invmenu.update(this.buildMode);
+			updateLog();
 			font.draw(batch,Integer.toString(Player1.Health) + " / " + Integer.toString(Player1.armor), 265,20);
 			font.draw(batch,Integer.toString(Player1.buildQuant), 460,53);
 			font.draw(batch,Integer.toString(Player1.money), 460,37);	
@@ -805,9 +805,9 @@ public class Conceito implements ApplicationListener {
 		CharSequence dois = Log.get(1);
 		CharSequence um = Log.get(0);
 		//Vector(583, 553)
-		font.draw(batch, um, 583, 433);
-		font.draw(batch, dois, 583, 448);
-		font.draw(batch, tres, 583, 463);
+		font.draw(batch, um, 583, 50);
+		font.draw(batch, dois, 583, 36);
+		font.draw(batch, tres, 583, 22);
 	}
 	
 	private void input()
@@ -884,10 +884,9 @@ public class Conceito implements ApplicationListener {
 				}
 			}
 		}
-
+			//Keyboard
 		
-		
-				if(Gdx.input.getInputProcessor().keyDown(Keys.ESCAPE))//Keyboard.KEY_ESCAPE)
+				if(Gdx.input.isKeyPressed(Keys.ESCAPE))
 				{
 					quit = true;
 				}
@@ -911,22 +910,7 @@ public class Conceito implements ApplicationListener {
 						}
 					}
 				}
-				if(Gdx.input.isKeyPressed(Keys.A))
-				{
-					Player1.setVelX( -1 );
-				}
-				if(Gdx.input.isKeyPressed(Keys.D))
-				{
-					Player1.setVelX( 1 );
-				}
-				if(Gdx.input.isKeyPressed(Keys.W))
-				{
-					Player1.setVelY( -1 );
-				}
-				if(Gdx.input.isKeyPressed(Keys.S))
-				{
-					Player1.setVelY (1);
-				}
+
 				if(Gdx.input.isKeyPressed(Keys.R))
 				{
 					if(Player1.InvListWeapons.get(armaActual).ammo != Player1.InvListWeapons.get(armaActual).MAXCAR)
@@ -1001,35 +985,12 @@ public class Conceito implements ApplicationListener {
 				{
 					wizard.buy(Player1);
 				}
-		
-				if(Gdx.input.isKeyPressed(Keys.A))
-				{
-					Player1.setVelX( 0 );
-				}
-				if(Gdx.input.isKeyPressed(Keys.D))
-				{
-					Player1.setVelX( 0 );
-				}
-				if(Gdx.input.isKeyPressed(Keys.W))
-				{
-					Player1.setVelY( 0 );
-				}
-				if(Gdx.input.isKeyPressed(Keys.S))
-				{
-					Player1.setVelY( 0 );
-				}
-				if(Gdx.input.isKeyPressed(Keys.M))
-				{
-					buildTrigger = false;
-				}
+
 				if(Gdx.input.isKeyPressed(Keys.R))
 				{
 					Player1.ReloadWeapon();
 				}
-				
-		
-		
-		
+
 	}
 	
 	

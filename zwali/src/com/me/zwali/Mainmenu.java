@@ -49,14 +49,7 @@ public class Mainmenu
 				if(time >= timer)
 				{
 				time = 0;
-				java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
-		            try {
-		                java.net.URI uri = new java.net.URI( "http://www.facebook.com/pages/Lower-Scientist-Games/335430736543423");
-		                desktop.browse( uri );
-		            }
-		            catch ( Exception e ) {
-		                System.err.println( e.getMessage() );
-		                }
+				
 				}
 			}
 			else if(start && mpos.x < 250)

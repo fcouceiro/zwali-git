@@ -117,22 +117,22 @@ public class Textures {
 		expl1 = new Sprite(loadTexture("/explosion/exp1"));
 		expl2 = new Sprite(loadTexture("/explosion/exp2"));
 		expl3 = new Sprite(loadTexture("/explosion/exp3"));
-		Crosshair2IM = loadTexture("crosshair");
+		Crosshair2IM = loadTexture("/crosshair");
 		//CrosshairIM = loadTexture("crosshair2");
-		CrossUp = loadTexture("CrossUp");
-		CrossSide = loadTexture("CrossSide");
+		CrossUp = loadTexture("/CrossUp");
+		CrossSide = loadTexture("/CrossSide");
 		playerPistolIM = loadTexture("/player/player_pistol");
 		playerMachineGunIM = loadTexture("/player/player_machinegun");
 		playerShotGunIM = loadTexture("/player/player_shotgun");
 		playerBuilderIM = loadTexture("/player/player_builder");
-		bulletIM = loadTexture("bullet");
+		bulletIM = loadTexture("/bullet");
 		zombie_type1 = loadTexture("/zombies/type1");
 		zombie_type2 = loadTexture("/zombies/type2");
-		Red = loadTexture("Red");
+		Red = loadTexture("/Red");
 		backgroundIM = loadTexture("/environment/bg-ver_0_1x2");
-		ExplosionIM = loadTexture( "explosion");
-		BarrelIM = loadTexture("barrel");
-		BarrelUnIM = loadTexture("barrelun");
+		ExplosionIM = loadTexture( "/explosion");
+		BarrelIM = loadTexture("/barrel");
+		BarrelUnIM = loadTexture("/barrelun");
 		Armor = loadTexture("/items/armor");
 		Power = loadTexture("/items/power");
 		Accuracy = loadTexture("/items/accuracy");
@@ -175,7 +175,7 @@ public class Textures {
 		page3 = loadTexture("/tutorial/page3");
 		page4 = loadTexture("/tutorial/page4");
 		page5 = loadTexture("/tutorial/page5");
-		page6 = loadTexture("Red");
+		page6 = loadTexture("/Red");
 		btnNext = loadTexture("/tutorial/btnNext");
 		btnNext_h = loadTexture("/tutorial/btnNext_h");
 		btnPrev = loadTexture("/tutorial/btnPrev");
@@ -190,7 +190,7 @@ public class Textures {
 	private static Sprite loadTexture(String key) throws FileNotFoundException
 	{
 		try{
-		Texture a = new Texture(Gdx.files.internal("res/textures/" + key +".png"));
+		Texture a = new Texture(Gdx.files.internal("res/textures" + key +".png"));
 		a.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		Sprite b = new Sprite(a);
 	
@@ -211,7 +211,7 @@ public class Textures {
 	{
 	
 	t.setSize(50, 50);
-	t.setPosition((float)(160),(float)(545));
+	t.setPosition((float)(160),(float)(3));
 	t.draw(batch);
 	
 	}

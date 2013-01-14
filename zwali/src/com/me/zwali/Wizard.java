@@ -54,7 +54,7 @@ public class Wizard {
 		
 		
 		//Page
-		t.setPosition((float)(pos.x - Disp.x),(float)(pos.y - Disp.y));
+		t.setPosition((float)(pos.x - Disp.x),(float)((pos.y - Disp.y)));
 		t.draw(batch);
 		
 		if(playerpos.x >= 1550 && playerpos.x <= 1730 && playerpos.y >= 1550 && playerpos.y <= 1680) //�rea verde
@@ -62,8 +62,8 @@ public class Wizard {
 			wizardmode = true;
 			Conceito.font.draw(batch,"Welcome Adventurer" , (float)(1490 - Disp.x), (float)(1750- Disp.y));
 			
-			Conceito.font.draw(batch,"ENTER - buy" , (float)(1500- Disp.x),(float)(1760 - Disp.y));
-			Conceito.font.draw(batch,"<- -> - Navigate" , 1500,1770);
+			Conceito.font.draw(batch,"[ENTER] - buy" , (float)(1500- Disp.x),(float)(1760 - Disp.y));
+			Conceito.font.draw(batch,"[<- ->] - Navigate" , 1500,1770);
 			
 			
 			//Box
@@ -296,14 +296,13 @@ public class Wizard {
 		else
 			a = Textures.wv2;
 		
-		int h = 228 / 2;
-		int w = (int) (Textures.wv1.getWidth() / 2 + 10);
+		
 
-		a.setSize(w, h);
-		a.setPosition((float)(272),(float)(30));
+		a.setSize(248,114);
+		a.setPosition((float)(272),(float)(570 - a.getHeight()));
 		a.draw(batch);
 		
-		Conceito.font.draw(batch,Integer.toString(WaveNr),432, 95);
+		Conceito.font.draw(batch,Integer.toString(WaveNr),425, 508);
 	}
 	
 	public void showup(Vector Disp, Vector playerpos, Player pl, SpriteBatch batch)	
