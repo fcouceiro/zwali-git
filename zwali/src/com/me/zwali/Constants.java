@@ -19,6 +19,4 @@ public class Constants {
 
 	int HEROI =	1;
 	
-	
-	
 }

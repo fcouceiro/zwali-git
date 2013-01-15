@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 class Player extends Entity
 	{
-	
+		Animacao walk,idle;
 		Vector constraint;
 		static Vector PlayerVel;
 		int constspeed = 3;
@@ -59,12 +59,13 @@ class Player extends Entity
 		Player(Vector pos, int armor)
 		{
 			super( pos, new Vector (90,90), true,  Textures.playerPistolIM );
+			this.walk = new Animacao(2,2,Textures.player_walking);
+			this.idle = new Animacao(5,1,Textures.player_idle);
 			image.setOrigin(45, 45);
 			this.speed = 5;
 			this.alive = true;
 			this.nSpeed = 5;
 			this.armor = armor;
-			
 			this.money = 0;
 			this.XP = 0;
 			
@@ -358,6 +359,26 @@ class Player extends Entity
 			image.setOrigin(45, 45);
 			image.setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
 			image.draw(batch);
+			
+			if(this.vel.Size() == 0)
+			{
+				idle.getIm().setRotation((float) angle);
+				idle.getIm().setOrigin(45, 45);
+				idle.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+				idle.getIm().draw(batch);
+			}
+			else
+			{
+				walk.getIm().setRotation((float) angle);
+				walk.getIm().setOrigin(45, 45);
+				walk.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+				walk.getIm().draw(batch);
+			}
+		}
+		
+		private void animate()
+		{
+			
 		}
 		
 		public void addGun( Weapon w)

@@ -31,7 +31,8 @@ public class Textures {
 	 static Sprite Res3;
 	 static Sprite Res4;
 	 static Sprite Res5;
-	 
+	 static Sprite player_walking;
+	 static Sprite player_idle;
 	 //Items
 	 static Sprite Armor;
 	 static Sprite Ammo;
@@ -112,6 +113,8 @@ public class Textures {
 	 
 	public static void loadTextures() throws FileNotFoundException
 	{
+		player_walking = loadTexture("/player/player_anim/player_anim_walking");
+		player_idle = loadTexture("/player/player_anim/player_anim_idle");
 		wv1 = loadTexture("/menus/wave_in");
 		wv2 = loadTexture("/menus/wave_in2");
 		expl1 = new Sprite(loadTexture("/explosion/exp1"));

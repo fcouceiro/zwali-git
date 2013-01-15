@@ -10,7 +10,7 @@ public class Entity {
 	Vector prevpos;
 	Vector size;
 	Vector vel;
-
+	
 	float radii;
 	boolean circle;
 	
