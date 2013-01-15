@@ -38,26 +38,18 @@ public class Conceito extends Game {
 		shapeRenderer = new ShapeRenderer();
 		
 		
-		gameloop = new GameLoop(this);
 		mainmenu = new Mainmenu(this);
 		howtoplaymenu = new Howtoplay(this);
-		
-		MyInputProcessor inputProcessor = new MyInputProcessor(gameloop);
-		Gdx.input.setInputProcessor(inputProcessor);
-		
-		
+
 		setScreen(mainmenu);
-		
-		
-	
 
 	}
 	
-	public void generateNewGameLoop()
-	{
-		this.gameloop = null;
-		gameloop = new GameLoop(this);
-	}
+//	public void generateNewGameLoop()
+//	{
+//		this.gameloop = null;
+//		gameloop = new GameLoop(this);
+//	}
 
 	@Override
 	public void dispose() {

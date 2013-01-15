@@ -219,7 +219,7 @@ class Player extends Entity
 			angle = Math.atan2( DispMouse.y, DispMouse.x);
 			angle = -90 +((angle*180)/(Math.PI));
 			//System.out.println(angle);
-			System.out.println(pos.x + " y = " + pos.y);
+			
 	
 			
 			DispMouse.normalize();
@@ -352,11 +352,6 @@ class Player extends Entity
 		}
 		
 		
-//		public void draw( Vector Disp, SpriteBatch batch)
-//		{
-//			super.draw( Disp, batch);
-//		}
-		
 		public void draw( Vector Disp, SpriteBatch batch)
 		{
 			image.setRotation(((float) angle));
@@ -368,6 +363,8 @@ class Player extends Entity
 		public void addGun( Weapon w)
 		{
 			this.InvListWeapons.add(w);
+			System.out.println("Gun added " + w.Type+ " + InvSize=" + InvListWeapons.size());
+			this.CurGun = 0;
 		}
 		
 		public int ShootSpeed()

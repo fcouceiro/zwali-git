@@ -9,7 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Mainmenu implements Screen
 {
 
-	boolean start;
+	boolean start = false;
+	boolean prepared = false;
 	int time = 0;
 	int timer = 30;
 	
@@ -21,16 +22,16 @@ public class Mainmenu implements Screen
 	GameLoop GMl;
 	Conceito MainGame;
 	Player Player1;
+	MyInputProcessor inputProcessor;
 	
 	public Mainmenu(Conceito main)
 	{
 		MainGame = main;
-		GMl = MainGame.gameloop;
-		Player1 = GMl.Player1;
 	}
 	
 	public int update(SpriteBatch batch)
 	{
+		prepareGameLoop();
 		mpos.x = Gdx.input.getX();
 		mpos.y = Gdx.input.getY();
 		
@@ -177,6 +178,24 @@ public class Mainmenu implements Screen
 		Textures.mainmenuIM.draw(batch);
 	}
 
+	private void prepareGameLoop()
+	{
+		if(start)
+		{
+			if(!prepared)
+			{
+				GMl = null;
+				inputProcessor = null;
+				GMl = new GameLoop(MainGame);
+				inputProcessor = new MyInputProcessor(GMl);
+				Player1 = GMl.Player1;
+				Gdx.input.setInputProcessor(inputProcessor);
+				System.out.println("GameLoop created successfuly");
+				prepared = true;
+			}
+		}
+	}
+	
 	@Override
 	public void render(float delta) 
 	{
@@ -194,53 +213,28 @@ public class Mainmenu implements Screen
 		 }
 		 else if(update(batch) == 1) 
 		 {
-			 this.MainGame.setScreen(MainGame.gameloop);
-			 GMl.difficulty = 1;
 			 
-			 	Weapon wp1 = new Weapon(0, GMl.difficulty);
-				Weapon wp2 = new Weapon(1, GMl.difficulty);
-				Weapon wp3 = new Weapon(2, GMl.difficulty);
-				Player1.addGun(wp1);
-				Player1.addGun(wp2);
-				Player1.addGun(wp3);
+			GMl.difficulty = 1;
+			this.MainGame.setScreen(GMl);
 		 }
 		 else if(update(batch) == 2) 
 		 {
-			 this.MainGame.setScreen(MainGame.gameloop);
+			
 			 GMl.difficulty = 2;
 			 
-			 Weapon wp1 = new Weapon(0, GMl.difficulty);
-				Weapon wp2 = new Weapon(1, GMl.difficulty);
-				Weapon wp3 = new Weapon(2, GMl.difficulty);
-				Player1.addGun(wp1);
-				Player1.addGun(wp2);
-				Player1.addGun(wp3);
+				this.MainGame.setScreen(GMl);
 		 }
 		 else if(update(batch) == 3) 
 		 {
-			 this.MainGame.setScreen(MainGame.gameloop);
+			
 			 GMl.difficulty = 3;
-			 
-			 Weapon wp1 = new Weapon(0, GMl.difficulty);
-				Weapon wp2 = new Weapon(1, GMl.difficulty);
-				Weapon wp3 = new Weapon(2, GMl.difficulty);
-				Player1.addGun(wp1);
-				Player1.addGun(wp2);
-				Player1.addGun(wp3);
+			 this.MainGame.setScreen(GMl);
 		 }
 		 else if(update(batch) == 4) 
-		 {
-			 this.MainGame.setScreen(MainGame.gameloop);
-			 
+		 { 
 			 GMl.difficulty = 2;//Se for survival tem a dificuldade de regular. (Não esquecer de rondas infinitas)
 			 GMl.survival = true;
-			 	
-			 Weapon wp1 = new Weapon(0, GMl.difficulty);
-			 Weapon wp2 = new Weapon(1, GMl.difficulty);
-			 Weapon wp3 = new Weapon(2, GMl.difficulty);
-			 Player1.addGun(wp1);
-			 Player1.addGun(wp2);
-			 Player1.addGun(wp3);
+			 this.MainGame.setScreen(GMl);
 		 }
 		 
 		 else if(update(batch) == 5) 
@@ -260,15 +254,15 @@ public class Mainmenu implements Screen
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		MainGame.generateNewGameLoop();
-		GMl = MainGame.gameloop;
-		Player1 = GMl.Player1;
+		
+		this.prepareGameLoop();
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+		start = false;
+		prepared = false;
 	}
 
 	@Override

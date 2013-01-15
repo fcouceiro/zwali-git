@@ -117,7 +117,7 @@ public class MyInputProcessor implements InputProcessor {
 		{
 			if(Player1.pos.x >= 1550 && Player1.pos.x <= 1730 && Player1.pos.y >= 250 &&  Player1.pos.y <= 380)
 			{
-			
+				Wizard.counter--;
 			if(Wizard.counter < 0)
 				Wizard.counter = 8;
 	

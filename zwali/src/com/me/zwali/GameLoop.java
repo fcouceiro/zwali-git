@@ -1,6 +1,5 @@
 package com.me.zwali;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,6 +42,7 @@ public class GameLoop implements Screen{
 	boolean WarmUpBegins = false;
 	boolean justended = false;
 	boolean survival = false;
+	boolean debug = false;
 	
 	int difficulty;
 	
@@ -635,13 +635,39 @@ public class GameLoop implements Screen{
 			wizard.animateWaveIncoming(Wavenr, timeWarmup,Conceito.batch);
 		}
 		
+		if(debug)
+		{
+			font.setColor(Color.RED);
+			font.draw(Conceito.batch, "PPos.x: "+ Player1.pos.x, 15, 90);
+			font.draw(Conceito.batch, "PPos.y: " + Player1.pos.y, 15, 75);
+			font.setColor(Color.WHITE);
+		}
 		Conceito.batch.end();
 
 		
+		if(debug)
+		{
+		
+		for(Enemy enimio:enem)
+		{
+			Conceito.shapeRenderer.begin(ShapeType.Line);
+			Conceito.shapeRenderer.setColor(Color.RED);
+			Conceito.shapeRenderer.line((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y-backG.Display.y), (float)(Player1.pos.x-backG.Display.x), (float)(Player1.pos.y-backG.Display.y));
+			Conceito.shapeRenderer.end();
+		}
+		
+		Conceito.shapeRenderer.begin(ShapeType.Line);
+		Conceito.shapeRenderer.setColor(Color.RED);
+		Conceito.shapeRenderer.line(790,0,790,600);
+		Conceito.shapeRenderer.line(10,0,10,600);
+		Conceito.shapeRenderer.line(0,590,800,590);
+		Conceito.shapeRenderer.line(790,10,0,10);
+		Conceito.shapeRenderer.end();
+		}
+		
 		if(wizard.getWizMode())
 		{
-			Conceito.shapeRenderer.setProjectionMatrix(Conceito.batch.getProjectionMatrix());
-		Conceito.shapeRenderer.begin(ShapeType.Box);
+				Conceito.shapeRenderer.begin(ShapeType.Box);
 		Conceito.shapeRenderer.setColor(Color.WHITE);
 		Conceito.shapeRenderer.box((float)(1585 - backG.Display.x), (float)(141 - backG.Display.y), 0, 155, 40, 0);
 		Conceito.shapeRenderer.end();
@@ -668,7 +694,12 @@ public class GameLoop implements Screen{
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+		Weapon wp1 = new Weapon(0, difficulty);
+		Weapon wp2 = new Weapon(1, difficulty);
+		Weapon wp3 = new Weapon(2, difficulty);
+		Player1.addGun(wp1);
+		Player1.addGun(wp2);
+		Player1.addGun(wp3);
 	}
 
 	@Override

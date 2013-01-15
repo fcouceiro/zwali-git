@@ -23,13 +23,13 @@ public class Wizard {
 	static int counter = 0;
 	static boolean wizardmode = false;
 	static Random rdm = new Random();
-	ShapeRenderer shapeRenderer;
+	
 	
 	static List <Item> itens = new ArrayList<Item>(10);
 	
 	public Wizard( Vector posk, Vector sizek, Player pl)
 	{
-		shapeRenderer = new ShapeRenderer();
+
 		this.t = new Sprite(Textures.wizard);
 		this.tbox = new Sprite(Textures.box);
 		t.setOrigin(0, 0);
