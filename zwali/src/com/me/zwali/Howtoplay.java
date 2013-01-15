@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 
-public class Howtoplay 
+public class Howtoplay implements Screen
 {
 	private List<Sprite> Pages = new ArrayList<Sprite>(10);
 	Sprite pageIM;
@@ -17,24 +18,14 @@ public class Howtoplay
 	Vector nextPos,prevPos, mainMenuPos, nextSize, prevSize, mainMenuSize;
 	private int mx,my,timeclick,timerclick;
 	public int curPage;
-	SpriteBatch batch;
+	SpriteBatch batch = Conceito.batch;
+	Conceito MainGame;
 	
-	public void setCurPage(int n)
-	{
-		int pageIndex = n;
-		if(pageIndex == -1) pageIndex = Pages.size() - 1;
-		else if(pageIndex == Pages.size()) pageIndex = 0;
-		
-		if(pageIndex < Pages.size() && pageIndex >= 0)
-		{
-			this.curPage = pageIndex;
-		}
-		else System.out.println("---Erro na page index!---");
-	}
+
 	
-	public Howtoplay(SpriteBatch batch)
+	public Howtoplay(Conceito main)
 	{
-		this.batch = batch;
+		MainGame = main;
 		Pages.add(Textures.page1);
 		Pages.add(Textures.page2);
 		Pages.add(Textures.page3);
@@ -85,13 +76,25 @@ public class Howtoplay
 				} else if (mx>prevPos.x && mx<(prevPos.x + prevSize.x-5) && my>prevPos.y && my<(prevPos.y + prevSize.y - 100)) {
 					this.setCurPage(curPage - 1);
 				} else if (mx>mainMenuPos.x && mx<(mainMenuPos.x + mainMenuSize.x - 73) && my>mainMenuPos.y +10  && my<(mainMenuPos.y + mainMenuSize.y - 19))
-					return false;
+					MainGame.setScreen(MainGame.mainmenu);
 			}
 			
 		}
 		return true;
 	}
 	
+	public void setCurPage(int n)
+	{
+		int pageIndex = n;
+		if(pageIndex == -1) pageIndex = Pages.size() - 1;
+		else if(pageIndex == Pages.size()) pageIndex = 0;
+		
+		if(pageIndex < Pages.size() && pageIndex >= 0)
+		{
+			this.curPage = pageIndex;
+		}
+		else System.out.println("---Erro na page index!---");
+	}
 	
 	private void drawNext()
 	{
@@ -130,11 +133,12 @@ public class Howtoplay
 	
 	private void draw()
 	{
+		Conceito.batch.begin();
 		this.drawBG();
 		this.drawmainMenu();
 		this.drawNext();
 		this.drawPrev();
-		
+		Conceito.batch.end();
 	}
 	
 	private void drawBG()
@@ -144,6 +148,50 @@ public class Howtoplay
 		pageIM.setSize(800,600);
 		pageIM.draw(batch);
 
+	}
+
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		Conceito.batch.begin();
+		this.update();
+		Conceito.batch.end();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

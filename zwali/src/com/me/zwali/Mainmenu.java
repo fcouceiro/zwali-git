@@ -1,11 +1,12 @@
 package com.me.zwali;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
-public class Mainmenu
+public class Mainmenu implements Screen
 {
 
 	boolean start;
@@ -16,12 +17,16 @@ public class Mainmenu
 	Vector btnHowtoplay = new Vector(70,-20);
 	Vector btnAbout = new Vector(530,-20);
 	Vector mpos = new Vector(0,0);
-	SpriteBatch batch;
-
-	public Mainmenu(SpriteBatch batch)
+	SpriteBatch batch = Conceito.batch;
+	GameLoop GMl;
+	Conceito MainGame;
+	Player Player1;
+	
+	public Mainmenu(Conceito main)
 	{
-		this.batch = batch;
-		this.start = false;
+		MainGame = main;
+		GMl = MainGame.gameloop;
+		Player1 = GMl.Player1;
 	}
 	
 	public int update(SpriteBatch batch)
@@ -81,10 +86,7 @@ public class Mainmenu
 		else
 			time++;
 		
-		this.draw();
-		this.drawBtn(0);
-		this.drawBtn(1);
-		this.drawBtn(2);
+	
 		return 0;
 	}
 	
@@ -173,6 +175,118 @@ public class Mainmenu
 		Textures.mainmenuIM.setPosition(0,0);
 		Textures.mainmenuIM.setSize(800,600);
 		Textures.mainmenuIM.draw(batch);
+	}
+
+	@Override
+	public void render(float delta) 
+	{
+		// TODO Auto-generated method stub
+	
+		batch.setProjectionMatrix(Conceito.camera.combined);
+		Conceito.batch.begin();
+		this.draw();
+		this.drawBtn(0);
+		this.drawBtn(1);
+		this.drawBtn(2);
+		if(update(batch) == 0)
+		 {
+
+		 }
+		 else if(update(batch) == 1) 
+		 {
+			 this.MainGame.setScreen(MainGame.gameloop);
+			 GMl.difficulty = 1;
+			 
+			 	Weapon wp1 = new Weapon(0, GMl.difficulty);
+				Weapon wp2 = new Weapon(1, GMl.difficulty);
+				Weapon wp3 = new Weapon(2, GMl.difficulty);
+				Player1.addGun(wp1);
+				Player1.addGun(wp2);
+				Player1.addGun(wp3);
+		 }
+		 else if(update(batch) == 2) 
+		 {
+			 this.MainGame.setScreen(MainGame.gameloop);
+			 GMl.difficulty = 2;
+			 
+			 Weapon wp1 = new Weapon(0, GMl.difficulty);
+				Weapon wp2 = new Weapon(1, GMl.difficulty);
+				Weapon wp3 = new Weapon(2, GMl.difficulty);
+				Player1.addGun(wp1);
+				Player1.addGun(wp2);
+				Player1.addGun(wp3);
+		 }
+		 else if(update(batch) == 3) 
+		 {
+			 this.MainGame.setScreen(MainGame.gameloop);
+			 GMl.difficulty = 3;
+			 
+			 Weapon wp1 = new Weapon(0, GMl.difficulty);
+				Weapon wp2 = new Weapon(1, GMl.difficulty);
+				Weapon wp3 = new Weapon(2, GMl.difficulty);
+				Player1.addGun(wp1);
+				Player1.addGun(wp2);
+				Player1.addGun(wp3);
+		 }
+		 else if(update(batch) == 4) 
+		 {
+			 this.MainGame.setScreen(MainGame.gameloop);
+			 
+			 GMl.difficulty = 2;//Se for survival tem a dificuldade de regular. (Não esquecer de rondas infinitas)
+			 GMl.survival = true;
+			 	
+			 Weapon wp1 = new Weapon(0, GMl.difficulty);
+			 Weapon wp2 = new Weapon(1, GMl.difficulty);
+			 Weapon wp3 = new Weapon(2, GMl.difficulty);
+			 Player1.addGun(wp1);
+			 Player1.addGun(wp2);
+			 Player1.addGun(wp3);
+		 }
+		 
+		 else if(update(batch) == 5) 
+		 {
+			 this.MainGame.setScreen(MainGame.howtoplaymenu);
+		 }
+		 
+		Conceito.batch.end();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		MainGame.generateNewGameLoop();
+		GMl = MainGame.gameloop;
+		Player1 = GMl.Player1;
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

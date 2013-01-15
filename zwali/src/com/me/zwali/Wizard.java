@@ -9,7 +9,6 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 
 
@@ -63,12 +62,12 @@ public class Wizard {
 		if(playerpos.x >= 1550 && playerpos.x <= 1730 && playerpos.y >= 250 && playerpos.y <= 420) //�rea verde
 		{
 			wizardmode = true;
-			Conceito.font.draw(batch,"> Welcome Adventurer" , (float)(1540 - Disp.x), (float)(300 - Disp.y));
-			Conceito.font.draw(batch,"> Hurry! Pick some of those items" , (float)(1540 - Disp.x), (float)(285 - Disp.y));
+			GameLoop.font.draw(batch,"> Welcome Adventurer" , (float)(1540 - Disp.x), (float)(300 - Disp.y));
+			GameLoop.font.draw(batch,"> Hurry! Pick some of those items" , (float)(1540 - Disp.x), (float)(285 - Disp.y));
 			// 
-			Conceito.font.draw(batch,"  and enhance your survival skills!" , (float)(1540 - Disp.x), (float)(270 - Disp.y));
-			Conceito.font.draw(batch,"[ENTER] - buy" , (float)(1790- Disp.x),(float)(-1585 + 1760 - Disp.y));
-			Conceito.font.draw(batch,"[<- ->] - Navigate" , (float)(1790 - Disp.x), (float)(1770- 1610 - Disp.y));
+			GameLoop.font.draw(batch,"  and enhance your survival skills!" , (float)(1540 - Disp.x), (float)(270 - Disp.y));
+			GameLoop.font.draw(batch,"[ENTER] - buy" , (float)(1790- Disp.x),(float)(-1585 + 1760 - Disp.y));
+			GameLoop.font.draw(batch,"[<- ->] - Navigate" , (float)(1790 - Disp.x), (float)(1770- 1610 - Disp.y));
 			
 			
 			//Box
@@ -90,42 +89,42 @@ public class Wizard {
 					if(pl.UpgPwrPistol < 3)
 					{
 						
-					Conceito.font.draw(batch, "Price: "+ (Integer.toString((pl.UpgPwrPistol+1)*100 + pl.UpgPwrPistol*100)) + "XP", (float)(1590 - Disp.x), (float)(175 - Disp.y));
+						GameLoop.font.draw(batch, "Price: "+ (Integer.toString((pl.UpgPwrPistol+1)*100 + pl.UpgPwrPistol*100)) + "XP", (float)(1590 - Disp.x), (float)(175 - Disp.y));
 		
 					}
 					else
-						Conceito.font.draw(batch, "Price: ---", (float)(1590 - Disp.x), (float)(175 - Disp.y));
+						GameLoop.font.draw(batch, "Price: ---", (float)(1590 - Disp.x), (float)(175 - Disp.y));
 					
-					Conceito.font.draw(batch, "Power: " + pl.UpgPwrPistol + "/3", (float)(1590 - Disp.x), (float)(160 - Disp.y));
+					GameLoop.font.draw(batch, "Power: " + pl.UpgPwrPistol + "/3", (float)(1590 - Disp.x), (float)(160 - Disp.y));
 					
 					
 					break;
 				case 1:
 					if(pl.UpgPwrMinigun < 3)
 					{
-					Conceito.font.draw(batch, "Price: "+ ((pl.UpgPwrMinigun+1)*500  + pl.UpgPwrMinigun*200) + "XP", (float)(1590 - Disp.x), (float)( 175 - Disp.y));
+						GameLoop.font.draw(batch, "Price: "+ ((pl.UpgPwrMinigun+1)*500  + pl.UpgPwrMinigun*200) + "XP", (float)(1590 - Disp.x), (float)( 175 - Disp.y));
 					}
 					else
-						Conceito.font.draw(batch, "Price: ---", (float)(1590 - Disp.x), (float)(1750 - 1455 - Disp.y));
-					Conceito.font.draw(batch, "Power: " + pl.UpgPwrMinigun + "/3", (float)(1590 - Disp.x), (float)(160 - Disp.y));		
+						GameLoop.font.draw(batch, "Price: ---", (float)(1590 - Disp.x), (float)(1750 - 1455 - Disp.y));
+					GameLoop.font.draw(batch, "Power: " + pl.UpgPwrMinigun + "/3", (float)(1590 - Disp.x), (float)(160 - Disp.y));		
 					break;
 				case 2:
 					if(pl.UpgPwrShotgun < 3)
 					{
-					Conceito.font.draw(batch, "Price: "+ ((pl.UpgPwrShotgun+1)*250  + pl.UpgPwrShotgun*100) + "XP", (float)(1590 - Disp.x), (float)(175 - Disp.y));
+						GameLoop.font.draw(batch, "Price: "+ ((pl.UpgPwrShotgun+1)*250  + pl.UpgPwrShotgun*100) + "XP", (float)(1590 - Disp.x), (float)(175 - Disp.y));
 					}
 					else
-						Conceito.font.draw(batch, "Price: ---", (float)(1590 - Disp.x), (float)(1750 - 1455 - Disp.y));
-					Conceito.font.draw(batch, "Power: " + pl.UpgPwrShotgun + "/3",(float)(1590 - Disp.x), (float)(160 - Disp.y));					
+						GameLoop.font.draw(batch, "Price: ---", (float)(1590 - Disp.x), (float)(1750 - 1455 - Disp.y));
+					GameLoop.font.draw(batch, "Power: " + pl.UpgPwrShotgun + "/3",(float)(1590 - Disp.x), (float)(160 - Disp.y));					
 					break;
 				}
 				break;
 			case 5:
-				Conceito.font.draw(batch, "Accuracy: " + pl.UpgACC + "/3", (float)(1590 - Disp.x), (float)(160 - Disp.y));
+				GameLoop.font.draw(batch, "Accuracy: " + pl.UpgACC + "/3", (float)(1590 - Disp.x), (float)(160 - Disp.y));
 				if(pl.UpgACC < 3)
-					Conceito.font.draw(batch, "Price: " +  (((pl.UpgACC+1)*100) + (pl.UpgACC*250)) + "XP", (float)(1590 - Disp.x),(float)( 175 - Disp.y));
+					GameLoop.font.draw(batch, "Price: " +  (((pl.UpgACC+1)*100) + (pl.UpgACC*250)) + "XP", (float)(1590 - Disp.x),(float)( 175 - Disp.y));
 				else
-					Conceito.font.draw(batch, "Price: ---", (float)(1590 - Disp.x), (float)(175 - Disp.y));
+					GameLoop.font.draw(batch, "Price: ---", (float)(1590 - Disp.x), (float)(175 - Disp.y));
 				break;
 			}
 			
@@ -136,23 +135,23 @@ public class Wizard {
 			//Instru��es da box
 				
 				
-				Conceito.font.draw(batch, "Name:  " + itens.get(counter).Name,(float)(1590 - Disp.x), (float)(160 - Disp.y)); //Adicionar o item
+				GameLoop.font.draw(batch, "Name:  " + itens.get(counter).Name,(float)(1590 - Disp.x), (float)(160 - Disp.y)); //Adicionar o item
 				
 			
-				Conceito.font.draw(batch, "Price: " + itens.get(counter).price + "$", (float)(1590 - Disp.x), (float)(175 - Disp.y));
+				GameLoop.font.draw(batch, "Price: " + itens.get(counter).price + "$", (float)(1590 - Disp.x), (float)(175 - Disp.y));
 			}
 			else if(counter == 1)
 			{
 				//Conceito.font.draw(batch, "Preview ",(float)(1765 - Disp.x), (float)(1600 - Disp.y));
-				Conceito.font.draw(batch,"Name: " + itens.get(counter).Name,(float)(1590 - Disp.x), (float)(160 - Disp.y)); //Adicionar o item
+				GameLoop.font.draw(batch,"Name: " + itens.get(counter).Name,(float)(1590 - Disp.x), (float)(160 - Disp.y)); //Adicionar o item
 				
 				
 				if(pl.CurGun == 0)
-					Conceito.font.draw(batch,"Price: 20$", (float)(1590 - Disp.x), (float)(175 - Disp.y));
+					GameLoop.font.draw(batch,"Price: 20$", (float)(1590 - Disp.x), (float)(175 - Disp.y));
 				else if(pl.CurGun == 1)
-					Conceito.font.draw(batch, "Price: 250$", (float)(1590 - Disp.x), (float)(175 - Disp.y));
+					GameLoop.font.draw(batch, "Price: 250$", (float)(1590 - Disp.x), (float)(175 - Disp.y));
 				else if(pl.CurGun == 1)
-					Conceito.font.draw(batch, "Price: 90$", (float)(1590 - Disp.x), (float)(175 - Disp.y));
+					GameLoop.font.draw(batch, "Price: 90$", (float)(1590 - Disp.x), (float)(175 - Disp.y));
 				
 			}
 		}
@@ -308,7 +307,7 @@ public class Wizard {
 		a.setPosition((float)(272),(float)(570 - a.getHeight()));
 		a.draw(batch);
 		
-		Conceito.font.draw(batch,Integer.toString(WaveNr),425, 508);
+		GameLoop.font.draw(batch,Integer.toString(WaveNr),425, 508);
 	}
 	
 	public void showup(Vector Disp, Vector playerpos, Player pl, SpriteBatch batch)	
@@ -318,6 +317,6 @@ public class Wizard {
 	
 	public boolean getWizMode()
 	{
-		return this.wizardmode;
+		return wizardmode;
 	}
 }
