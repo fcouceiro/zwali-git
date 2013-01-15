@@ -59,7 +59,7 @@ class Player extends Entity
 		Player(Vector pos, int armor)
 		{
 			super( pos, new Vector (90,90), true,  Textures.playerPistolIM );
-			image.setOrigin(0, 0);
+			image.setOrigin(45, 45);
 			this.speed = 5;
 			this.alive = true;
 			this.nSpeed = 5;
@@ -214,7 +214,7 @@ class Player extends Entity
 			int MouseX = Gdx.input.getX();
 			int MouseY = 600 -Gdx.input.getY();
 			
-			Vector DispMouse = new Vector (MouseX-( pos.x - Disp.x), MouseY - ( pos.y - Disp.y) );
+			Vector DispMouse = new Vector (MouseX-( pos.x + 45 - Disp.x), MouseY - ( pos.y + 45 - Disp.y) );
 			
 			angle = Math.atan2( DispMouse.y, DispMouse.x);
 			angle = -90 +((angle*180)/(Math.PI));
@@ -352,18 +352,18 @@ class Player extends Entity
 		}
 		
 		
-		public void draw( Vector Disp, SpriteBatch batch)
-		{
-			super.draw( Disp, batch);
-		}
-		
 //		public void draw( Vector Disp, SpriteBatch batch)
 //		{
-//			image.setRotation((float) angle);
-//			image.setOrigin(45, 45);
-//			image.setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
-//			image.draw(batch);
+//			super.draw( Disp, batch);
 //		}
+		
+		public void draw( Vector Disp, SpriteBatch batch)
+		{
+			image.setRotation(((float) angle));
+			image.setOrigin(45, 45);
+			image.setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+			image.draw(batch);
+		}
 		
 		public void addGun( Weapon w)
 		{

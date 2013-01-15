@@ -823,9 +823,9 @@ public class Conceito implements ApplicationListener {
 						timerGun = 0;
 						Vector p = Player1.getPos();
 						Vector d = backG.getDisp(); 
-						Vector c = new Vector(MouseX - p.x + d.x , MouseY- p.y + d.y);
+						Vector c = new Vector(MouseX - p.x - 45 + d.x , MouseY- p.y -45 + d.y);
 						c.normalize();
-						Vector dir = new Vector(p.x + Player1.size.x/2  + c.x*30, p.y + Player1.size.y/2 + c.y*30 );
+						Vector dir = new Vector(p.x + Player1.size.x/2 - 9  + c.x*30, p.y + Player1.size.y/2 - 9 + c.y*30 );
 										
 						c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
 						
