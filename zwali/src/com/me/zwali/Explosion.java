@@ -12,7 +12,7 @@ public class Explosion extends Entity
 	
 	public Explosion(Vector Pos, Vector Size)
 	{
-		super(Pos, Size, false,Textures.expl1);
+		super(Pos, Size, false,Textures.expl3);
 		exp1 = Textures.expl1;
 		exp2 = Textures.expl2;
 		exp3 = Textures.expl3;

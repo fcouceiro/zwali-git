@@ -6,11 +6,14 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Conceito implements ApplicationListener {
 	private OrthographicCamera camera;
@@ -33,18 +36,14 @@ public class Conceito implements ApplicationListener {
 	Builder obra;
 	Mainmenu mainmenu;
 	Howtoplay howtoplaymenu;
-	boolean pausecoco = true;
+	static boolean pausecoco = true;
 	
 	Collision col;
 	
 	List <Wave> waves = new ArrayList<Wave>(10);
 	
 	
-	
-	boolean quit = false;
-	boolean restart=false;
-	boolean decision=false;
-	boolean buildMode;
+	static boolean buildMode;
 	boolean WarmUp = true;
 	boolean WarmUpBegins = false;
 	boolean justended = false;
@@ -54,7 +53,7 @@ public class Conceito implements ApplicationListener {
 	
 	int MouseX, MouseY;	
 	int HealthReg = 0;
-	int STATE;
+	static int STATE;
 	int timerGun = 0;
 	int timerEnem = 0;
 	int timerRegeneration = 0;
@@ -62,7 +61,7 @@ public class Conceito implements ApplicationListener {
 	int timerbuilt = 120;
 	int timeWarmup = 0;
 	int timerWarmup = 600;
-	int armaActual = 1;
+	static int armaActual = 1;
 	int radioactivetime = 0;
 	int radioactivetimer = 60;
 	int time_wiz = 0;
@@ -88,7 +87,7 @@ public class Conceito implements ApplicationListener {
 	boolean waveincoming = false;
 	RealCross Cross;
 	Crosshair Barril;
-
+	ShapeRenderer shapeRenderer;
 	
 	@Override
 	public void create() {		
@@ -101,11 +100,9 @@ public class Conceito implements ApplicationListener {
 		
 		batch = new SpriteBatch();
 		batch.getTransformMatrix().setToTranslation(-1*(w/2), -1*(h/2), 0);
+		shapeRenderer = new ShapeRenderer();
+		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		
-		keyboard = new ArrayList<Keys>(10);
-		hasKeyboard = false;
-		MyInputProcessor inputProcessor = new MyInputProcessor();
-		Gdx.input.setInputProcessor(inputProcessor);
 		try {
 			Textures.loadTextures();
 		} catch (FileNotFoundException e) {
@@ -122,6 +119,8 @@ public class Conceito implements ApplicationListener {
 
 		Barril = new Crosshair( new Vector(0,0), new Vector(80,80), Textures.BarrelUnIM);
 		
+		MyInputProcessor inputProcessor = new MyInputProcessor(Player1);
+		Gdx.input.setInputProcessor(inputProcessor);
 		
 		drop = new ItemDrop(t);
 		
@@ -234,26 +233,24 @@ public class Conceito implements ApplicationListener {
 		}
 		else if( STATE == 1)
 		{
-
-			font.draw(batch,"Wanna try again? Y - Yes N/esc - Exit", 100,300);
-			if(decision)
+			enem.clear();
+			waves.clear();
+			Wavenr = 1;
+			nWavesCur = 2;
+			nWavesMAX = 2;
+			nWave =2;
+			WarmUp = true;
+			
+			int i=0;
+			while(true)
 			{
-				if(restart)
-				{
-					restart = false;
-					enem.clear();
-					waves.clear();
-					Wavenr = 1;
-					nWavesCur = 2;
-					nWavesMAX = 2;
-					nWave =2;
-					WarmUp = true;
-				}
-				else
-				{
-					quit = true;
-				}
+			font.draw(batch,"GAME OVER", 100,300);
+			i++;
+			if(i==(60*3)) break;
+				
 			}
+			STATE = 2;
+		
 		}
 		else if(STATE == 2)
 		{
@@ -267,7 +264,7 @@ public class Conceito implements ApplicationListener {
 				 STATE = 0;
 				 difficulty = 1;
 				 
-				 Weapon wp1 = new Weapon(0, difficulty);
+				 	Weapon wp1 = new Weapon(0, difficulty);
 					Weapon wp2 = new Weapon(1, difficulty);
 					Weapon wp3 = new Weapon(2, difficulty);
 					Player1.addGun(wp1);
@@ -336,6 +333,14 @@ public class Conceito implements ApplicationListener {
 		}
 
 		batch.end();
+		
+		if(wizard.getWizMode())
+		{
+		shapeRenderer.begin(ShapeType.Box);
+		shapeRenderer.setColor(Color.WHITE);
+		shapeRenderer.box((float)(1585 - backG.Display.x), (float)(141 - backG.Display.y), 0, 155, 40, 0);
+		shapeRenderer.end();
+		}
 	}
 
 	public void gameLoop()
@@ -345,7 +350,7 @@ public class Conceito implements ApplicationListener {
 			time_wiz++;
 			if(WarmUp)
 			{
-				if(!wizard.wizardmode)
+				if(!Wizard.wizardmode)
 				{
 					Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
 					timeWarmup++;
@@ -747,7 +752,7 @@ public class Conceito implements ApplicationListener {
 				System.out.println("Estatisticas: \nDisparos - "+stats.PlayerDisparos+"\nDisparos acertados - "+stats.PlayerTirosNoEnemy+"\nScore - "+stats.PlayerScore+"\nAtingido "+ stats.PlayerAtingido +" vezes");
 				System.out.println("GAME OVER! O MUNDO TAMBEM FICA MELHOR SEM TI!!");
 				System.out.println("CARREGA Y PARA RECOMECAR, N PARA TE ACORBARDARES E FUGIRES COM O RABINHO ENTRE AS PERNAS!");
-				decision = false;
+			
 				STATE = 1;
 			}
 			
@@ -764,7 +769,7 @@ public class Conceito implements ApplicationListener {
 			
 			//String draw area
 			
-			invmenu.update(this.buildMode);
+			invmenu.update(Conceito.buildMode);
 			updateLog();
 			font.draw(batch,Integer.toString(Player1.Health) + " / " + Integer.toString(Player1.armor), 265,20);
 			font.draw(batch,Integer.toString(Player1.buildQuant), 460,53);
@@ -884,112 +889,6 @@ public class Conceito implements ApplicationListener {
 				}
 			}
 		}
-			//Keyboard
-		
-				if(Gdx.input.isKeyPressed(Keys.ESCAPE))
-				{
-					quit = true;
-				}
-				if(Gdx.input.isKeyPressed(Keys.B))
-				{
-					if(!buildMode) buildMode = true;
-					else if(buildMode)
-					{
-						buildMode = false;
-						switch(Player1.CurGun)
-						{
-							case 0:
-								Player1.image = Textures.playerPistolIM;
-								break;
-							case 1:
-								Player1.image = Textures.playerMachineGunIM;
-								break;
-							case 2:
-								Player1.image = Textures.playerShotGunIM;
-								break;
-						}
-					}
-				}
-
-				if(Gdx.input.isKeyPressed(Keys.R))
-				{
-					if(Player1.InvListWeapons.get(armaActual).ammo != Player1.InvListWeapons.get(armaActual).MAXCAR)
-					{
-						Player1.InvListWeapons.get(armaActual).Reload();
-					}
-				}
-				if(Gdx.input.isKeyPressed(Keys.NUM_1))
-				{
-					armaActual = 0;
-					if( Player1.setCurGun(0))
-						Player1.image = Textures.playerPistolIM;
-					
-				}
-				if(Gdx.input.isKeyPressed(Keys.NUM_2))
-				{
-					armaActual = 2;
-					if( Player1.setCurGun(2) )
-						Player1.image = Textures.playerShotGunIM;
-					
-				}
-				if(Gdx.input.isKeyPressed(Keys.NUM_3))
-				
-				{	
-					armaActual = 1; 
-					if(Player1.setCurGun(1) )
-						Player1.image = Textures.playerMachineGunIM;
-					
-				}
-			
-				if(Gdx.input.isKeyPressed(Keys.P))
-				{
-					
-						
-						if(STATE == 0){ STATE = 4; pausecoco = true;}
-						else if(STATE == 4) STATE = 0;
-				}
-				if(STATE == 1 && Gdx.input.isKeyPressed(Keys.Y))
-				{
-					decision = true;
-					restart = true;
-				}
-
-				if(STATE == 1 && Gdx.input.isKeyPressed(Keys.N))
-				{
-					decision = true;
-					restart = false;
-					
-				}
-					
-				if(Gdx.input.isKeyPressed(Keys.DPAD_RIGHT) && time_wiz >= timer_wiz)
-				{
-					if(Player1.pos.x >= 1550 && Player1.pos.x <= 1730 && Player1.pos.y >= 250 &&  Player1.pos.y <= 380) //Wiz area
-					{
-					wizard.counter++;
-					if(wizard.counter == 9)
-						wizard.counter = 0;
-					time_wiz = 0;
-					}
-				}
-				if(Gdx.input.isKeyPressed(Keys.DPAD_LEFT)  && time_wiz >= timer_wiz)
-				{
-					if(Player1.pos.x >= 1550 && Player1.pos.x <= 1730 && Player1.pos.y >= 250 &&  Player1.pos.y <= 380)
-					{
-					wizard.counter--;
-					if(wizard.counter < 0)
-						wizard.counter = 8;
-					time_wiz = 0;
-					}
-				}	
-				if(wizard.wizardmode && Gdx.input.isKeyPressed(Keys.ENTER))
-				{
-					wizard.buy(Player1);
-				}
-
-				if(Gdx.input.isKeyPressed(Keys.R))
-				{
-					Player1.ReloadWeapon();
-				}
 
 	}
 	
