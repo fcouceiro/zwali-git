@@ -59,6 +59,7 @@ class Player extends Entity
 		Player(Vector pos, int armor)
 		{
 			super( pos, new Vector (90,90), true,  Textures.playerPistolIM );
+			
 			this.walk = new Animacao(2,2,Textures.player_walking);
 			this.idle = new Animacao(5,1,Textures.player_idle);
 			image.setOrigin(45, 45);
@@ -355,11 +356,6 @@ class Player extends Entity
 		
 		public void draw( Vector Disp, SpriteBatch batch)
 		{
-			image.setRotation(((float) angle));
-			image.setOrigin(45, 45);
-			image.setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
-			image.draw(batch);
-			
 			if(this.vel.Size() == 0)
 			{
 				idle.getIm().setRotation((float) angle);
@@ -374,12 +370,15 @@ class Player extends Entity
 				walk.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
 				walk.getIm().draw(batch);
 			}
-		}
-		
-		private void animate()
-		{
 			
+			image.setRotation(((float) angle));
+			image.setOrigin(45, 45);
+			image.setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+			image.draw(batch);
+			
+		
 		}
+
 		
 		public void addGun( Weapon w)
 		{

@@ -126,7 +126,9 @@ public class Textures {
 		CrossSide = loadTexture("/CrossSide");
 		playerPistolIM = loadTexture("/player/player_pistol");
 		playerMachineGunIM = loadTexture("/player/player_machinegun");
+		playerMachineGunIM.setSize(90, 90);
 		playerShotGunIM = loadTexture("/player/player_shotgun");
+		playerShotGunIM.setSize(90, 90);
 		playerBuilderIM = loadTexture("/player/player_builder");
 		bulletIM = loadTexture("/bullet");
 		zombie_type1 = loadTexture("/zombies/type1");

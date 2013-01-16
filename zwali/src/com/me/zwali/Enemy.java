@@ -264,12 +264,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		
 		public void isRadioActive()
 		{
-			if(this.pos.x <= 180 || this.pos.x >= (2048-180) || this.pos.y <= 180 || this.pos.y >= (2048-180) || ((this.pos.x >= 180 && this.pos.x <= 680) && (this.pos.y >= 1450 && this.pos.y <= (2048-180))))
+			if(this.pos.x <= 180 || this.pos.x >= (2048-180) || this.pos.y <= 180 || this.pos.y >= (2048-180) || ((this.pos.x >= 180 && this.pos.x <= 680) && (this.pos.y >= 180 && this.pos.y <= 600)))
 			{
 				
 				if(this.radioactivetime1 == this.radioactivetimer1)
 				{
-					System.out.println("Enemigos a arder");
+					System.out.println("Enemies a arder");
 					this.Health -= 20;
 					if(this.Health <= 0)
 					{

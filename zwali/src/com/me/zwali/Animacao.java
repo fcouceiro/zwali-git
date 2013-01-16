@@ -20,13 +20,16 @@ public class Animacao {
 	{
 		this.time = time * 60;
 		this.frames = frames;
-		timer_max = time / frames;
+		timer_max = this.time / frames;
 		
 		
 			for(int i=0;i<frames;i++)
 			{
-			TextureRegion tr = new TextureRegion(anim,256*i,0,256,256);
-			animSprites.add(new Sprite(tr));
+			TextureRegion tr = new TextureRegion(anim,256*i,0,256,128);
+			Sprite a = new Sprite(tr);
+			a.setSize(90, 90);
+			animSprites.add(a);
+			a = null;
 			}
 			System.out.println("Anim created!");
 		
@@ -38,9 +41,9 @@ public class Animacao {
 		{
 			counter++;
 			timer=0;
-			if((counter+1) == frames) counter = 0;
+			if((counter) == frames) counter = 0;
 		}
-		
+		timer++;
 		return animSprites.get(counter);
 	}
 }

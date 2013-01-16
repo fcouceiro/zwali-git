@@ -411,7 +411,7 @@ public class GameLoop implements Screen{
 		
 		backG.draw(Conceito.batch);
 		
-		if(Player1.pos.x <= 180 || Player1.pos.x >= (2048-180) || Player1.pos.y <= 180 || Player1.pos.y >= (2048-180) || ((Player1.pos.x >= 180 && Player1.pos.x <= 680) && (Player1.pos.y >= 1450 && Player1.pos.y <= (2048-180))))
+		if(Player1.pos.x <= 180 || Player1.pos.x >= (2048-180) || Player1.pos.y <= 180 || Player1.pos.y >= (2048-180) || ((Player1.pos.x >= 180 && Player1.pos.x <= 680) && (Player1.pos.y >= 180 && Player1.pos.y <= 600)))
 		{
 			if(radioactivetime == radioactivetimer)
 			{
