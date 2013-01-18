@@ -133,12 +133,12 @@ public class Howtoplay implements Screen
 	
 	private void draw()
 	{
-		Conceito.batch.begin();
+
 		this.drawBG();
 		this.drawmainMenu();
 		this.drawNext();
 		this.drawPrev();
-		Conceito.batch.end();
+
 	}
 	
 	private void drawBG()

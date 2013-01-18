@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Textures {
 	
+	 static Sprite Sangue_3;
+	 static Sprite Sangue_2;
+	 static Sprite Sangue_1;
 	 static Sprite CrosshairIM;
 	 static Sprite Crosshair2IM;
 	 static Sprite CrossUp;
@@ -113,6 +116,9 @@ public class Textures {
 	 
 	public static void loadTextures() throws FileNotFoundException
 	{
+		Sangue_3 = loadTexture("/sangue/b3");
+		Sangue_2 = loadTexture("/sangue/b2");
+		Sangue_1 = loadTexture("/sangue/b1");
 		player_walking = loadTexture("/player/player_anim/player_anim_walking");
 		player_idle = loadTexture("/player/player_anim/player_anim_idle");
 		wv1 = loadTexture("/menus/wave_in");

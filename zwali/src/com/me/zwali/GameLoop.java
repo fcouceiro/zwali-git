@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameLoop implements Screen{
 
@@ -42,7 +43,7 @@ public class GameLoop implements Screen{
 	boolean WarmUpBegins = false;
 	boolean justended = false;
 	boolean survival = false;
-	boolean debug = false;
+	boolean debug = true;
 	
 	int difficulty;
 	
@@ -73,6 +74,7 @@ public class GameLoop implements Screen{
 	Vector MPOS;
 	List <Bullet> bul = new ArrayList<Bullet>(10);
 	List <Enemy> enem = new ArrayList<Enemy>(10);
+	List <sangue> sangues = new ArrayList<sangue>(5);
 	
 	Conceito MainGame;
 	
@@ -187,7 +189,7 @@ public class GameLoop implements Screen{
 		{
 			if(!Wizard.wizardmode)
 			{
-				Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
+				Log.push("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
 				timeWarmup++;
 				//System.out.println("Ta em warm up" + timeWarmup);
 				if (timeWarmup >= 300 && timeWarmup < 600) {
@@ -212,12 +214,12 @@ public class GameLoop implements Screen{
 			justended = false;
 			WarmUpBegins = false;
 			timeWarmup = 0;
-			Log.add("Warm Up finished");
+			Log.push("Warm Up finished");
 			
 			if(Wavenr % 5 == 0)
 			{
-			Log.add("Chegou a ronda " + Wavenr);
-			Log.add("Bonus gold + 150");
+			Log.push("Chegou a ronda " + Wavenr);
+			Log.push("Bonus gold + 150");
 			for(int i = 0; i < 7; i++)
 			{
 				int size;
@@ -353,7 +355,27 @@ public class GameLoop implements Screen{
 						
 						if(enimio.Health > 0) 
 						{
-							
+							if(enimio.Health < 10)
+							{
+								Sprite a = new Sprite(Textures.Sangue_3);
+								a.setPosition((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y- backG.Display.y));
+								a.setRotation((float)enimio.angle);
+								sangues.add(new sangue(a,new Vector((float)(enimio.pos.x),(float)(enimio.pos.y))));
+							}
+							else if(enimio.Health < 60)
+							{
+								Sprite a = new Sprite(Textures.Sangue_2);
+								a.setPosition((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y- backG.Display.y));
+								a.setRotation((float)enimio.angle);
+								sangues.add(new sangue(a,new Vector((float)(enimio.pos.x),(float)(enimio.pos.y))));
+									}
+							else if(enimio.Health < enimio.MaxHealth)
+							{
+								Sprite a = new Sprite(Textures.Sangue_1);
+								a.setPosition((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y- backG.Display.y));
+								a.setRotation((float)enimio.angle);
+								sangues.add(new sangue(a,new Vector((float)(enimio.pos.x),(float)(enimio.pos.y))));
+							}
 						}
 						else
 						{
@@ -377,16 +399,16 @@ public class GameLoop implements Screen{
 							{
 								Player1.ragemode = true;
 								stats.killstreakCont = 0;
-								this.Log.add("Rage on!");
+								this.Log.push("Rage on!");
 							}
 							if(Player1.ragemode)
 							{
-								Log.add("Enemy died with rage");
+								Log.push("Enemy died with rage");
 								Player1.ragemode = true;
 							}
 							else
 							{
-								Log.add("Enemy died");
+								Log.push("Enemy died");
 							}
 							
 							Log.add("KillStreak "+ stats.killstreakCont);
@@ -411,13 +433,15 @@ public class GameLoop implements Screen{
 		
 		backG.draw(Conceito.batch);
 		
+		
+		
 		if(Player1.pos.x <= 180 || Player1.pos.x >= (2048-180) || Player1.pos.y <= 180 || Player1.pos.y >= (2048-180) || ((Player1.pos.x >= 180 && Player1.pos.x <= 680) && (Player1.pos.y >= 180 && Player1.pos.y <= 600)))
 		{
 			if(radioactivetime == radioactivetimer)
 			{
 				Player1.Health -= 5;
 				radioactivetime = 0;
-				this.Log.add("Danger - Nuclear Area");
+				this.Log.push("Danger - Nuclear Area");
 			}
 			else
 				radioactivetime++;
@@ -503,6 +527,13 @@ public class GameLoop implements Screen{
 			Cross.draw(Conceito.batch);
 		}
 		
+		for(sangue b:sangues)
+		{
+			
+			b.blood.setPosition((float)(b.pos.x - backG.Display.x), (float)(b.pos.y - backG.Display.y));
+			b.blood.draw(Conceito.batch);
+			System.out.println("YOUSSH");
+		}
 		
 		for( Bullet bilio:bul)
 		{
@@ -652,7 +683,10 @@ public class GameLoop implements Screen{
 		{
 			Conceito.shapeRenderer.begin(ShapeType.Line);
 			Conceito.shapeRenderer.setColor(Color.RED);
-			Conceito.shapeRenderer.line((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y-backG.Display.y), (float)(Player1.pos.x-backG.Display.x), (float)(Player1.pos.y-backG.Display.y));
+			Vector2 enemy = new Vector2((float)(enimio.pos.x - backG.Display.x) + 45, (float)(enimio.pos.y-backG.Display.y) + 45);
+			Vector2 player = new Vector2((float)(Player1.pos.x-backG.Display.x)+ 45, (float)(Player1.pos.y-backG.Display.y)+45);
+			
+			Conceito.shapeRenderer.line(player.x,player.y,enemy.x,enemy.y);
 			Conceito.shapeRenderer.end();
 		}
 		
@@ -710,6 +744,8 @@ public class GameLoop implements Screen{
 
 	private void input()
 	{
+		if(!Player1.InvListWeapons.get(Player1.CurGun).lethalarea)
+		{
 			if(Gdx.input.isTouched())
 			{
 				if( !buildMode)
@@ -725,8 +761,7 @@ public class GameLoop implements Screen{
 										
 						c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
 						
-						if(!Player1.InvListWeapons.get(Player1.CurGun).lethalarea)
-						{
+					
 						bul.add ( new Bullet( dir, c, Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()));
 							switch(Player1.InvListWeapons.get(Player1.CurGun).Type)
 							{
@@ -737,24 +772,8 @@ public class GameLoop implements Screen{
 								//this.soundmanager.playFX(soundmanager.shot2);
 								break;
 							}
-						}
-						else
-						{
-							
-							c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
-							Vector k1 = new Vector( c );
-							k1.rotate(10);
-							Vector k2 = c;
-							Vector k3 = new Vector( c);
-							k3.rotate(-10);
-							
-							bul.add ( new Bullet( new Vector(dir), k1, Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()) );
-							
-							bul.add ( new Bullet( new Vector(dir), k2, Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()) );
-		
-							bul.add ( new Bullet( new Vector(dir), k3 , Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()) );
-							//this.soundmanager.playFX(soundmanager.shot);
-						}	
+						
+				
 						
 						int AddAC = 0;
 						switch(Player1.CurGun)
@@ -779,6 +798,66 @@ public class GameLoop implements Screen{
 					}
 				}
 			}
+	
+		}
+		else
+		{
+			if(Gdx.input.justTouched())
+			{
+				if( !buildMode)
+				{
+					if(Player1.Shoot())
+					{
+						timerGun = 0;
+						Vector p = Player1.getPos();
+						Vector d = backG.getDisp(); 
+						Vector c = new Vector(MouseX - p.x - 45 + d.x , MouseY- p.y -45 + d.y);
+						c.normalize();
+						Vector dir = new Vector(p.x + Player1.size.x/2 - 9  + c.x*30, p.y + Player1.size.y/2 - 9 + c.y*30 );
+										
+						c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
+						
+					
+							c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
+							Vector k1 = new Vector( c );
+							k1.rotate(10);
+							Vector k2 = c;
+							Vector k3 = new Vector( c);
+							k3.rotate(-10);
+							
+							bul.add ( new Bullet( new Vector(dir), k1, Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()) );
+							
+							bul.add ( new Bullet( new Vector(dir), k2, Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()) );
+		
+							bul.add ( new Bullet( new Vector(dir), k3 , Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()) );
+							//this.soundmanager.playFX(soundmanager.shot);
+					
+						
+						
+						int AddAC = 0;
+						switch(Player1.CurGun)
+						{
+						case 0:
+							AddAC = 10;
+							break;
+						case 1:
+							AddAC = 3;
+							break;
+						case 2:
+							AddAC = 7;
+							break;
+						}
+						Player1.accuracy += AddAC;
+						if(Player1.accuracy>Player1.ACCMAX)
+						{
+							Player1.accuracy=Player1.ACCMAX;
+						}
+						
+						stats.PlayerDisparos++;
+					}
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -810,4 +889,16 @@ public class GameLoop implements Screen{
 		font.dispose();
 	}
 
+}
+
+class sangue
+{
+	Sprite blood;
+	Vector pos;
+	
+	public sangue(Sprite a, Vector pos)
+	{
+		this.blood = a;
+		this.pos = pos;
+	}
 }

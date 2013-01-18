@@ -164,6 +164,18 @@ public class MyInputProcessor implements InputProcessor {
 	@Override
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
+		
+		if(amount == 1)
+		{
+			if(GameLoop.armaActual == 2) GameLoop.armaActual = 0;
+			else GameLoop.armaActual++;
+		}
+		if(amount == -1)
+		{
+			if(GameLoop.armaActual == 0) GameLoop.armaActual = 2;
+			else GameLoop.armaActual--;
+		}
+			
 		return false;
 	}
 

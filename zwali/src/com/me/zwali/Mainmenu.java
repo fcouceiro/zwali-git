@@ -189,6 +189,7 @@ public class Mainmenu implements Screen
 				GMl = new GameLoop(MainGame);
 				inputProcessor = new MyInputProcessor(GMl);
 				Player1 = GMl.Player1;
+				Player1.money = 9000;
 				Gdx.input.setInputProcessor(inputProcessor);
 				System.out.println("GameLoop created successfuly");
 				prepared = true;
