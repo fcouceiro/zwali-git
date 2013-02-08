@@ -60,8 +60,8 @@ class Player extends Entity
 		{
 			super( pos, new Vector (90,90), true,  Textures.playerPistolIM );
 			
-			this.walk = new Animacao(2,2,Textures.player_walking);
-			this.idle = new Animacao(5,1,Textures.player_idle);
+			this.walk = new Animacao(2,2,Textures.player_walking,new Vector(256,128),new Vector(90,90));
+			this.idle = new Animacao(5,1,Textures.player_idle,new Vector(256,128),new Vector(90,90));
 			image.setOrigin(45, 45);
 			this.speed = 5;
 			this.alive = true;
@@ -225,7 +225,7 @@ class Player extends Entity
 	
 			
 			DispMouse.normalize();
-			InvListWeapons.get(CurGun).Update();
+			InvListWeapons.get(CurGun).Update(this,Disp);
 			
 			if(ragemode)
 			{

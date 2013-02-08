@@ -2,6 +2,9 @@ package com.me.zwali;
 
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -10,6 +13,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Textures {
 	
+	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
+	 static Sprite enemy1_falling;
+	 static Sprite enemy1_dead;
 	 static Sprite Sangue_3;
 	 static Sprite Sangue_2;
 	 static Sprite Sangue_1;
@@ -113,9 +119,13 @@ public class Textures {
 	 static Sprite bar_buildmodeoff;
 	 
 	 static Sprite expl1,expl2,expl3;
+	 static Sprite bul_art;
 	 
 	public static void loadTextures() throws FileNotFoundException
 	{
+		bul_art = loadTexture("/explosion/pistol_artifact");
+		enemy1_falling = loadTexture("/zombies/type1_anim/falling");
+		enemy1_dead = loadTexture("/zombies/type1_anim/dead");
 		Sangue_3 = loadTexture("/sangue/b3");
 		Sangue_2 = loadTexture("/sangue/b2");
 		Sangue_1 = loadTexture("/sangue/b1");
@@ -204,7 +214,7 @@ public class Textures {
 		Texture a = new Texture(Gdx.files.internal("res/textures" + key +".png"));
 		a.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		Sprite b = new Sprite(a);
-	
+		disposable.add(b);
 		return (b);
 		}
 		finally{
@@ -214,7 +224,7 @@ public class Textures {
 	
 	public static void dispose()
 	{
-		
+		for(Sprite a:disposable) a.getTexture().dispose();
 		
 	}
 	

@@ -1,5 +1,7 @@
 package com.me.zwali;
 
+import com.badlogic.gdx.Gdx;
+
 public class Weapon
 {
 	public int power,power2;
@@ -18,6 +20,8 @@ public class Weapon
 	boolean lethalarea;
 	Vector size;
 	Vector pos;
+	boolean can_anim = false;
+	int timer = 0;
 	
 	public Weapon( int type, int difficulty)
 	{
@@ -91,6 +95,7 @@ public class Weapon
 			if (ammo > 0 && fireTimer >= FIRERATE && !reloading) {
 				fireTimer = 0;
 				ammo--;
+				can_anim = true;
 				if (ammo == 0)
 					this.Reload();
 				return true;
@@ -104,6 +109,7 @@ public class Weapon
 		}
 		else 
 		{
+			can_anim = true;
 			return true;
 		}
 		return false;
@@ -126,7 +132,7 @@ public class Weapon
 		}
 	}
 	
-	public void Update()
+	public void Update(Player Player1, Vector Disp)
 	{
 		
 		if( ammo==0 && fireTimer >= FIRERATE && ammoTotal >0)
@@ -145,9 +151,35 @@ public class Weapon
 				reloading = false;
 			}
 		}
-		else
+		else{
+			
 			fireTimer++;
+		}
 		
+		if(can_anim)
+		{
+			timer++;
+			if(timer >= 10){
+				can_anim = false;
+				timer = 0;
+			}
+			
+			int MouseX = Gdx.input.getX();
+			int MouseY = 600 - Gdx.input.getY();
+			Vector p = Player1.getPos();
+			Vector d = Disp; 
+			Vector c = new Vector(MouseX - p.x - 45 + d.x , MouseY- p.y -45 + d.y);
+			c.normalize();
+			c.rotate(-6);
+			Vector dir = new Vector(p.x + Player1.size.x/2 - 9  + c.x*55, p.y + Player1.size.y/2 - 9 + c.y*55 );
+			
+			Textures.bul_art.setOrigin(Textures.bul_art.getWidth()/2,Textures.bul_art.getHeight()/2);
+			Textures.bul_art.setSize(20,20);
+			Textures.bul_art.setRotation((float)Player1.angle);
+			Textures.bul_art.setPosition((float)(dir.x-d.x),(float)(dir.y-d.y));
+			Textures.bul_art.draw(Conceito.batch);
+	
+		}
 	}
 
 	

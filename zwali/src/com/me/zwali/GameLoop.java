@@ -3,8 +3,6 @@ package com.me.zwali;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Stack;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -19,7 +17,7 @@ public class GameLoop implements Screen{
 	public static BitmapFont font;
 	
 	Player Player1;
-	Stack <CharSequence> Log = new Stack<CharSequence>();
+	List <CharSequence> Log = new ArrayList<CharSequence>();
 	
 	Wizard wizard;
 	Textures t = new Textures();
@@ -75,6 +73,7 @@ public class GameLoop implements Screen{
 	List <Bullet> bul = new ArrayList<Bullet>(10);
 	List <Enemy> enem = new ArrayList<Enemy>(10);
 	List <sangue> sangues = new ArrayList<sangue>(5);
+	List<Enemy> dead_enemies = new ArrayList<Enemy>(5);
 	
 	Conceito MainGame;
 	
@@ -86,7 +85,8 @@ public class GameLoop implements Screen{
 		Log.add("Teste");
 		
 		
-		font = new BitmapFont();
+		font = new BitmapFont(Gdx.files.internal("res/fonts/arial.fnt"),
+		         Gdx.files.internal("res/fonts/arial.png"), false);
 		
 		Player1 = new Player( new Vector(1024, 1024), 60);
 		wizard = new Wizard(new Vector(1575, 1675), new Vector(90,90), Player1);
@@ -189,7 +189,7 @@ public class GameLoop implements Screen{
 		{
 			if(!Wizard.wizardmode)
 			{
-				Log.push("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
+				Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
 				timeWarmup++;
 				//System.out.println("Ta em warm up" + timeWarmup);
 				if (timeWarmup >= 300 && timeWarmup < 600) {
@@ -214,12 +214,12 @@ public class GameLoop implements Screen{
 			justended = false;
 			WarmUpBegins = false;
 			timeWarmup = 0;
-			Log.push("Warm Up finished");
+			Log.add("Warm Up finished");
 			
 			if(Wavenr % 5 == 0)
 			{
-			Log.push("Chegou a ronda " + Wavenr);
-			Log.push("Bonus gold + 150");
+			Log.add("Chegou a ronda " + Wavenr);
+			Log.add("Bonus gold + 150");
 			for(int i = 0; i < 7; i++)
 			{
 				int size;
@@ -399,16 +399,16 @@ public class GameLoop implements Screen{
 							{
 								Player1.ragemode = true;
 								stats.killstreakCont = 0;
-								this.Log.push("Rage on!");
+								this.Log.add("Rage on!");
 							}
 							if(Player1.ragemode)
 							{
-								Log.push("Enemy died with rage");
+								Log.add("Enemy died with rage");
 								Player1.ragemode = true;
 							}
 							else
 							{
-								Log.push("Enemy died");
+								Log.add("Enemy died");
 							}
 							
 							Log.add("KillStreak "+ stats.killstreakCont);
@@ -430,10 +430,26 @@ public class GameLoop implements Screen{
 
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
+
 		backG.draw(Conceito.batch);
 		
+		for(sangue b:sangues)
+		{
+			
+			b.update(backG);
+		}
 		
+		for(Enemy e:dead_enemies)
+		{
+			if(e != null)
+			{
+				if(!e.ready)
+				e.dead_anim(Disp);
+				else e = null;
+			}
+		}
+		
+		backG.draw_objs(Conceito.batch);
 		
 		if(Player1.pos.x <= 180 || Player1.pos.x >= (2048-180) || Player1.pos.y <= 180 || Player1.pos.y >= (2048-180) || ((Player1.pos.x >= 180 && Player1.pos.x <= 680) && (Player1.pos.y >= 180 && Player1.pos.y <= 600)))
 		{
@@ -441,7 +457,7 @@ public class GameLoop implements Screen{
 			{
 				Player1.Health -= 5;
 				radioactivetime = 0;
-				this.Log.push("Danger - Nuclear Area");
+				this.Log.add("Danger - Nuclear Area");
 			}
 			else
 				radioactivetime++;
@@ -527,13 +543,7 @@ public class GameLoop implements Screen{
 			Cross.draw(Conceito.batch);
 		}
 		
-		for(sangue b:sangues)
-		{
-			
-			b.blood.setPosition((float)(b.pos.x - backG.Display.x), (float)(b.pos.y - backG.Display.y));
-			b.blood.draw(Conceito.batch);
-			System.out.println("YOUSSH");
-		}
+	
 		
 		for( Bullet bilio:bul)
 		{
@@ -564,6 +574,11 @@ public class GameLoop implements Screen{
 			{
 				enimio.draw(Disp,Conceito.batch);
 				enimio.isRadioActive();			
+			}
+			else
+			{
+				dead_enemies.add(enimio);
+			
 			}
 
 			if(enimio.getAlive() && enimio.Collide(Player1))
@@ -630,7 +645,7 @@ public class GameLoop implements Screen{
 		Player1.draw(Disp,Conceito.batch);
 		wizard.showup(Disp, Player1.pos, Player1,Conceito.batch);
 		
-		Player1.InvListWeapons.get(Player1.CurGun).Update();
+		Player1.InvListWeapons.get(Player1.CurGun).Update(Player1,backG.Display);
 		
 	
 		
@@ -710,9 +725,9 @@ public class GameLoop implements Screen{
 
 	private void updateLog()
 	{
-		CharSequence tres = Log.get(2);
-		CharSequence dois = Log.get(1);
-		CharSequence um = Log.get(0);
+		CharSequence tres = Log.get(Log.size() -1);
+		CharSequence dois = Log.get(Log.size() -2);
+		CharSequence um = Log.get(Log.size()-3);
 		//Vector(583, 553)
 		font.draw(Conceito.batch, um, 583, 50);
 		font.draw(Conceito.batch, dois, 583, 36);
@@ -752,6 +767,8 @@ public class GameLoop implements Screen{
 				{
 					if(Player1.Shoot())
 					{
+						
+						
 						timerGun = 0;
 						Vector p = Player1.getPos();
 						Vector d = backG.getDisp(); 
@@ -895,10 +912,35 @@ class sangue
 {
 	Sprite blood;
 	Vector pos;
+	int time = 300;
+	int timer = 0;
+	int time_anim = 400;
+	float alpha = 1.0f;
 	
 	public sangue(Sprite a, Vector pos)
 	{
 		this.blood = a;
 		this.pos = pos;
+	}
+	
+	void update(Background backG)
+	{
+		if(timer >= time)
+		{
+			if(timer >= time_anim);
+			else{
+				timer++;
+				blood.setPosition((float)(pos.x - backG.Display.x), (float)(pos.y - backG.Display.y));
+				blood.draw(Conceito.batch,alpha);
+				alpha -= 0.01f;
+			}
+		}
+		else
+		{
+			timer++;
+			blood.setPosition((float)(pos.x - backG.Display.x), (float)(pos.y - backG.Display.y));
+			blood.draw(Conceito.batch);
+			
+		}
 	}
 }

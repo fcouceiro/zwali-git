@@ -8,7 +8,6 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
 
@@ -292,8 +291,6 @@ public class Wizard {
 	public void animateWaveIncoming(int WaveNr, int timer, SpriteBatch batch)
 	{
 		
-		
-
 		//Page
 		Sprite a = null;
 		if((timer/30) % 2 == 0)

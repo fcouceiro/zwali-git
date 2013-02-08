@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 	public class Enemy extends Entity
 	{
+		Animacao falling, dead;
 		private boolean alive;
 		boolean right;
 		int MaxHealth;
@@ -22,10 +23,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		int type;
 		int rotCount = 0;
 		
+		boolean falling_anim = true,ready = false;
+		
 		boolean rotleft,rotright;
 		
 		int radioactivetimer1 = 60;
 		int radioactivetime1 = 0;
+		int timer = 0;
+		int time_dead = 350;
+		float alpha = 1.0f;
 		
 		Vector dVel = new Vector( 0, 0);
 		
@@ -34,6 +40,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		Enemy( Vector pos,Sprite T, int type, int difficulty)
 		{
 			super( pos, new Vector(68, 60),true,  T );
+			falling = new Animacao(3,5,Textures.enemy1_falling,new Vector(128,128), new Vector(68,60));
+			dead = new Animacao(5,1,Textures.enemy1_dead,new Vector(256,128), new Vector(136,60));
+			
 			this.type = type;
 			switch(type)
 			{
@@ -163,6 +172,30 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 			
 		}
 			
+		void dead_anim(Vector Disp)
+		{
+			if(!falling.done && falling_anim)
+			{
+			falling.getIm().setRotation((float) angle);
+			falling.getIm().setOrigin(34, 30);
+			falling.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+			falling.getIm().draw(Conceito.batch);
+			}
+			else{
+				falling_anim = false;
+				dead.getIm().setRotation((float) angle);
+				dead.getIm().setOrigin(34, 30);
+				dead.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+				dead.getIm().draw(Conceito.batch,alpha);
+				
+				if(timer >= time_dead) alpha -= 0.01;
+				else timer++;
+				
+				if(alpha <= 0) ready = true;
+			}
+		}
+		
+		
 		private void animate()
 		{
 			rotCount++;

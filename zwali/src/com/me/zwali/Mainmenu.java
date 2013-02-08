@@ -255,13 +255,14 @@ public class Mainmenu implements Screen
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+	
 		this.prepareGameLoop();
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
+	
 		start = false;
 		prepared = false;
 	}

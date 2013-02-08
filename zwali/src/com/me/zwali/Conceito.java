@@ -17,7 +17,6 @@ public class Conceito extends Game {
 	Mainmenu mainmenu;
 	Howtoplay howtoplaymenu;
 	GameLoop gameloop;
-	
 
 
 	
@@ -33,11 +32,11 @@ public class Conceito extends Game {
 			e.printStackTrace();
 		}
 		camera = new OrthographicCamera(w, h);
+		System.out.print(w + " " +h);
 		batch = new SpriteBatch();
 		batch.getTransformMatrix().setToTranslation(-1*(w/2), -1*(h/2), 0);
 		shapeRenderer = new ShapeRenderer();
-		
-		
+	
 		mainmenu = new Mainmenu(this);
 		howtoplaymenu = new Howtoplay(this);
 
@@ -54,7 +53,8 @@ public class Conceito extends Game {
 	@Override
 	public void dispose() {
 		batch.dispose();
-	
+		Textures.dispose();
+
 	}
 
 }

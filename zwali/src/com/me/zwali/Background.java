@@ -59,16 +59,21 @@ public class Background
 		image.setPosition(-(float)Display.x, -(float)Display.y);
 		image.draw(batch);
 
-        for(StaticObj obj: Objects)
-		{
-			obj.draw(Display,batch);
-		}
-        
-        for( UnStaticObj obj: UnObjects)
-        {
-        	obj.draw(Display,batch);
-        }
+       
 		
+	}
+	
+	void draw_objs(SpriteBatch batch)
+	{
+		 for(StaticObj obj: Objects)
+			{
+				obj.draw(Display,batch);
+			}
+	        
+	        for( UnStaticObj obj: UnObjects)
+	        {
+	        	obj.draw(Display,batch);
+	        }
 	}
 	
 	Vector getDisp()

@@ -15,8 +15,9 @@ public class Animacao {
 	int counter=0;
 	int timer=0;
 	int timer_max;
+	boolean done = false;
 	
-	public Animacao(int time,int frames,Sprite anim)
+	public Animacao(int time,int frames,Sprite anim, Vector regionSize, Vector imgSize)
 	{
 		this.time = time * 60;
 		this.frames = frames;
@@ -25,9 +26,9 @@ public class Animacao {
 		
 			for(int i=0;i<frames;i++)
 			{
-			TextureRegion tr = new TextureRegion(anim,256*i,0,256,128);
+			TextureRegion tr = new TextureRegion(anim,(int)(regionSize.x)*i,0,(int)(regionSize.x),(int)(regionSize.y));
 			Sprite a = new Sprite(tr);
-			a.setSize(90, 90);
+			a.setSize((float)imgSize.x, (float)imgSize.y);
 			animSprites.add(a);
 			a = null;
 			}
@@ -41,9 +42,16 @@ public class Animacao {
 		{
 			counter++;
 			timer=0;
-			if((counter) == frames) counter = 0;
+			if((counter) == frames){
+				counter = 0;
+				
+			}
+			else if(counter == (frames -1)) done = true;
+			else done = false;
 		}
 		timer++;
 		return animSprites.get(counter);
 	}
+	
+	
 }
