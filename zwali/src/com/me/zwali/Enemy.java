@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 	public class Enemy extends Entity
 	{
-		Animacao falling, dead;
+		Animacao falling, dead, explode;
 		private boolean alive;
 		boolean right;
 		int MaxHealth;
@@ -42,6 +42,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 			super( pos, new Vector(68, 60),true,  T );
 			falling = new Animacao(3,5,Textures.enemy1_falling,new Vector(128,128), new Vector(68,60));
 			dead = new Animacao(5,1,Textures.enemy1_dead,new Vector(256,128), new Vector(136,60));
+			explode = new Animacao(5,1,Textures.BarrelIM,new Vector(256,128), new Vector(136,60));
 			
 			this.type = type;
 			switch(type)
@@ -82,6 +83,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 			this.SightAngle = (float) 1;
 			this.SightRadiiSQ = 100000;
 			
+		
 			
 			this.State = 0; // Move
 			
@@ -112,10 +114,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		void Update( Vector target, List<Enemy> enem, int i, Background BACK)
 		{
 			
+	
 			if( State != 1)
 			{
-				vel = new Vector( target.x - pos.x, target.y- pos.y);
-				vel.normalize();
+					vel = new Vector( target.x - pos.x, target.y- pos.y);
+					vel.normalize();
 				Vector deltaPos = new Vector( vel.x*speed, vel.y*speed);
 				
 				for( int k = 0; k<enem.size(); k++)
@@ -123,7 +126,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 					if(k!=i)
 					{
 						Vector4 A = collisions.Coll(this, enem.get(k));
-						if(A.B <0)
+						if(A.B <1)
 						{
 							Vector proj = deltaPos.proj(A.A);
 							Vector perp = deltaPos.proj(new Vector ( -A.A.y, A.A.x));
@@ -147,8 +150,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 				vel = deltaPos;
 				
 				this.UpdatePos(BACK);
-					
-			
+
 				angle = Math.atan2( vel.y, vel.x);
 				angle = (angle*360)/(2*Math.PI);
 				this.animate();
@@ -172,19 +174,32 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 			
 		void dead_anim(Vector Disp)
 		{
-			if(!falling.done && falling_anim)
-			{
-			falling.getIm().setRotation((float) angle);
-			falling.getIm().setOrigin(34, 30);
-			falling.getIm().setPosition((float)(pos.x -size.x/2)  - (float)Disp.x, (float)(pos.y - size.y/2) - (float)Disp.y);	
-			falling.getIm().draw(Conceito.batch);
+			if(this.type != 3){
+				if(!falling.done && falling_anim)
+				{
+				falling.getIm().setRotation((float) angle);
+				falling.getIm().setOrigin(34, 30);
+				falling.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+				falling.getIm().draw(Conceito.batch);
+				}
+				else{
+					falling_anim = false;
+					dead.getIm().setRotation((float) angle);
+					dead.getIm().setOrigin(34, 30);
+					dead.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+					dead.getIm().draw(Conceito.batch,alpha);
+					
+					if(timer >= time_dead) alpha -= 0.01;
+					else timer++;
+					
+					if(alpha <= 0) ready = true;
+				}
 			}
 			else{
-				falling_anim = false;
-				dead.getIm().setRotation((float) angle);
-				dead.getIm().setOrigin(34, 30);
-				dead.getIm().setPosition((float)(pos.x -size.x/2)  - (float)Disp.x, (float)(pos.y - size.y/2) - (float)Disp.y);	
-				dead.getIm().draw(Conceito.batch,alpha);
+				explode.getIm().setRotation((float) angle);
+				explode.getIm().setOrigin(34, 30);
+				explode.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+				explode.getIm().draw(Conceito.batch,alpha);
 				
 				if(timer >= time_dead) alpha -= 0.01;
 				else timer++;
@@ -242,6 +257,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		{
 			State = 1; // ATTACK
 			AttackTimer = 0;
+			
+			
+		
 		}
 		
 		/*private boolean SeeTarget( Vector Target, Background BACK)
