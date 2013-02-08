@@ -269,7 +269,7 @@ public class GameLoop implements Screen{
 						A = Textures.zombie_type2;
 						break;
 					case 3:
-						A = Textures.zombie_type3;
+						A = Textures.Red;
 						break;
 					}
 							enem.add(new Enemy(new Vector(waves
@@ -694,10 +694,29 @@ public class GameLoop implements Screen{
 		{
 			Conceito.shapeRenderer.begin(ShapeType.Line);
 			Conceito.shapeRenderer.setColor(Color.RED);
-			Vector2 enemy = new Vector2((float)(enimio.pos.x - backG.Display.x) + 45, (float)(enimio.pos.y-backG.Display.y) + 45);
-			Vector2 player = new Vector2((float)(Player1.pos.x-backG.Display.x)+ 45, (float)(Player1.pos.y-backG.Display.y)+45);
+			Vector2 enemy = new Vector2((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y-backG.Display.y) );
+			Vector2 player = new Vector2((float)(Player1.pos.x-backG.Display.x), (float)(Player1.pos.y-backG.Display.y));
 			
-			Conceito.shapeRenderer.line(player.x,player.y,enemy.x,enemy.y);
+			Vector2 radar = new Vector2((float)(enemy.x - player.x),(float) (enemy.y - player.y ));
+			radar.nor();
+			radar = radar.mul(70);
+			
+			
+			
+			Conceito.batch.begin();
+			//Conceito.batch.draw(Textures.Red, (float)radar.x, (float)radar.y);
+			Textures.rdmBuff.setPosition((float)(radar.x + (player.x) - 10),(float) (radar.y + (player.y) - 17));
+			Textures.rdmBuff.setSize(25, 25);
+			
+			Textures.rdmBuff.draw(Conceito.batch);
+			
+			Conceito.batch.end();
+			
+			
+			
+			
+			
+			//Conceito.shapeRenderer.line(player.x,player.y,enemy.x,enemy.y);
 			Conceito.shapeRenderer.end();
 		}
 		
