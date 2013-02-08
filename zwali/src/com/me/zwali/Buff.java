@@ -1,5 +1,4 @@
 package com.me.zwali;
-
 public class Buff 
 {
 
@@ -16,8 +15,6 @@ public class Buff
 		this.type = type;
 	}
 	
-
-
 	public boolean active()
 	{
 		if(timebuff >= timerbuff)
