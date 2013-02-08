@@ -10,7 +10,6 @@ public class Bullet extends Entity
 
 		private boolean explode;
 		int timerExplode;
-		Explosion s;
 		int exp = 0;
 		Bullet( Vector pos, Vector velT, Sprite t, int speed, int power)
 		{
@@ -34,7 +33,6 @@ public class Bullet extends Entity
 			vel.y = 0;
 			if( Explo)
 			{
-				s = new Explosion(this.pos, new Vector (100,100));
 				timerExplode = 0;
 				explode = true;
 			}
@@ -83,16 +81,9 @@ public class Bullet extends Entity
 		
 		public void draw( Vector Disp, SpriteBatch batch)
 		{
-			if( explode)
-			{
-				s.animate(this.angle);
-				s.draw(Disp, batch);
-			}
 			
-			else
-			{
 				super.draw(Disp, batch);
-			}
+			
 			
 		}
 		

@@ -118,7 +118,7 @@ public class Textures {
 	 static Sprite bar_buildmodeon;
 	 static Sprite bar_buildmodeoff;
 	 
-	 static Sprite expl1,expl2,expl3;
+	 //static Sprite expl1,expl2,expl3;
 	 static Sprite bul_art;
 	 
 	public static void loadTextures() throws FileNotFoundException
@@ -133,9 +133,9 @@ public class Textures {
 		player_idle = loadTexture("/player/player_anim/player_anim_idle");
 		wv1 = loadTexture("/menus/wave_in");
 		wv2 = loadTexture("/menus/wave_in2");
-		expl1 = new Sprite(loadTexture("/explosion/exp1"));
-		expl2 = new Sprite(loadTexture("/explosion/exp2"));
-		expl3 = new Sprite(loadTexture("/explosion/exp3"));
+		//expl1 = new Sprite(loadTexture("/explosion/exp1"));
+		//expl2 = new Sprite(loadTexture("/explosion/exp2"));
+		//expl3 = new Sprite(loadTexture("/explosion/exp3"));
 		Crosshair2IM = loadTexture("/crosshair");
 		//CrosshairIM = loadTexture("crosshair2");
 		CrossUp = loadTexture("/CrossUp");
