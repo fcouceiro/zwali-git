@@ -15,6 +15,7 @@ public class Textures {
 	
 	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
 	 static Sprite enemy1_falling;
+	 static Sprite radar;
 	 static Sprite enemy1_dead;
 	 static Sprite enemy2_falling;
 	 static Sprite enemy2_dead;
@@ -129,6 +130,7 @@ public class Textures {
 	public static void loadTextures() throws FileNotFoundException
 	{
 		bul_art = loadTexture("/explosion/pistol_artifact");
+		radar = loadTexture("/radar");
 		enemy1_falling = loadTexture("/zombies/type1_anim/falling");
 		enemy1_dead = loadTexture("/zombies/type1_anim/dead");
 		enemy2_falling = loadTexture("/zombies/type1_anim/falling");

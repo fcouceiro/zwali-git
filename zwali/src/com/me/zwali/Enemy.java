@@ -67,7 +67,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 				break;
 			case 3:
 				this.speed = 4;
-				this.Health = (int) (85* difficulty * 0.5);
+				this.Health = 1;
 				this.power = (int) (13* difficulty * 0.5);
 				this.image.setSize(90,90);
 				this.size.x = 90;
@@ -119,6 +119,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		void kill()
 		{
 			alive = false;
+			
+			if(this.type == 3)
+			{
+				
+			}
 		}
 		
 		boolean getAlive()
