@@ -269,7 +269,7 @@ public class GameLoop implements Screen{
 						A = Textures.zombie_type2;
 						break;
 					case 3:
-						A = Textures.Red;
+						A = Textures.zombie_type3;
 						break;
 					}
 							enem.add(new Enemy(new Vector(waves
