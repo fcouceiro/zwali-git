@@ -32,8 +32,8 @@ public class Vector {
 		else
 		{
 			double d = Math.sqrt(x*x + y*y);
-			this.x = this.x/d;
-			this.y = this.y/d;
+			x = x/d;
+			y = y/d;
 		}
 	}
 	

@@ -291,20 +291,7 @@ public class Wizard {
 	public void animateWaveIncoming(int WaveNr, int timer, SpriteBatch batch)
 	{
 		
-		//Page
-		Sprite a = null;
-		if((timer/30) % 2 == 0)
-			a = Textures.wv1;
-		else
-			a = Textures.wv2;
-		
-		
-
-		a.setSize(248,114);
-		a.setPosition((float)(272),(float)(570 - a.getHeight()));
-		a.draw(batch);
-		
-		GameLoop.font.draw(batch,Integer.toString(WaveNr),425, 508);
+		GameLoop.font.draw(batch,"Wave incomming! Number: " + Integer.toString(WaveNr),425, 508);
 	}
 	
 	public void showup(Vector Disp, Vector playerpos, Player pl, SpriteBatch batch)	

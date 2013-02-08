@@ -40,9 +40,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		Enemy( Vector pos,Sprite T, int type, int difficulty)
 		{
 			super( pos, new Vector(68, 60),true,  T );
-			falling = new Animacao(3,5,Textures.enemy1_falling,new Vector(128,128), new Vector(68,60));
-			dead = new Animacao(5,1,Textures.enemy1_dead,new Vector(256,128), new Vector(136,60));
-			explode = new Animacao(5,1,Textures.BarrelIM,new Vector(256,128), new Vector(136,60));
 			
 			this.type = type;
 			switch(type)
@@ -51,16 +48,34 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 				this.speed = 3;
 				this.Health = (int) (115 * difficulty * 0.5);
 				this.power = (int) (15 * difficulty * 0.5);
+				
+				falling = new Animacao(3,5,Textures.enemy1_falling,new Vector(128,128), new Vector(68,60));
+				dead = new Animacao(5,1,Textures.enemy1_dead,new Vector(256,128), new Vector(136,60));
+				explode = new Animacao(5,1,Textures.BarrelIM,new Vector(256,128), new Vector(136,60));
+				
 				break;
 			case 2:
 				this.speed = 5;
 				this.Health = (int) (60 * difficulty * 0.5);
 				this.power = (int) (10 * difficulty * 0.5);
+				
+				falling = new Animacao(3,5,Textures.enemy1_falling,new Vector(128,128), new Vector(68,60));
+				dead = new Animacao(5,1,Textures.enemy1_dead,new Vector(256,128), new Vector(136,60));
+				explode = new Animacao(5,1,Textures.BarrelIM,new Vector(256,128), new Vector(136,60));
+				
+				
 				break;
 			case 3:
 				this.speed = 4;
 				this.Health = (int) (85* difficulty * 0.5);
 				this.power = (int) (13* difficulty * 0.5);
+				this.image.setSize(90,90);
+				this.size.x = 90;
+				this.size.y = 90;
+				falling = new Animacao(3,5,Textures.enemy1_falling,new Vector(128,128), new Vector(68,60));
+				dead = new Animacao(5,1,Textures.enemy1_dead,new Vector(256,128), new Vector(136,60));
+				explode = new Animacao(5,1,Textures.BarrelIM,new Vector(256,128), new Vector(136,60));
+				
 				break;
 			}
 			
