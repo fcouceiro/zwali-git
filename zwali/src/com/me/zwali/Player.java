@@ -216,7 +216,7 @@ class Player extends Entity
 			int MouseX = Gdx.input.getX();
 			int MouseY = 600 -Gdx.input.getY();
 			
-			Vector DispMouse = new Vector (MouseX-( pos.x + 45 - Disp.x), MouseY - ( pos.y + 45 - Disp.y) );
+			Vector DispMouse = new Vector (MouseX-( pos.x - Disp.x), MouseY - ( pos.y - Disp.y) );
 			
 			angle = Math.atan2( DispMouse.y, DispMouse.x);
 			angle = -90 +((angle*180)/(Math.PI));
@@ -360,20 +360,20 @@ class Player extends Entity
 			{
 				idle.getIm().setRotation((float) angle);
 				idle.getIm().setOrigin(45, 45);
-				idle.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+				idle.getIm().setPosition((float)pos.x -(float)size.x/2 - (float)Disp.x, (float)pos.y - (float)size.y/2 - (float)Disp.y);	
 				idle.getIm().draw(batch);
 			}
 			else
 			{
 				walk.getIm().setRotation((float) angle);
 				walk.getIm().setOrigin(45, 45);
-				walk.getIm().setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+				walk.getIm().setPosition((float)pos.x -(float)size.x/2 - (float)Disp.x, (float)pos.y - (float)size.y/2 - (float)Disp.y);	
 				walk.getIm().draw(batch);
 			}
 			
 			image.setRotation(((float) angle));
 			image.setOrigin(45, 45);
-			image.setPosition((float)pos.x - (float)Disp.x, (float)pos.y - (float)Disp.y);	
+			image.setPosition((float)pos.x -(float)size.x/2 - (float)Disp.x, (float)pos.y - (float)size.y/2 - (float)Disp.y);	
 			image.draw(batch);
 			
 		

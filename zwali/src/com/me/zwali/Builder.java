@@ -35,14 +35,14 @@ public class Builder
 	public void drawbar(Vector pos, float contador, float contador_max,SpriteBatch batch)
 	{
 		
-		builder_bar_btm.setPosition((float)pos.x -45 , (float)pos.y -55);
+		builder_bar_btm.setPosition((float)pos.x -45 , (float)pos.y - 10);
 		builder_bar_btm.draw(batch);
 		
 				
 		float auxiliar = ((contador/contador_max) * 80);
 		
 		builder_bar.setSize(auxiliar, 60);
-		builder_bar.setPosition((float)pos.x -45 , (float)pos.y -55);
+		builder_bar.setPosition((float)pos.x -45 , (float)pos.y -10);
 		builder_bar.draw(batch);
 
 	}

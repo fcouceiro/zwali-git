@@ -355,27 +355,23 @@ public class GameLoop implements Screen{
 						
 						if(enimio.Health > 0) 
 						{
+							Sprite a = null;
 							if(enimio.Health < 10)
 							{
-								Sprite a = new Sprite(Textures.Sangue_3);
-								a.setPosition((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y- backG.Display.y));
-								a.setRotation((float)enimio.angle);
-								sangues.add(new sangue(a,new Vector((float)(enimio.pos.x),(float)(enimio.pos.y))));
-							}
+								a = new Sprite(Textures.Sangue_3);
+								}
 							else if(enimio.Health < 60)
 							{
-								Sprite a = new Sprite(Textures.Sangue_2);
-								a.setPosition((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y- backG.Display.y));
-								a.setRotation((float)enimio.angle);
-								sangues.add(new sangue(a,new Vector((float)(enimio.pos.x),(float)(enimio.pos.y))));
+								a = new Sprite(Textures.Sangue_2);
 									}
 							else if(enimio.Health < enimio.MaxHealth)
 							{
-								Sprite a = new Sprite(Textures.Sangue_1);
-								a.setPosition((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y- backG.Display.y));
-								a.setRotation((float)enimio.angle);
-								sangues.add(new sangue(a,new Vector((float)(enimio.pos.x),(float)(enimio.pos.y))));
+								a = new Sprite(Textures.Sangue_1);
 							}
+							a.setPosition((float)(enimio.pos.x  - a.getWidth()/2 -  backG.Display.x), (float)(enimio.pos.y- a.getHeight()/2 -  backG.Display.y));
+							a.setRotation((float)enimio.angle);
+							sangues.add(new sangue(a,new Vector((float)(enimio.pos.x -a.getWidth()/2),(float)(enimio.pos.y - a.getHeight()/2))));
+						
 						}
 						else
 						{
@@ -772,9 +768,9 @@ public class GameLoop implements Screen{
 						timerGun = 0;
 						Vector p = Player1.getPos();
 						Vector d = backG.getDisp(); 
-						Vector c = new Vector(MouseX - p.x - 45 + d.x , MouseY- p.y -45 + d.y);
+						Vector c = new Vector(MouseX - p.x  + d.x , MouseY- p.y + d.y);
 						c.normalize();
-						Vector dir = new Vector(p.x + Player1.size.x/2 - 9  + c.x*30, p.y + Player1.size.y/2 - 9 + c.y*30 );
+						Vector dir = new Vector(p.x  + c.x*30, p.y + c.y*30 );
 										
 						c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
 						
@@ -828,9 +824,9 @@ public class GameLoop implements Screen{
 						timerGun = 0;
 						Vector p = Player1.getPos();
 						Vector d = backG.getDisp(); 
-						Vector c = new Vector(MouseX - p.x - 45 + d.x , MouseY- p.y -45 + d.y);
+						Vector c = new Vector(MouseX - p.x + d.x , MouseY- p.y + d.y);
 						c.normalize();
-						Vector dir = new Vector(p.x + Player1.size.x/2 - 9  + c.x*30, p.y + Player1.size.y/2 - 9 + c.y*30 );
+						Vector dir = new Vector(p.x + c.x*30, p.y + c.y*30 );
 										
 						c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
 						

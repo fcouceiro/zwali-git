@@ -105,7 +105,7 @@ public class MyInputProcessor implements InputProcessor {
 		}
 		if(keycode == Keys.DPAD_RIGHT)
 		{
-			if(Player1.pos.x >= 1550 && Player1.pos.x <= 1730 && Player1.pos.y >= 250 &&  Player1.pos.y <= 380) //Wiz area
+			if(Player1.pos.x >= 1550 +45 && Player1.pos.x <= 1730+45 && Player1.pos.y >= 250+45 &&  Player1.pos.y <= 380+45) //Wiz area
 			{
 			Wizard.counter++;
 			if(Wizard.counter == 9)
@@ -115,7 +115,7 @@ public class MyInputProcessor implements InputProcessor {
 		}
 		if(keycode == Keys.DPAD_LEFT)
 		{
-			if(Player1.pos.x >= 1550 && Player1.pos.x <= 1730 && Player1.pos.y >= 250 &&  Player1.pos.y <= 380)
+			if(Player1.pos.x >= 1550+45 && Player1.pos.x <= 1730+45 && Player1.pos.y >= 250+45 &&  Player1.pos.y <= 380+45)
 			{
 				Wizard.counter--;
 			if(Wizard.counter < 0)

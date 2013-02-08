@@ -47,7 +47,7 @@ public class Bullet extends Entity
 			Vector posk = john.getPos();
 			Vector sizek = john.getSize();
 			
-			boolean a = ( this.pos.x - this.size.x/2 >= posk.x - sizek.x/2		&& this.pos.x - this.size.x/2 <= posk.x + sizek.x/2 		&& this.pos.y - this.size.y/2 >=posk.y-sizek.y/2	&& this.pos.y - this.size.y/2 <= posk.y+sizek.y/2);
+			boolean a = ( this.pos.x - this.size.x/2 >= posk.x - sizek.x/2		&& this.pos.x - this.size.x/2 <= posk.x + sizek.x/2 	&& this.pos.y - this.size.y/2 >=posk.y-sizek.y/2	&& this.pos.y - this.size.y/2 <= posk.y+sizek.y/2);
 			boolean b = ( this.pos.x + this.size.x/2 >= posk.x - sizek.x/2		&& this.pos.x + this.size.x/2 <= posk.x + sizek.x/2		&& this.pos.y - this.size.y/2 >=posk.y-sizek.y/2 	&& this.pos.y - this.size.y/2 <= posk.y+sizek.y/2);
 			boolean c = ( this.pos.x + this.size.x/2 >= posk.x - sizek.x/2		&& this.pos.x + this.size.x/2 <= posk.x + sizek.x/2		&& this.pos.y + this.size.y/2 >=posk.y-sizek.y/2	&& this.pos.y + this.size.y/2 <= posk.y+sizek.y/2);
 			boolean d = ( this.pos.x - this.size.x/2 >= posk.x - sizek.x/2		&& this.pos.x - this.size.x/2 <= posk.x + sizek.x/2		&& this.pos.y + this.size.y/2 >=posk.y-sizek.y/2	&& this.pos.y + this.size.y/2 <= posk.y+sizek.y/2);

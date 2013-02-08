@@ -168,15 +168,15 @@ public class Weapon
 			int MouseY = 600 - Gdx.input.getY();
 			Vector p = Player1.getPos();
 			Vector d = Disp; 
-			Vector c = new Vector(MouseX - p.x - 45 + d.x , MouseY- p.y -45 + d.y);
+			Vector c = new Vector(MouseX - p.x + d.x , MouseY- p.y + d.y);
 			c.normalize();
-			c.rotate(-6);
-			Vector dir = new Vector(p.x + Player1.size.x/2 - 9  + c.x*55, p.y + Player1.size.y/2 - 9 + c.y*55 );
+			//c.rotate(-6);
+			Vector dir = new Vector(p.x -d.x + c.x*55, p.y -d.y + c.y*55 );
 			
 			Textures.bul_art.setOrigin(Textures.bul_art.getWidth()/2,Textures.bul_art.getHeight()/2);
 			Textures.bul_art.setSize(20,20);
 			Textures.bul_art.setRotation((float)Player1.angle);
-			Textures.bul_art.setPosition((float)(dir.x-d.x),(float)(dir.y-d.y));
+			Textures.bul_art.setPosition((float)(dir.x - Textures.bul_art.getWidth()/2 ),(float)(dir.y - Textures.bul_art.getHeight()/2));
 			Textures.bul_art.draw(Conceito.batch);
 	
 		}
