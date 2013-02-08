@@ -33,10 +33,7 @@ public class Bullet extends Entity
 			vel.y = 0;
 			if( Explo)
 			{
-<<<<<<< HEAD
-=======
-				
->>>>>>> Final do dia 8
+
 				timerExplode = 0;
 				explode = true;
 			}
@@ -85,13 +82,7 @@ public class Bullet extends Entity
 		
 		public void draw( Vector Disp, SpriteBatch batch)
 		{
-<<<<<<< HEAD
-=======
-			if( explode)
-			{
-			
-			}
->>>>>>> Final do dia 8
+
 			
 				super.draw(Disp, batch);
 			
