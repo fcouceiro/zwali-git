@@ -99,8 +99,8 @@ public class Textures {
 	 
 	 static Sprite builder_bar;
 	 static Sprite builder_bar_btm;
-	 static Sprite wizard;
-	 static Sprite box;
+	 static Sprite shopIM;
+	 
 	 
 
 	 static Sprite _1;
@@ -188,8 +188,7 @@ public class Textures {
 		environment_Tree = loadTexture("/environment/tree");
 		builder_bar = loadTexture("/builder/barra");
 		builder_bar_btm = loadTexture("/builder/barra_btm");
-		wizard = loadTexture("/environment/wizard");
-		box = loadTexture("/environment/box");
+		shopIM = loadTexture("/shop");
 		mainmenu_dificuldade = loadTexture("/menus/dificuldade");
 		mainmenu_dificuldade_rockie = loadTexture("/menus/dificuldade_rockie");
 		mainmenu_dificuldade_regular = loadTexture("/menus/dificuldade_regular");
@@ -209,7 +208,7 @@ public class Textures {
 		btnPrev_h = loadTexture("/tutorial/btnPrev_h");
 		btnmainMenu = loadTexture("/tutorial/btnMainmenu");
 		btnmainMenu_h = loadTexture("/tutorial/btnMainmenu_h");
-	
+		
 		
 	}
 	

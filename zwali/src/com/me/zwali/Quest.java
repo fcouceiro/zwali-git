@@ -15,11 +15,12 @@ import com.badlogic.gdx.math.Vector2;
 public class Quest implements Screen{
 	
 	public static BitmapFont font;
+
 	
 	Player Player1;
 	List <CharSequence> Log = new ArrayList<CharSequence>();
 	
-	Wizard wizard;
+	Shop shop;
 	Textures t = new Textures();
 	Constants consts = new Constants();
 	Background backG;
@@ -89,7 +90,8 @@ public class Quest implements Screen{
 		         Gdx.files.internal("res/fonts/arial.png"), false);
 		
 		
-		wizard = new Wizard(new Vector(1575, 1675), new Vector(90,90), Player1);
+		
+		
 		Cross = new RealCross( new Vector(0,0), new Vector(2,20), Textures.CrossSide);
 
 		Barril = new Crosshair( new Vector(0,0), new Vector(80,80), Textures.BarrelUnIM);
@@ -156,7 +158,7 @@ public class Quest implements Screen{
 		time_wiz++;
 		if(WarmUp)
 		{
-			if(!Wizard.wizardmode)
+			if(!shop.wizardmode)
 			{
 				Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
 				timeWarmup++;
@@ -627,7 +629,7 @@ public class Quest implements Screen{
 		
 
 		Player1.draw(Disp,Conceito.batch);
-		wizard.showup(Disp, Player1.pos, Player1,Conceito.batch);
+		
 		
 		Player1.InvListWeapons.get(Player1.CurGun).Update(Player1,backG.Display);
 		
@@ -662,7 +664,7 @@ public class Quest implements Screen{
 		
 		if(waveincoming)
 		{
-			wizard.animateWaveIncoming(Wavenr, timeWarmup,Conceito.batch);
+			shop.animateWaveIncoming(Wavenr, timeWarmup,Conceito.batch);
 		}
 		
 		if(debug)
@@ -699,13 +701,7 @@ public class Quest implements Screen{
 		Conceito.shapeRenderer.end();
 		}
 		
-		if(wizard.getWizMode())
-		{
-				Conceito.shapeRenderer.begin(ShapeType.Box);
-		Conceito.shapeRenderer.setColor(Color.WHITE);
-		Conceito.shapeRenderer.box((float)(1585 - backG.Display.x), (float)(141 - backG.Display.y), 0, 155, 40, 0);
-		Conceito.shapeRenderer.end();
-		}
+		
 	}
 
 	private void updateLog()
@@ -879,7 +875,7 @@ public class Quest implements Screen{
 		// TODO Auto-generated method stub
 		backG = null;
 		Player1 = null;
-		wizard = null;
+		shop = null;
 		enem.clear();
 		bul.clear();
 		stats = null;
@@ -889,6 +885,7 @@ public class Quest implements Screen{
 		nWave =2;
 		WarmUp = true;
 		font.dispose();
+		
 	}
 
 }

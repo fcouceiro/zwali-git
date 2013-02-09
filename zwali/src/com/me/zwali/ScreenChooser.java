@@ -101,7 +101,9 @@ public class ScreenChooser implements Screen{
 			if(q.hit(mx, my))
 			{
 				if(q.questName == "MainMenu" && Gdx.input.justTouched()) maingame.setScreen(maingame.mainmenu);
+				else if(q.questName == "Shop" && Gdx.input.justTouched()) maingame.setScreen(maingame.shop);
 				else if(Gdx.input.justTouched()) maingame.setScreen(this.generateScreen(q.cenario));
+				
 			}
 		}
 	}

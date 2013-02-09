@@ -20,6 +20,7 @@ public class Conceito extends Game {
 	Mainmenu mainmenu;
 	Howtoplay howtoplaymenu;
 	Quest gameloop;
+	Shop shop;
 	ScreenChooser questsScreen;
 
 	
@@ -43,12 +44,14 @@ public class Conceito extends Game {
 		
 		mainmenu = new Mainmenu(this);
 		howtoplaymenu = new Howtoplay(this);
+		shop = new Shop(this);
 		
 		questsScreen = new ScreenChooser(this);
 		questsScreen.quests.add(new QuestThumb(Textures.Red,"Home", new Vector2(355,300), new Vector2(90,60),Home()));
 		questsScreen.quests.add(new QuestThumb(Textures.Red,"Farm", new Vector2(155,300), new Vector2(60,40),null));
 		questsScreen.quests.add(new QuestThumb(Textures.Red,"Garage", new Vector2(555,300), new Vector2(60,40),null));
 		questsScreen.quests.add(new QuestThumb(Textures.Red,"MainMenu", new Vector2(355,200), new Vector2(60,40),null));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"Shop", new Vector2(600,100), new Vector2(60,40),null));
 		
 		Player Player1 = new Player( new Vector(1024, 1024), 60);
 		ScreenChooser.Player1 = Player1;
@@ -61,7 +64,7 @@ public class Conceito extends Game {
 	public void dispose() {
 		batch.dispose();
 		Textures.dispose();
-
+		
 	}
 	
 	Cenario Home()
