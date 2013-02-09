@@ -16,7 +16,7 @@ public class ScreenChooser implements Screen{
 
 	Conceito maingame;
 	MyInputProcessor inputProcessor;
-	Player Player1;
+	public static Player Player1;
 	Quest curQuest;
 	List<QuestThumb> quests = new ArrayList<QuestThumb>(5);
 	BitmapFont font;
@@ -66,23 +66,28 @@ public class ScreenChooser implements Screen{
 	{
 		Quest temp = new Quest(this.maingame);
 		temp.backG.image = c.background;
-		inputProcessor = null;
-		inputProcessor = new MyInputProcessor(temp);
-		
-		Player1 = temp.Player1;
-		Player1.money = 9000;
-		Gdx.input.setInputProcessor(inputProcessor);
 		
 		if(c.Objects != null)
 		{
-			temp.backG.Objects = c.Objects;
-		}
-		if(c.UnObjects != null)
-		{
-			temp.backG.UnObjects = c.UnObjects;
+			for(StaticObj s:c.Objects)
+			{
+				s.image.setSize(80, 80);
+				temp.backG.Objects.add(s);
+			}
 		}
 		
+		inputProcessor = null;
+		inputProcessor = new MyInputProcessor(temp);
+		
+		temp.Player1 = Player1;
+		temp.Player1.pos.x = 1024;
+		temp.Player1.pos.y = 1024;
+		
+		Gdx.input.setInputProcessor(inputProcessor);
+		
 		System.out.println("Quest created successfuly");
+		Gdx.app.log("cenario size barril", String.valueOf(c.Objects.get(0).image.getWidth()));
+
 		return temp;
 	}
 	
@@ -169,13 +174,11 @@ class QuestThumb
 class Cenario
 {
 	Sprite background;
-	List <StaticObj> Objects = null;
-	List <UnStaticObj> UnObjects = null;
+	List <StaticObj> Objects;
+	List <UnStaticObj> UnObjects;
 	
-	Cenario(Sprite bg, List <StaticObj> Objects, List <UnStaticObj> UnObjects)
+	Cenario(Sprite bg)
 	{
 		this.background = bg;
-		this.Objects = Objects;
-		this.UnObjects = UnObjects;
 	}
 }

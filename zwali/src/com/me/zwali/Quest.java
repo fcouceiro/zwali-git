@@ -88,7 +88,7 @@ public class Quest implements Screen{
 		font = new BitmapFont(Gdx.files.internal("res/fonts/arial.fnt"),
 		         Gdx.files.internal("res/fonts/arial.png"), false);
 		
-		Player1 = new Player( new Vector(1024, 1024), 60);
+		
 		wizard = new Wizard(new Vector(1575, 1675), new Vector(90,90), Player1);
 		Cross = new RealCross( new Vector(0,0), new Vector(2,20), Textures.CrossSide);
 

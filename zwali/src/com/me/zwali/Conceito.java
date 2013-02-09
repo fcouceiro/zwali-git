@@ -50,6 +50,9 @@ public class Conceito extends Game {
 		questsScreen.quests.add(new QuestThumb(Textures.Red,"Garage", new Vector2(555,300), new Vector2(60,40),null));
 		questsScreen.quests.add(new QuestThumb(Textures.Red,"MainMenu", new Vector2(355,200), new Vector2(60,40),null));
 		
+		Player Player1 = new Player( new Vector(1024, 1024), 60);
+		ScreenChooser.Player1 = Player1;
+		Player1.money = 9000;
 		setScreen(questsScreen);
 
 	}
@@ -63,23 +66,24 @@ public class Conceito extends Game {
 	
 	Cenario Home()
 	{
-		List <StaticObj> Objects = new ArrayList<StaticObj>(10); 
-				Objects.add( new StaticObj( new Vector( 834, 834), new Vector( 80, 80), Textures.BarrelIM ));
-				Objects.add( new StaticObj( new Vector( 914, 834), new Vector( 80, 80), Textures.BarrelIM ));
-				Objects.add( new StaticObj( new Vector( 834, 914), new Vector( 80, 80), Textures.BarrelIM ));
+		Cenario temp = new Cenario(Textures.backgroundIM);
+				temp.Objects = new ArrayList<StaticObj>(10);
+				temp.Objects.add( new StaticObj( new Vector( 834, 834), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 914, 834), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 834, 914), new Vector( 80, 80), Textures.BarrelIM ));
 				
-				Objects.add( new StaticObj( new Vector( 1214, 834), new Vector( 80, 80), Textures.BarrelIM ));
-				Objects.add( new StaticObj( new Vector( 1134, 834), new Vector( 80, 80), Textures.BarrelIM ));
-				Objects.add( new StaticObj( new Vector( 1214, 914), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 1214, 834), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 1134, 834), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 1214, 914), new Vector( 80, 80), Textures.BarrelIM ));
 				
-				Objects.add( new StaticObj( new Vector( 834, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-				Objects.add( new StaticObj( new Vector( 834, 1134), new Vector( 80, 80), Textures.BarrelIM ));
-				Objects.add( new StaticObj( new Vector( 914, 1214), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 834, 1214), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 834, 1134), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 914, 1214), new Vector( 80, 80), Textures.BarrelIM ));
 				
-				Objects.add( new StaticObj( new Vector( 1214, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-				Objects.add( new StaticObj( new Vector( 1134, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-				Objects.add( new StaticObj( new Vector( 1214, 1134), new Vector( 80, 80), Textures.BarrelIM ));
-		Cenario temp = new Cenario(Textures.backgroundIM, Objects,null);
+				temp.Objects.add( new StaticObj( new Vector( 1214, 1214), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 1134, 1214), new Vector( 80, 80), Textures.BarrelIM ));
+				temp.Objects.add( new StaticObj( new Vector( 1214, 1134), new Vector( 80, 80), Textures.BarrelIM ));
+		
 		return temp;
 	}
 	
