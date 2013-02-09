@@ -4,10 +4,10 @@ import com.badlogic.gdx.Input.Keys;
 
 public class MyInputProcessor implements InputProcessor {
 
-	GameLoop GMl;
+	Quest GMl;
 	Player Player1;
 	
-	public MyInputProcessor(GameLoop gml)
+	public MyInputProcessor(Quest gml)
 	{
 		GMl = gml;
 		Player1 = gml.Player1;
@@ -54,10 +54,10 @@ public class MyInputProcessor implements InputProcessor {
 		}
 		if(keycode == Keys.B)
 		{
-			if(!GameLoop.buildMode) GameLoop.buildMode = true;
-			else if(GameLoop.buildMode)
+			if(!Quest.buildMode) Quest.buildMode = true;
+			else if(Quest.buildMode)
 			{
-				GameLoop.buildMode = false;
+				Quest.buildMode = false;
 				switch(Player1.CurGun)
 				{
 					case 0:
@@ -72,6 +72,11 @@ public class MyInputProcessor implements InputProcessor {
 				}
 			}
 		}
+		if(keycode == Keys.ESCAPE)
+		{
+			GMl.dispose();
+			GMl.MainGame.setScreen(GMl.MainGame.questsScreen);
+		}
 
 		if(keycode == Keys.R)
 		{
@@ -79,14 +84,14 @@ public class MyInputProcessor implements InputProcessor {
 		}
 		if(keycode == Keys.NUM_1)
 		{
-			GameLoop.armaActual = 0;
+			Quest.armaActual = 0;
 			if( Player1.setCurGun(0))
 				Player1.image = Textures.playerPistolIM;
 			
 		}
 		if(keycode == Keys.NUM_2)
 		{
-			GameLoop.armaActual = 2;
+			Quest.armaActual = 2;
 			if( Player1.setCurGun(2) )
 				Player1.image = Textures.playerShotGunIM;
 			
@@ -94,7 +99,7 @@ public class MyInputProcessor implements InputProcessor {
 		if(keycode == Keys.NUM_3)
 		
 		{	
-			GameLoop.armaActual = 1; 
+			Quest.armaActual = 1; 
 			if(Player1.setCurGun(1) )
 				Player1.image = Textures.playerMachineGunIM;
 			
@@ -167,13 +172,13 @@ public class MyInputProcessor implements InputProcessor {
 		
 		if(amount == 1)
 		{
-			if(GameLoop.armaActual == 2) GameLoop.armaActual = 0;
-			else GameLoop.armaActual++;
+			if(Quest.armaActual == 2) Quest.armaActual = 0;
+			else Quest.armaActual++;
 		}
 		if(amount == -1)
 		{
-			if(GameLoop.armaActual == 0) GameLoop.armaActual = 2;
-			else GameLoop.armaActual--;
+			if(Quest.armaActual == 0) Quest.armaActual = 2;
+			else Quest.armaActual--;
 		}
 			
 		return false;

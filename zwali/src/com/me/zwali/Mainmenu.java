@@ -17,9 +17,10 @@ public class Mainmenu implements Screen
 	Vector btnPlay = new Vector(300,0);
 	Vector btnHowtoplay = new Vector(70,-20);
 	Vector btnAbout = new Vector(530,-20);
+	
 	Vector mpos = new Vector(0,0);
 	SpriteBatch batch = Conceito.batch;
-	GameLoop GMl;
+	Quest GMl;
 	Conceito MainGame;
 	Player Player1;
 	MyInputProcessor inputProcessor;
@@ -44,6 +45,10 @@ public class Mainmenu implements Screen
 				//sound.stopAll();
 				//sound.playOnce(sound.startsound);
 				this.start = true;
+			}
+			if(!start && mpos.x > 0 && mpos.x < 100 && mpos.y > 0 && mpos.y < 100)
+			{
+				this.MainGame.setScreen(MainGame.questsScreen);
 			}
 			else if(!start && mpos.x > (this.btnHowtoplay.x + 18) && mpos.x < (this.btnHowtoplay.x + 178) && mpos.y > (this.btnHowtoplay.y + 474) && mpos.y < (this.btnHowtoplay.y + 512))
 			{
@@ -186,7 +191,8 @@ public class Mainmenu implements Screen
 			{
 				GMl = null;
 				inputProcessor = null;
-				GMl = new GameLoop(MainGame);
+				GMl = new Quest(MainGame);
+				
 				inputProcessor = new MyInputProcessor(GMl);
 				Player1 = GMl.Player1;
 				Player1.money = 9000;

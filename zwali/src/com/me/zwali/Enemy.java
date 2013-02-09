@@ -24,7 +24,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		int rotCount = 0;
 		
 		boolean falling_anim = true,ready = false;
-		
+		boolean active = false;
 		boolean rotleft,rotright;
 		
 		int radioactivetimer1 = 60;

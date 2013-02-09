@@ -1,12 +1,15 @@
 
 package com.me.zwali;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 
 public class Conceito extends Game {
 	public static OrthographicCamera camera;
@@ -16,8 +19,8 @@ public class Conceito extends Game {
 	
 	Mainmenu mainmenu;
 	Howtoplay howtoplaymenu;
-	GameLoop gameloop;
-
+	Quest gameloop;
+	ScreenChooser questsScreen;
 
 	
 	@Override
@@ -36,19 +39,20 @@ public class Conceito extends Game {
 		batch = new SpriteBatch();
 		batch.getTransformMatrix().setToTranslation(-1*(w/2), -1*(h/2), 0);
 		shapeRenderer = new ShapeRenderer();
-	
+		batch.setProjectionMatrix(camera.combined);
+		
 		mainmenu = new Mainmenu(this);
 		howtoplaymenu = new Howtoplay(this);
-
-		setScreen(mainmenu);
+		
+		questsScreen = new ScreenChooser(this);
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"Home", new Vector2(355,300), new Vector2(90,60),Home()));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"Farm", new Vector2(155,300), new Vector2(60,40),null));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"Garage", new Vector2(555,300), new Vector2(60,40),null));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"MainMenu", new Vector2(355,200), new Vector2(60,40),null));
+		
+		setScreen(questsScreen);
 
 	}
-	
-//	public void generateNewGameLoop()
-//	{
-//		this.gameloop = null;
-//		gameloop = new GameLoop(this);
-//	}
 
 	@Override
 	public void dispose() {
@@ -56,5 +60,29 @@ public class Conceito extends Game {
 		Textures.dispose();
 
 	}
+	
+	Cenario Home()
+	{
+		List <StaticObj> Objects = new ArrayList<StaticObj>(10); 
+				Objects.add( new StaticObj( new Vector( 834, 834), new Vector( 80, 80), Textures.BarrelIM ));
+				Objects.add( new StaticObj( new Vector( 914, 834), new Vector( 80, 80), Textures.BarrelIM ));
+				Objects.add( new StaticObj( new Vector( 834, 914), new Vector( 80, 80), Textures.BarrelIM ));
+				
+				Objects.add( new StaticObj( new Vector( 1214, 834), new Vector( 80, 80), Textures.BarrelIM ));
+				Objects.add( new StaticObj( new Vector( 1134, 834), new Vector( 80, 80), Textures.BarrelIM ));
+				Objects.add( new StaticObj( new Vector( 1214, 914), new Vector( 80, 80), Textures.BarrelIM ));
+				
+				Objects.add( new StaticObj( new Vector( 834, 1214), new Vector( 80, 80), Textures.BarrelIM ));
+				Objects.add( new StaticObj( new Vector( 834, 1134), new Vector( 80, 80), Textures.BarrelIM ));
+				Objects.add( new StaticObj( new Vector( 914, 1214), new Vector( 80, 80), Textures.BarrelIM ));
+				
+				Objects.add( new StaticObj( new Vector( 1214, 1214), new Vector( 80, 80), Textures.BarrelIM ));
+				Objects.add( new StaticObj( new Vector( 1134, 1214), new Vector( 80, 80), Textures.BarrelIM ));
+				Objects.add( new StaticObj( new Vector( 1214, 1134), new Vector( 80, 80), Textures.BarrelIM ));
+		Cenario temp = new Cenario(Textures.backgroundIM, Objects,null);
+		return temp;
+	}
+	
+	
 
 }

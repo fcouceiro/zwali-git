@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 
-public class GameLoop implements Screen{
-
+public class Quest implements Screen{
+	
 	public static BitmapFont font;
 	
 	Player Player1;
@@ -77,7 +77,7 @@ public class GameLoop implements Screen{
 	
 	Conceito MainGame;
 	
-	public GameLoop(Conceito main)
+	public Quest(Conceito main)
 	{
 		this.MainGame = main;
 		Log.add("Bem-vindo ao Zwali! ");
@@ -115,38 +115,7 @@ public class GameLoop implements Screen{
 		backG.addOBJ( new StaticObj( new Vector( backG.size.x/2, -2), new Vector( backG.size.x, 4), Textures.BarrelIM ));
 		backG.addOBJ( new StaticObj( new Vector( backG.size.x/2, backG.size.y + 2), new Vector(  backG.size.x, 4), Textures.BarrelIM ));
 
-		
-		
-		//Barris de guardiï¿½â€¹o ao wizard
-		backG.addOBJ( new StaticObj( new Vector( 1890, 340), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1928, 250), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 2008, 200), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1810, 380), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1810-80, 380), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1688, 300), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1608, 260), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1540, 260), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1500, 180), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1480, 100), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1480, 40), new Vector( 80, 80), Textures.BarrelIM ));
-		
-		//SafeHouse. 4cantos: (834,834) (1214,834) (834,1214) (1214,1214)
-		backG.addOBJ( new StaticObj( new Vector( 834, 834), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 914, 834), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 834, 914), new Vector( 80, 80), Textures.BarrelIM ));
-		
-		backG.addOBJ( new StaticObj( new Vector( 1214, 834), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1134, 834), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1214, 914), new Vector( 80, 80), Textures.BarrelIM ));
-		
-		backG.addOBJ( new StaticObj( new Vector( 834, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 834, 1134), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 914, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-		
-		backG.addOBJ( new StaticObj( new Vector( 1214, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1134, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( 1214, 1134), new Vector( 80, 80), Textures.BarrelIM ));
-		
+
 		rdm = new Random();
 		
 		invmenu = new InvMenu(Conceito.batch);
@@ -278,6 +247,7 @@ public class GameLoop implements Screen{
 				
 				if (waves.get(i).empty()) 
 				{
+		
 					nWavesCur--;
 					nWave++;
 					System.out.println("Wave "+waves.get(i).waveNR+"ended and there are "+nWavesCur );
@@ -923,39 +893,3 @@ public class GameLoop implements Screen{
 
 }
 
-class sangue
-{
-	Sprite blood;
-	Vector pos;
-	int time = 300;
-	int timer = 0;
-	int time_anim = 400;
-	float alpha = 1.0f;
-	
-	public sangue(Sprite a, Vector pos)
-	{
-		this.blood = a;
-		this.pos = pos;
-	}
-	
-	void update(Background backG)
-	{
-		if(timer >= time)
-		{
-			if(timer >= time_anim);
-			else{
-				timer++;
-				blood.setPosition((float)(pos.x - backG.Display.x), (float)(pos.y - backG.Display.y));
-				blood.draw(Conceito.batch,alpha);
-				alpha -= 0.01f;
-			}
-		}
-		else
-		{
-			timer++;
-			blood.setPosition((float)(pos.x - backG.Display.x), (float)(pos.y - backG.Display.y));
-			blood.draw(Conceito.batch);
-			
-		}
-	}
-}
