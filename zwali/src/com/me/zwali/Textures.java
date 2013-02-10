@@ -130,8 +130,11 @@ public class Textures {
 	 //static Sprite expl1,expl2,expl3;
 	 static Sprite bul_art;
 	 static Sprite questThumb;
+
+	 static Sprite ruthlessLogo;
 	public static void loadTextures() throws FileNotFoundException
 	{
+		ruthlessLogo = loadTexture("/rlogo");
 		qHome = loadTexture("/Quests/Home");
 		tHome = loadTexture("/Quests/Thumbs/Home");
 		questThumb = loadTexture("/Quests/questThumbnail");

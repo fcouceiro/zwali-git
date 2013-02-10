@@ -17,11 +17,11 @@ public class Conceito extends Game {
 	public static Preferences prefs;
 	public static boolean hasKeyboard;
 	
-	Mainmenu mainmenu;
+	private FlashScreen zwaliScreen, ruthlessLogoScreen;
 	Howtoplay howtoplaymenu;
 	Shop shop;
 	ScreenChooser questsScreen;
-
+	Menu mainmenu;
 	
 	@Override
 	public void create() {		
@@ -43,7 +43,7 @@ public class Conceito extends Game {
 		
 		batch.setProjectionMatrix(camera.combined);
 		
-		mainmenu = new Mainmenu(this);
+		
 		howtoplaymenu = new Howtoplay(this);
 		shop = new Shop(this);
 		
@@ -56,7 +56,11 @@ public class Conceito extends Game {
 		
 		ScreenChooser.Player1 = getPlayer();
 
-		setScreen(questsScreen);
+		//flash screens
+		zwaliScreen = new FlashScreen(this,Textures.mainmenuIM,this.questsScreen);
+		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.zwaliScreen);
+		
+		setScreen(this.ruthlessLogoScreen);
 
 	}
 
@@ -127,7 +131,8 @@ public class Conceito extends Game {
 		questsScreen.dispose();
 		shop.dispose();
 		howtoplaymenu.dispose();
-		mainmenu.dispose();
+		zwaliScreen.dispose();
+		//mainmenu.dispose();
 	}
 	
 	Cenario Home()
