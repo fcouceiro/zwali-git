@@ -63,7 +63,7 @@ public class Textures {
 	 static Sprite rdmBuff;
 	 //End of Items
 	 
-	 static Sprite shopBtnExit;
+	 static Sprite shopBtns;
 	 
 	 //wavein
 	 static Sprite wv1;
@@ -133,9 +133,9 @@ public class Textures {
 	public static void loadTextures() throws FileNotFoundException
 	{
 		qHome = loadTexture("/Quests/Home");
-		tHome = loadTexture("/Thumbs/Home");
-		questThumb = loadTexture("/questThumbnail");
-		shopBtnExit = loadTexture("/btn-exit");
+		tHome = loadTexture("/Quests/Thumbs/Home");
+		questThumb = loadTexture("/Quests/questThumbnail");
+		shopBtns = loadTexture("/Shop/btns-shop");
 		bul_art = loadTexture("/explosion/pistol_artifact");
 		radar = loadTexture("/radar");
 		enemy1_falling = loadTexture("/zombies/type1_anim/falling");
@@ -195,7 +195,7 @@ public class Textures {
 		environment_Tree = loadTexture("/environment/tree");
 		builder_bar = loadTexture("/builder/barra");
 		builder_bar_btm = loadTexture("/builder/barra_btm");
-		shopIM = loadTexture("/shop");
+		shopIM = loadTexture("/Shop/shop");
 		mainmenu_dificuldade = loadTexture("/menus/dificuldade");
 		mainmenu_dificuldade_rockie = loadTexture("/menus/dificuldade_rockie");
 		mainmenu_dificuldade_regular = loadTexture("/menus/dificuldade_regular");

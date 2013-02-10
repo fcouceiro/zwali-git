@@ -37,8 +37,8 @@ public class Shop implements Screen{
 		shopfont = new BitmapFont(Gdx.files.internal("res/fonts/arial.fnt"),
 		         Gdx.files.internal("res/fonts/arial.png"), false);
 		
-		TextureRegion btnHr = new TextureRegion(Textures.shopBtnExit,0,0,128,128);
-		TextureRegion btnr = new TextureRegion(Textures.shopBtnExit,128,0,128,128);
+		TextureRegion btnHr = new TextureRegion(Textures.shopBtns,0,0,128,128);
+		TextureRegion btnr = new TextureRegion(Textures.shopBtns,128,0,128,128);
 		btnH = new Sprite(btnr);
 		btn = new Sprite(btnHr);
 		buyH = new Sprite(Textures.Red);
