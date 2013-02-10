@@ -7,6 +7,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -56,6 +57,8 @@ public class Shop implements Screen{
 	public void render(float delta) {
 		// TODO Auto-generated method stub
 		if(Gdx.input.isKeyPressed(Keys.ESCAPE)) MainGame.setScreen(MainGame.questsScreen);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		Conceito.batch.begin();
 		this.update();
 		Conceito.batch.end();
@@ -158,28 +161,28 @@ public class Shop implements Screen{
 					selected[2] = true;
 				}				
 			}
-			else if(mpos.x > 280 && mpos.x < 350 && mpos.y < 260 && mpos.y > 100)
-			{
-				shopfont.draw(Conceito.batch,"???" ,450, 135); 
-				shopfont.draw(Conceito.batch,"No one really knows mutch about this item." ,450, 110);
-				
-			}
-			else if(mpos.x > 375 && mpos.x < 405 && mpos.y < 320 && mpos.y > 350) //Primeiro slot segunda prateleira
-			{
-				shopfont.draw(Conceito.batch,"Health Potions" ,450, 135); 
-				shopfont.draw(Conceito.batch,"+20 HP." ,450, 110);
-				
-			}			
+//			else if(mpos.x > 280 && mpos.x < 350 && mpos.y < 260 && mpos.y > 100)
+//			{
+//				shopfont.draw(Conceito.batch,"???" ,450, 135); 
+//				shopfont.draw(Conceito.batch,"No one really knows mutch about this item." ,450, 110);
+//				
+//			}
+//			else if(mpos.x > 375 && mpos.x < 405 && mpos.y < 320 && mpos.y > 350) //Primeiro slot segunda prateleira
+//			{
+//				shopfont.draw(Conceito.batch,"Health Potions" ,450, 135); 
+//				shopfont.draw(Conceito.batch,"+20 HP." ,450, 110);
+//				
+//			}			
 		}		
 		else
 		{
-			if(mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
+			if(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
 			{
 				highlight[1] = true;
 			}
 			else
 				highlight[1] = false;
-			if(mpos.x > btnExitPos.x +280 && mpos.x < btnExitPos.x + 400 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
+			if(mpos.x > btnExitPos.x +260 && mpos.x < btnExitPos.x + 365 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
 			{
 				highlight[2] = true;
 			}
@@ -194,7 +197,7 @@ public class Shop implements Screen{
 						//Add butoes;
 					if(ScreenChooser.Player1.UpgPwrPistol < 3 && ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100+ (ScreenChooser.Player1.UpgPwrPistol*100)))
 					{
-						if(mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+						if(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
 							{
 							ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100) ;
 							ScreenChooser.Player1.UpgPwrPistol += 1;	
@@ -204,7 +207,7 @@ public class Shop implements Screen{
 					}
 					else if(ScreenChooser.Player1.hasGun[0] && mpos.x > btnExitPos.x +280 && mpos.x < btnExitPos.x + 400 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
 						ScreenChooser.Player1.setCurGun(0);
-					if(!(mpos.x > 55 && mpos.x < 130 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+					if(!(mpos.x > 55 && mpos.x < 130 && mpos.y < 260 && mpos.y > 100) && !(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) && !( mpos.x > btnExitPos.x +260 && mpos.x < btnExitPos.x + 365 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) &&Gdx.input.justTouched())
 						{
 						selected[0] = false;
 						highlight[1] = false;
@@ -232,7 +235,7 @@ public class Shop implements Screen{
 							ScreenChooser.Player1.setCurGun(2);
 					
 						
-					if(!(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+					if(!(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) && !(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) && !( mpos.x > btnExitPos.x +260 && mpos.x < btnExitPos.x + 365 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) && Gdx.input.justTouched())
 						{
 						selected[1] = false;	
 						highlight[1] = false;
@@ -244,7 +247,7 @@ public class Shop implements Screen{
 					shopfont.draw(Conceito.batch,"Price: 1500$"  ,450, 110);
 						if(ScreenChooser.Player1.money >= 1500 ) 
 						{
-								if(mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+								if(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
 								{
 									ScreenChooser.Player1.money -= 1500;
 									ScreenChooser.Player1.CurGun = 2;
@@ -253,7 +256,7 @@ public class Shop implements Screen{
 								
 							
 						}
-						if(!(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+						if(!(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) && !(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) && !( mpos.x > btnExitPos.x +260 && mpos.x < btnExitPos.x + 365 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) &&Gdx.input.justTouched())
 							{
 							selected[1] = false;
 							highlight[1] = false;
@@ -272,7 +275,7 @@ public class Shop implements Screen{
 							shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrMinigun+1*250) + (ScreenChooser.Player1.UpgPwrMinigun*100)) + "XP" ,450, 95);
 							if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200))
 							{
-								if(mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+								if(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
 								{
 									ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200 ;
 									ScreenChooser.Player1.UpgPwrMinigun += 1;	
@@ -280,7 +283,7 @@ public class Shop implements Screen{
 									ScreenChooser.Player1.InvListWeapons.get(2).power2 += 1;
 								}
 							}
-							else if(ScreenChooser.Player1.hasGun[1] && mpos.x > btnExitPos.x +280 && mpos.x < btnExitPos.x + 400 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
+							else if(ScreenChooser.Player1.hasGun[1] && mpos.x > btnExitPos.x +260 && mpos.x < btnExitPos.x + 365 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
 								ScreenChooser.Player1.setCurGun(1);
 						}
 						else
@@ -288,14 +291,14 @@ public class Shop implements Screen{
 							shopfont.draw(Conceito.batch,"Price: 7500$"  ,450, 110);
 							if(ScreenChooser.Player1.money >= 7500) //add botoes
 							{
-								if(Gdx.input.justTouched() && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
+								if(Gdx.input.justTouched() && mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
 								{
 									ScreenChooser.Player1.money -= 7500;
 									ScreenChooser.Player1.hasGun[1] = true;
 								}
 							}
 						}
-						if(!(mpos.x > 210 && mpos.x < 280 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+						if(!(mpos.x > 190 && mpos.x < 260 && mpos.y < 260 && mpos.y > 100) && !(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 260 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) && !( mpos.x > btnExitPos.x +260 && mpos.x < btnExitPos.x + 365 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) &&Gdx.input.justTouched())
 						{
 							selected[2] = false;
 							highlight[1] = false;
@@ -333,25 +336,25 @@ public class Shop implements Screen{
 		}
 		if(highlight[1])
 		{
-			buyH.setPosition((float)btnExitPos.x +140, (float)btnExitPos.y + 65);
-			buyH.setSize(128,128);
+			buyH.setPosition((float)btnExitPos.x +130, (float)btnExitPos.y);
+			buyH.setSize(115,115);
 			buyH.draw(Conceito.batch);
 		}
 		else
 		{
-			buy.setPosition((float)btnExitPos.x +140, (float)btnExitPos.y + 65);
-			buy.setSize(128,128);
+			buy.setPosition((float)btnExitPos.x +130, (float)btnExitPos.y);
+			buy.setSize(115,115);
 			buy.draw(Conceito.batch);
 		}
 		if(highlight[2])
 		{
-			equipH.setPosition((float)btnExitPos.x +280, (float)btnExitPos.y + 65);
-			equipH.setSize(128,128);
+			equipH.setPosition((float)btnExitPos.x +260, (float)btnExitPos.y);
+			equipH.setSize(115,115);
 			equipH.draw(Conceito.batch);
 		}
 		else{
-			equip.setPosition((float)btnExitPos.x +280, (float)btnExitPos.y + 65);
-			equip.setSize(128,128);
+			equip.setPosition((float)btnExitPos.x +260, (float)btnExitPos.y);
+			equip.setSize(115,115);
 			equip.draw(Conceito.batch);
 			
 			
