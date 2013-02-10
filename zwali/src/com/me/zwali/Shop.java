@@ -24,6 +24,7 @@ public class Shop implements Screen{
 	Vector btnExitPos = new Vector(50, 50);
 
 	boolean highlight = false;
+	boolean selected[] = new boolean[3];
 	static boolean wizardmode = false;
 	static Random rdm = new Random();
 	
@@ -100,61 +101,148 @@ public class Shop implements Screen{
 		
 		shopfont.draw(Conceito.batch,"Money = " + ScreenChooser.Player1.money + "$" ,650, 580); 
 		shopfont.draw(Conceito.batch,"XP = " + ScreenChooser.Player1.XP ,650, 560); 
+		Textures.minigun.setPosition(210, 370);
+		Textures.minigun.setSize(70, 120);
+		//Textures.minigun.setR
+		Textures.minigun.draw(Conceito.batch);
 		
-		if(mpos.x > 55 && mpos.x < 130 && mpos.y < 260 && mpos.y > 100)
-		{
-			shopfont.draw(Conceito.batch,"Pistol" ,450, 135); 
-			shopfont.draw(Conceito.batch,"Power" + "/" + "3" ,450, 110);
-			shopfont.draw(Conceito.batch,"Upgrade price:" + "XP" ,450, 95);
-		}
-		else if(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) //2nd cabide
-		{
-			shopfont.draw(Conceito.batch,"Shotgun" ,450, 135); 
-			if(ScreenChooser.Player1.hasGun[2])
-			{
-			shopfont.draw(Conceito.batch,"Power" + "/" + "3" ,450, 110);
-			shopfont.draw(Conceito.batch,"Upgrade price:" + "XP" ,450, 95);
-			}
-			else
-				shopfont.draw(Conceito.batch,"Price: 1500$"  ,450, 110);
-		}
-		else if(mpos.x > 210 && mpos.x < 280 && mpos.y < 260 && mpos.y > 100)
-		{
-			shopfont.draw(Conceito.batch,"Minigun" ,450, 135); 
-			if(ScreenChooser.Player1.hasGun[1])
-			{
-			shopfont.draw(Conceito.batch,"Power" + "/" + "3" ,450, 110);
-			shopfont.draw(Conceito.batch,"Upgrade price:" + "XP" ,450, 95);
-			}
-			else
-				shopfont.draw(Conceito.batch,"Price: 7500$"  ,450, 110);
-		}
-		else if(mpos.x > 280 && mpos.x < 350 && mpos.y < 260 && mpos.y > 100)
-		{
-			shopfont.draw(Conceito.batch,"???" ,450, 135); 
-			shopfont.draw(Conceito.batch,"No one really knows mutch about this item." ,450, 110);
-			
-		}
-		else if(mpos.x > 375 && mpos.x < 405 && mpos.y < 320 && mpos.y > 350) //Primeiro slot segunda prateleira
-		{
-			shopfont.draw(Conceito.batch,"Health Potions" ,450, 135); 
-			shopfont.draw(Conceito.batch,"+20 HP." ,450, 110);
-			
-		}
-		else if(mpos.x > btnExitPos.x && mpos.x < btnExitPos.x + 110 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
-		{
-			shopfont.draw(Conceito.batch,"Go back." ,450, 135);
-			highlight = true;
-			if(Gdx.input.justTouched()) this.MainGame.setScreen(this.MainGame.questsScreen);
-		}
-		else
+		
+		if(selected[0]== false && selected[1] == false && selected[2] == false)
 		{
 			shopfont.draw(Conceito.batch,"Welcome Adventurer... Looking for any goods?" ,450, 135);
 			shopfont.draw(Conceito.batch,"Just check on the item you are interested in!" ,450, 110);
-			highlight = false;
-		}
 		
-	}
+		
+			if(mpos.x > 55 && mpos.x < 130 && mpos.y < 260 && mpos.y > 100 )
+			{
+				if( Gdx.input.justTouched())
+					{
+						selected[0] = true;	
+						selected[1] = false;
+						selected[2] = false;
+					}
+			}
+			else if(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) //2nd cabide
+			{
+				if( Gdx.input.justTouched())
+				{
+					selected[0] = false;	
+					selected[1] = true;
+					selected[2] = false;
+				}	
+			}
+			else if(mpos.x > 210 && mpos.x < 280 && mpos.y < 260 && mpos.y > 100)
+			{
+				if( Gdx.input.justTouched())
+				{
+					selected[0] = false;	
+					selected[1] = false;
+					selected[2] = true;
+				}				
+			}
+			else if(mpos.x > 280 && mpos.x < 350 && mpos.y < 260 && mpos.y > 100)
+			{
+				shopfont.draw(Conceito.batch,"???" ,450, 135); 
+				shopfont.draw(Conceito.batch,"No one really knows mutch about this item." ,450, 110);
+				
+			}
+			else if(mpos.x > 375 && mpos.x < 405 && mpos.y < 320 && mpos.y > 350) //Primeiro slot segunda prateleira
+			{
+				shopfont.draw(Conceito.batch,"Health Potions" ,450, 135); 
+				shopfont.draw(Conceito.batch,"+20 HP." ,450, 110);
+				
+			}
+			else if(mpos.x > btnExitPos.x && mpos.x < btnExitPos.x + 110 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
+			{
+				shopfont.draw(Conceito.batch,"Go back." ,450, 135);
+				highlight = true;
+				if(Gdx.input.justTouched()) this.MainGame.setScreen(this.MainGame.questsScreen);
+			}
+			
+			
+		}		
+		else
+		{
+			if(selected[0] == true)
+			{
+					shopfont.draw(Conceito.batch,"Pistol" ,450, 135); 
+					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrPistol +"/" + "3" ,450, 110);
+					shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100)) + "XP" ,450, 95);
+						//Add butoes;
+	//					if(ScreenChooser.Player1.UpgPwrPistol < 3 && ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100 + ScreenChooser.Player1.UpgPwrPistol*100))
+	//					{
+	//					ScreenChooser.Player1.XP -= (pl.UpgPwrPistol+1)*100 + pl.UpgPwrPistol*100 ;
+	//					ScreenChooser.Player1.UpgPwrPistol += 1;	
+	//					ScreenChooser.Player1.InvListWeapons.get(0).power += 5;
+	//					ScreenChooser.Player1.InvListWeapons.get(0).power2 += 5;
+	//					}
+					if(!(mpos.x > 55 && mpos.x < 130 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+						selected[0] = false;
+			}
+			else if(selected[1] == true)
+			{
+				shopfont.draw(Conceito.batch,"Shotgun" ,450, 135); 
+				if(ScreenChooser.Player1.hasGun[2])
+				{
+					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrShotgun +"/" + "3" ,450, 110);
+					shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrShotgun+1*250) + (ScreenChooser.Player1.UpgPwrShotgun*100)) + "XP" ,450, 95);
+	//						if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100))
+	//						{
+	//							ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100 ;
+	//							ScreenChooser.Player1.UpgPwrShotgun += 1;	
+	//							ScreenChooser.Player1.InvListWeapons.get(2).power += 3;
+	//							ScreenChooser.Player1.InvListWeapons.get(2).power2 += 3;
+	//						}
+						
+				if(!(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+					selected[1] = false;	
+							
+				}
+				else
+				{
+							if(ScreenChooser.Player1.money >= 1500) // E buy pressed
+							{
+								ScreenChooser.Player1.money -= 1500;
+								ScreenChooser.Player1.hasGun[2] = true;
+							}
+							
+							shopfont.draw(Conceito.batch,"Price: 1500$"  ,450, 110);
+						}
+					}
+					else if(selected[2] == true)
+					{
+						shopfont.draw(Conceito.batch,"Minigun" ,450, 135);
+						if(ScreenChooser.Player1.hasGun[1])
+						{
+							shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrMinigun +"/" + "3" ,450, 110);
+							shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrMinigun+1*250) + (ScreenChooser.Player1.UpgPwrMinigun*100)) + "XP" ,450, 95);
+							if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200) && Gdx.input.justTouched())
+							{
+								ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200 ;
+								ScreenChooser.Player1.UpgPwrMinigun += 1;	
+								ScreenChooser.Player1.InvListWeapons.get(2).power += 1;
+								ScreenChooser.Player1.InvListWeapons.get(2).power2 += 1;
+							}
+						}
+						else
+						{
+							shopfont.draw(Conceito.batch,"Price: 7500$"  ,450, 110);
+							if(ScreenChooser.Player1.money >= 7500) //add botoes
+							{
+								ScreenChooser.Player1.money -= 7500;
+								ScreenChooser.Player1.hasGun[1] = true;
+							}
+						}
+						if(!(mpos.x > 210 && mpos.x < 280 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+							selected[2] = false;
+					}
+					
+				}
+				highlight = false;
+				
+			}
+		
+	
 	
 	private void draw()
 	{

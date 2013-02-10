@@ -720,12 +720,7 @@ public class Quest implements Screen{
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		Weapon wp1 = new Weapon(0, difficulty);
-		Weapon wp2 = new Weapon(1, difficulty);
-		Weapon wp3 = new Weapon(2, difficulty);
-		Player1.addGun(wp1);
-		Player1.addGun(wp2);
-		Player1.addGun(wp3);
+		
 	}
 
 	@Override

@@ -120,7 +120,10 @@ public class ScreenChooser implements Screen{
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+		if(Player1.Health <= 0){
+		Player1.Health = Player1.MaxHp;
+		Player1.alive = true;
+		}
 	}
 
 	@Override

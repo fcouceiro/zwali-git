@@ -64,23 +64,38 @@ public class Conceito extends Game {
 	Player getPlayer()
 	{
 		boolean savegame = prefs.getBoolean("savegame",false);
+		//Mudar a dificuldade, segundo parametro
+		Weapon wp1 = new Weapon(0, 1);
+		Weapon wp2 = new Weapon(1, 1);
+		Weapon wp3 = new Weapon(2, 1);
 		
 		if(savegame)
 		{
+			
 			int health = prefs.getInteger("Phealth",80);
 			int armor = prefs.getInteger("Parmor",60);
-			int money = prefs.getInteger("Pmoney",0);
-			int xp = prefs.getInteger("Pexp",0);
+			//int money = prefs.getInteger("Pmoney",0);
+			int money = 10000;
+			int xp = 10000;
+			//int xp = prefs.getInteger("Pexp",0);
 			Player temp = new Player(new Vector(1024, 1024),armor);
 			temp.Health = health;
 			temp.money = money;
 			temp.XP = xp;
+			
+			temp.addGun(wp1);
+			temp.addGun(wp2);
+			temp.addGun(wp3);
 			Gdx.app.log("Savegame", "loaded");
 			return temp;
 		}
+		Player novo = new Player( new Vector(1024, 1024), 60);
 		
+		novo.addGun(wp1);
+		novo.addGun(wp2);
+		novo.addGun(wp3);
 		Gdx.app.log("Savegame", "not loaded");
-		return new Player( new Vector(1024, 1024), 60);
+		return novo;
 	}
 	
 	void Savegame()
