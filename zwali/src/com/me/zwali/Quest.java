@@ -616,7 +616,7 @@ public class Quest implements Screen{
 			System.out.println("GAME OVER! O MUNDO TAMBEM FICA MELHOR SEM TI!!");
 			System.out.println("CARREGA Y PARA RECOMECAR, N PARA TE ACORBARDARES E FUGIRES COM O RABINHO ENTRE AS PERNAS!");
 		
-			MainGame.setScreen(MainGame.mainmenu);
+			MainGame.setScreen(MainGame.questsScreen);
 			this.hide();
 		}
 		
