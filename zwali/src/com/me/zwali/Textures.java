@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Textures {
 	
 	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
+	
+	static Sprite qHome;
 	 static Sprite enemy1_falling;
 	 static Sprite radar;
 	 static Sprite enemy1_dead;
@@ -130,6 +132,7 @@ public class Textures {
 	 static Sprite questThumb;
 	public static void loadTextures() throws FileNotFoundException
 	{
+		qHome = loadTexture("/Quests/Home");
 		tHome = loadTexture("/Thumbs/Home");
 		questThumb = loadTexture("/questThumbnail");
 		shopBtnExit = loadTexture("/btn-exit");

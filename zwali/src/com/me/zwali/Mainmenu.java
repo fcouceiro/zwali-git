@@ -192,7 +192,7 @@ public class Mainmenu implements Screen
 			{
 				GMl = null;
 				inputProcessor = null;
-				GMl = new Quest(MainGame);
+				GMl = new Quest(MainGame,null,null);
 				
 				inputProcessor = new MyInputProcessor(GMl);
 				Player1 = GMl.Player1;

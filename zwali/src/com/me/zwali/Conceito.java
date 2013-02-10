@@ -74,11 +74,17 @@ public class Conceito extends Game {
 			
 			int health = prefs.getInteger("Phealth",80);
 			int armor = prefs.getInteger("Parmor",60);
+<<<<<<< HEAD
 			//int money = prefs.getInteger("Pmoney",0);
 			int money = 10000;
 			int xp = 10000;
 			//int xp = prefs.getInteger("Pexp",0);
 			Player temp = new Player(new Vector(1024, 1024),armor);
+=======
+			int money = prefs.getInteger("Pmoney",0);
+			int xp = prefs.getInteger("Pexp",0);
+			Player temp = new Player(new Vector(256, 256),armor);
+>>>>>>> Home cenario
 			temp.Health = health;
 			temp.money = money;
 			temp.XP = xp;
@@ -123,24 +129,8 @@ public class Conceito extends Game {
 	
 	Cenario Home()
 	{
-		Cenario temp = new Cenario(Textures.backgroundIM);
-				temp.Objects = new ArrayList<StaticObj>(10);
-				temp.Objects.add( new StaticObj( new Vector( 834, 834), new Vector( 80, 80), Textures.BarrelIM ));
-				temp.Objects.add( new StaticObj( new Vector( 914, 834), new Vector( 80, 80), Textures.BarrelIM ));
-				temp.Objects.add( new StaticObj( new Vector( 834, 914), new Vector( 80, 80), Textures.BarrelIM ));
-				
-				temp.Objects.add( new StaticObj( new Vector( 1214, 834), new Vector( 80, 80), Textures.BarrelIM ));
-				temp.Objects.add( new StaticObj( new Vector( 1134, 834), new Vector( 80, 80), Textures.BarrelIM ));
-				temp.Objects.add( new StaticObj( new Vector( 1214, 914), new Vector( 80, 80), Textures.BarrelIM ));
-				
-				temp.Objects.add( new StaticObj( new Vector( 834, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-				temp.Objects.add( new StaticObj( new Vector( 834, 1134), new Vector( 80, 80), Textures.BarrelIM ));
-				temp.Objects.add( new StaticObj( new Vector( 914, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-				
-				temp.Objects.add( new StaticObj( new Vector( 1214, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-				temp.Objects.add( new StaticObj( new Vector( 1134, 1214), new Vector( 80, 80), Textures.BarrelIM ));
-				temp.Objects.add( new StaticObj( new Vector( 1214, 1134), new Vector( 80, 80), Textures.BarrelIM ));
-		
+		Cenario temp = new Cenario(Textures.qHome, new Vector(600,950), new Vector(950,750));
+		temp.Objects.add(new Vector(75,320));
 		return temp;
 	}
 	

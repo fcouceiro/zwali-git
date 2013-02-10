@@ -69,15 +69,15 @@ public class ScreenChooser implements Screen{
 	
 	Screen generateScreen(Cenario c)
 	{
-		Quest temp = new Quest(this.maingame);
+		Quest temp = new Quest(this.maingame,c.Wave1Pos,c.Wave2Pos);
 		temp.backG.image = c.background;
 		
-		if(c.Objects != null)
+		
+		if(c.Objects.size() != 0)
 		{
-			for(StaticObj s:c.Objects)
+			for(Vector s:c.Objects)
 			{
-				s.image.setSize(80, 80);
-				temp.backG.Objects.add(s);
+				temp.backG.Objects.add(new StaticObj(new Vector(s.x,s.y), new Vector(90,90),Textures.BarrelIM));
 			}
 		}
 		
@@ -85,8 +85,8 @@ public class ScreenChooser implements Screen{
 		inputProcessor = new MyInputProcessor(temp);
 		
 		temp.Player1 = Player1;
-		temp.Player1.pos.x = 1024;
-		temp.Player1.pos.y = 1024;
+		temp.Player1.pos.x = temp.backG.size.x / 2;
+		temp.Player1.pos.y = temp.backG.size.y / 2;
 		temp.difficulty = 1;
 		Gdx.input.setInputProcessor(inputProcessor);
 		temp.shop = this.maingame.shop;
@@ -184,11 +184,15 @@ class QuestThumb
 class Cenario
 {
 	Sprite background;
-	List <StaticObj> Objects;
-	List <UnStaticObj> UnObjects;
+	List <Vector> Objects = new ArrayList<Vector>(5);
+	List <Vector> UnObjects  = new ArrayList<Vector>(5);
+	Vector Wave1Pos;
+	Vector Wave2Pos;
 	
-	Cenario(Sprite bg)
+	Cenario(Sprite bg, Vector Wave1Pos, Vector Wave2Pos)
 	{
 		this.background = bg;
+		this.Wave1Pos = Wave1Pos;
+		this.Wave2Pos = Wave2Pos;
 	}
 }

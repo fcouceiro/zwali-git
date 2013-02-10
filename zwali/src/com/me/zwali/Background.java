@@ -23,9 +23,9 @@ public class Background
 		this.image = img;
 		this.image.setOrigin(0,0);
 		this.image.setSize((float)size.x, (float)size.y);
-		this.Display = new Vector( 624 , 724 );	
+		this.Display = new Vector( 112 , 212 );	
 		this.size = size;
-		
+		Objects.clear();
 		
 	}
 	
@@ -44,7 +44,7 @@ public class Background
 		}
 	
 		
-		if( Display.y <0) {Display.y = 0;}
+		if( Display.y <-60) {Display.y = -60;}
 		else if( Display.y > size.y - consts.HEIGHT) 
 		{
 			Display.y = size.y - consts.HEIGHT;
@@ -58,9 +58,6 @@ public class Background
 	{
 		image.setPosition(-(float)Display.x, -(float)Display.y);
 		image.draw(batch);
-
-       
-		
 	}
 	
 	void draw_objs(SpriteBatch batch)

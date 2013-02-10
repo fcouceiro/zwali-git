@@ -78,7 +78,7 @@ public class Quest implements Screen{
 	
 	Conceito MainGame;
 	
-	public Quest(Conceito main)
+	public Quest(Conceito main, Vector Wave1Pos, Vector Wave2Pos)
 	{
 		this.MainGame = main;
 		Log.add("Bem-vindo ao Zwali! ");
@@ -95,9 +95,8 @@ public class Quest implements Screen{
 		col = new Collision();
 		drop = new ItemDrop(t);
 		
-		
-		waves.add(new Wave(new Vector( 200, 1800), 1,150));
-		waves.add(new Wave(new Vector( 2048 -200, 1800), 1,150));
+		waves.add(new Wave(new Vector( Wave1Pos.x, Wave1Pos.y), 1,150));
+		waves.add(new Wave(new Vector( Wave2Pos.x, Wave2Pos.y), 1,150));
 		
 		stats.PlayerAtingido = 0;
 		stats.PlayerDisparos = 0;
@@ -105,7 +104,7 @@ public class Quest implements Screen{
 		stats.PlayerTirosNoEnemy = 0;
 		
 		//Generating the background
-		backG = new Background( Textures.backgroundIM, new Vector( 2048, 2048) );
+		backG = new Background( Textures.backgroundIM, new Vector( 1024, 1024) );
 		
 		/*barreiras laterais/superiores/inferiores*/
 		backG.addOBJ( new StaticObj( new Vector( -2, backG.size.y/2), new Vector( 4, backG.size.y), Textures.BarrelIM ));
@@ -415,17 +414,6 @@ public class Quest implements Screen{
 		
 		backG.draw_objs(Conceito.batch);
 		
-		if(Player1.pos.x <= 180 || Player1.pos.x >= (2048-180) || Player1.pos.y <= 180 || Player1.pos.y >= (2048-180) || ((Player1.pos.x >= 180 && Player1.pos.x <= 680) && (Player1.pos.y >= 180 && Player1.pos.y <= 600)))
-		{
-			if(radioactivetime == radioactivetimer)
-			{
-				Player1.Health -= 5;
-				radioactivetime = 0;
-				this.Log.add("Danger - Nuclear Area");
-			}
-			else
-				radioactivetime++;
-		}
 		
 		
 		//Build Mode
@@ -554,8 +542,7 @@ public class Quest implements Screen{
 			
 			if(enimio.getAlive())
 			{
-				enimio.draw(Disp,Conceito.batch);
-				enimio.isRadioActive();			
+				enimio.draw(Disp,Conceito.batch);		
 			}
 			else
 			{
