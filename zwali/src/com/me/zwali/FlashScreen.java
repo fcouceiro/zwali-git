@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class FlashScreen implements Screen
 {
-	int time = 0;
-	int timer = 30;
+	int time;
+	int timer = 0;
 	
 	Vector btnPlay = new Vector(300,0);
 	Vector btnHowtoplay = new Vector(70,-20);
@@ -28,12 +28,13 @@ public class FlashScreen implements Screen
 	float alpha = 0.0f;
 	Sprite image;
 	Screen nextScreen;
-	
-	public FlashScreen(Conceito main, Sprite flashImage, Screen next)
+
+	public FlashScreen(Conceito main, Sprite flashImage, Screen next, int timeOn)
 	{
 		MainGame = main;
 		image = flashImage;
 		nextScreen = next;
+		this.time = timeOn;
 	}
 
 	
@@ -42,10 +43,19 @@ public class FlashScreen implements Screen
 	{
 		if(up)
 		{
-			alpha += 0.01f;
-			if(alpha >= 1)
+			
+			if(alpha >= 0.99f)
 			{
-				up = false;
+				alpha = 1.0f;
+				if(timer >=time)
+				{
+					up = false;
+				}
+				else timer++;
+			}
+			else
+			{
+				alpha += 0.01f;
 			}
 		}
 		else
@@ -61,22 +71,22 @@ public class FlashScreen implements Screen
 		image.setSize(800,600);
 		image.draw(Conceito.batch,alpha);
 		
+		Gdx.app.log("flashScreen data", String.valueOf(alpha) + " " + up);
 	}
 	
 	@Override
 	public void render(float delta) 
 	{
 		// TODO Auto-generated method stub
-		if(Gdx.input.isKeyPressed(Keys.ESCAPE)) MainGame.setScreen(MainGame.questsScreen);
+		if(Gdx.input.justTouched()) MainGame.setScreen(this.nextScreen);
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		Conceito.batch.begin();
 		this.animateBanner();
-			
-		
-		 
 		Conceito.batch.end();
+		
+		
 	}
 
 	@Override

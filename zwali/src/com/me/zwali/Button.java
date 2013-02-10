@@ -1,39 +1,33 @@
 package com.me.zwali;
 
-import com.badlogic.gdx.Gdx;
-
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 
 public class Button
 {
-	String Name;
-	Vector UL;
-	Vector BR;
-
+	Sprite thumbnail;
+	CharSequence text;
+	Vector2 Pos;
+	Vector2 size;
+	Vector2 txtPosRel;
+	Screen screen;
 	
-	public Button(Vector UL, Vector BR, String name)
+	public Button(Sprite t,CharSequence text, Vector2 Pos, Vector2 Size,Vector2 txtPosRel, Screen screen)
 	{
-		this.UL = UL;
-		this.BR = BR;
-		this.Name = name;
+		this.size = Size;
+		this.thumbnail = t;
+		this.text = text;
+		this.Pos = Pos;
+		this.txtPosRel = txtPosRel;
+		this.screen = screen;
 	}
 	
-	public boolean Quit(Vector mousepos)
+	boolean hit(int x, int y)
 	{
-			if(Gdx.input.isTouched() && mousepos.x > UL.x && mousepos.y > UL.y && mousepos.x < BR.x && mousepos.y < BR.y)
-			{			
-				return true;
-			}		
-			return false;
-	}
-	
-	public boolean mousehover(Vector mpos)
-	{
-		if(mpos.x > UL.x && mpos.x < BR.x && mpos.y > UL.y && mpos.y < BR.y)
-		{
-			System.out.println("Mousehover: " + this.Name);
+		if(x >= Pos.x && x <= Pos.x + (size.x) && y >= Pos.y && y <= Pos.y + (size.y) ){
 			return true;
 		}
 		return false;
 	}
-
 }

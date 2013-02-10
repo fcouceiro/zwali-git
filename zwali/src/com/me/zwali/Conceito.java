@@ -42,8 +42,7 @@ public class Conceito extends Game {
 		prefs = Gdx.app.getPreferences("Player-prefs");
 		
 		batch.setProjectionMatrix(camera.combined);
-		
-		
+	
 		howtoplaymenu = new Howtoplay(this);
 		shop = new Shop(this);
 		
@@ -51,14 +50,21 @@ public class Conceito extends Game {
 		questsScreen.quests.add(new QuestThumb(Textures.tHome,"Home", new Vector2(355,300), new Vector2(200,200),new Vector2(60,25),Home()));
 		questsScreen.quests.add(new QuestThumb(Textures.Red,"Farm", new Vector2(155,300), new Vector2(140,140),new Vector2(35,20),null));
 		questsScreen.quests.add(new QuestThumb(Textures.Red,"Garage", new Vector2(555,300), new Vector2(140,140),new Vector2(30,20),null));
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"MainMenu", new Vector2(355,200), new Vector2(140,140),new Vector2(30,20),null));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"Back", new Vector2(355,200), new Vector2(140,140),new Vector2(30,20),null));
 		questsScreen.quests.add(new QuestThumb(Textures.Red,"Shop", new Vector2(600,100), new Vector2(140,140),new Vector2(35,20),null));
 		
 		ScreenChooser.Player1 = getPlayer();
 
+		mainmenu = new Menu(this);
+		mainmenu.btns.add(new Button(null,"Story mode",new Vector2(325,450),new Vector2(150,50),new Vector2(0,0),questsScreen));
+		mainmenu.btns.add(new Button(null,"Survival",new Vector2(325,350),new Vector2(150,50),new Vector2(0,0),null));
+		mainmenu.btns.add(new Button(null,"Basics",new Vector2(325,250),new Vector2(150,50),new Vector2(0,0),null));
+		mainmenu.btns.add(new Button(null,"About",new Vector2(325,150),new Vector2(150,50),new Vector2(0,0),null));
+		
+		
 		//flash screens
-		zwaliScreen = new FlashScreen(this,Textures.mainmenuIM,this.questsScreen);
-		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.zwaliScreen);
+		zwaliScreen = new FlashScreen(this,Textures.mainmenuIM,this.mainmenu, 240);
+		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.zwaliScreen,120);
 		
 		setScreen(this.ruthlessLogoScreen);
 
