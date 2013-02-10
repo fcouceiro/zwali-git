@@ -154,7 +154,7 @@ public class Quest implements Screen{
 		time_wiz++;
 		if(WarmUp)
 		{
-			if(!shop.wizardmode)
+			if(!Shop.wizardmode)
 			{
 				Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
 				timeWarmup++;

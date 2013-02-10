@@ -101,7 +101,8 @@ public class Textures {
 	 static Sprite builder_bar_btm;
 	 static Sprite shopIM;
 	 
-	 
+	 //thumbs
+	 static Sprite tHome;
 
 	 static Sprite _1;
 	 static Sprite _2;
@@ -129,6 +130,7 @@ public class Textures {
 	 static Sprite questThumb;
 	public static void loadTextures() throws FileNotFoundException
 	{
+		tHome = loadTexture("/Thumbs/Home");
 		questThumb = loadTexture("/questThumbnail");
 		shopBtnExit = loadTexture("/btn-exit");
 		bul_art = loadTexture("/explosion/pistol_artifact");

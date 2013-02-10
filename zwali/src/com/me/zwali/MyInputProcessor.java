@@ -10,7 +10,7 @@ public class MyInputProcessor implements InputProcessor {
 	public MyInputProcessor(Quest gml)
 	{
 		GMl = gml;
-		Player1 = gml.Player1;
+		Player1 = ScreenChooser.Player1;
 	}
 	
 	@Override

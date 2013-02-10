@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -47,6 +46,12 @@ public class ScreenChooser implements Screen{
 			Textures.questThumb.setPosition(pos.x, pos.y);
 			Textures.questThumb.setSize(size.x, size.y);
 			Textures.questThumb.draw(Conceito.batch);
+			
+			if(q.thumbnail != Textures.Red){
+				q.thumbnail.setPosition(pos.x +10, pos.y +40);
+				q.thumbnail.setSize(128, 128);
+				q.thumbnail.draw(Conceito.batch);
+			}
 		}
 		drawText();
 		Conceito.batch.end();
