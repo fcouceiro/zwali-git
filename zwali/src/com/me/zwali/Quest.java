@@ -171,7 +171,7 @@ public class Quest implements Screen{
 			}
 			else
 			{
-				//System.out.println("Wiz area. Warm up freezed");
+				
 				
 			}
 		}

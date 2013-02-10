@@ -46,11 +46,11 @@ public class Conceito extends Game {
 		shop = new Shop(this);
 		
 		questsScreen = new ScreenChooser(this);
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"Home", new Vector2(355,300), new Vector2(90,60),Home()));
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"Farm", new Vector2(155,300), new Vector2(60,40),null));
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"Garage", new Vector2(555,300), new Vector2(60,40),null));
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"MainMenu", new Vector2(355,200), new Vector2(60,40),null));
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"Shop", new Vector2(600,100), new Vector2(60,40),null));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"Home", new Vector2(355,300), new Vector2(200,200),new Vector2(60,25),Home()));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"Farm", new Vector2(155,300), new Vector2(140,140),new Vector2(35,20),null));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"Garage", new Vector2(555,300), new Vector2(140,140),new Vector2(30,20),null));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"MainMenu", new Vector2(355,200), new Vector2(140,140),new Vector2(30,20),null));
+		questsScreen.quests.add(new QuestThumb(Textures.Red,"Shop", new Vector2(600,100), new Vector2(140,140),new Vector2(35,20),null));
 		
 		Player Player1 = new Player( new Vector(1024, 1024), 60);
 		ScreenChooser.Player1 = Player1;

@@ -126,9 +126,10 @@ public class Textures {
 	 
 	 //static Sprite expl1,expl2,expl3;
 	 static Sprite bul_art;
-	 
+	 static Sprite questThumb;
 	public static void loadTextures() throws FileNotFoundException
 	{
+		questThumb = loadTexture("/questThumbnail");
 		shopBtnExit = loadTexture("/btn-exit");
 		bul_art = loadTexture("/explosion/pistol_artifact");
 		radar = loadTexture("/radar");

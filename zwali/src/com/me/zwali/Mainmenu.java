@@ -2,6 +2,7 @@ package com.me.zwali;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -207,7 +208,8 @@ public class Mainmenu implements Screen
 	public void render(float delta) 
 	{
 		// TODO Auto-generated method stub
-	
+		if(Gdx.input.isKeyPressed(Keys.ESCAPE)) MainGame.setScreen(MainGame.questsScreen);
+		
 		batch.setProjectionMatrix(Conceito.camera.combined);
 		Conceito.batch.begin();
 		this.draw();

@@ -27,7 +27,6 @@ class Player extends Entity
 		List <Weapon> InvListWeapons = new ArrayList<Weapon>(10);
 		
 	 	Constants consts =  new Constants();
-		Matriz matriz = new Matriz();
 		//UI ui;
 		int STATE;
 		int XP;
@@ -87,7 +86,7 @@ class Player extends Entity
 			this.hasGun[0] = true;
 			Player.PlayerVel = new Vector(0,0);			
 			
-			this.Health = Integer.parseInt(matriz.getFromMatrizHeroi(consts.HEROI, 1));
+			this.Health = 80;
 			this.MaxHp = this.Health;
 			this.vel = new Vector(0,0);
 			ragemode = false;
@@ -283,7 +282,7 @@ class Player extends Entity
 		
 		int getHealthInicial()
 		{
-			return Integer.parseInt(matriz.getFromMatrizHeroi(consts.HEROI, 1));
+			return 80;
 			
 		}
 		
