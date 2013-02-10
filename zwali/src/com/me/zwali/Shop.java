@@ -39,12 +39,17 @@ public class Shop implements Screen{
 		
 		TextureRegion btnHr = new TextureRegion(Textures.shopBtns,0,0,128,128);
 		TextureRegion btnr = new TextureRegion(Textures.shopBtns,128,0,128,128);
+		TextureRegion buyr = new TextureRegion(Textures.shopBtns,256,0,128,128);
+		TextureRegion buyHr = new TextureRegion(Textures.shopBtns,384,0,128,128);
+		TextureRegion equipr = new TextureRegion(Textures.shopBtns,512,0,128,128);
+		TextureRegion equipHr = new TextureRegion(Textures.shopBtns,640,0,128,128);
+		
 		btnH = new Sprite(btnr);
 		btn = new Sprite(btnHr);
-		buyH = new Sprite(Textures.Red);
-		buy = new Sprite(Textures.Red);
-		equipH = new Sprite(Textures.Red);
-		equip = new Sprite(Textures.Red);
+		buyH = new Sprite(buyHr);
+		buy = new Sprite(buyr);
+		equipH = new Sprite(equipHr);
+		equip = new Sprite(equipr);
 	}
 	
 	@Override
@@ -109,7 +114,7 @@ public class Shop implements Screen{
 		shopfont.draw(Conceito.batch,"XP = " + ScreenChooser.Player1.XP ,650, 560); 
 		Textures.minigun.setPosition(210, 370);
 		Textures.minigun.setSize(70, 120);
-		//Textures.minigun.setR
+		
 		Textures.minigun.draw(Conceito.batch);
 		
 		if(mpos.x > btnExitPos.x && mpos.x < btnExitPos.x + 110 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
@@ -332,7 +337,7 @@ public class Shop implements Screen{
 		else
 		{
 			buy.setPosition((float)btnExitPos.x +140, (float)btnExitPos.y + 65);
-			buy.setSize(10,10);
+			buy.setSize(128,128);
 			buy.draw(Conceito.batch);
 		}
 		if(highlight[2])
@@ -343,7 +348,7 @@ public class Shop implements Screen{
 		}
 		else{
 			equip.setPosition((float)btnExitPos.x +280, (float)btnExitPos.y + 65);
-			equip.setSize(10,10);
+			equip.setSize(128,128);
 			equip.draw(Conceito.batch);
 			
 			

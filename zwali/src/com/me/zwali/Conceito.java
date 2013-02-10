@@ -71,21 +71,27 @@ public class Conceito extends Game {
 		
 		if(savegame)
 		{
-			
+			boolean hasGun[] = new boolean[3];
 			int health = prefs.getInteger("Phealth",80);
 			int armor = prefs.getInteger("Parmor",60);
 
 			int money = prefs.getInteger("Pmoney",0);
 			int xp = prefs.getInteger("Pexp",0);
+			hasGun[0] = prefs.getBoolean("hasgun0", false);
+			hasGun[1] = prefs.getBoolean("hasgun1", false);
+			hasGun[2] = prefs.getBoolean("hasgun2", false);
+			
 			Player temp = new Player(new Vector(256, 256),armor);
 
 			temp.Health = health;
-			temp.money = money;
+			temp.money = 9000;
 			temp.XP = xp;
 			
 			temp.addGun(wp1);
 			temp.addGun(wp2);
 			temp.addGun(wp3);
+			temp.hasGun = hasGun;
+			
 			Gdx.app.log("Savegame", "loaded");
 			return temp;
 		}
@@ -105,6 +111,9 @@ public class Conceito extends Game {
 		prefs.putInteger("Parmor",ScreenChooser.Player1.armor);
 		prefs.putInteger("Pmoney",ScreenChooser.Player1.money);
 		prefs.putInteger("Pexp",ScreenChooser.Player1.XP);
+		prefs.putBoolean("hasgun0", ScreenChooser.Player1.hasGun[0]);
+		prefs.putBoolean("hasgun1", ScreenChooser.Player1.hasGun[1]);
+		prefs.putBoolean("hasgun2", ScreenChooser.Player1.hasGun[2]);
 		prefs.flush();
 		Gdx.app.log("savegame","saved");
 	}
