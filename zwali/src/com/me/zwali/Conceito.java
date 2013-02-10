@@ -77,7 +77,7 @@ public class Conceito extends Game {
 
 			int money = prefs.getInteger("Pmoney",0);
 			int xp = prefs.getInteger("Pexp",0);
-			hasGun[0] = prefs.getBoolean("hasgun0", false);
+			hasGun[0] = true;
 			hasGun[1] = prefs.getBoolean("hasgun1", false);
 			hasGun[2] = prefs.getBoolean("hasgun2", false);
 			

@@ -203,7 +203,7 @@ public class Shop implements Screen{
 							}
 					}
 					else if(ScreenChooser.Player1.hasGun[0] && mpos.x > btnExitPos.x +280 && mpos.x < btnExitPos.x + 400 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
-						ScreenChooser.Player1.CurGun = 0;
+						ScreenChooser.Player1.setCurGun(0);
 					if(!(mpos.x > 55 && mpos.x < 130 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
 						{
 						selected[0] = false;
@@ -229,7 +229,8 @@ public class Shop implements Screen{
 							}
 						}
 					else if(ScreenChooser.Player1.hasGun[2] && mpos.x > btnExitPos.x +280 && mpos.x < btnExitPos.x + 400 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
-							ScreenChooser.Player1.CurGun = 2;
+							ScreenChooser.Player1.setCurGun(2);
+					
 						
 					if(!(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
 						{
@@ -279,6 +280,8 @@ public class Shop implements Screen{
 									ScreenChooser.Player1.InvListWeapons.get(2).power2 += 1;
 								}
 							}
+							else if(ScreenChooser.Player1.hasGun[1] && mpos.x > btnExitPos.x +280 && mpos.x < btnExitPos.x + 400 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
+								ScreenChooser.Player1.setCurGun(1);
 						}
 						else
 						{
