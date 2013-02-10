@@ -23,12 +23,12 @@ public class Shop implements Screen{
 	Vector exit = new Vector(0,0);
 	Vector btnExitPos = new Vector(50, 50);
 
-	boolean highlight = false;
+	boolean highlight[] = new boolean[3];
 	boolean selected[] = new boolean[3];
 	static boolean wizardmode = false;
 	static Random rdm = new Random();
 	
-	Sprite btnH,btn;
+	Sprite btnH,btn, buyH, buy, equip, equipH;
 	
 	
 	public Shop(Conceito Main)
@@ -41,6 +41,10 @@ public class Shop implements Screen{
 		TextureRegion btnr = new TextureRegion(Textures.shopBtnExit,128,0,128,128);
 		btnH = new Sprite(btnr);
 		btn = new Sprite(btnHr);
+		buyH = new Sprite(Textures.Red);
+		buy = new Sprite(Textures.Red);
+		equipH = new Sprite(Textures.Red);
+		equip = new Sprite(Textures.Red);
 	}
 	
 	@Override
@@ -89,6 +93,8 @@ public class Shop implements Screen{
 		shopfont.dispose();
 		btn.getTexture().dispose();
 		btnH.getTexture().dispose();
+		buy.getTexture().dispose();
+		equip.getTexture().dispose();
 	}
 	
 	public void update(){
@@ -106,6 +112,13 @@ public class Shop implements Screen{
 		//Textures.minigun.setR
 		Textures.minigun.draw(Conceito.batch);
 		
+		if(mpos.x > btnExitPos.x && mpos.x < btnExitPos.x + 110 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
+		{
+			highlight[0] = true;
+			if(Gdx.input.justTouched()) this.MainGame.setScreen(this.MainGame.questsScreen);
+		}
+		else
+			highlight[0] = false;
 		
 		if(selected[0]== false && selected[1] == false && selected[2] == false)
 		{
@@ -151,18 +164,11 @@ public class Shop implements Screen{
 				shopfont.draw(Conceito.batch,"Health Potions" ,450, 135); 
 				shopfont.draw(Conceito.batch,"+20 HP." ,450, 110);
 				
-			}
-			else if(mpos.x > btnExitPos.x && mpos.x < btnExitPos.x + 110 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
-			{
-				shopfont.draw(Conceito.batch,"Go back." ,450, 135);
-				highlight = true;
-				if(Gdx.input.justTouched()) this.MainGame.setScreen(this.MainGame.questsScreen);
-			}
-			
-			
+			}			
 		}		
 		else
 		{
+			
 			if(selected[0] == true)
 			{
 					shopfont.draw(Conceito.batch,"Pistol" ,450, 135); 
@@ -235,10 +241,12 @@ public class Shop implements Screen{
 						}
 						if(!(mpos.x > 210 && mpos.x < 280 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
 							selected[2] = false;
+						
 					}
+				
 					
 				}
-				highlight = false;
+				
 				
 			}
 		
@@ -251,16 +259,42 @@ public class Shop implements Screen{
 		Textures.shopIM.setSize(800,600);
 		Textures.shopIM.draw(Conceito.batch);
 		
-		if(highlight)
+		if(highlight[0])
 		{
 			btnH.setPosition((float)btnExitPos.x,(float)btnExitPos.y);
 			btnH.setSize(128,128);
 			btnH.draw(Conceito.batch);
 		}
-		else{
+		else
+		{
 			btn.setPosition((float)btnExitPos.x,(float)btnExitPos.y);
 			btn.setSize(128,128);
 			btn.draw(Conceito.batch);
+		}
+		if(highlight[1])
+		{
+			buyH.setPosition(190, 50);
+			buyH.setSize(128,128);
+			buyH.draw(Conceito.batch);
+		}
+		else
+		{
+			buy.setPosition(190, 50);
+			buy.setSize(10,10);
+			buy.draw(Conceito.batch);
+		}
+		if(highlight[2])
+		{
+			equipH.setPosition(210, 50);
+			equipH.setSize(128,128);
+			equipH.draw(Conceito.batch);
+		}
+		else{
+			equip.setPosition(210, 50);
+			equip.setSize(10,10);
+			equip.draw(Conceito.batch);
+			
+			
 		}
 	}
 	
