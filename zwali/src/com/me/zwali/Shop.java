@@ -193,11 +193,13 @@ public class Shop implements Screen{
 			{
 					shopfont.draw(Conceito.batch,"Pistol" ,450, 135); 
 					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrPistol +"/" + "3" ,450, 110);
-					shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100)) + "XP" ,450, 95);
-						//Add butoes;
+					if(ScreenChooser.Player1.UpgPwrPistol < 3)
+						shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100)) + "XP" ,450, 95);
+					else
+						shopfont.draw(Conceito.batch,"Maxed out",450, 95);
 					if(ScreenChooser.Player1.UpgPwrPistol < 3 && ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100+ (ScreenChooser.Player1.UpgPwrPistol*100)))
 					{
-						if(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+						if(ScreenChooser.Player1.UpgPwrPistol < 3 && mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
 							{
 							ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100) ;
 							ScreenChooser.Player1.UpgPwrPistol += 1;	
@@ -220,10 +222,13 @@ public class Shop implements Screen{
 				if(ScreenChooser.Player1.hasGun[2])
 				{
 					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrShotgun +"/" + "3" ,450, 110);
-					shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrShotgun+1*250) + (ScreenChooser.Player1.UpgPwrShotgun*100)) + "XP" ,450, 95);
+					if(ScreenChooser.Player1.UpgPwrShotgun < 3)
+						shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrShotgun+1*250) + (ScreenChooser.Player1.UpgPwrShotgun*100)) + "XP" ,450, 95);
+					else
+						shopfont.draw(Conceito.batch,"Maxed out",450, 95);
 					if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100))
 						{
-							if(ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100*2) && mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+							if(ScreenChooser.Player1.UpgPwrShotgun < 3 && ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100*2) && mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
 							{
 								ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100 ;
 								ScreenChooser.Player1.UpgPwrShotgun += 1;	
@@ -272,10 +277,13 @@ public class Shop implements Screen{
 						if(ScreenChooser.Player1.hasGun[1])
 						{
 							shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrMinigun +"/" + "3" ,450, 110);
-							shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrMinigun+1*250) + (ScreenChooser.Player1.UpgPwrMinigun*100)) + "XP" ,450, 95);
+							if(ScreenChooser.Player1.UpgPwrMinigun < 3)
+								shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrMinigun+1*250) + (ScreenChooser.Player1.UpgPwrMinigun*100)) + "XP" ,450, 95);
+							else
+								shopfont.draw(Conceito.batch,"Maxed out",450, 95);
 							if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200))
 							{
-								if(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+								if(ScreenChooser.Player1.UpgPwrMinigun < 3 && mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
 								{
 									ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200 ;
 									ScreenChooser.Player1.UpgPwrMinigun += 1;	

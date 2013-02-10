@@ -88,13 +88,18 @@ public class Conceito extends Game {
 			Player temp = new Player(new Vector(256, 256),armor);
 
 			temp.Health = health;
-			temp.money = 9000;
 			temp.XP = xp;
+			temp.money = money;
+			
 			
 			temp.addGun(wp1);
 			temp.addGun(wp2);
 			temp.addGun(wp3);
 			temp.hasGun = hasGun;
+			
+			temp.UpgPwrPistol = prefs.getInteger("UpgPistol", 0);
+			temp.UpgPwrShotgun = prefs.getInteger("UpgShotgun", 0);
+			temp.UpgPwrMinigun = prefs.getInteger("UpgMinigun", 0);
 			
 			Gdx.app.log("Savegame", "loaded");
 			return temp;
@@ -118,6 +123,9 @@ public class Conceito extends Game {
 		prefs.putBoolean("hasgun0", ScreenChooser.Player1.hasGun[0]);
 		prefs.putBoolean("hasgun1", ScreenChooser.Player1.hasGun[1]);
 		prefs.putBoolean("hasgun2", ScreenChooser.Player1.hasGun[2]);
+		prefs.putInteger("UpgPistol", ScreenChooser.Player1.UpgPwrPistol);
+		prefs.putInteger("UpgShotgun", ScreenChooser.Player1.UpgPwrShotgun);
+		prefs.putInteger("UpgMinigun", ScreenChooser.Player1.UpgPwrMinigun);
 		prefs.flush();
 		Gdx.app.log("savegame","saved");
 	}
