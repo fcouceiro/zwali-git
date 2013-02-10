@@ -168,6 +168,18 @@ public class Shop implements Screen{
 		}		
 		else
 		{
+			if(mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
+			{
+				highlight[1] = true;
+			}
+			else
+				highlight[1] = false;
+			if(mpos.x > btnExitPos.x +280 && mpos.x < btnExitPos.x + 400 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
+			{
+				highlight[2] = true;
+			}
+			else
+				highlight[2] = false;
 			
 			if(selected[0] == true)
 			{
@@ -175,15 +187,24 @@ public class Shop implements Screen{
 					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrPistol +"/" + "3" ,450, 110);
 					shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100)) + "XP" ,450, 95);
 						//Add butoes;
-	//					if(ScreenChooser.Player1.UpgPwrPistol < 3 && ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100 + ScreenChooser.Player1.UpgPwrPistol*100))
-	//					{
-	//					ScreenChooser.Player1.XP -= (pl.UpgPwrPistol+1)*100 + pl.UpgPwrPistol*100 ;
-	//					ScreenChooser.Player1.UpgPwrPistol += 1;	
-	//					ScreenChooser.Player1.InvListWeapons.get(0).power += 5;
-	//					ScreenChooser.Player1.InvListWeapons.get(0).power2 += 5;
-	//					}
+					if(ScreenChooser.Player1.UpgPwrPistol < 3 && ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100+ (ScreenChooser.Player1.UpgPwrPistol*100)))
+					{
+						if(mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+							{
+							ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100) ;
+							ScreenChooser.Player1.UpgPwrPistol += 1;	
+							ScreenChooser.Player1.InvListWeapons.get(0).power += 5;
+							ScreenChooser.Player1.InvListWeapons.get(0).power2 += 5;
+							}
+					}
+					else if(ScreenChooser.Player1.hasGun[0] && mpos.x > btnExitPos.x +280 && mpos.x < btnExitPos.x + 400 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
+						ScreenChooser.Player1.CurGun = 0;
 					if(!(mpos.x > 55 && mpos.x < 130 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+						{
 						selected[0] = false;
+						highlight[1] = false;
+						highlight[2] = false;
+						}
 			}
 			else if(selected[1] == true)
 			{
@@ -192,29 +213,50 @@ public class Shop implements Screen{
 				{
 					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrShotgun +"/" + "3" ,450, 110);
 					shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrShotgun+1*250) + (ScreenChooser.Player1.UpgPwrShotgun*100)) + "XP" ,450, 95);
-	//						if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100))
-	//						{
-	//							ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100 ;
-	//							ScreenChooser.Player1.UpgPwrShotgun += 1;	
-	//							ScreenChooser.Player1.InvListWeapons.get(2).power += 3;
-	//							ScreenChooser.Player1.InvListWeapons.get(2).power2 += 3;
-	//						}
+					if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100))
+						{
+							if(ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100*2) && mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+							{
+								ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100 ;
+								ScreenChooser.Player1.UpgPwrShotgun += 1;	
+								ScreenChooser.Player1.InvListWeapons.get(2).power += 3;
+								ScreenChooser.Player1.InvListWeapons.get(2).power2 += 3;
+							}
+						}
+					else if(ScreenChooser.Player1.hasGun[2] && mpos.x > btnExitPos.x +280 && mpos.x < btnExitPos.x + 400 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
+							ScreenChooser.Player1.CurGun = 2;
 						
-				if(!(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
-					selected[1] = false;	
-							
+					if(!(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+						{
+						selected[1] = false;	
+						highlight[1] = false;
+						highlight[2] = false;
+						}		
 				}
 				else
 				{
-							if(ScreenChooser.Player1.money >= 1500) // E buy pressed
-							{
-								ScreenChooser.Player1.money -= 1500;
-								ScreenChooser.Player1.hasGun[2] = true;
-							}
+					shopfont.draw(Conceito.batch,"Price: 1500$"  ,450, 110);
+						if(ScreenChooser.Player1.money >= 1500 ) 
+						{
+								if(mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+								{
+									ScreenChooser.Player1.money -= 1500;
+									ScreenChooser.Player1.CurGun = 2;
+									ScreenChooser.Player1.hasGun[2] = true;
+								}
+								
 							
-							shopfont.draw(Conceito.batch,"Price: 1500$"  ,450, 110);
 						}
-					}
+						if(!(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+							{
+							selected[1] = false;
+							highlight[1] = false;
+							highlight[2] = false;
+						
+							}
+				}
+			}
+					
 					else if(selected[2] == true)
 					{
 						shopfont.draw(Conceito.batch,"Minigun" ,450, 135);
@@ -222,12 +264,15 @@ public class Shop implements Screen{
 						{
 							shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrMinigun +"/" + "3" ,450, 110);
 							shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrMinigun+1*250) + (ScreenChooser.Player1.UpgPwrMinigun*100)) + "XP" ,450, 95);
-							if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200) && Gdx.input.justTouched())
+							if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200))
 							{
-								ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200 ;
-								ScreenChooser.Player1.UpgPwrMinigun += 1;	
-								ScreenChooser.Player1.InvListWeapons.get(2).power += 1;
-								ScreenChooser.Player1.InvListWeapons.get(2).power2 += 1;
+								if(mpos.x > btnExitPos.x +140 && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y && Gdx.input.justTouched())
+								{
+									ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200 ;
+									ScreenChooser.Player1.UpgPwrMinigun += 1;	
+									ScreenChooser.Player1.InvListWeapons.get(2).power += 1;
+									ScreenChooser.Player1.InvListWeapons.get(2).power2 += 1;
+								}
 							}
 						}
 						else
@@ -235,12 +280,19 @@ public class Shop implements Screen{
 							shopfont.draw(Conceito.batch,"Price: 7500$"  ,450, 110);
 							if(ScreenChooser.Player1.money >= 7500) //add botoes
 							{
-								ScreenChooser.Player1.money -= 7500;
-								ScreenChooser.Player1.hasGun[1] = true;
+								if(Gdx.input.justTouched() && mpos.x < btnExitPos.x + 250 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y)
+								{
+									ScreenChooser.Player1.money -= 7500;
+									ScreenChooser.Player1.hasGun[1] = true;
+								}
 							}
 						}
 						if(!(mpos.x > 210 && mpos.x < 280 && mpos.y < 260 && mpos.y > 100) && Gdx.input.justTouched())
+						{
 							selected[2] = false;
+							highlight[1] = false;
+							highlight[2] = false;
+						}
 						
 					}
 				
@@ -273,24 +325,24 @@ public class Shop implements Screen{
 		}
 		if(highlight[1])
 		{
-			buyH.setPosition(190, 50);
+			buyH.setPosition((float)btnExitPos.x +140, (float)btnExitPos.y + 65);
 			buyH.setSize(128,128);
 			buyH.draw(Conceito.batch);
 		}
 		else
 		{
-			buy.setPosition(190, 50);
+			buy.setPosition((float)btnExitPos.x +140, (float)btnExitPos.y + 65);
 			buy.setSize(10,10);
 			buy.draw(Conceito.batch);
 		}
 		if(highlight[2])
 		{
-			equipH.setPosition(210, 50);
+			equipH.setPosition((float)btnExitPos.x +280, (float)btnExitPos.y + 65);
 			equipH.setSize(128,128);
 			equipH.draw(Conceito.batch);
 		}
 		else{
-			equip.setPosition(210, 50);
+			equip.setPosition((float)btnExitPos.x +280, (float)btnExitPos.y + 65);
 			equip.setSize(10,10);
 			equip.draw(Conceito.batch);
 			
