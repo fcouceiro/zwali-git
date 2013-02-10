@@ -19,7 +19,6 @@ public class Conceito extends Game {
 	
 	Mainmenu mainmenu;
 	Howtoplay howtoplaymenu;
-	Quest gameloop;
 	Shop shop;
 	ScreenChooser questsScreen;
 
@@ -64,7 +63,10 @@ public class Conceito extends Game {
 	public void dispose() {
 		batch.dispose();
 		Textures.dispose();
-		
+		questsScreen.dispose();
+		shop.dispose();
+		howtoplaymenu.dispose();
+		mainmenu.dispose();
 	}
 	
 	Cenario Home()

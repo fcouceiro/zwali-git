@@ -8,9 +8,11 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 
@@ -21,12 +23,13 @@ public class Shop implements Screen{
 	Conceito MainGame;
 	Vector mpos = new Vector(0,0);
 	Vector exit = new Vector(0,0);
+	Vector btnExitPos = new Vector(50, 50);
 
-
+	boolean highlight = false;
 	static boolean wizardmode = false;
 	static Random rdm = new Random();
 	
-	
+	Sprite btnH,btn;
 	
 	
 	public Shop(Conceito Main)
@@ -34,12 +37,17 @@ public class Shop implements Screen{
 		MainGame = Main;
 		shopfont = new BitmapFont(Gdx.files.internal("res/fonts/arial.fnt"),
 		         Gdx.files.internal("res/fonts/arial.png"), false);
-
+		
+		TextureRegion btnHr = new TextureRegion(Textures.shopBtnExit,0,0,128,128);
+		TextureRegion btnr = new TextureRegion(Textures.shopBtnExit,128,0,128,128);
+		btnH = new Sprite(btnr);
+		btn = new Sprite(btnHr);
 	}
 	
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
+		if(Gdx.input.isKeyPressed(Keys.ESCAPE)) MainGame.setScreen(MainGame.questsScreen);
 		Conceito.batch.begin();
 		this.update();
 		Conceito.batch.end();
@@ -80,13 +88,15 @@ public class Shop implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		shopfont.dispose();
+		btn.getTexture().dispose();
+		btnH.getTexture().dispose();
 	}
 	
 	public void update(){
 		mpos.x= Gdx.input.getX();
 		mpos.y= Gdx.input.getY();
 		
-		System.out.println(mpos.x + "    " + mpos.y);
+		//System.out.println(mpos.x + "    " + mpos.y);
 		
 		this.draw();
 		
@@ -133,12 +143,18 @@ public class Shop implements Screen{
 			shopfont.draw(Conceito.batch,"+20 HP." ,450, 110);
 			
 		}
+		else if(mpos.x > btnExitPos.x && mpos.x < btnExitPos.x + 110 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
+		{
+			shopfont.draw(Conceito.batch,"Go back." ,450, 135);
+			highlight = true;
+			if(Gdx.input.justTouched()) this.MainGame.setScreen(this.MainGame.questsScreen);
+		}
 		else
 		{
 			shopfont.draw(Conceito.batch,"Welcome Adventurer... Looking for any goods?" ,450, 135);
 			shopfont.draw(Conceito.batch,"Just check on the item you are interested in!" ,450, 110);
+			highlight = false;
 		}
-		
 		
 	}
 	
@@ -149,9 +165,17 @@ public class Shop implements Screen{
 		Textures.shopIM.setSize(800,600);
 		Textures.shopIM.draw(Conceito.batch);
 		
-
-		
-
+		if(highlight)
+		{
+			btnH.setPosition((float)btnExitPos.x,(float)btnExitPos.y);
+			btnH.setSize(128,128);
+			btnH.draw(Conceito.batch);
+		}
+		else{
+			btn.setPosition((float)btnExitPos.x,(float)btnExitPos.y);
+			btn.setSize(128,128);
+			btn.draw(Conceito.batch);
+		}
 	}
 	
 //	public static void buy(Player pl)
@@ -285,7 +309,6 @@ public class Shop implements Screen{
 	
 	public void animateWaveIncoming(int WaveNr, int timer, SpriteBatch batch)
 	{
-		
 		Quest.font.draw(batch,"Wave incomming! Number: " + Integer.toString(WaveNr),425, 508);
 	}	
 

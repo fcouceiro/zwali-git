@@ -84,14 +84,10 @@ public class Quest implements Screen{
 		Log.add("Bem-vindo ao Zwali! ");
 		Log.add("Teste ");
 		Log.add("Teste");
-		
-		
+
 		font = new BitmapFont(Gdx.files.internal("res/fonts/arial.fnt"),
 		         Gdx.files.internal("res/fonts/arial.png"), false);
-		
-		
-		
-		
+
 		Cross = new RealCross( new Vector(0,0), new Vector(2,20), Textures.CrossSide);
 
 		Barril = new Crosshair( new Vector(0,0), new Vector(80,80), Textures.BarrelUnIM);

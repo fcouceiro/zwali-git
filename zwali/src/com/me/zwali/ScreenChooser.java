@@ -82,12 +82,10 @@ public class ScreenChooser implements Screen{
 		temp.Player1 = Player1;
 		temp.Player1.pos.x = 1024;
 		temp.Player1.pos.y = 1024;
-		
+		temp.difficulty = 1;
 		Gdx.input.setInputProcessor(inputProcessor);
-		
+		temp.shop = this.maingame.shop;
 		System.out.println("Quest created successfuly");
-		Gdx.app.log("cenario size barril", String.valueOf(c.Objects.get(0).image.getWidth()));
-
 		return temp;
 	}
 	

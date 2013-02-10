@@ -61,7 +61,7 @@ public class Textures {
 	 static Sprite rdmBuff;
 	 //End of Items
 	 
-
+	 static Sprite shopBtnExit;
 	 
 	 //wavein
 	 static Sprite wv1;
@@ -129,6 +129,7 @@ public class Textures {
 	 
 	public static void loadTextures() throws FileNotFoundException
 	{
+		shopBtnExit = loadTexture("/btn-exit");
 		bul_art = loadTexture("/explosion/pistol_artifact");
 		radar = loadTexture("/radar");
 		enemy1_falling = loadTexture("/zombies/type1_anim/falling");

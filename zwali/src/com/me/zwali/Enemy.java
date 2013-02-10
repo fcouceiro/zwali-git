@@ -66,7 +66,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 				
 				break;
 			case 3:
-				this.speed = 4;
+				this.speed = 2;
 				this.Health = 1;
 				this.power = (int) (13* difficulty * 0.5);
 				this.image.setSize(90,90);
