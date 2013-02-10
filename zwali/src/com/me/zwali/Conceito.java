@@ -74,17 +74,11 @@ public class Conceito extends Game {
 			
 			int health = prefs.getInteger("Phealth",80);
 			int armor = prefs.getInteger("Parmor",60);
-<<<<<<< HEAD
-			//int money = prefs.getInteger("Pmoney",0);
-			int money = 10000;
-			int xp = 10000;
-			//int xp = prefs.getInteger("Pexp",0);
-			Player temp = new Player(new Vector(1024, 1024),armor);
-=======
+
 			int money = prefs.getInteger("Pmoney",0);
 			int xp = prefs.getInteger("Pexp",0);
 			Player temp = new Player(new Vector(256, 256),armor);
->>>>>>> Home cenario
+
 			temp.Health = health;
 			temp.money = money;
 			temp.XP = xp;
@@ -130,7 +124,14 @@ public class Conceito extends Game {
 	Cenario Home()
 	{
 		Cenario temp = new Cenario(Textures.qHome, new Vector(600,950), new Vector(950,750));
-		temp.Objects.add(new Vector(75,320));
+		temp.Objects.add(new Vector(150,570));
+		temp.Objects.add(new Vector(210,450));
+		temp.Objects.add(new Vector(410,350));
+		temp.Objects.add(new Vector(510,340));
+		temp.Objects.add(new Vector(610,330));
+		temp.Objects.add(new Vector(60,800));
+		temp.Objects.add(new Vector(150,800));
+		temp.Objects.add(new Vector(970,250));
 		return temp;
 	}
 	
