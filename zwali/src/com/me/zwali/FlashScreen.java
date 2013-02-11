@@ -71,7 +71,7 @@ public class FlashScreen implements Screen
 		image.setSize(800,600);
 		image.draw(Conceito.batch,alpha);
 		
-		Gdx.app.log("flashScreen data", String.valueOf(alpha) + " " + up);
+	
 	}
 	
 	@Override
