@@ -554,8 +554,9 @@ public class Quest implements Screen{
 			{
 				Vector dir = new Vector( -(enimio.pos.x - Player1.pos.x), -(enimio.pos.y- Player1.pos.y));
 				dir.normalize();
+				Player1.subHealth(enimio.power);
 				Player1.recoil(dir, 30);
-				Player1.subHealth(enimio.power);	
+					
 				stats.killstreakCont = 0;
 				stats.PlayerAtingido++;
 				
@@ -599,6 +600,9 @@ public class Quest implements Screen{
 
 		if( ! alive)
 		{
+			Player1.timeron = false;
+			Player1.speed = Player1.nSpeed;
+			
 			System.out.println("Estatisticas: \nDisparos - "+stats.PlayerDisparos+"\nDisparos acertados - "+stats.PlayerTirosNoEnemy+"\nScore - "+stats.PlayerScore+"\nAtingido "+ stats.PlayerAtingido +" vezes");
 			System.out.println("GAME OVER! O MUNDO TAMBEM FICA MELHOR SEM TI!!");
 			System.out.println("CARREGA Y PARA RECOMECAR, N PARA TE ACORBARDARES E FUGIRES COM O RABINHO ENTRE AS PERNAS!");

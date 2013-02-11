@@ -9,6 +9,7 @@ public class Weapon
 	public int MAXCAR;
 	public int ammo;
 	public int ammoTotal;
+	public int Maxammo;
 	public int Type;
 	public int powerbuff;
 	private int speed;
@@ -45,6 +46,7 @@ public class Weapon
 			RELOADTIME = 120;
 			lethalarea = false;
 			ammoTotal = 150;
+			Maxammo = 165;
 			this.size = new Vector(30,10);
 			break;
 		case 1:
@@ -59,6 +61,7 @@ public class Weapon
 			speed = 20;
 			FIRERATE = 4;
 			MAXCAR = 300;
+			Maxammo = 1800;
 			RELOADTIME = 300;
 			lethalarea = false;
 			ammoTotal = 1500;
@@ -79,6 +82,7 @@ public class Weapon
 			RELOADTIME = 180;
 			lethalarea = true;
 			ammoTotal = 90;
+			Maxammo = 102;
 			this.size = new Vector(60,15);
 			break;
 		}

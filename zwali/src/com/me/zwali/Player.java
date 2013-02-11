@@ -39,6 +39,7 @@ class Player extends Entity
 		int timer;
 		int DTime;
 		int MaxHp;
+		int MaxArmor;
 		int CurGun;
 		int nSpeed;
 		int buildQuant;
@@ -88,6 +89,7 @@ class Player extends Entity
 			
 			this.Health = 80;
 			this.MaxHp = this.Health;
+			this.MaxArmor = 50;
 			this.vel = new Vector(0,0);
 			ragemode = false;
 			rageTimer = 0;
@@ -110,10 +112,12 @@ class Player extends Entity
 
 		public void recoil( Vector dir, int temp)
 		{
-			this.STATE = 1; // RECOIL MODE
-			this.constraint = dir;
-			this.timeron = true;
-			this.DTime = temp;
+			
+				this.STATE = 1; // RECOIL MODE
+				this.constraint = dir;
+				this.timeron = true;
+				this.DTime = temp;
+			
 		}
 		
 		public boolean Update( Vector Disp, Background BACK)
@@ -201,7 +205,6 @@ class Player extends Entity
 			}
 			
 			vel = PlayerVel;
-			
 			
 			if(timeron)
 			{

@@ -83,36 +83,7 @@ public class Item
 		
 	}
 	
-	/*public Item (Item a)
-	{
-		this.Pos = a.Pos;
-		this.Size = a.Size;
-		this.PosI = a.PosI;
-		this.SizeI = a.SizeI ;
-		this.Name = a.Name;
-		this.Style = a.Style;
-		this.img = a.img;
-		this.Drag = a.Drag;
-		this.canDrop = a.canDrop;
-		this.Type = a.Type;
-		this.Info = a.Info;
-	}
-	
-	public Item(String name, String style, Texture im, int type)
-	{
-		this.Pos = new Vector(0,0);
-		this.Size = new Vector(0,0);
-		this.PosI = new Vector(0,0);
-		this.SizeI = new Vector(32,32);
-		this.Name = name;
-		this.Style = style;
-		this.img = im;
-		this.Drag = false;
-		this.canDrop = false;
-		this.Type = type;
-		this.Info = "info info";
-		
-	}*/
+
 	
 	public void setPos(Vector pos)
 	{
@@ -126,47 +97,6 @@ public class Item
 	
 	
 	
-	/*public void draw(int State)
-	{
-			if (State == 3) 
-			{
-				glLoadIdentity();
-				glPushMatrix();
-				img.bind();
-				glTranslatef((float) PosI.x, (float) PosI.y, 0.0f);
-				glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);
-				glVertex2i(0, 0); // Upper-left
-				glTexCoord2f(1, 0);
-				glVertex2i((int) (SizeI.x), 0); // Upper-right
-				glTexCoord2f(1, 1);
-				glVertex2i((int) (SizeI.x), (int) (SizeI.y)); // Bottom-right
-				glTexCoord2f(0, 1);
-				glVertex2i(0, (int) (SizeI.y));
-				glEnd();
-				glPopMatrix();
-			}
-			else if(State == 0)
-			{
-				glLoadIdentity();
-				glPushMatrix();
-				img.bind();
-				glTranslatef((float) Pos.x, (float) Pos.y, 0.0f);
-				glRotatef((float) angle, 0.0f, 0.0f, 1.0f);
-				glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);
-				glVertex2i(0, 0); // Upper-left
-				glTexCoord2f(1, 0);
-				glVertex2i((int) (Size.x), 0); // Upper-right
-				glTexCoord2f(1, 1);
-				glVertex2i((int) (Size.x), (int) (Size.y)); // Bottom-right
-				glTexCoord2f(0, 1);
-				glVertex2i(0, (int) (Size.y));
-				glEnd();
-				glPopMatrix();
-			}
-			
-	}*/
 	
 	public void draw(Vector disp, SpriteBatch batch)
 	{
