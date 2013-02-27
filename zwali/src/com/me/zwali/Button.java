@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Button
 {
 	Sprite thumbnail;
-	CharSequence text;
+	CharSequence text, description;
 	Vector2 Pos;
 	Vector2 size;
 	Vector2 txtPosRel;

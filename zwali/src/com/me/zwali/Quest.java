@@ -651,7 +651,7 @@ public class Quest implements Screen{
 		
 		if(waveincoming)
 		{
-			shop.animateWaveIncoming(Wavenr, timeWarmup,Conceito.batch);
+			font.draw(Conceito.batch,"Wave incomming! Number: " + Integer.toString(Wavenr),425, 508);
 		}
 		
 		if(debug)

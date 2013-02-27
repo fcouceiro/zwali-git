@@ -47,7 +47,7 @@ public class Entity {
 	{
 
 		Vector deltaPos = new Vector( vel.x * speed, vel.y * speed);
-
+		
 		for(StaticObj obj: BACK.Objects)
 		{
 			Vector4 A = collisions.Coll(this, obj);
