@@ -22,6 +22,7 @@ class Player extends Entity
 		int accuracy;
 		int ACCdefault;
 		
+		int kickPower;
 		
 		List<Buff> buffsList = new ArrayList<Buff>(8);
 		List <Weapon> InvListWeapons = new ArrayList<Weapon>(10);
@@ -34,6 +35,7 @@ class Player extends Entity
 		
 		boolean timeron;
 		boolean ragemode;
+		static boolean kick;
 		int rageTime = 300;
 		int rageTimer;
 		int timer;
@@ -59,7 +61,7 @@ class Player extends Entity
 		Player(Vector pos, int armor)
 		{
 			super( pos, new Vector (90,90), true,  Textures.playerPistolIM );
-			
+			this.kick = false;
 			this.walk = new Animacao(2,2,Textures.player_walking,new Vector(256,128),new Vector(90,90));
 			this.idle = new Animacao(5,1,Textures.player_idle,new Vector(256,128),new Vector(90,90));
 			image.setOrigin(45, 45);
@@ -69,6 +71,9 @@ class Player extends Entity
 			this.armor = armor;
 			this.money = 0;
 			this.XP = 0;
+			
+			
+			this.kickPower = 10;
 			
 			this.ACCMAX = 25; //MAXIMA ABERTURA
 			this.ACCMIN = 10; //ABERTURA MINIMA	
@@ -123,6 +128,7 @@ class Player extends Entity
 		public boolean Update( Vector Disp, Background BACK)
 		{	
 			//Buff area
+			kick = false;
 			for(Buff b:buffsList)
 			{
 				if(b.activeBuff)
@@ -421,7 +427,11 @@ class Player extends Entity
 			
 		}
 		
-
+		public static void setKick(boolean state)
+		{
+			kick = true;
+		}
+		
 		
 }
  

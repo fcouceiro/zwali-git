@@ -52,6 +52,10 @@ public class MyInputProcessor implements InputProcessor {
 		{
 			Player.setVelY( 0 );
 		}
+		if(keycode == Keys.SPACE)
+		{
+			Player.setKick(true);
+		}
 		if(keycode == Keys.B)
 		{
 			if(!Quest.buildMode) Quest.buildMode = true;

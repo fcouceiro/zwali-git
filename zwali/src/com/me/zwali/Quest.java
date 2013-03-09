@@ -30,6 +30,7 @@ public class Quest implements Screen{
 	InvMenu invmenu;
 	ItemDrop drop;
 	Builder obra;
+	Kick KKick;
 	static boolean pausecoco = true;
 	
 	Collision col;
@@ -43,6 +44,7 @@ public class Quest implements Screen{
 	boolean justended = false;
 	boolean survival = false;
 	boolean debug = false;
+	boolean kick = false;
 	
 	int difficulty;
 	
@@ -55,6 +57,12 @@ public class Quest implements Screen{
 	int timerbuilt = 120;
 	int timeWarmup = 0;
 	int timerWarmup = 600;
+	
+	int timeKick = 0;
+	int timerKick = 60;
+	int timenotkick = 0;
+	int timernotkick = 20;
+	
 	static int armaActual = 1;
 	int radioactivetime = 0;
 	int radioactivetimer = 60;
@@ -94,6 +102,8 @@ public class Quest implements Screen{
 		
 		col = new Collision();
 		drop = new ItemDrop(t);
+		
+		KKick = new Kick(new Vector(0,0), new Vector(50, 50), true,Textures.BarrelIM);
 		
 		waves.add(new Wave(new Vector( Wave1Pos.x, Wave1Pos.y), 1,150));
 		waves.add(new Wave(new Vector( Wave2Pos.x, Wave2Pos.y), 1,150));
@@ -151,6 +161,12 @@ public class Quest implements Screen{
 		timerGun++;
 		timerEnem++;		
 		time_wiz++;
+		
+		if(!kick)
+		{
+			timenotkick++;
+		}
+		
 		if(WarmUp)
 		{
 			if(!Shop.wizardmode)
@@ -282,7 +298,29 @@ public class Quest implements Screen{
 			}
 		}
 		
+		if(Player1.kick && timenotkick > timernotkick)
+		{
+			kick = true;
+			timeKick= 0;
+			timenotkick = 0;
+		}
 		
+		if(kick)
+		{
+			for(int i = 0; i< enem.size(); i++ )
+			{
+				if(enem.get(i).getAlive())
+				{
+					Vector Y =KKick.Impact(enem.get(i));
+					
+					if(Y.SizeSQ() > 0)
+					{
+						enem.get(i).recoil(Y);
+						enem.get(i).DecreaseHealth(Player1.kickPower, Y);
+					}
+				}
+			}
+		}
 	
 		
 		for(int i = 0; i< enem.size(); i++ )
@@ -291,7 +329,6 @@ public class Quest implements Screen{
 			{
 				enem.get(i).Update(Player1.getPos(), enem, i, backG);
 			}
-			
 			
 		}
 		
@@ -387,6 +424,21 @@ public class Quest implements Screen{
 		
 		
 		boolean alive  = Player1.Update(Disp, backG);
+		
+		if(kick)
+		{
+			timeKick++;
+			
+			KKick.Up(Player1.pos, Player1.angle);
+			
+			if(timeKick >= timerKick)
+			{
+				kick = false;
+				timeKick =0;
+				timenotkick = 0;
+			}
+			
+		}
 		
 		backG.Update( Player1.pos, MPOS );
 		
@@ -616,7 +668,10 @@ public class Quest implements Screen{
 		
 
 		Player1.draw(Disp,Conceito.batch);
-		
+		if(kick)
+		{
+			KKick.draw(Disp, Conceito.batch);
+		}
 		
 		Player1.InvListWeapons.get(Player1.CurGun).Update(Player1,backG.Display);
 		

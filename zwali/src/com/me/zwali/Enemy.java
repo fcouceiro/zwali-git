@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		boolean right;
 		int MaxHealth;
 		
+		Vector recoilVel;
+		
 		float SightAngle;
 		float SightRadiiSQ;
 		
@@ -29,7 +31,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		
 		int radioactivetimer1 = 60;
 		int radioactivetime1 = 0;
+		int timeRecoil = 0;
+		
+		int timerRecoil = 40;
 		int timer = 0;
+		int recC = 3;
+		
 		int time_dead = 350;
 		float alpha = 1.0f;
 		
@@ -116,6 +123,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 			return size;
 		}
 		
+		public void recoil(Vector A)
+		{
+			recoilVel = A.mult(recC); 
+			State = 2;
+			timeRecoil = 0;
+		}
+		
 		void kill()
 		{
 			alive = false;
@@ -134,12 +148,32 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		void Update( Vector target, List<Enemy> enem, int i, Background BACK)
 		{
 			
-	
+			if(State == 2)
+			{
+
+				timeRecoil++;
+				
+				if(timeRecoil >= timerRecoil)
+				{
+					State = 0;
+					timeRecoil = 0;
+					recoilVel = new Vector(0,0);
+				}
+			}
+			
 			if( State != 1)
 			{
+				Vector deltaPos = new Vector(0,0);
+				if(State == 2)
+				{
+					deltaPos = recoilVel;
+				}
+				else
+				{
 					vel = new Vector( target.x - pos.x, target.y- pos.y);
 					vel.normalize();
-				Vector deltaPos = new Vector( vel.x*speed, vel.y*speed);
+					deltaPos = new Vector( vel.x*speed, vel.y*speed);
+				}
 				
 				for( int k = 0; k<enem.size(); k++)
 				{
@@ -170,9 +204,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 				vel = deltaPos;
 				
 				this.UpdatePos(BACK);
-
-				angle = Math.atan2( vel.y, vel.x);
-				angle = (angle*360)/(2*Math.PI);
+				if (State != 2)
+				{
+					angle = Math.atan2( vel.y, vel.x);
+					angle = (angle*360)/(2*Math.PI);
+				}
 				this.animate();
 			}
 			
@@ -189,6 +225,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 					AttackTimer++;
 				}
 			}
+			
 			
 		}
 			
