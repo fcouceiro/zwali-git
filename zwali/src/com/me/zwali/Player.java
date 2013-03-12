@@ -124,6 +124,16 @@ class Player extends Entity
 				this.DTime = temp;
 			
 		}
+
+		public void recoilExp( Vector dir, int temp)
+		{
+			
+				this.STATE = 2; // EXP mode MODE
+				this.constraint = dir;
+				this.timeron = true;
+				this.DTime = temp;
+			
+		}
 		
 		public boolean Update( Vector Disp, Background BACK)
 		{	

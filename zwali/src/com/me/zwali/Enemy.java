@@ -130,6 +130,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 			timeRecoil = 0;
 		}
 		
+		public void recoilExp(Vector A)
+		{
+			recoilVel = A.mult(recC); 
+			State = 3;
+			timeRecoil = 0;
+		}
+		
 		void kill()
 		{
 			alive = false;
@@ -148,7 +155,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 		void Update( Vector target, List<Enemy> enem, int i, Background BACK)
 		{
 			
-			if(State == 2)
+			if(State == 2 || State == 3)
 			{
 
 				timeRecoil++;
@@ -164,7 +171,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 			if( State != 1)
 			{
 				Vector deltaPos = new Vector(0,0);
-				if(State == 2)
+				if(State == 2 || State == 3)
 				{
 					deltaPos = recoilVel;
 				}
@@ -204,7 +211,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 				vel = deltaPos;
 				
 				this.UpdatePos(BACK);
-				if (State != 2)
+				if (State != 2 && State != 3)
 				{
 					angle = Math.atan2( vel.y, vel.x);
 					angle = (angle*360)/(2*Math.PI);

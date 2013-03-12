@@ -11,6 +11,8 @@ public class Entity {
 	Vector size;
 	Vector vel;
 	
+	boolean exp;
+	
 	float radii;
 	boolean circle;
 	
@@ -36,6 +38,7 @@ public class Entity {
 		image = T;
 		image.setSize((float)size.x, (float)size.y);
 		this.circle = circle;
+		this.exp = false;
 	}
 	
 	public boolean Update()

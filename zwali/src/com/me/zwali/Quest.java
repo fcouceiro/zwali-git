@@ -20,6 +20,7 @@ public class Quest implements Screen{
 	Player Player1;
 	List <CharSequence> Log = new ArrayList<CharSequence>();
 	
+	
 	Shop shop;
 	Textures t = new Textures();
 	Constants consts = new Constants();
@@ -83,6 +84,7 @@ public class Quest implements Screen{
 	List <Enemy> enem = new ArrayList<Enemy>(10);
 	List <sangue> sangues = new ArrayList<sangue>(5);
 	List<Enemy> dead_enemies = new ArrayList<Enemy>(5);
+	List<Explosion> explo = new ArrayList<Explosion>(5);
 	
 	Conceito MainGame;
 	
@@ -313,7 +315,7 @@ public class Quest implements Screen{
 				{
 					Vector Y =KKick.Impact(enem.get(i));
 					
-					if(Y.SizeSQ() > 0)
+					if(Y.Size() > 0)
 					{
 						enem.get(i).recoil(Y);
 						enem.get(i).DecreaseHealth(Player1.kickPower, Y);
@@ -321,7 +323,43 @@ public class Quest implements Screen{
 				}
 			}
 		}
-	
+		
+		for(Explosion ex:explo)
+		{
+			Vector Y = ex.Impact(Player1);
+			
+			if(Player1.STATE != 2 && Y.Size() > 0)
+			{
+				Player1.recoilExp(Y, 4);
+				Player1. subHealth((int)ex.power);
+			}
+			
+			for(Enemy en: enem)
+			{
+				if(en.getAlive())
+				{
+					Y =ex.Impact(en);
+					
+					if(Y.Size() > 0)
+					{
+						en.recoilExp(Y);
+						en.DecreaseHealth((int)ex.power, Y);
+					}
+				}
+			}
+		}
+		
+		for(int i = 0; i<explo.size(); i++)
+		{
+			explo.get(i).UP();
+			
+			if( explo.get(i).Alive == false)
+			{
+				explo.remove(i);
+				i--;
+			}
+		}
+		
 		
 		for(int i = 0; i< enem.size(); i++ )
 		{
@@ -377,42 +415,7 @@ public class Quest implements Screen{
 							sangues.add(new sangue(a,new Vector((float)(enimio.pos.x -a.getWidth()/2),(float)(enimio.pos.y - a.getHeight()/2))));
 						
 						}
-						else
-						{
-							drop.drop(new Vector(enimio.pos.x - Disp.x, enimio.pos.y - Disp.y), Disp, Player1);
-							enimio.kill();
-							
-							switch(enimio.type)
-							{
-							case 1:
-								Player1.XP += Player1.xpenemy1;
-								break;
-							case 2:
-								Player1.XP += Player1.xpenemy2;
-								break;				
-							}
-							
-							Player1.money += rdm.nextInt(10) + Wavenr + Player1.moneybuff;
-							stats.killstreakCont++;
-							stats.PlayerScore++;
-							if(stats.killstreakCont == 15)
-							{
-								Player1.ragemode = true;
-								stats.killstreakCont = 0;
-								this.Log.add("Rage on!");
-							}
-							if(Player1.ragemode)
-							{
-								Log.add("Enemy died with rage");
-								Player1.ragemode = true;
-							}
-							else
-							{
-								Log.add("Enemy died");
-							}
-							
-							Log.add("KillStreak "+ stats.killstreakCont);
-						}
+						
 						stats.PlayerTirosNoEnemy++;
 						bilio.kill(false);
 						break;
@@ -422,6 +425,51 @@ public class Quest implements Screen{
 			}
 		}
 		
+		for(Enemy enimio: enem)
+		{
+			if(enimio.Health < 0)
+			{
+				drop.drop(new Vector(enimio.pos.x - Disp.x, enimio.pos.y - Disp.y), Disp, Player1);
+				enimio.kill();
+				
+				switch(enimio.type)
+				{
+				case 1:
+					Player1.XP += Player1.xpenemy1;
+					break;
+				case 2:
+					Player1.XP += Player1.xpenemy2;
+					break;
+				case 3:
+					Explosion A = new Explosion( enimio.pos, new Vector (20*enimio.power,20*enimio.power), Textures.Sangue_3 );
+					A.SetExp(enimio.power, 10*enimio.power);
+					explo.add(A);
+					//System.out.println("ASDASDASDASDA");
+					break;
+				}
+				
+				Player1.money += rdm.nextInt(10) + Wavenr + Player1.moneybuff;
+				stats.killstreakCont++;
+				stats.PlayerScore++;
+				if(stats.killstreakCont == 15)
+				{
+					Player1.ragemode = true;
+					stats.killstreakCont = 0;
+					this.Log.add("Rage on!");
+				}
+				if(Player1.ragemode)
+				{
+					Log.add("Enemy died with rage");
+					Player1.ragemode = true;
+				}
+				else
+				{
+					Log.add("Enemy died");
+				}
+				
+				Log.add("KillStreak "+ stats.killstreakCont);
+			}
+		}
 		
 		boolean alive  = Player1.Update(Disp, backG);
 		
@@ -627,6 +675,11 @@ public class Quest implements Screen{
 						break;
 					}
 				}
+		}
+		
+		for(Explosion ex:explo)
+		{
+			ex.draw(Disp, Conceito.batch);
 		}
 		
 		for(int i = 0; i<enem.size(); i++)
