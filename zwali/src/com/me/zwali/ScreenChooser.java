@@ -23,8 +23,7 @@ public class ScreenChooser implements Screen{
 	public ScreenChooser(Conceito main)
 	{
 		maingame = main;
-		font = new BitmapFont(Gdx.files.internal("res/fonts/arial.fnt"),
-		         Gdx.files.internal("res/fonts/arial.png"), false);
+		font = main.font;
 	}
 	
 	@Override

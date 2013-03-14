@@ -38,8 +38,7 @@ public class Textures {
 	 static Sprite zombie_type1;
 	 static Sprite zombie_type2;
 	 static Sprite zombie_type3;
-	 static Sprite backgroundIM;
-	 static Sprite ExplosionIM;
+
 	 static Sprite Red;
 	 static Sprite BarrelIM;
 	 static Sprite BarrelUnIM;
@@ -134,52 +133,51 @@ public class Textures {
 	 static Sprite ruthlessLogo;
 	public static void loadTextures() throws FileNotFoundException
 	{
-		ruthlessLogo = loadTexture("/rlogo");
-		qHome = loadTexture("/Quests/Home");
-		tHome = loadTexture("/Quests/Thumbs/Home");
-		questThumb = loadTexture("/Quests/questThumbnail");
-		shopBtns = loadTexture("/Shop/btns-shop");
-		bul_art = loadTexture("/explosion/pistol_artifact");
-		radar = loadTexture("/radar");
-		enemy1_falling = loadTexture("/zombies/type1_anim/falling");
-		enemy1_dead = loadTexture("/zombies/type1_anim/dead");
-		enemy2_falling = loadTexture("/zombies/type1_anim/falling");
-		enemy2_dead = loadTexture("/zombies/type1_anim/dead");
-		enemy3_falling = loadTexture("/zombies/type1_anim/falling");
-		enemy3_dead = loadTexture("/zombies/type1_anim/dead");
-		Sangue_3 = loadTexture("/sangue/b3");
-		Sangue_2 = loadTexture("/sangue/b2");
-		Sangue_1 = loadTexture("/sangue/b1");
-		player_walking = loadTexture("/player/player_anim/player_anim_walking");
-		player_idle = loadTexture("/player/player_anim/player_anim_idle");
-		Crosshair2IM = loadTexture("/crosshair");
-		CrossUp = loadTexture("/CrossUp");
-		CrossSide = loadTexture("/CrossSide");
-		playerPistolIM = loadTexture("/player/player_pistol");
-		playerMachineGunIM = loadTexture("/player/player_machinegun");
+		ruthlessLogo = loadTexture("/other/rlogo");
+		qHome = loadTexture("/gameplay/quest-bgs/Home");
+		tHome = loadTexture("/thumbs/Home");
+		questThumb = loadTexture("/thumbs/questThumbnail");
+		shopBtns = loadTexture("/menus/shop/btns-shop");
+		bul_art = loadTexture("/other/pistol_artifact");
+		radar = loadTexture("/other/radar");
+		enemy1_falling = loadTexture("/gameplay/zombies/type1_anim/falling");
+		enemy1_dead = loadTexture("/gameplay/zombies/type1_anim/dead");
+		enemy2_falling = loadTexture("/gameplay/zombies/type1_anim/falling");
+		enemy2_dead = loadTexture("/gameplay/zombies/type1_anim/dead");
+		enemy3_falling = loadTexture("/gameplay/zombies/type1_anim/falling");
+		enemy3_dead = loadTexture("/gameplay/zombies/type1_anim/dead");
+		Sangue_3 = loadTexture("/gameplay/sangue/b3");
+		Sangue_2 = loadTexture("/gameplay/sangue/b2");
+		Sangue_1 = loadTexture("/gameplay/sangue/b1");
+		player_walking = loadTexture("/gameplay/player/player_anim/player_anim_walking");
+		player_idle = loadTexture("/gameplay/player/player_anim/player_anim_idle");
+		
+		CrossUp = loadTexture("/other/CrossUp");
+		CrossSide = loadTexture("/other/CrossSide");
+		playerPistolIM = loadTexture("/gameplay/player/player_pistol");
+		playerMachineGunIM = loadTexture("/gameplay/player/player_machinegun");
 		playerMachineGunIM.setSize(90, 90);
-		playerShotGunIM = loadTexture("/player/player_shotgun");
+		playerShotGunIM = loadTexture("/gameplay/player/player_shotgun");
 		playerShotGunIM.setSize(90, 90);
-		playerBuilderIM = loadTexture("/player/player_builder");
-		bulletIM = loadTexture("/bullet");
-		zombie_type1 = loadTexture("/zombies/type1");
-		zombie_type2 = loadTexture("/zombies/type2");
-		zombie_type3 = loadTexture("/zombies/type3");
+		playerBuilderIM = loadTexture("/gameplay/player/player_builder");
+		bulletIM = loadTexture("/other/bullet");
+		zombie_type1 = loadTexture("/gameplay/zombies/type1");
+		zombie_type2 = loadTexture("/gameplay/zombies/type2");
+		zombie_type3 = loadTexture("/gameplay/zombies/type3");
 		Red = loadTexture("/Red");
-		backgroundIM = loadTexture("/environment/bg-ver_0_1x2");
-		ExplosionIM = loadTexture( "/explosion");
-		BarrelIM = loadTexture("/barrel");
-		BarrelUnIM = loadTexture("/barrelun");
-		Armor = loadTexture("/items/armor");
-		Power = loadTexture("/items/power");
-		Accuracy = loadTexture("/items/accuracy");
-		Ammo = loadTexture("/items/ammo");
-		Resources = loadTexture("/items/resources");
-		pistol = loadTexture("/weapons/wp1");
-		minigun = loadTexture("/weapons/wp2");
-		shotgun = loadTexture("/weapons/wp3");
-		Medkit = loadTexture("/items/medkit");
-		rdmBuff = loadTexture("/items/randombuff");
+
+		BarrelIM = loadTexture("/environment/barrel");
+		BarrelUnIM = loadTexture("/environment/barrelun");
+		Armor = loadTexture("/menus/shop/items/armor");
+		Power = loadTexture("/menus/shop/items/power");
+		Accuracy = loadTexture("/menus/shop/items/accuracy");
+		Ammo = loadTexture("/menus/shop/items/ammo");
+		Resources = loadTexture("/menus/shop/items/resources");
+		pistol = loadTexture("/thumbs/weapons/wp1");
+		minigun = loadTexture("/thumbs/weapons/wp2");
+		shotgun = loadTexture("/thumbs/weapons/wp3");
+		Medkit = loadTexture("/menus/shop/items/medkit");
+		rdmBuff = loadTexture("/menus/shop/items/randombuff");
 		barIM = loadTexture("/menus/invmenu");
 		bar_ammo = loadTexture("/menus/invmenu_ammo");
 		//bar_medkit = loadTexture("/menus/invmenu_medkit");
@@ -196,9 +194,9 @@ public class Textures {
 		mainmenu_btnAbout_h = loadTexture("/menus/mainmenu_aboutbtn_h");
 		pausemenu = loadTexture("/menus/pausemenu");
 		environment_Tree = loadTexture("/environment/tree");
-		builder_bar = loadTexture("/builder/barra");
-		builder_bar_btm = loadTexture("/builder/barra_btm");
-		shopIM = loadTexture("/Shop/shop");
+		builder_bar = loadTexture("/other/builder/barra");
+		builder_bar_btm = loadTexture("/other/builder/barra_btm");
+		shopIM = loadTexture("/menus/shop/shop");
 		mainmenu_dificuldade = loadTexture("/menus/dificuldade");
 		mainmenu_dificuldade_rockie = loadTexture("/menus/dificuldade_rockie");
 		mainmenu_dificuldade_regular = loadTexture("/menus/dificuldade_regular");
@@ -226,7 +224,7 @@ public class Textures {
 	private static Sprite loadTexture(String key) throws FileNotFoundException
 	{
 		try{
-		Texture a = new Texture(Gdx.files.internal("res/textures" + key +".png"));
+		Texture a = new Texture(Gdx.files.internal("assets/gfx" + key +".png"));
 		a.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		Sprite b = new Sprite(a);
 		disposable.add(b);

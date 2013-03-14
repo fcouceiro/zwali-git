@@ -11,9 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Menu implements Screen{
 
-	private BitmapFont font = new BitmapFont(Gdx.files.internal("res/fonts/arial.fnt"),
-	         Gdx.files.internal("res/fonts/arial.png"), false);
-	
+	private BitmapFont font;
 	List <Button> btns = new ArrayList<Button>(5);
 	int mx=0,my=0;
 	Conceito maingame;
@@ -21,6 +19,7 @@ public class Menu implements Screen{
 	public Menu(Conceito maingame)
 	{
 		this.maingame = maingame;
+		font = maingame.font;
 	}
 	
 	@Override

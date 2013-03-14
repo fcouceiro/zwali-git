@@ -95,9 +95,7 @@ public class Quest implements Screen{
 		Log.add("Teste ");
 		Log.add("Teste");
 
-		font = new BitmapFont(Gdx.files.internal("res/fonts/arial.fnt"),
-		         Gdx.files.internal("res/fonts/arial.png"), false);
-
+		font = main.font;
 		Cross = new RealCross( new Vector(0,0), new Vector(2,20), Textures.CrossSide);
 
 		Barril = new Crosshair( new Vector(0,0), new Vector(80,80), Textures.BarrelUnIM);
@@ -116,7 +114,7 @@ public class Quest implements Screen{
 		stats.PlayerTirosNoEnemy = 0;
 		
 		//Generating the background
-		backG = new Background( Textures.backgroundIM, new Vector( 1024, 1024) );
+		backG = new Background( Textures.Red, new Vector( 1024, 1024) );
 		
 		/*barreiras laterais/superiores/inferiores*/
 		backG.addOBJ( new StaticObj( new Vector( -2, backG.size.y/2), new Vector( 4, backG.size.y), Textures.BarrelIM ));

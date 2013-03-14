@@ -6,6 +6,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -16,6 +17,7 @@ public class Conceito extends Game {
 	public static ShapeRenderer shapeRenderer;
 	public static Preferences prefs;
 	public static boolean hasKeyboard;
+	public BitmapFont font;
 	
 	private FlashScreen zwaliScreen, ruthlessLogoScreen;
 	Howtoplay howtoplaymenu;
@@ -43,6 +45,8 @@ public class Conceito extends Game {
 		
 		batch.setProjectionMatrix(camera.combined);
 	
+		font = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
+		         Gdx.files.internal("assets/fonts/arial.png"), false);
 		howtoplaymenu = new Howtoplay(this);
 		shop = new Shop(this);
 		

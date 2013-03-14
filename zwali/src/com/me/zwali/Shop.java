@@ -39,8 +39,7 @@ public class Shop implements Screen{
 	public Shop(Conceito Main)
 	{
 		MainGame = Main;
-		shopfont = new BitmapFont(Gdx.files.internal("res/fonts/arial.fnt"),
-		         Gdx.files.internal("res/fonts/arial.png"), false);
+		shopfont = Main.font;
 		
 		TextureRegion btnHr = new TextureRegion(Textures.shopBtns,0,0,128,128);
 		TextureRegion btnr = new TextureRegion(Textures.shopBtns,128,0,128,128);
