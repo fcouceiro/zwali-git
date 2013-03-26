@@ -24,6 +24,7 @@ public class ScreenChooser implements Screen{
 	{
 		maingame = main;
 		font = main.font;
+		
 	}
 	
 	@Override
@@ -123,12 +124,14 @@ public class ScreenChooser implements Screen{
 		Player1.Health = Player1.MaxHp;
 		Player1.alive = true;
 		}
+		Sounds.main_s.setLooping(true);
+		Sounds.main_s.play();
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+		Sounds.main_s.stop();
 	}
 
 	@Override
@@ -174,6 +177,7 @@ class QuestThumb
 	boolean hit(int x, int y)
 	{
 		if(x >= thumbnailPos.x && x <= thumbnailPos.x + (size.x * 0.78) && y >= thumbnailPos.y && y <= thumbnailPos.y + (size.y *0.33) ){
+			if(!Sounds.mhover_s.isPlaying())Sounds.mhover_s.play();
 			return true;
 		}
 		return false;

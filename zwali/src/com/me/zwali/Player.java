@@ -440,6 +440,19 @@ class Player extends Entity
 		public static void setKick(boolean state)
 		{
 			kick = true;
+			
+			switch(Conceito.rdm.nextInt(4))
+			{
+				case 0:
+					Sounds.ca_uhh.play();
+					break;
+				case 1:
+					Sounds.ca_woa.play();
+					break;
+				case 2:
+					Sounds.ca_yah.play();
+					break;
+			}
 		}
 		
 		

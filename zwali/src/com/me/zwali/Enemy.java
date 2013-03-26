@@ -373,6 +373,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 			this.angle = Math.atan2( -dir.y, -dir.x);
 			this.angle *= 180/Math.PI; 
 			
+			
 		}
 		
 

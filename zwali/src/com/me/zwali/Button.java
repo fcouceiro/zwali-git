@@ -26,6 +26,7 @@ public class Button
 	boolean hit(int x, int y)
 	{
 		if(x >= Pos.x && x <= Pos.x + (size.x) && y >= Pos.y && y <= Pos.y + (size.y) ){
+			if(!Sounds.mhover_s.isPlaying())Sounds.mhover_s.play();
 			return true;
 		}
 		return false;

@@ -2,6 +2,9 @@
 package com.me.zwali;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
+
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -18,6 +21,7 @@ public class Conceito extends Game {
 	public static Preferences prefs;
 	public static boolean hasKeyboard;
 	public BitmapFont font;
+	public static Random rdm;
 	
 	private FlashScreen zwaliScreen, ruthlessLogoScreen;
 	Howtoplay howtoplaymenu;
@@ -32,6 +36,7 @@ public class Conceito extends Game {
 		float h = Gdx.graphics.getHeight();
 		try {
 			Textures.loadTextures();
+			Sounds.loadSounds();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,7 +49,8 @@ public class Conceito extends Game {
 		prefs = Gdx.app.getPreferences("Player-prefs");
 		
 		batch.setProjectionMatrix(camera.combined);
-	
+		
+		
 		font = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
 		         Gdx.files.internal("assets/fonts/arial.png"), false);
 		howtoplaymenu = new Howtoplay(this);
@@ -69,7 +75,7 @@ public class Conceito extends Game {
 		//flash screens
 		zwaliScreen = new FlashScreen(this,Textures.mainmenuIM,this.mainmenu, 240);
 		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.zwaliScreen,120);
-		
+		rdm = new Random();
 		setScreen(this.ruthlessLogoScreen);
 
 	}

@@ -19,7 +19,7 @@ public class Quest implements Screen{
 	
 	Player Player1;
 	List <CharSequence> Log = new ArrayList<CharSequence>();
-	
+	List <Long> act_sounds = new ArrayList<Long>(10);
 	
 	Shop shop;
 	Textures t = new Textures();
@@ -375,6 +375,7 @@ public class Quest implements Screen{
 		
 		Barril.setPos( new Vector( MPOS.x + Disp.x, MPOS.y + Disp.y));
 
+		
 		for( Bullet bilio:bul)
 		{
 			if(bilio.getAlive())
@@ -384,6 +385,17 @@ public class Quest implements Screen{
 				{
 					if(enimio.getAlive() && bilio.Collide(enimio))
 					{				
+
+						switch(rdm.nextInt(2))
+						{
+							case 0:
+								act_sounds.add(Sounds.zo_hurt2.play());
+								break;
+							case 1:
+								act_sounds.add(Sounds.zo_hurt1.play());
+								break;
+						}
+						
 						if(Player1.ragemode)
 						{
 							enimio.Health-=(bilio.power + 20);
@@ -425,6 +437,7 @@ public class Quest implements Screen{
 		
 		for(Enemy enimio: enem)
 		{
+			
 			if(enimio.Health < 0)
 			{
 				drop.drop(new Vector(enimio.pos.x - Disp.x, enimio.pos.y - Disp.y), Disp, Player1);
@@ -496,7 +509,6 @@ public class Quest implements Screen{
 		
 		for(sangue b:sangues)
 		{
-			
 			b.update(backG);
 		}
 		
@@ -645,11 +657,30 @@ public class Quest implements Screen{
 			else
 			{
 				dead_enemies.add(enimio);
-			
 			}
 
 			if(enimio.getAlive() && enimio.Collide(Player1))
 			{
+				switch(rdm.nextInt(4))
+				{
+					case 0:
+						act_sounds.add(Sounds.gh_aii.play());
+						break;
+					case 1:
+						act_sounds.add(Sounds.gh_eeaah.play());
+						break;
+					case 2:
+						act_sounds.add(Sounds.gh_hah.play());
+						break;
+					case 3:
+						act_sounds.add(Sounds.gh_huh.play());
+						break;
+					case 4:
+						act_sounds.add(Sounds.gh_uhh.play());
+						break;
+				}
+				
+			
 				Vector dir = new Vector( -(enimio.pos.x - Player1.pos.x), -(enimio.pos.y- Player1.pos.y));
 				dir.normalize();
 				Player1.subHealth(enimio.power);
@@ -709,7 +740,7 @@ public class Quest implements Screen{
 			System.out.println("Estatisticas: \nDisparos - "+stats.PlayerDisparos+"\nDisparos acertados - "+stats.PlayerTirosNoEnemy+"\nScore - "+stats.PlayerScore+"\nAtingido "+ stats.PlayerAtingido +" vezes");
 			System.out.println("GAME OVER! O MUNDO TAMBEM FICA MELHOR SEM TI!!");
 			System.out.println("CARREGA Y PARA RECOMECAR, N PARA TE ACORBARDARES E FUGIRES COM O RABINHO ENTRE AS PERNAS!");
-		
+			Sounds.zo_ahaha.play();
 			MainGame.setScreen(MainGame.questsScreen);
 			this.hide();
 		}
@@ -972,7 +1003,6 @@ public class Quest implements Screen{
 		nWavesMAX = 2;
 		nWave =2;
 		WarmUp = true;
-		font.dispose();
 		
 	}
 
