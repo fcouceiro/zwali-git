@@ -39,7 +39,7 @@ public class Sounds {
 		// counter attack
 		ca_yah = getSound("MC_Attack/Attack1");
 		ca_uhh = getSound("MC_Attack/Attack2");
-		ca_uhh = getSound("MC_Attack/Attack3");
+		ca_woa = getSound("MC_Attack/Attack3");
 		
 		//Getting hurt
 		gh_uhh = getSound("MC_GettingHurt/Hurt1");

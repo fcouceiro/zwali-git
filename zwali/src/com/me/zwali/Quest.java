@@ -127,7 +127,7 @@ public class Quest implements Screen{
 		
 		invmenu = new InvMenu(Conceito.batch);
 		
-		for(int i = 0; i < 15; i++)
+		/*for(int i = 0; i < 15; i++)
 		{
 			int size;
 			size = rdm.nextInt(50) +50;
@@ -140,7 +140,7 @@ public class Quest implements Screen{
 				y = rdm.nextInt(1800);
 			}
 			backG.addUnOBJ( new UnStaticObj(new Vector(x, y), new Vector( size, size), Textures.environment_Tree ,  (size+size) * 2) );
-		}
+		}*/
 				
 		obra = new Builder();
 	}
@@ -171,7 +171,10 @@ public class Quest implements Screen{
 		{
 			if(!Shop.wizardmode)
 			{
-				Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
+				if((timerWarmup - timeWarmup)%60 == 0 )
+				{
+					Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
+				}
 				timeWarmup++;
 				//System.out.println("Ta em warm up" + timeWarmup);
 				if (timeWarmup >= 300 && timeWarmup < 600) {
@@ -202,7 +205,7 @@ public class Quest implements Screen{
 			{
 			Log.add("Chegou a ronda " + Wavenr);
 			Log.add("Bonus gold + 150");
-			for(int i = 0; i < 7; i++)
+			/*for(int i = 0; i < 7; i++)
 			{
 				int size;
 				size = rdm.nextInt(50) +50;
@@ -215,7 +218,7 @@ public class Quest implements Screen{
 					y = rdm.nextInt(1800);
 				}
 				backG.addUnOBJ( new UnStaticObj(new Vector(x, y), new Vector( size, size), Textures.environment_Tree ,  (size+size) * 2) );
-			}
+			}*/
 			}
 			Wavenr++;
 			
@@ -300,6 +303,18 @@ public class Quest implements Screen{
 		
 		if(Player1.kick && timenotkick > timernotkick)
 		{
+			switch(Conceito.rdm.nextInt(4))
+			{
+				case 0:
+					Sounds.ca_uhh.play();
+					break;
+				case 1:
+					Sounds.ca_woa.play();
+					break;
+				case 2:
+					Sounds.ca_yah.play();
+					break;
+			}
 			kick = true;
 			timeKick= 0;
 			timenotkick = 0;
