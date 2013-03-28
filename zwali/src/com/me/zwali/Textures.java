@@ -129,11 +129,13 @@ public class Textures {
 	 //static Sprite expl1,expl2,expl3;
 	 static Sprite bul_art;
 	 static Sprite questThumb;
-
+	 static Sprite buttonsRegion;
 	 static Sprite ruthlessLogo;
 	public static void loadTextures() throws FileNotFoundException
 	{
 		ruthlessLogo = loadTexture("/other/rlogo");
+		buttonsRegion = loadTexture("/other/buttons");
+		buttonsRegion.setSize(90, 90);
 		qHome = loadTexture("/gameplay/quest-bgs/Home");
 		tHome = loadTexture("/thumbs/Home");
 		questThumb = loadTexture("/thumbs/questThumbnail");

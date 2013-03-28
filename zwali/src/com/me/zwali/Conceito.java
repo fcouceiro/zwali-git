@@ -66,11 +66,6 @@ public class Conceito extends Game {
 		ScreenChooser.Player1 = getPlayer();
 
 		mainmenu = new Menu(this);
-		mainmenu.btns.add(new Button(null,"Story mode",new Vector2(325,450),new Vector2(150,50),new Vector2(0,0),questsScreen));
-		mainmenu.btns.add(new Button(null,"Survival",new Vector2(325,350),new Vector2(150,50),new Vector2(0,0),null));
-		mainmenu.btns.add(new Button(null,"Basics",new Vector2(325,250),new Vector2(150,50),new Vector2(0,0),null));
-		mainmenu.btns.add(new Button(null,"About",new Vector2(325,150),new Vector2(150,50),new Vector2(0,0),null));
-		
 		
 		//flash screens
 		zwaliScreen = new FlashScreen(this,Textures.mainmenuIM,this.mainmenu, 240);

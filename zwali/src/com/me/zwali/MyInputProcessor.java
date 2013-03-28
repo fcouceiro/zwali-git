@@ -142,12 +142,6 @@ public class MyInputProcessor implements InputProcessor {
 	}
 
 	@Override
-	public boolean touchMoved(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		
@@ -162,6 +156,12 @@ public class MyInputProcessor implements InputProcessor {
 			else Quest.armaActual--;
 		}
 			
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
