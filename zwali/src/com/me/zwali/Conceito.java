@@ -23,7 +23,7 @@ public class Conceito extends Game {
 	public BitmapFont font;
 	public static Random rdm;
 	
-	private FlashScreen zwaliScreen, ruthlessLogoScreen;
+	private FlashScreen ruthlessLogoScreen;
 	Howtoplay howtoplaymenu;
 	Shop shop;
 	ScreenChooser questsScreen;
@@ -68,8 +68,8 @@ public class Conceito extends Game {
 		mainmenu = new Menu(this);
 		
 		//flash screens
-		zwaliScreen = new FlashScreen(this,Textures.mainmenuIM,this.mainmenu, 240);
-		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.zwaliScreen,120);
+		
+		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.mainmenu,120);
 		rdm = new Random();
 		setScreen(this.ruthlessLogoScreen);
 
@@ -150,8 +150,7 @@ public class Conceito extends Game {
 		questsScreen.dispose();
 		shop.dispose();
 		howtoplaymenu.dispose();
-		zwaliScreen.dispose();
-		//mainmenu.dispose();
+		mainmenu.dispose();
 	}
 	
 	Cenario Home()

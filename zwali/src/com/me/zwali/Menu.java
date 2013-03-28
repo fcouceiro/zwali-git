@@ -31,10 +31,12 @@ public class Menu implements Screen{
 		maingame = main;
 		stage = new Stage();
         
-
+		TextureRegion bg = new TextureRegion(Textures.mainmenuIM,0,0,(int)Textures.mainmenuIM.getWidth(),(int)Textures.mainmenuIM.getHeight());
+		
+		
         Table table = new Table();
         table.setFillParent(true);
-        
+        table.setBackground(new TextureRegionDrawable(bg));
         
         TextureRegion upRegion = new TextureRegion(Textures.buttonsRegion,0,0,219,29);
 		TextureRegion downRegion = new TextureRegion(Textures.buttonsRegion,0,3*29 +1,219,29);
@@ -43,22 +45,14 @@ public class Menu implements Screen{
 		TextButtonStyle style = new TextButtonStyle();
 		style.up = new TextureRegionDrawable(upRegion);
 		style.down = new TextureRegionDrawable(downRegion);
-		
 		style.font = buttonFont;
-
-		LabelStyle styleLab = new LabelStyle();
-		styleLab.font = main.font;
-		
-		Label lab = new Label("Welcome to Zwali!", styleLab);
-		lab.setPosition(300, 400);
-		stage.addActor(lab);
 		
 		TextButton button1 = new TextButton("Survival", style);
-		button1.setBounds(400, 300, 150, 20);
+		button1.setBounds(450, 180, 150, 20);
 		table.addActor(button1);
 
-		TextButton button2 = new TextButton("Campaign", style);
-		button2.setBounds(200, 300, 150, 20);
+		final TextButton button2 = new TextButton("Campaign", style);
+		button2.setBounds(200, 180, 150, 20);
 		button2.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	               	
@@ -66,6 +60,7 @@ public class Menu implements Screen{
 	        }
 	        
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < button2.getWidth() && x >0 && y<button2.getHeight() && y > 0)
 	        	maingame.setScreen(maingame.questsScreen);
 	        }
 		});
@@ -80,7 +75,7 @@ public class Menu implements Screen{
 	        stage.act(Gdx.graphics.getDeltaTime());
 	        stage.draw();
 
-	        Table.drawDebug(stage);
+	       // Table.drawDebug(stage);
 	       
 	}
 
