@@ -79,27 +79,26 @@ public class Entity {
 			Vector4 A = collisions.Coll(this, obj);		
 			if(obj.alive)
 			{
+				
+				Vector proj = deltaPos.proj(A.A);
+				Vector perp = deltaPos.proj(new Vector ( -A.A.y, A.A.x));
+				if( proj.SizeSQ() > A.B*A.B)
 				{
-					Vector proj = deltaPos.proj(A.A);
-					Vector perp = deltaPos.proj(new Vector ( -A.A.y, A.A.x));
-					if( proj.SizeSQ() > A.B*A.B)
+					Vector M = new Vector(A.A.x*A.B, A.A.y*A.B);
+					if( M.dot(proj) <0)
 					{
-							Vector M = new Vector(A.A.x*A.B, A.A.y*A.B);
-							if( M.dot(proj) <0)
-							{
-								deltaPos = new Vector( perp.x, perp.y);
-							}
-							else
-							{
-								deltaPos = new Vector(A.A.x*A.B + perp.x, A.A.y*A.B + perp.y);
-							}
-							
+						deltaPos = new Vector( perp.x, perp.y);
 					}
+					else
+					{
+						deltaPos = new Vector(A.A.x*A.B + perp.x, A.A.y*A.B + perp.y);
+					}
+
 				}
+				
 			}
 		}
 		
-			
 		pos.x += deltaPos.x;
 		pos.y += deltaPos.y;
 		

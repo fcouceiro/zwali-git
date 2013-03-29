@@ -117,12 +117,12 @@ public class Quest implements Screen{
 		backG = new Background( Textures.Red, new Vector( 1024, 1024) );
 		
 		/*barreiras laterais/superiores/inferiores*/
-		backG.addOBJ( new StaticObj( new Vector( -2, backG.size.y/2), new Vector( 4, backG.size.y), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( backG.size.x +2, backG.size.y/2), new Vector( 4, backG.size.y), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( backG.size.x/2, -2), new Vector( backG.size.x, 4), Textures.BarrelIM ));
-		backG.addOBJ( new StaticObj( new Vector( backG.size.x/2, backG.size.y + 2), new Vector(  backG.size.x, 4), Textures.BarrelIM ));
-
-
+		backG.addOBJ( new StaticObj( new Vector( -2, backG.size.y/2), new Vector( 4, backG.size.y), 0,Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( backG.size.x +2, backG.size.y/2), new Vector( 4, backG.size.y),0, Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( backG.size.x/2, -2), new Vector( backG.size.x, 4),0, Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( backG.size.x/2, backG.size.y + 2), new Vector(  backG.size.x, 4),0, Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector(800, 150), new Vector(  200, 120),40, Textures.Red ) );
+		
 		rdm = new Random();
 		
 		invmenu = new InvMenu(Conceito.batch);

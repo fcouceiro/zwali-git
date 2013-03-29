@@ -8,8 +8,6 @@ public class Collision {
 	
 	public boolean BCool( Entity A, Entity B)
 	{
-
-
 		boolean col = false;
 		
 		if( (A.pos.x - A.size.x/2 >= B.pos.x - B.size.x/2) && ( A.pos.x - A.size.x/2 <= B.pos.x + B.size.x/2  ))
@@ -110,59 +108,60 @@ public class Collision {
 		}
 		
 		Vector ClosestP = new Vector(0,0);
+		Vector CircPos = new Vector(Circ.pos.x - Box.pos.x, Circ.pos.y - Box.pos.y);
 		
+		CircPos.rotate((float) -Box.angle);
 		
-		if( Circ.pos.x > Box.pos.x + Box.size.x/2)
+		if( CircPos.x > Box.size.x/2)
 		{
-			if( Circ.pos.y > Box.pos.y + Box.size.y/2)
+			if( CircPos.y >Box.size.y/2)
 			{
-				ClosestP = new Vector(Box.pos.x + Box.size.x/2,  Box.pos.y + Box.size.y/2);
+				ClosestP = new Vector(Box.size.x/2, Box.size.y/2);
 			}
 			
-			else if( Circ.pos.y < Box.pos.y - Box.size.y/2 )
+			else if( CircPos.y < -Box.size.y/2 )
 			{
-				ClosestP = new Vector(Box.pos.x + Box.size.x/2,  Box.pos.y - Box.size.y/2);
+				ClosestP = new Vector(Box.size.x/2,  -Box.size.y/2);
 			}
 			
 			else
 			{
-				ClosestP = new Vector ( Box.pos.x + Box.size.x/2 , Circ.pos.y );
+				ClosestP = new Vector ( Box.size.x/2 , CircPos.y );
 			}
 		}
 		
-		else if ( Circ.pos.x < Box.pos.x - Box.size.x/2)
+		else if( CircPos.x < - Box.size.x/2)
 		{
-			if( Circ.pos.y > Box.pos.y + Box.size.y/2)
+			if( CircPos.y > Box.size.y/2)
 			{
-				ClosestP = new Vector(Box.pos.x - Box.size.x/2,  Box.pos.y + Box.size.y/2);
+				ClosestP = new Vector(-Box.size.x/2, Box.size.y/2);
 			}
 			
-			else if( Circ.pos.y < Box.pos.y - Box.size.y/2 )
+			else if( CircPos.y < -Box.size.y/2 )
 			{
-				ClosestP = new Vector(Box.pos.x - Box.size.x/2,  Box.pos.y - Box.size.y/2);
+				ClosestP = new Vector(-Box.size.x/2,  -Box.size.y/2);
 			}
 			
 			else
 			{
-				ClosestP = new Vector ( Box.pos.x - Box.size.x/2 , Circ.pos.y );
+				ClosestP = new Vector ( -Box.size.x/2 , CircPos.y );
 			}
-			
 		}
 		
 		else
 		{
-			if( Circ.pos.y > Box.pos.y + Box.size.y/2)
+			if( CircPos.y > Box.size.y/2)
 			{
-				ClosestP = new Vector(Circ.pos.x,  Box.pos.y + Box.size.y/2);
+				ClosestP = new Vector(CircPos.x,  Box.size.y/2);
 			}
 			
-			else if( Circ.pos.y < Box.pos.y - Box.size.y/2 )
+			else if( CircPos.y < - Box.size.y/2 )
 			{
-				ClosestP = new Vector(Circ.pos.x,  Box.pos.y - Box.size.y/2);
+				ClosestP = new Vector(CircPos.x,  - Box.size.y/2);
 			}
 		}
 		
-		Vector Sep = new Vector( Circ.pos.x - ClosestP.x, Circ.pos.y - ClosestP.y);
+		Vector Sep = new Vector( CircPos.x - ClosestP.x, CircPos.y - ClosestP.y);
 		float dist = (float) (Math.sqrt(Sep.SizeSQ()));
 		Sep.normalize();
 		Vector K = new Vector ( Sep.x*(dist-Circ.radii), Sep.y*(dist-Circ.radii));
@@ -178,6 +177,9 @@ public class Collision {
 			dist = -dist;
 			Sep = Sep.mult(-1);
 		}
+		
+		Sep.rotate((float) Box.angle);
+		
 		return new Vector4( Sep, dist);
 	}
 	

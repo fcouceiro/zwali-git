@@ -74,7 +74,7 @@ public class ScreenChooser implements Screen{
 		{
 			for(Vector s:c.Objects)
 			{
-				temp.backG.Objects.add(new StaticObj(new Vector(s.x,s.y), new Vector(90,90),Textures.BarrelIM));
+				temp.backG.Objects.add(new StaticObj(new Vector(s.x,s.y), new Vector(90,90),0,Textures.BarrelIM));
 			}
 		}
 		
@@ -121,13 +121,13 @@ public class ScreenChooser implements Screen{
 		Player1.Health = Player1.MaxHp;
 		Player1.alive = true;
 		}
-		
+		Sounds.main_s.setLooping(true);
+		Sounds.main_s.play();
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		if(Sounds.main_s.isPlaying())
 		Sounds.main_s.stop();
 	}
 

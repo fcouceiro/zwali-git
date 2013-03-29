@@ -27,7 +27,7 @@ public class Builder
 	public boolean addItem(Background backG, Vector Pos)
 	{
 		Vector disp = backG.getDisp();
-		backG.addUnOBJ( new UnStaticObj( new Vector(Pos.x + disp.x, Pos.y + disp.y), new Vector( 80, 80), Textures.BarrelUnIM , 800));
+		backG.addUnOBJ( new UnStaticObj( new Vector(Pos.x + disp.x, Pos.y + disp.y), new Vector( 80, 80), 0, Textures.BarrelUnIM , 800));
 		
 		return true;
 	}

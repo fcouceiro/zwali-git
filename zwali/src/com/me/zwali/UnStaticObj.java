@@ -11,9 +11,9 @@ public class UnStaticObj extends StaticObj
 	boolean alive;
 
 	
-	public UnStaticObj ( Vector pos, Vector size, Sprite im, int Health)
+	public UnStaticObj ( Vector pos, Vector size,double angle, Sprite im, int Health)
 	{
-		super (pos, size, im);
+		super (pos, size,angle, im);
 		this.Health = Health;
 		alive = true;
 	}
