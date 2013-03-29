@@ -89,6 +89,12 @@ public class Menu implements Screen{
 	public void show() {
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(stage);
+		
+		if(!Sounds.main_s.isPlaying())
+		{
+			Sounds.main_s.setLooping(true);
+			Sounds.main_s.play();
+		}
 	}
 
 	@Override
