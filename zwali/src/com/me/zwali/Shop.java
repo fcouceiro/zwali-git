@@ -14,6 +14,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
 
@@ -22,9 +29,11 @@ public class Shop implements Screen{
 
 	public static BitmapFont shopfont;
 	Conceito MainGame;
+	private Stage stage;
+	
 	Vector mpos = new Vector(0,0);
 	Vector exit = new Vector(0,0);
-	Vector btnExitPos = new Vector(50, 50);
+	Vector btnExitPos = new Vector(35, 50);
 	
 	List <Item> itens = new ArrayList<Item>(10);
 	
@@ -40,6 +49,54 @@ public class Shop implements Screen{
 	{
 		MainGame = Main;
 		shopfont = Main.font;
+		
+		stage = new Stage();
+        
+		TextureRegion bg = new TextureRegion(Textures.shopIM,0,0,(int)Textures.shopIM.getWidth(),(int)Textures.shopIM.getHeight());
+		
+		
+        Table table = new Table();
+        table.setFillParent(true);
+        table.setBackground(new TextureRegionDrawable(bg));
+        
+        TextureRegion upRegion = new TextureRegion(Textures.buttonsRegion,0,0,219,29);
+		TextureRegion downRegion = new TextureRegion(Textures.buttonsRegion,0,3*29 +1,219,29);
+		BitmapFont buttonFont = Main.font;
+		
+		TextButtonStyle style = new TextButtonStyle();
+		style.up = new TextureRegionDrawable(upRegion);
+		style.down = new TextureRegionDrawable(downRegion);
+		style.font = buttonFont;
+		
+		//exit
+		final TextButton buttonExit = new TextButton("Exit", style);
+		buttonExit.setBounds((float)btnExitPos.x, (float)btnExitPos.y, 110, 65);
+		buttonExit.addListener(new InputListener() {
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        	}
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < buttonExit.getWidth() && x >0 && y<buttonExit.getHeight() && y > 0)
+	        	MainGame.setScreen(MainGame.questsScreen);
+	        	}
+	        });
+		
+		
+		
+		//Buy
+		TextButton buttonBuy = new TextButton("Buy", style);
+		buttonBuy.setBounds((float)btnExitPos.x+130, (float)btnExitPos.y, 110, 65);
+		
+		TextButton buttonEquip = new TextButton("Equip", style);
+		buttonEquip.setBounds((float)btnExitPos.x+260, (float)btnExitPos.y, 110, 65);
+		
+		
+		
+		table.addActor(buttonEquip);
+		table.addActor(buttonBuy);
+		table.addActor(buttonExit);
+		stage.addActor(table);
 		
 		TextureRegion btnHr = new TextureRegion(Textures.shopBtns,0,0,128,128);
 		TextureRegion btnr = new TextureRegion(Textures.shopBtns,128,0,128,128);
@@ -66,9 +123,13 @@ public class Shop implements Screen{
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		if(Gdx.input.isKeyPressed(Keys.ESCAPE)) MainGame.setScreen(MainGame.questsScreen);
-		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        //stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+        
+		if(Gdx.input.isKeyPressed(Keys.ESCAPE)) MainGame.setScreen(MainGame.questsScreen);
+		//Gdx.gl.glClearColor(0, 0, 0, 1);
+		//Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		Conceito.batch.begin();
 		this.update();
 		Conceito.batch.end();
@@ -77,14 +138,14 @@ public class Shop implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		stage.setViewport(width, height, true);
 		
 	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
@@ -113,6 +174,7 @@ public class Shop implements Screen{
 		btnH.getTexture().dispose();
 		buy.getTexture().dispose();
 		equip.getTexture().dispose();
+		stage.dispose();
 	}
 	
 	public void update(){
@@ -121,7 +183,6 @@ public class Shop implements Screen{
 		
 		System.out.println(mpos.x + "    " + mpos.y);
 		
-		this.draw();
 		
 		shopfont.draw(Conceito.batch,"Money = " + ScreenChooser.Player1.money + "$" ,650, 580); 
 		shopfont.draw(Conceito.batch,"XP = " + ScreenChooser.Player1.XP ,650, 560); 
@@ -166,15 +227,8 @@ public class Shop implements Screen{
 		Textures.rdmBuff.draw(Conceito.batch);
 		
 		
-		if(mpos.x > btnExitPos.x && mpos.x < btnExitPos.x + 110 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
-		{
-			highlight[0] = true;
-			if(Gdx.input.justTouched()) this.MainGame.setScreen(this.MainGame.questsScreen);
-		}
-		else
-			highlight[0] = false;
 		
-		if(selected[0]== false && selected[1] == false && selected[2] == false && selected[3] == false && selected[0]== false && selected[4] == false && selected[5] == false && selected[6] == false && selected[7] == false)
+		if(selected[0]== false && selected[1] == false && selected[2] == false && selected[3] == false  && selected[4] == false && selected[5] == false && selected[6] == false && selected[7] == false)
 		{
 			shopfont.draw(Conceito.batch,"Welcome Adventurer... Looking for any goods?" ,450, 135);
 			shopfont.draw(Conceito.batch,"Just check on the item you are interested in!" ,450, 110);
@@ -241,18 +295,7 @@ public class Shop implements Screen{
 		}		
 		else
 		{
-			if(mpos.x > btnExitPos.x +130 && mpos.x < btnExitPos.x + 240 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
-			{
-				highlight[1] = true;
-			}
-			else
-				highlight[1] = false;
-			if(mpos.x > btnExitPos.x +260 && mpos.x < btnExitPos.x + 365 && 600 - mpos.y < btnExitPos.y + 65 && 600 -mpos.y > btnExitPos.y) 
-			{
-				highlight[2] = true;
-			}
-			else
-				highlight[2] = false;
+
 			
 			if(selected[0] == true)
 			{
@@ -487,180 +530,7 @@ public class Shop implements Screen{
 		
 	
 	
-	private void draw()
-	{
-		//Mudar a textura para textura da shop
-		Textures.shopIM.setPosition(0,0);
-		Textures.shopIM.setSize(800,600);
-		Textures.shopIM.draw(Conceito.batch);
-		
-		if(highlight[0])
-		{
-			btnH.setPosition((float)btnExitPos.x,(float)btnExitPos.y);
-			btnH.setSize(128,128);
-			btnH.draw(Conceito.batch);
-		}
-		else
-		{
-			btn.setPosition((float)btnExitPos.x,(float)btnExitPos.y);
-			btn.setSize(128,128);
-			btn.draw(Conceito.batch);
-		}
-		if(highlight[1])
-		{
-			buyH.setPosition((float)btnExitPos.x +130, (float)btnExitPos.y);
-			buyH.setSize(115,115);
-			buyH.draw(Conceito.batch);
-		}
-		else
-		{
-			buy.setPosition((float)btnExitPos.x +130, (float)btnExitPos.y);
-			buy.setSize(115,115);
-			buy.draw(Conceito.batch);
-		}
-		if(highlight[2])
-		{
-			equipH.setPosition((float)btnExitPos.x +260, (float)btnExitPos.y);
-			equipH.setSize(115,115);
-			equipH.draw(Conceito.batch);
-		}
-		else{
-			equip.setPosition((float)btnExitPos.x +260, (float)btnExitPos.y);
-			equip.setSize(115,115);
-			equip.draw(Conceito.batch);
-			
-			
-		}
-	}
-	
-//	public static void buy(Player pl)
-//	{
-//		switch(counter)
-//		{
-//
-//		case 0:
-//			if( pl.money >= 30 && pl.Health < 100)
-//			{
-//				pl.money-= itens.get(counter).price;
-//				pl.Health += 20;
-//				if(pl.Health > 100)
-//					pl.Health = 100;
-//			}
-//			break;
-//		case 1:
-//			
-//			if(pl.CurGun == 0 && pl.money >= 25)
-//			{
-//				pl.money -= 20;
-//				pl.InvListWeapons.get(pl.CurGun).ammoTotal += pl.InvListWeapons.get(pl.CurGun).MAXCAR;
-//			}
-//			else if(pl.CurGun == 1 && pl.money >= 250)
-//			{
-//				pl.money -= 250;
-//				pl.InvListWeapons.get(pl.CurGun).ammoTotal += pl.InvListWeapons.get(pl.CurGun).MAXCAR;
-//			}
-//			else if(pl.CurGun == 2 && pl.money >= 90)
-//			{
-//				pl.money -= 90;
-//				pl.InvListWeapons.get(pl.CurGun).ammoTotal += pl.InvListWeapons.get(pl.CurGun).MAXCAR;
-//			}
-//			break;
-//		case 2:
-//			if( pl.money >= 40)
-//			{
-//				pl.money-= itens.get(counter).price;
-//				pl.buildQuant += 1;
-//			}
-//			break;
-//		case 3:
-//			if( pl.money >=30 && pl.armor < 100)
-//			{
-//				pl.money -= itens.get(counter).price;
-//				pl.armor += 20;
-//				if(pl.armor > 100)
-//				{
-//					pl.armor = 100;
-//				}
-//			}
-//			break;
-//		case 4:
-//			
-//			switch(pl.CurGun){
-//			case 0:
-//				if(pl.UpgPwrPistol < 3)
-//				{
-//					if( pl.XP >= (pl.UpgPwrPistol+1)*100 + pl.UpgPwrPistol*100)
-//					{
-//						pl.XP -= (pl.UpgPwrPistol+1)*100 + pl.UpgPwrPistol*100 ;
-//						pl.UpgPwrPistol += 1;	
-//						pl.InvListWeapons.get(pl.CurGun).power += 5;
-//						pl.InvListWeapons.get(pl.CurGun).power2 += 5;
-//					}
-//				}
-//				break;
-//			case 1:
-//				if(pl.UpgPwrMinigun < 3)
-//				{
-//					if( pl.XP >= (pl.UpgPwrMinigun+1)*500  + pl.UpgPwrMinigun*200)
-//					{
-//						{
-//						pl.XP-= (pl.UpgPwrMinigun+1)*500  + pl.UpgPwrMinigun*200;
-//						pl.UpgPwrMinigun += 1;
-//						pl.InvListWeapons.get(pl.CurGun).power += 1;
-//						pl.InvListWeapons.get(pl.CurGun).power2 += 1;
-//						}
-//					}
-//				}
-//				
-//				break;
-//			case 2:
-//				if(pl.UpgPwrShotgun < 3)
-//				{
-//					if( pl.XP >= (pl.UpgPwrShotgun+1)*250  + pl.UpgPwrShotgun*100 )
-//					{
-//						{
-//						pl.XP -= ((pl.UpgPwrShotgun+1)*250  + pl.UpgPwrShotgun*100);
-//						pl.UpgPwrShotgun += 1;
-//						pl.InvListWeapons.get(pl.CurGun).power += 3;
-//						pl.InvListWeapons.get(pl.CurGun).power2 += 3;
-//						}
-//					}
-//				}
-//				break;
-//			}
-//			
-//			break;
-//		case 5:
-//			if(pl.UpgACC < 3 && pl.XP >= (pl.UpgACC+1)*100 + pl.UpgACC*250)
-//			{
-//			pl.XP-= ((pl.UpgACC+1)*100 + pl.UpgACC*250);
-//			pl.ACCdefault -= 2;
-//			pl.UpgACC += 1;
-//			}
-//			break;
-//		case 6:
-//			if( pl.money >= 60)
-//			{
-//				pl.money-= itens.get(counter).price;
-//				int tasd = rdm.nextInt(8);
-//				pl.buffsList.get(tasd).activeBuff = true;
-//			}
-//			break;
-//		case 7:
-//			if(pl.money >= 1500)
-//			{
-//				pl.money -= itens.get(counter).price;
-//				pl.hasGun[2] = true;
-//			}
-//			break;
-//		case 8:
-//			if(pl.money >= 7500)
-//			{
-//				pl.money -= itens.get(counter).price;
-//				pl.hasGun[1] = true;
-//			}
-//		}
-//	}
+
 	
 	public void animateWaveIncoming(int WaveNr, int timer, SpriteBatch batch)
 	{
