@@ -121,14 +121,17 @@ public class ScreenChooser implements Screen{
 		Player1.Health = Player1.MaxHp;
 		Player1.alive = true;
 		}
+		
+		if(!Sounds.main_s.isPlaying()){
 		Sounds.main_s.setLooping(true);
 		Sounds.main_s.play();
+		}
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		Sounds.main_s.stop();
+	
 	}
 
 	@Override

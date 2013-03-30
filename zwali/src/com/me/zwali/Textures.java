@@ -6,12 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Textures {
+	
+	static TextButtonStyle btnGreen,btnBlue,btnGray;
 	
 	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
 	
@@ -135,7 +143,6 @@ public class Textures {
 	{
 		ruthlessLogo = loadTexture("/other/rlogo");
 		buttonsRegion = loadTexture("/other/buttons");
-		buttonsRegion.setSize(90, 90);
 		qHome = loadTexture("/gameplay/quest-bgs/Home");
 		tHome = loadTexture("/thumbs/Home");
 		questThumb = loadTexture("/thumbs/questThumbnail");
@@ -219,9 +226,40 @@ public class Textures {
 		btnmainMenu = loadTexture("/tutorial/btnMainmenu");
 		btnmainMenu_h = loadTexture("/tutorial/btnMainmenu_h");
 		
-		
+		loadStyles();
 	}
 	
+	private static void loadStyles()
+	{
+		btnGreen = new TextButtonStyle();
+		btnBlue = new TextButtonStyle();
+		btnGray = new TextButtonStyle();
+		
+		BitmapFont buttonFont = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
+		         Gdx.files.internal("assets/fonts/arial.png"), false);
+		
+		
+		TextureRegion normal = new TextureRegion(Textures.buttonsRegion,0,57,256,58);
+		TextureRegion normal_h = new TextureRegion(Textures.buttonsRegion,0,0,256,58);
+		
+		btnGreen.up = new TextureRegionDrawable(normal);
+		btnGreen.down = new TextureRegionDrawable(normal_h);
+		btnGreen.font = buttonFont;
+		
+		normal = new TextureRegion(Textures.buttonsRegion,256,57,254,58);
+		normal_h = new TextureRegion(Textures.buttonsRegion,256,0,254,58);
+		
+		btnBlue.up = new TextureRegionDrawable(normal);
+		btnBlue.down = new TextureRegionDrawable(normal_h);
+		btnBlue.font = buttonFont;
+		
+		normal_h = new TextureRegion(Textures.buttonsRegion,2*255,56,256,58);
+		normal = new TextureRegion(Textures.buttonsRegion,2*255,0,256,58);
+		
+		btnGray.up = new TextureRegionDrawable(normal);
+		btnGray.down = new TextureRegionDrawable(normal_h);
+		btnGray.font = buttonFont;
+	}
 	
 	private static Sprite loadTexture(String key) throws FileNotFoundException
 	{

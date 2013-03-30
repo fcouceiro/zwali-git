@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class Menu implements Screen{
 
 	private Stage stage;
+	private Table table;
 	Conceito maingame;
 	public Menu(Conceito main)
 	{
@@ -33,26 +34,18 @@ public class Menu implements Screen{
         
 		TextureRegion bg = new TextureRegion(Textures.mainmenuIM,0,0,(int)Textures.mainmenuIM.getWidth(),(int)Textures.mainmenuIM.getHeight());
 		
-		
-        Table table = new Table();
+		table = new Table();
         table.setFillParent(true);
         table.setBackground(new TextureRegionDrawable(bg));
         
-        TextureRegion upRegion = new TextureRegion(Textures.buttonsRegion,0,0,219,29);
-		TextureRegion downRegion = new TextureRegion(Textures.buttonsRegion,0,3*29 +1,219,29);
-		BitmapFont buttonFont = main.font;
-
-		TextButtonStyle style = new TextButtonStyle();
-		style.up = new TextureRegionDrawable(upRegion);
-		style.down = new TextureRegionDrawable(downRegion);
-		style.font = buttonFont;
+        
 		
-		TextButton button1 = new TextButton("Survival", style);
-		button1.setBounds(450, 180, 150, 20);
+		TextButton button1 = new TextButton("Survival", Textures.btnBlue);
+		button1.setBounds(450, 180, 150, 35);
 		table.addActor(button1);
 
-		final TextButton button2 = new TextButton("Campaign", style);
-		button2.setBounds(200, 180, 150, 20);
+		final TextButton button2 = new TextButton("Campaign", Textures.btnGreen);
+		button2.setBounds(200, 180, 150, 35);
 		button2.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	               	
