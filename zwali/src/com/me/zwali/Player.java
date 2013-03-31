@@ -56,6 +56,7 @@ class Player extends Entity
 		int UpgPwrMinigun;
 		int UpgPwrShotgun;
 		int UpgACC;
+		int qLevel=0;
 		
 		
 		Player(Vector pos, int armor)

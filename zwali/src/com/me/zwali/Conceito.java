@@ -26,6 +26,7 @@ public class Conceito extends Game {
 	Shop shop;
 	ScreenChooser questsScreen;
 	MainMenu mainmenu;
+	Constants constDump = new Constants();
 	
 	@Override
 	public void create() {		
@@ -56,8 +57,24 @@ public class Conceito extends Game {
 		howtoplaymenu = new Howtoplay(this);
 		shop = new Shop(this);
 		
+		//add all campaign quests and populate the questsScreen
 		questsScreen = new ScreenChooser(this);
-		questsScreen.quests.add(Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
+		questsScreen.quests.add(constDump.Home());
 		questsScreen.popButtons();
 		
 		ScreenChooser.Player1 = getPlayer();
@@ -86,7 +103,7 @@ public class Conceito extends Game {
 			boolean hasGun[] = new boolean[3];
 			int health = prefs.getInteger("Phealth",80);
 			int armor = prefs.getInteger("Parmor",60);
-
+			int qLevel = prefs.getInteger("qLevel",0);
 			int money = prefs.getInteger("Pmoney",0);
 			int xp = prefs.getInteger("Pexp",0);
 			hasGun[0] = true;
@@ -94,7 +111,7 @@ public class Conceito extends Game {
 			hasGun[2] = prefs.getBoolean("hasgun2", false);
 			
 			Player temp = new Player(new Vector(256, 256),armor);
-
+			temp.qLevel = qLevel;
 			temp.Health = health;
 			temp.XP = xp;
 			temp.money = money;
@@ -110,6 +127,7 @@ public class Conceito extends Game {
 			temp.UpgPwrMinigun = prefs.getInteger("UpgMinigun", 0);
 			
 			Gdx.app.log("Savegame", "loaded");
+			Gdx.app.log("sad", qLevel + "");
 			return temp;
 		}
 		Player novo = new Player( new Vector(1024, 1024), 60);
@@ -134,6 +152,7 @@ public class Conceito extends Game {
 		prefs.putInteger("UpgPistol", ScreenChooser.Player1.UpgPwrPistol);
 		prefs.putInteger("UpgShotgun", ScreenChooser.Player1.UpgPwrShotgun);
 		prefs.putInteger("UpgMinigun", ScreenChooser.Player1.UpgPwrMinigun);
+		prefs.putInteger("qLevel", 8);
 		prefs.flush();
 		Gdx.app.log("savegame","saved");
 	}
@@ -149,29 +168,5 @@ public class Conceito extends Game {
 		howtoplaymenu.dispose();
 		mainmenu.dispose();
 	}
-	
-	Cenario Home()
-	{
-		Cenario temp = new Cenario(5,Textures.qHome, new Vector(600,950), new Vector(950,750));
-		temp.name = "Home";
-		temp.Objects.add(new Vector(150,570));
-		temp.Objects.add(new Vector(210,450));
-		temp.Objects.add(new Vector(410,350));
-		temp.Objects.add(new Vector(510,340));
-		temp.Objects.add(new Vector(610,330));
-		temp.Objects.add(new Vector(60,800));
-		temp.Objects.add(new Vector(150,800));
-		temp.Objects.add(new Vector(970,250));
-		return temp;
-	}
-	
-	Cenario Survival(Cenario bg)
-	{
-		Cenario temp = bg;
-		temp.maxWaves = 0;
-		temp.name = "Survival - " + bg.name;
-		return temp;
-	}
-	
 
 }

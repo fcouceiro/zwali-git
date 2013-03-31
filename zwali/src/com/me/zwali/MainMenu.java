@@ -88,7 +88,7 @@ public class MainMenu extends UI{
 	        
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < button1.getWidth() && x >0 && y<button1.getHeight() && y > 0){
-	        		maingame.setScreen(maingame.questsScreen.generateScreen(maingame.Survival(maingame.Home())));
+	        		maingame.setScreen(maingame.questsScreen.generateScreen(maingame.constDump.Survival(maingame.constDump.Home())));
 	        	}
 	        	
 	        }
