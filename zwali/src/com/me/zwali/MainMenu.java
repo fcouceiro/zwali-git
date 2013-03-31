@@ -22,7 +22,7 @@ public class MainMenu extends UI{
         
 		TextureRegion bg = new TextureRegion(Textures.mainmenuIM,0,0,(int)Textures.mainmenuIM.getWidth(),(int)Textures.mainmenuIM.getHeight());
         table.setBackground(new TextureRegionDrawable(bg));
-    
+        this.popButtons();
 	}
 	@Override
 	public void render(float delta) {
@@ -76,10 +76,23 @@ public class MainMenu extends UI{
 		stage.dispose();
 	}
 
-	public void popButtons() {
+	private void popButtons() {
 		// TODO Auto-generated method stub
-		TextButton button1 = new TextButton("Survival", Textures.btnBlue);
+		final TextButton button1 = new TextButton("Survival", Textures.btnBlue);
 		button1.setBounds(450, 180, 150, 35);
+		button1.addListener(new InputListener() {
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+	        
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < button1.getWidth() && x >0 && y<button1.getHeight() && y > 0){
+	        		maingame.setScreen(maingame.questsScreen.generateScreen(maingame.Survival(maingame.Home())));
+	        	}
+	        	
+	        }
+		});
 		table.addActor(button1);
 
 		final TextButton button2 = new TextButton("Campaign", Textures.btnGreen);

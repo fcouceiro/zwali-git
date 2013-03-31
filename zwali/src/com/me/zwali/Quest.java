@@ -74,6 +74,9 @@ public class Quest implements Screen{
 	int nWave =2;
 	int Wavenr = 1;
 	
+	//maxWaves for current quest
+	int maxWaves;
+	
 	boolean waveincoming = false;
 	RealCross Cross;
 	Crosshair Barril;
@@ -88,9 +91,16 @@ public class Quest implements Screen{
 	
 	Conceito MainGame;
 	
-	public Quest(Conceito main, Vector Wave1Pos, Vector Wave2Pos)
+	public Quest(Conceito main, Vector Wave1Pos, Vector Wave2Pos,int maxWaves)
 	{
 		this.MainGame = main;
+		this.maxWaves = maxWaves;
+		
+		if(maxWaves == 0){
+			this.survival = true;
+			Gdx.app.log("Survival", "On");
+		}
+		
 		Log.add("Bem-vindo ao Zwali! ");
 		Log.add("Teste ");
 		Log.add("Teste");
@@ -267,8 +277,15 @@ public class Quest implements Screen{
 					nWavesCur--;
 					nWave++;
 					System.out.println("Wave "+waves.get(i).waveNR+"ended and there are "+nWavesCur );
-					waves.add(new Wave( waves.get(i).pos, Wavenr, 150));
+					if(waves.get(i).waveNR == maxWaves && !survival)
+					{
+						MainGame.setScreen(MainGame.questsScreen);
+						}
+					else {
+						waves.add(new Wave( waves.get(i).pos, Wavenr, 150));
+					}
 					waves.remove(waves.get(i));	
+				
 				}
 				
 				if( nWavesCur == 0)
@@ -871,6 +888,7 @@ public class Quest implements Screen{
 	public void hide() {
 		// TODO Auto-generated method stub
 		if(!Sounds.main_s.isPlaying()) Sounds.main_s.play();
+		Gdx.app.log("wave", "Ended in wave " + this.Wavenr);
 	}
 
 	private void input()

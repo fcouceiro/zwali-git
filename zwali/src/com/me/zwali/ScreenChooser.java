@@ -43,7 +43,7 @@ public class ScreenChooser extends UI{
 	
 	Screen generateScreen(Cenario c)
 	{
-		Quest temp = new Quest(this.maingame,c.Wave1Pos,c.Wave2Pos);
+		Quest temp = new Quest(this.maingame,c.Wave1Pos,c.Wave2Pos,c.maxWaves);
 		temp.backG.image = c.background;
 		
 		
@@ -140,7 +140,7 @@ public class ScreenChooser extends UI{
 		
 		//add back button
 		final TextButton btn = new TextButton("Back",StylesManager.btnGray);
-		btn.setBounds(Gdx.graphics.getWidth()/2 - 75, 100, 150, 35);
+		btn.setBounds(Gdx.graphics.getWidth()/2 -160, 100, 150, 35);
 		btn.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	               	
@@ -154,9 +154,9 @@ public class ScreenChooser extends UI{
 		});
 		table.addActor(btn);
 		
-		//add back button
-		final TextButton btn2 = new TextButton("Shop",StylesManager.btnGray);
-		btn2.setBounds(Gdx.graphics.getWidth()/4 *3, 200, 150, 35);
+		//add shop button
+		final TextButton btn2 = new TextButton("Shop",StylesManager.btnGreen);
+		btn2.setBounds(Gdx.graphics.getWidth()/2 +10, 100, 150, 35);
 		btn2.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 
@@ -181,9 +181,11 @@ class Cenario
 	Vector Wave1Pos;
 	Vector Wave2Pos;
 	String name = "not defined";
+	int maxWaves;
 	
-	Cenario(Sprite bg, Vector Wave1Pos, Vector Wave2Pos)
+	Cenario(int maxWaves,Sprite bg, Vector Wave1Pos, Vector Wave2Pos)
 	{
+		this.maxWaves = maxWaves;
 		this.background = bg;
 		this.Wave1Pos = Wave1Pos;
 		this.Wave2Pos = Wave2Pos;

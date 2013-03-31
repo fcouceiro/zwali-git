@@ -55,8 +55,8 @@ public class Sounds {
 		zo_hurt2 = getSound("ZO_Sounds/Hurt2");
 		
 		//misc sounds
-		main_s = sm.newMusic(Gdx.files.internal("assets/sfx/misc/lost_village.ogg"));
-		mhover_s = getMusic("misc/mouse");
+		main_s = getMusic("misc/lost_village.ogg");
+		mhover_s = getMusic("misc/mouse.mp3");
 	}
 	
 	static Sound getSound(String key)
@@ -68,7 +68,7 @@ public class Sounds {
 	
 	static Music getMusic(String key)
 	{
-		Music temp = sm.newMusic(Gdx.files.internal("assets/sfx/" + key +".mp3"));
+		Music temp = sm.newMusic(Gdx.files.internal("assets/sfx/" + key));
 		return temp;
 	}
 }

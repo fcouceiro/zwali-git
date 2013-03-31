@@ -48,7 +48,9 @@ public class Conceito extends Game {
 		
 		batch.setProjectionMatrix(camera.combined);
 		
+		//create styles for UI's
 		StylesManager.create("assets/gfx/other/");
+		
 		font = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
 		         Gdx.files.internal("assets/fonts/arial.png"), false);
 		howtoplaymenu = new Howtoplay(this);
@@ -61,7 +63,7 @@ public class Conceito extends Game {
 		ScreenChooser.Player1 = getPlayer();
 
 		mainmenu = new MainMenu(this);
-		mainmenu.popButtons();
+	
 		//flash screens
 		
 		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.mainmenu,120);
@@ -150,7 +152,7 @@ public class Conceito extends Game {
 	
 	Cenario Home()
 	{
-		Cenario temp = new Cenario(Textures.qHome, new Vector(600,950), new Vector(950,750));
+		Cenario temp = new Cenario(5,Textures.qHome, new Vector(600,950), new Vector(950,750));
 		temp.name = "Home";
 		temp.Objects.add(new Vector(150,570));
 		temp.Objects.add(new Vector(210,450));
@@ -163,6 +165,13 @@ public class Conceito extends Game {
 		return temp;
 	}
 	
+	Cenario Survival(Cenario bg)
+	{
+		Cenario temp = bg;
+		temp.maxWaves = 0;
+		temp.name = "Survival - " + bg.name;
+		return temp;
+	}
 	
 
 }
