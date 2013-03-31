@@ -61,7 +61,7 @@ public class Conceito extends Game {
 		ScreenChooser.Player1 = getPlayer();
 
 		mainmenu = new MainMenu(this);
-		
+		mainmenu.popButtons();
 		//flash screens
 		
 		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.mainmenu,120);

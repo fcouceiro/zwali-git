@@ -9,45 +9,20 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.ruthlessgames.api.UI;
 
-public class MainMenu implements Screen{
+public class MainMenu extends UI{
 
-	private Stage stage;
-	private Table table;
-	Conceito maingame;
+	Conceito maingame
+	;
 	public MainMenu(Conceito main)
 	{
+		super(Conceito.batch,true);
 		maingame = main;
-		stage = new Stage();
         
 		TextureRegion bg = new TextureRegion(Textures.mainmenuIM,0,0,(int)Textures.mainmenuIM.getWidth(),(int)Textures.mainmenuIM.getHeight());
-		
-		table = new Table();
-        table.setFillParent(true);
         table.setBackground(new TextureRegionDrawable(bg));
-        
-        
-		
-		TextButton button1 = new TextButton("Survival", Textures.btnBlue);
-		button1.setBounds(450, 180, 150, 35);
-		table.addActor(button1);
-
-		final TextButton button2 = new TextButton("Campaign", Textures.btnGreen);
-		button2.setBounds(200, 180, 150, 35);
-		button2.addListener(new InputListener() {
-	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	               	
-	                return true;
-	        }
-	        
-	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	        	if(x < button2.getWidth() && x >0 && y<button2.getHeight() && y > 0)
-	        	maingame.setScreen(maingame.questsScreen);
-	        }
-		});
-		
-		table.addActor(button2);
-		stage.addActor(table);
+    
 	}
 	@Override
 	public void render(float delta) {
@@ -99,6 +74,29 @@ public class MainMenu implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		stage.dispose();
+	}
+
+	public void popButtons() {
+		// TODO Auto-generated method stub
+		TextButton button1 = new TextButton("Survival", Textures.btnBlue);
+		button1.setBounds(450, 180, 150, 35);
+		table.addActor(button1);
+
+		final TextButton button2 = new TextButton("Campaign", Textures.btnGreen);
+		button2.setBounds(200, 180, 150, 35);
+		button2.addListener(new InputListener() {
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+	        
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < button2.getWidth() && x >0 && y<button2.getHeight() && y > 0)
+	        	maingame.setScreen(maingame.questsScreen);
+	        }
+		});
+		
+		table.addActor(button2);
 	}
 
 

@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.ruthlessgames.api.StylesManager;
 import com.ruthlessgames.api.UI;
 
-public class ScreenChooser implements UI{
+public class ScreenChooser extends UI{
 
 	Conceito maingame;
 	MyInputProcessor inputProcessor;
@@ -24,10 +24,8 @@ public class ScreenChooser implements UI{
 	
 	public ScreenChooser(Conceito main)
 	{
+		super(Conceito.batch,true);
 		maingame = main;
-		table.setFillParent(true);
-		table.debug();
-		stage.addActor(table);
 	}
 	
 	@Override
@@ -115,7 +113,7 @@ public class ScreenChooser implements UI{
 		
 	}
 
-	@Override
+
 	public void popButtons() {
 		// TODO Auto-generated method stub
 		
