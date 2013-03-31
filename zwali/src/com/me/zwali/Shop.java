@@ -11,15 +11,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
@@ -27,9 +26,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Shop implements Screen{
 
-	public static BitmapFont shopfont;
+	public BitmapFont shopfont;
 	Conceito MainGame;
+	
 	private Stage stage;
+	private Table table;
 	
 	Vector mpos = new Vector(0,0);
 	Vector exit = new Vector(0,0);
@@ -42,40 +43,30 @@ public class Shop implements Screen{
 	static boolean wizardmode = false;
 	static Random rdm = new Random();
 	
-	Sprite btnH,btn, buyH, buy, equip, equipH;
-	
 	
 	public Shop(Conceito Main)
 	{
 		MainGame = Main;
 		shopfont = Main.font;
-		
+
 		stage = new Stage();
-        
+        stage.setViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		TextureRegion bg = new TextureRegion(Textures.shopIM,0,0,(int)Textures.shopIM.getWidth(),(int)Textures.shopIM.getHeight());
 		
 		
-        Table table = new Table();
+        table = new Table();
         table.setFillParent(true);
         table.setBackground(new TextureRegionDrawable(bg));
-        
-        TextureRegion upRegion = new TextureRegion(Textures.buttonsRegion,0,0,219,29);
-		TextureRegion downRegion = new TextureRegion(Textures.buttonsRegion,0,3*29 +1,219,29);
-		BitmapFont buttonFont = Main.font;
-		
-		TextButtonStyle style = new TextButtonStyle();
-		style.up = new TextureRegionDrawable(upRegion);
-		style.down = new TextureRegionDrawable(downRegion);
-		style.font = buttonFont;
-		
+  
 		//exit
-		final TextButton buttonExit = new TextButton("Exit", style);
+		final TextButton buttonExit = new TextButton("Exit", Textures.btnGray);
 		buttonExit.setBounds((float)btnExitPos.x, (float)btnExitPos.y, 110, 65);
 		buttonExit.addListener(new InputListener() {
-	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	               	
 	                return true;
-	        	}
+	        }
+			 
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < buttonExit.getWidth() && x >0 && y<buttonExit.getHeight() && y > 0)
 	        	MainGame.setScreen(MainGame.questsScreen);
@@ -85,32 +76,22 @@ public class Shop implements Screen{
 		
 		
 		//Buy
-		TextButton buttonBuy = new TextButton("Buy", style);
+		TextButton buttonBuy = new TextButton("Buy", Textures.btnGreen);
 		buttonBuy.setBounds((float)btnExitPos.x+130, (float)btnExitPos.y, 110, 65);
 		
-		TextButton buttonEquip = new TextButton("Equip", style);
+		TextButton buttonEquip = new TextButton("Equip", Textures.btnBlue);
 		buttonEquip.setBounds((float)btnExitPos.x+260, (float)btnExitPos.y, 110, 65);
 		
+		table.debug();
+		stage.addActor(table);
 		
+		LabelStyle a = new LabelStyle();
+		a.font = this.shopfont;
 		
 		table.addActor(buttonEquip);
 		table.addActor(buttonBuy);
 		table.addActor(buttonExit);
-		stage.addActor(table);
 		
-		TextureRegion btnHr = new TextureRegion(Textures.shopBtns,0,0,128,128);
-		TextureRegion btnr = new TextureRegion(Textures.shopBtns,128,0,128,128);
-		TextureRegion buyr = new TextureRegion(Textures.shopBtns,256,0,128,128);
-		TextureRegion buyHr = new TextureRegion(Textures.shopBtns,384,0,128,128);
-		TextureRegion equipr = new TextureRegion(Textures.shopBtns,512,0,128,128);
-		TextureRegion equipHr = new TextureRegion(Textures.shopBtns,640,0,128,128);
-		
-		btnH = new Sprite(btnr);
-		btn = new Sprite(btnHr);
-		buyH = new Sprite(buyHr);
-		buy = new Sprite(buyr);
-		equipH = new Sprite(equipHr);
-		equip = new Sprite(equipr);
 		
 		populateItens();
 	}
@@ -120,18 +101,18 @@ public class Shop implements Screen{
 		for(int i = 0; i < 9; i++)
 			itens.add(new Item(i, ScreenChooser.Player1));
 	}
+	
+	
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        //stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
-        
-		if(Gdx.input.isKeyPressed(Keys.ESCAPE)) MainGame.setScreen(MainGame.questsScreen);
-		//Gdx.gl.glClearColor(0, 0, 0, 1);
-		//Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		Conceito.batch.begin();
-		this.update();
+        stage.act(Gdx.graphics.getDeltaTime());
+	
+        stage.draw();
+        Table.drawDebug(stage);
+		if(Gdx.input.isKeyPressed(Keys.ESCAPE)) MainGame.setScreen(MainGame.questsScreen);
 		Conceito.batch.end();
 		
 	}
@@ -170,10 +151,6 @@ public class Shop implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		shopfont.dispose();
-		btn.getTexture().dispose();
-		btnH.getTexture().dispose();
-		buy.getTexture().dispose();
-		equip.getTexture().dispose();
 		stage.dispose();
 	}
 	

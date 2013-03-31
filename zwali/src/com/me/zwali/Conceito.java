@@ -1,10 +1,8 @@
 
 package com.me.zwali;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Random;
 
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -12,7 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
+import com.ruthlessgames.api.StylesManager;
 
 public class Conceito extends Game {
 	public static OrthographicCamera camera;
@@ -27,7 +25,7 @@ public class Conceito extends Game {
 	Howtoplay howtoplaymenu;
 	Shop shop;
 	ScreenChooser questsScreen;
-	Menu mainmenu;
+	MainMenu mainmenu;
 	
 	@Override
 	public void create() {		
@@ -50,22 +48,19 @@ public class Conceito extends Game {
 		
 		batch.setProjectionMatrix(camera.combined);
 		
-		
+		StylesManager.create("assets/gfx/other/");
 		font = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
 		         Gdx.files.internal("assets/fonts/arial.png"), false);
 		howtoplaymenu = new Howtoplay(this);
 		shop = new Shop(this);
 		
 		questsScreen = new ScreenChooser(this);
-		questsScreen.quests.add(new QuestThumb(Textures.tHome,"Home", new Vector2(355,300), new Vector2(200,200),new Vector2(60,25),Home()));
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"Farm", new Vector2(155,300), new Vector2(140,140),new Vector2(35,20),null));
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"Garage", new Vector2(555,300), new Vector2(140,140),new Vector2(30,20),null));
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"Back", new Vector2(355,200), new Vector2(140,140),new Vector2(30,20),null));
-		questsScreen.quests.add(new QuestThumb(Textures.Red,"Shop", new Vector2(600,100), new Vector2(140,140),new Vector2(35,20),null));
+		questsScreen.quests.add(Home());
+		questsScreen.popButtons();
 		
 		ScreenChooser.Player1 = getPlayer();
 
-		mainmenu = new Menu(this);
+		mainmenu = new MainMenu(this);
 		
 		//flash screens
 		
@@ -156,6 +151,7 @@ public class Conceito extends Game {
 	Cenario Home()
 	{
 		Cenario temp = new Cenario(Textures.qHome, new Vector(600,950), new Vector(950,750));
+		temp.name = "Home";
 		temp.Objects.add(new Vector(150,570));
 		temp.Objects.add(new Vector(210,450));
 		temp.Objects.add(new Vector(410,350));

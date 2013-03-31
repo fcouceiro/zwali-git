@@ -6,62 +6,41 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.ruthlessgames.api.StylesManager;
+import com.ruthlessgames.api.UI;
 
-public class ScreenChooser implements Screen{
+public class ScreenChooser implements UI{
 
 	Conceito maingame;
 	MyInputProcessor inputProcessor;
 	public static Player Player1;
 	Quest curQuest;
-	List<QuestThumb> quests = new ArrayList<QuestThumb>(5);
-	BitmapFont font;
+	List<Cenario> quests = new ArrayList<Cenario>();
 	
 	public ScreenChooser(Conceito main)
 	{
 		maingame = main;
-		font = main.font;
-		
+		table.setFillParent(true);
+		table.debug();
+		stage.addActor(table);
 	}
 	
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		input();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		Conceito.batch.begin();
-		for(QuestThumb q:quests)
-		{
-			Vector2 pos = q.thumbnailPos;
-			Vector2 size = q.size;
-			//Conceito.shapeRenderer.rect(pos.x, pos.y, size.x, size.y);
-			Textures.questThumb.setPosition(pos.x, pos.y);
-			Textures.questThumb.setSize(size.x, size.y);
-			Textures.questThumb.draw(Conceito.batch);
-			
-			if(q.thumbnail != Textures.Red){
-				q.thumbnail.setPosition(pos.x +10, pos.y +40);
-				q.thumbnail.setSize(128, 128);
-				q.thumbnail.draw(Conceito.batch);
-			}
-		}
-		drawText();
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
+		Table.drawDebug(stage);
 		Conceito.batch.end();
-	}
-
-	void drawText()
-	{
-		for(QuestThumb q:quests)
-		{
-			Vector2 pos = q.thumbnailPos;
-			font.draw(Conceito.batch, q.questName, pos.x+ q.txtPosRel.x, pos.y+ q.txtPosRel.y);
-		}
-		
 	}
 	
 	Screen generateScreen(Cenario c)
@@ -91,23 +70,6 @@ public class ScreenChooser implements Screen{
 		return temp;
 	}
 	
-	void input()
-	{
-		int mx = Gdx.input.getX();
-		int my = 600 - Gdx.input.getY();
-		
-		for(QuestThumb q:quests)
-		{
-			if(q.hit(mx, my))
-			{
-				if(q.questName == "Back" && Gdx.input.justTouched()) maingame.setScreen(maingame.mainmenu);
-				else if(q.questName == "Shop" && Gdx.input.justTouched()) maingame.setScreen(maingame.shop);
-				else if(Gdx.input.justTouched()) maingame.setScreen(this.generateScreen(q.cenario));
-				
-			}
-		}
-	}
-	
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
@@ -117,6 +79,7 @@ public class ScreenChooser implements Screen{
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
+		Gdx.input.setInputProcessor(stage);
 		if(Player1.Health <= 0){
 		Player1.Health = Player1.MaxHp;
 		Player1.alive = true;
@@ -131,7 +94,7 @@ public class ScreenChooser implements Screen{
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-	
+
 	}
 
 	@Override
@@ -152,36 +115,64 @@ public class ScreenChooser implements Screen{
 		
 	}
 
-}
-
-class QuestThumb
-{
-	boolean completed;
-	Sprite thumbnail;
-	CharSequence questName;
-	Vector2 thumbnailPos;
-	Vector2 size;
-	Cenario cenario;
-	Vector2 txtPosRel;
-	
-	public QuestThumb(Sprite t,CharSequence name, Vector2 Pos, Vector2 Size,Vector2 txtPosRel, Cenario c)
-	{
-		this.size = Size;
-		this.thumbnail = t;
-		this.questName = name;
-		this.thumbnailPos = Pos;
-		this.cenario = c;
-		this.txtPosRel = txtPosRel;
-	}
-	
-	boolean hit(int x, int y)
-	{
-		if(x >= thumbnailPos.x && x <= thumbnailPos.x + (size.x * 0.78) && y >= thumbnailPos.y && y <= thumbnailPos.y + (size.y *0.33) ){
-			if(!Sounds.mhover_s.isPlaying())Sounds.mhover_s.play();
-			return true;
+	@Override
+	public void popButtons() {
+		// TODO Auto-generated method stub
+		
+		//Generate quests thumbs and add listenners
+		int counter=0;
+		for(final Cenario c:quests)
+		{
+			final TextButton btn = new TextButton(c.name,StylesManager.btnBlue);
+			btn.setBounds(250 + 160*counter, 350, 150, 35);
+			btn.addListener(new InputListener() {
+		        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+		               	
+		                return true;
+		        }
+		        
+		        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+		        	if(x < btn.getWidth() && x >0 && y<btn.getHeight() && y > 0)
+		        	maingame.setScreen(generateScreen(c));
+		        }
+			});
+			table.addActor(btn);
+			
 		}
-		return false;
+		
+		//add back button
+		final TextButton btn = new TextButton("Back",StylesManager.btnGray);
+		btn.setBounds(Gdx.graphics.getWidth()/2 - 75, 100, 150, 35);
+		btn.addListener(new InputListener() {
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+	        
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < btn.getWidth() && x >0 && y<btn.getHeight() && y > 0)
+	        	maingame.setScreen(maingame.mainmenu);
+	        }
+		});
+		table.addActor(btn);
+		
+		//add back button
+		final TextButton btn2 = new TextButton("Shop",StylesManager.btnGray);
+		btn2.setBounds(Gdx.graphics.getWidth()/4 *3, 200, 150, 35);
+		btn2.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < btn2.getWidth() && x >0 && y<btn2.getHeight() && y > 0)
+					maingame.setScreen(maingame.shop);
+			}
+		});
+		table.addActor(btn2);
 	}
+
 }
 
 class Cenario
@@ -191,6 +182,7 @@ class Cenario
 	List <Vector> UnObjects  = new ArrayList<Vector>(5);
 	Vector Wave1Pos;
 	Vector Wave2Pos;
+	String name = "not defined";
 	
 	Cenario(Sprite bg, Vector Wave1Pos, Vector Wave2Pos)
 	{

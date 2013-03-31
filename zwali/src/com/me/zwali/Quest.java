@@ -646,7 +646,8 @@ public class Quest implements Screen{
 			
 			Vector2 radar = new Vector2((float)(enemy.x - player.x),(float) (enemy.y - player.y ));
 			radar.nor();
-			radar = radar.mul(70);
+			radar = radar.scl(70);
+			
 			float anlge = radar.angle();
 			
 			
@@ -863,13 +864,13 @@ public class Quest implements Screen{
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+		if(Sounds.main_s.isPlaying()) Sounds.main_s.stop();
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+		if(!Sounds.main_s.isPlaying()) Sounds.main_s.play();
 	}
 
 	private void input()
