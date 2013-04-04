@@ -45,7 +45,7 @@ public class Shop extends UI{
 	
 	public Shop(Conceito Main)
 	{
-		super(Conceito.batch, false);
+		super(Conceito.batch, Main.font,false);
 	
 		MainGame = Main;
 		shopfont = Main.font;

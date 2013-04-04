@@ -8,10 +8,17 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.ruthlessgames.api.StylesManager;
 import com.ruthlessgames.api.UI;
 
@@ -24,24 +31,18 @@ public class ScreenChooser extends UI{
 	List<Cenario> quests = new ArrayList<Cenario>();
 	List<TextButton> btns_Q = new ArrayList<TextButton>();
 	
+	private Vector2 center = new Vector2(Gdx.graphics.getWidth() / 2,Gdx.graphics.getHeight() / 2);
+	private Slider slider;
+	private Vector2 qTHumbsPos[];
+	
 	public ScreenChooser(Conceito main)
 	{
-		super(Conceito.batch,false);
+		super(Conceito.batch,main.font,true);
+		
 		maingame = main;
+		this.qTHumbsPos = this.creatPos();
 	}
 	
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		Conceito.batch.begin();
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
-		Table.drawDebug(stage);
-		Conceito.batch.end();
-	}
 	
 	Screen generateScreen(Cenario c)
 	{
@@ -90,7 +91,7 @@ public class ScreenChooser extends UI{
 		Sounds.main_s.play();
 		}
 		
-		this.organize_btns(Player1.qLevel);
+		this.getLabelByName("plLevel").setText("Your level: " + Player1.qLevel);
 	}
 
 	@Override
@@ -116,43 +117,16 @@ public class ScreenChooser extends UI{
 		// TODO Auto-generated method stub
 		
 	}
-
-	private void organize_btns(int qLevel)
-	{
-		//Clear previous bts
-		for(TextButton b:btns_Q)
-		{
-			table.removeActor(b);
-		}
-		
-		Vector2 pos[] = getPositions(2);
-		
-		int aux = 0;
-		if(qLevel <5) aux = 4;
-		else if(qLevel <10) aux = 9;
-		else if(qLevel<17) aux = 16;
-		else Gdx.app.exit();
-		
-			for(int i=0;i<aux;i++)
-			{
-				btns_Q.get(i).setBounds(pos[i].x, pos[i].y, 100, 35);
-				table.addActor(btns_Q.get(i));
-				
-			}
 	
-	}
 	
-	private Vector2[] getPositions(int q)
+	private Vector2[] creatPos()
 	{
-		int cx = Gdx.graphics.getWidth() / 2 - 50;
-		int cy = Gdx.graphics.getHeight() / 2;
 		
-		int raio1 = 0;
-		if(q == 0) raio1 = 200;
-		else if(q == 1) raio1 = 100;
-		else if(q == 2) raio1 = 50;
 		
-			Vector2 pos[] = new Vector2[16];
+		float raio1 = 1;
+		
+		
+			Vector2 pos[] = new Vector2[9];
 			for(int i=0;i<9;i++) pos[i] = new Vector2(0,0);
 			
 			pos[0].set(0, 0);
@@ -166,10 +140,23 @@ public class ScreenChooser extends UI{
 			pos[6] = pos[4].cpy().rotate((2*360/5));
 			pos[7] = pos[4].cpy().rotate((3*360/5));
 			pos[8] = pos[4].cpy().rotate((4*360/5));
-			//center them
-			for(int i=0;i<9;i++) pos[i].add(new Vector2(cx,cy));
+			
+			
 			return pos;
 		
+	}
+
+	private void updatePos(float raio)
+	{
+		int i=0;
+		for(TextButton btn:this.btns_Q)
+		{
+			qTHumbsPos[i].nor();
+			qTHumbsPos[i].scl(raio);
+			btn.setX(this.qTHumbsPos[i].x + center.x - 150/2);
+			btn.setY(this.qTHumbsPos[i].y + center.y - 35/2);
+			i++;
+		}
 	}
 	
 	public void popButtons() {
@@ -177,9 +164,12 @@ public class ScreenChooser extends UI{
 		
 		//Generate quests thumbs and add listenners
 		
+
 		for(final Cenario c:quests)
 		{
 			final TextButton btn = new TextButton(c.name,StylesManager.btnBlue);
+			btn.setWidth(150);
+			btn.setHeight(35);
 			btn.addListener(new InputListener() {
 		        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 		               	
@@ -191,9 +181,28 @@ public class ScreenChooser extends UI{
 		        	maingame.setScreen(generateScreen(c));
 		        }
 			});
-			btns_Q.add(btn);
+			this.btns_Q.add(btn);
+			table.addActor(btn);
 		}
 		
+		
+		//add slider
+		slider = new Slider(90, 250, 2, false, StylesManager.skin);
+		slider.setX(Gdx.graphics.getWidth()/2 -70);
+		slider.setY(30);
+		
+		slider.addListener(new ChangeListener() {
+
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				// TODO Auto-generated method stub
+				float val = slider.getValue();
+				updatePos(val);
+				
+			}
+		});
+		
+		table.addActor(slider);
 		//add back button
 		final TextButton btn = new TextButton("Back",StylesManager.btnGray);
 		btn.setBounds(Gdx.graphics.getWidth()/2 -160, 100, 150, 35);
@@ -226,7 +235,13 @@ public class ScreenChooser extends UI{
 		});
 		table.addActor(btn2);
 		
-		
+		Label plLevel = new Label("",StylesManager.skin);
+		plLevel.setName("plLevel");
+		plLevel.setX(50);
+		plLevel.setY(Gdx.graphics.getHeight() - 50);
+		this.addLabel(plLevel);
+		//update first position
+		this.updatePos(slider.getMinValue());
 	}
 
 }

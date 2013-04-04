@@ -13,27 +13,17 @@ import com.ruthlessgames.api.UI;
 
 public class MainMenu extends UI{
 
-	Conceito maingame
-	;
+	Conceito maingame;
 	public MainMenu(Conceito main)
 	{
-		super(Conceito.batch,true);
+		super(Conceito.batch,main.font,true);
 		maingame = main;
         
 		TextureRegion bg = new TextureRegion(Textures.mainmenuIM,0,0,(int)Textures.mainmenuIM.getWidth(),(int)Textures.mainmenuIM.getHeight());
         table.setBackground(new TextureRegionDrawable(bg));
         this.popButtons();
 	}
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		 Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	        stage.act(Gdx.graphics.getDeltaTime());
-	        stage.draw();
 
-	       // Table.drawDebug(stage);
-	       
-	}
 
 	@Override
 	public void resize(int width, int height) {

@@ -63,18 +63,7 @@ public class Conceito extends Game {
 		questsScreen.quests.add(constDump.Home());
 		questsScreen.quests.add(constDump.Home());
 		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
+	
 		questsScreen.popButtons();
 		
 		ScreenChooser.Player1 = getPlayer();
