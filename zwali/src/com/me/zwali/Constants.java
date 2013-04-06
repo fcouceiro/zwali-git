@@ -2,6 +2,8 @@ package com.me.zwali;
 
 public class Constants {
 	
+	static enum achiev_types {Killstreak1,HealthMaster,Thekiller};
+	
 	int HEIGHT = 600;
 	int WIDTH = 800;
 	

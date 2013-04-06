@@ -4,11 +4,11 @@ zwali-git
 
 Esta semana:
 Score system
-[1:03:00 PM] frcouceiro: Evolution system (quests completas etc)
-[1:03:05 PM] frcouceiro: Game over
-[1:03:28 PM] frcouceiro: Shop (acabar e implementar no Survival)
-[1:05:43 PM] Francisco Machado: refinar as colisões
-[1:05:52 PM] Francisco Machado: achievements
+Evolution system (quests completas etc)
+Game over
+Shop (acabar e implementar no Survival)
+Francisco Machado: refinar as colisões
+Francisco Machado: achievements
 
 
 Ver bugs

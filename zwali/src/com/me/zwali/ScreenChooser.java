@@ -5,19 +5,14 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.ruthlessgames.api.StylesManager;
 import com.ruthlessgames.api.UI;
@@ -234,6 +229,22 @@ public class ScreenChooser extends UI{
 			}
 		});
 		table.addActor(btn2);
+		
+		//add achieves button
+		final TextButton btn3 = new TextButton("Achievements",StylesManager.skin);
+		btn3.setBounds(Gdx.graphics.getWidth()/2 +200, 100, 150, 35);
+		btn3.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < btn3.getWidth() && x >0 && y<btn3.getHeight() && y > 0)
+					maingame.setScreen(Conceito.achievs_screen);
+			}
+		});
+		table.addActor(btn3);
 		
 		Label plLevel = new Label("",StylesManager.skin);
 		plLevel.setName("plLevel");

@@ -27,6 +27,7 @@ public class Conceito extends Game {
 	ScreenChooser questsScreen;
 	MainMenu mainmenu;
 	Constants constDump = new Constants();
+	public static Achievements achievs_screen;
 	
 	@Override
 	public void create() {		
@@ -56,6 +57,10 @@ public class Conceito extends Game {
 		         Gdx.files.internal("assets/fonts/arial.png"), false);
 		howtoplaymenu = new Howtoplay(this);
 		shop = new Shop(this);
+		
+		
+		//create achiev screen
+		achievs_screen = new Achievements(this);
 		
 		//add all campaign quests and populate the questsScreen
 		questsScreen = new ScreenChooser(this);
