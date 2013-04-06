@@ -2,17 +2,21 @@ zwali-git
 =========
  TODO:
 
+Sistema de score
+
+Ver se as quests estão feitas
+
+Colisões -> FM
+
 Ver bugs
 
-Acabar Screens -> Survival/Basics/About\n
+Acabar Screens -> Basics/About
 
 Facebook & Site
 
-Gajo das Texturas
+Gajo das Texturas (desaparecido)
 
-Som
-
-Colisões  -> FM
+Som +/-
 
 Fazer Níveis
 
