@@ -23,3 +23,7 @@ Fazer Níveis
 Fazer Plot
 
 Scene2d  -> FC & Ricardo
+
+Ideia:
+Jogar como zombie
+
