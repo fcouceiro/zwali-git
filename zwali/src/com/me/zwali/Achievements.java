@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.ruthlessgames.api.StylesManager;
@@ -37,9 +39,26 @@ public class Achievements extends UI
 			AchievBtn btn = new AchievBtn("",StylesManager.skin,type);
 			btn.setBounds(x_init, y_init, 150, 35);
 			
-			y_init -= 160;
+			y_init -= 40;
+			list.add(btn);
 			table.addActor(btn);
 		}
+		
+		//add back button
+				final TextButton btn = new TextButton("Back",StylesManager.btnGray);
+				btn.setBounds(Gdx.graphics.getWidth()/2 -160, 100, 150, 35);
+				btn.addListener(new InputListener() {
+			        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			               	
+			                return true;
+			        }
+			        
+			        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+			        	if(x < btn.getWidth() && x >0 && y<btn.getHeight() && y > 0)
+			        	maingame.setScreen(maingame.questsScreen);
+			        }
+				});
+				table.addActor(btn);
 	}
 }
 

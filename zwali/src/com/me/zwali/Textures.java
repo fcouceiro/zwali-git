@@ -22,6 +22,8 @@ public class Textures {
 	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
 	
 	static Sprite qHome;
+	static Sprite questsBG;
+	static Sprite control_menu;
 	 static Sprite enemy1_falling;
 	 static Sprite radar;
 	 static Sprite enemy1_dead;
@@ -139,6 +141,7 @@ public class Textures {
 	 static Sprite ruthlessLogo;
 	public static void loadTextures() throws FileNotFoundException
 	{
+		
 		ruthlessLogo = loadTexture("/other/rlogo");
 		buttonsRegion = loadTexture("/other/buttons");
 		qHome = loadTexture("/gameplay/quest-bgs/Home");
@@ -175,6 +178,8 @@ public class Textures {
 
 		BarrelIM = loadTexture("/environment/barrel");
 		BarrelUnIM = loadTexture("/environment/barrelun");
+		questsBG = loadTexture("/menus/screen_chooser_bg");
+		control_menu = loadTexture("/menus/control_box");
 		Armor = loadTexture("/menus/shop/items/armor");
 		Power = loadTexture("/menus/shop/items/power");
 		Accuracy = loadTexture("/menus/shop/items/accuracy");

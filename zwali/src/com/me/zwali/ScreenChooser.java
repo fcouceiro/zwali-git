@@ -1,19 +1,23 @@
 package com.me.zwali;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.ruthlessgames.api.StylesManager;
 import com.ruthlessgames.api.UI;
 
@@ -23,17 +27,21 @@ public class ScreenChooser extends UI{
 	MyInputProcessor inputProcessor;
 	public static Player Player1;
 	Quest curQuest;
-	List<Cenario> quests = new ArrayList<Cenario>();
-	List<TextButton> btns_Q = new ArrayList<TextButton>();
+	ArrayList<Cenario> quests = new ArrayList<Cenario>();
+	ArrayList<TextButton> btns_Q = new ArrayList<TextButton>();
 	
 	private Vector2 center = new Vector2(Gdx.graphics.getWidth() / 2,Gdx.graphics.getHeight() / 2);
 	private Slider slider;
 	private Vector2 qTHumbsPos[];
+	private ScrollPane scrollPane2;
+	private List list;
 	
 	public ScreenChooser(Conceito main)
 	{
 		super(Conceito.batch,main.font,true);
-		
+		TextureRegion bg = new TextureRegion(Textures.questsBG,0,0,(int)Textures.questsBG.getWidth(),(int)Textures.questsBG.getHeight());
+        table.setBackground(new TextureRegionDrawable(bg));
+        
 		maingame = main;
 		this.qTHumbsPos = this.creatPos();
 	}
@@ -86,7 +94,10 @@ public class ScreenChooser extends UI{
 		Sounds.main_s.play();
 		}
 		
-		this.getLabelByName("plLevel").setText("Your level: " + Player1.qLevel);
+		//update stats scroll pane
+		String[] listStats = {"Health: " +Player1.Health,"Armor: "+Player1.armor,"Level: " + Player1.qLevel};
+		list = new List(listStats, StylesManager.skin);
+		scrollPane2.setWidget(list);
 	}
 
 	@Override
@@ -156,36 +167,20 @@ public class ScreenChooser extends UI{
 	
 	public void popButtons() {
 		// TODO Auto-generated method stub
-		
-		//Generate quests thumbs and add listenners
-		
 
-		for(final Cenario c:quests)
-		{
-			final TextButton btn = new TextButton(c.name,StylesManager.btnBlue);
-			btn.setWidth(150);
-			btn.setHeight(35);
-			btn.addListener(new InputListener() {
-		        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-		               	
-		                return true;
-		        }
-		        
-		        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-		        	if(x < btn.getWidth() && x >0 && y<btn.getHeight() && y > 0)
-		        	maingame.setScreen(generateScreen(c));
-		        }
-			});
-			this.btns_Q.add(btn);
-			table.addActor(btn);
-		}
-		
-		
+		//add control box image
+		Image control_box = new Image();
+		TextureRegion image = new TextureRegion(Textures.control_menu,0,0,(int)Textures.control_menu.getWidth(),(int)Textures.control_menu.getHeight());
+		control_box.setDrawable(new TextureRegionDrawable(image));
+		control_box.setBounds(108, -5, (int)Textures.control_menu.getWidth(), (int)Textures.control_menu.getHeight());
+		table.addActor(control_box);
+
 		//add slider
 		slider = new Slider(90, 250, 2, false, StylesManager.skin);
 		slider.setX(Gdx.graphics.getWidth()/2 -70);
 		slider.setY(30);
-		
+
+
 		slider.addListener(new ChangeListener() {
 
 			@Override
@@ -193,30 +188,31 @@ public class ScreenChooser extends UI{
 				// TODO Auto-generated method stub
 				float val = slider.getValue();
 				updatePos(val);
-				
+
 			}
 		});
-		
+
 		table.addActor(slider);
+
 		//add back button
 		final TextButton btn = new TextButton("Back",StylesManager.btnGray);
-		btn.setBounds(Gdx.graphics.getWidth()/2 -160, 100, 150, 35);
+		btn.setBounds(155 +2*150+2*20, 65, 150, 35);
 		btn.addListener(new InputListener() {
-	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	               	
-	                return true;
-	        }
-	        
-	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	        	if(x < btn.getWidth() && x >0 && y<btn.getHeight() && y > 0)
-	        	maingame.setScreen(maingame.mainmenu);
-	        }
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < btn.getWidth() && x >0 && y<btn.getHeight() && y > 0)
+					maingame.setScreen(maingame.mainmenu);
+			}
 		});
 		table.addActor(btn);
-		
+
 		//add shop button
 		final TextButton btn2 = new TextButton("Shop",StylesManager.btnGreen);
-		btn2.setBounds(Gdx.graphics.getWidth()/2 +10, 100, 150, 35);
+		btn2.setBounds(155 + 150 +20, 65, 150, 35);
 		btn2.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 
@@ -229,10 +225,10 @@ public class ScreenChooser extends UI{
 			}
 		});
 		table.addActor(btn2);
-		
+
 		//add achieves button
-		final TextButton btn3 = new TextButton("Achievements",StylesManager.skin);
-		btn3.setBounds(Gdx.graphics.getWidth()/2 +200, 100, 150, 35);
+		final TextButton btn3 = new TextButton("Achievements",StylesManager.btnGray);
+		btn3.setBounds(155, 65, 150, 35);
 		btn3.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 
@@ -245,14 +241,49 @@ public class ScreenChooser extends UI{
 			}
 		});
 		table.addActor(btn3);
-		
-		Label plLevel = new Label("",StylesManager.skin);
-		plLevel.setName("plLevel");
+
+		Label plLevel = new Label("Stats:",StylesManager.skin);
 		plLevel.setX(50);
 		plLevel.setY(Gdx.graphics.getHeight() - 50);
-		this.addLabel(plLevel);
+		table.addActor(plLevel);
+
+		//scroll pane test
+		scrollPane2 = new ScrollPane(null, StylesManager.skin);
+		scrollPane2.setHeight(100);
+		scrollPane2.setPosition(50, Gdx.graphics.getHeight()-155);
+		scrollPane2.setSmoothScrolling(true);
+		scrollPane2.setFadeScrollBars(true);
+		scrollPane2.setFlickScroll(true);
+		scrollPane2.setScrollbarsOnTop(true);
+		scrollPane2.setupFadeScrollBars(2, 1.5f);
+		table.addActor(scrollPane2);
+
+		//Generate quests thumbs and add listenners
+
+
+		for(final Cenario c:quests)
+		{
+			final TextButton btnQ = new TextButton(c.name,StylesManager.btnBlue);
+			btnQ.setWidth(150);
+			btnQ.setHeight(35);
+			btnQ.addListener(new InputListener() {
+				public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+					return true;
+				}
+
+				public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+					if(x < btnQ.getWidth() && x >0 && y<btnQ.getHeight() && y > 0)
+						maingame.setScreen(generateScreen(c));
+				}
+			});
+			this.btns_Q.add(btnQ);
+			table.addActor(btnQ);
+		}
+
 		//update first position
-		this.updatePos(slider.getMinValue());
+		slider.setValue(170);
+		this.updatePos(170);
 	}
 
 }
@@ -260,8 +291,8 @@ public class ScreenChooser extends UI{
 class Cenario
 {
 	Sprite background;
-	List <Vector> Objects = new ArrayList<Vector>(5);
-	List <Vector> UnObjects  = new ArrayList<Vector>(5);
+	ArrayList <Vector> Objects = new ArrayList<Vector>(5);
+	ArrayList <Vector> UnObjects  = new ArrayList<Vector>(5);
 	Vector Wave1Pos;
 	Vector Wave2Pos;
 	String name = "not defined";
