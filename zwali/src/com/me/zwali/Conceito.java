@@ -97,7 +97,7 @@ public class Conceito extends Game {
 			boolean hasGun[] = new boolean[3];
 			int health = prefs.getInteger("Phealth",80);
 			int armor = prefs.getInteger("Parmor",60);
-			int qLevel = prefs.getInteger("qLevel",0);
+			float qLevel = prefs.getFloat("qLevel",0);
 			int money = prefs.getInteger("Pmoney",0);
 			int xp = prefs.getInteger("Pexp",0);
 			hasGun[0] = true;
@@ -121,7 +121,6 @@ public class Conceito extends Game {
 			temp.UpgPwrMinigun = prefs.getInteger("UpgMinigun", 0);
 			
 			Gdx.app.log("Savegame", "loaded");
-			Gdx.app.log("sad", qLevel + "");
 			return temp;
 		}
 		Player novo = new Player( new Vector(1024, 1024), 60);
@@ -146,7 +145,7 @@ public class Conceito extends Game {
 		prefs.putInteger("UpgPistol", ScreenChooser.Player1.UpgPwrPistol);
 		prefs.putInteger("UpgShotgun", ScreenChooser.Player1.UpgPwrShotgun);
 		prefs.putInteger("UpgMinigun", ScreenChooser.Player1.UpgPwrMinigun);
-		prefs.putInteger("qLevel", 8);
+		prefs.putFloat("qLevel", ScreenChooser.Player1.qLevel);
 		prefs.flush();
 		Gdx.app.log("savegame","saved");
 	}
@@ -161,6 +160,7 @@ public class Conceito extends Game {
 		shop.dispose();
 		howtoplaymenu.dispose();
 		mainmenu.dispose();
+		Sounds.dispose();
 	}
 
 }

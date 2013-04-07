@@ -1,5 +1,6 @@
 package com.me.zwali;
 
+import java.awt.Event;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -35,6 +36,7 @@ public class ScreenChooser extends UI{
 	private Vector2 qTHumbsPos[];
 	private ScrollPane scrollPane2;
 	private List list;
+	private boolean wait_for_score = false;
 	
 	public ScreenChooser(Conceito main)
 	{
@@ -95,9 +97,15 @@ public class ScreenChooser extends UI{
 		}
 		
 		//update stats scroll pane
-		String[] listStats = {"Health: " +Player1.Health,"Armor: "+Player1.armor,"Level: " + Player1.qLevel};
+		String pis,shot,mach;
+		pis = Player1.hasGun[0] ? "yes" : "no";
+		shot = Player1.hasGun[1] ? "yes" : "no";
+		mach = Player1.hasGun[2] ? "yes" : "no";
+		
+		String[] listStats = {"Level: " + Player1.qLevel,"Health: " +Player1.Health,"Armor: "+Player1.armor,"Money: " + Player1.money,"XP: " + Player1.XP,"Pistol: " + pis,"Shotgun: " + shot, "Machine gun: " + mach};
 		list = new List(listStats, StylesManager.skin);
 		scrollPane2.setWidget(list);
+		stage.setScrollFocus(scrollPane2);
 	}
 
 	@Override
@@ -249,13 +257,14 @@ public class ScreenChooser extends UI{
 
 		//scroll pane test
 		scrollPane2 = new ScrollPane(null, StylesManager.skin);
-		scrollPane2.setHeight(100);
-		scrollPane2.setPosition(50, Gdx.graphics.getHeight()-155);
+		scrollPane2.setHeight(90);
+		scrollPane2.setPosition(50, Gdx.graphics.getHeight()-145);
 		scrollPane2.setSmoothScrolling(true);
 		scrollPane2.setFadeScrollBars(true);
-		scrollPane2.setFlickScroll(true);
+		scrollPane2.setFlickScroll(false);
 		scrollPane2.setScrollbarsOnTop(true);
 		scrollPane2.setupFadeScrollBars(2, 1.5f);
+	
 		table.addActor(scrollPane2);
 
 		//Generate quests thumbs and add listenners
@@ -273,8 +282,10 @@ public class ScreenChooser extends UI{
 				}
 
 				public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-					if(x < btnQ.getWidth() && x >0 && y<btnQ.getHeight() && y > 0)
+					if(x < btnQ.getWidth() && x >0 && y<btnQ.getHeight() && y > 0){
+						wait_for_score = true;
 						maingame.setScreen(generateScreen(c));
+					}
 				}
 			});
 			this.btns_Q.add(btnQ);
@@ -284,6 +295,26 @@ public class ScreenChooser extends UI{
 		//update first position
 		slider.setValue(170);
 		this.updatePos(170);
+	}
+
+
+	public void setScore(float score,float max_score) {
+		// TODO Auto-generated method stub
+		if(wait_for_score)
+		{
+			float toAdd = (score * Player1.maxLevel) / max_score;
+			Player1.qLevel += (float) (Math.round(toAdd*100.0)/100.0);
+			this.anime_score(score,max_score);
+			wait_for_score = false;
+		}
+	}
+
+
+	private void anime_score(float score,float max_score) {
+		// TODO Auto-generated method stub
+		
+		Gdx.app.log("Your score", score +" qlevel: "+ Player1.qLevel);
+		
 	}
 
 }

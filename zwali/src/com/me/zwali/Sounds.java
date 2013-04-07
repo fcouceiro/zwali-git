@@ -71,4 +71,9 @@ public class Sounds {
 		Music temp = sm.newMusic(Gdx.files.internal("assets/sfx/" + key));
 		return temp;
 	}
+	
+	static void dispose()
+	{
+		for(Sound a:disposable) a.dispose();
+	}
 }

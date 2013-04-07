@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.ruthlessgames.api.StylesManager;
 import com.ruthlessgames.api.UI;
 
 public class MainMenu extends UI{
@@ -65,38 +66,122 @@ public class MainMenu extends UI{
 
 	private void popButtons() {
 		// TODO Auto-generated method stub
-		final TextButton button1 = new TextButton("Survival", Textures.btnBlue);
-		button1.setBounds(450, 180, 150, 35);
-		button1.addListener(new InputListener() {
+		final TextButton btnOpt= new TextButton("Options", StylesManager.btnGray);
+		final TextButton btnCloud=new TextButton("Cloud", StylesManager.btnGray);
+		final TextButton btnPlay= new TextButton("Play", Textures.btnBlue);
+		final TextButton btnZomb = new TextButton("Zombie", StylesManager.btnLock);
+		final TextButton btnSur = new TextButton("Survival", Textures.btnGreen);
+		final TextButton btnCamp = new TextButton("Campaign", StylesManager.btnGreen);
+		
+		//game modes btns
+		
+		btnSur.setBounds(155*2 +20, 180, 150, 35);
+		btnSur.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	               	
 	                return true;
 	        }
 	        
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	        	if(x < button1.getWidth() && x >0 && y<button1.getHeight() && y > 0){
+	        	if(x < btnSur.getWidth() && x >0 && y<btnSur.getHeight() && y > 0){
 	        		maingame.setScreen(maingame.questsScreen.generateScreen(maingame.constDump.Survival(maingame.constDump.Home())));
+	        		btnZomb.setVisible(false);
+	        		btnSur.setVisible(false);
+	        		btnCamp.setVisible(false);
+	        		btnPlay.setVisible(true);
+	        	}
+	      
+	        }
+		});
+		btnSur.setVisible(false);
+		table.addActor(btnSur);
+
+		
+		btnCamp.setBounds(155, 180, 150, 35);
+		btnCamp.addListener(new InputListener() {
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+	        
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < btnCamp.getWidth() && x >0 && y<btnCamp.getHeight() && y > 0){
+	        	maingame.setScreen(maingame.questsScreen);
+	        	btnZomb.setVisible(false);
+        		btnSur.setVisible(false);
+        		btnCamp.setVisible(false);
+        		btnPlay.setVisible(true);
+	        	}
+	        
+	        }
+		});
+		btnCamp.setVisible(false);
+		table.addActor(btnCamp);
+		
+		
+		btnZomb.setBounds(3*155 + 40, 180, 150, 35);
+		btnZomb.setVisible(false);
+		table.addActor(btnZomb);
+		
+		//other btns
+		btnOpt.setBounds(330, 130, 150, 35);
+		btnOpt.addListener(new InputListener() {
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+	        
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < btnOpt.getWidth() && x >0 && y<btnOpt.getHeight() && y > 0)
+	        	{
+	        		btnZomb.setVisible(false);
+	        		btnSur.setVisible(false);
+	        		btnCamp.setVisible(false);
+	        		btnPlay.setVisible(true);
+	        	}
+	        }
+		});
+		
+		table.addActor(btnOpt);
+		
+		btnCloud.setBounds(330, 80, 150, 35);
+		btnCloud.addListener(new InputListener() {
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+	        
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < btnCloud.getWidth() && x >0 && y<btnCloud.getHeight() && y > 0){
+	        		btnZomb.setVisible(false);
+	        		btnSur.setVisible(false);
+	        		btnCamp.setVisible(false);
+	        		btnPlay.setVisible(true);
 	        	}
 	        	
 	        }
 		});
-		table.addActor(button1);
-
-		final TextButton button2 = new TextButton("Campaign", Textures.btnGreen);
-		button2.setBounds(200, 180, 150, 35);
-		button2.addListener(new InputListener() {
+		
+		table.addActor(btnCloud);
+		
+		btnPlay.setBounds(155*2 +20, 180, 150, 35);
+		btnPlay.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	               	
 	                return true;
 	        }
 	        
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	        	if(x < button2.getWidth() && x >0 && y<button2.getHeight() && y > 0)
-	        	maingame.setScreen(maingame.questsScreen);
+	        	if(x < btnPlay.getWidth() && x >0 && y<btnPlay.getHeight() && y > 0){
+	        		btnZomb.setVisible(true);
+	        		btnSur.setVisible(true);
+	        		btnCamp.setVisible(true);
+	        		btnPlay.setVisible(false);
+	        	}
 	        }
 		});
 		
-		table.addActor(button2);
+		table.addActor(btnPlay);
 	}
 
 

@@ -79,7 +79,10 @@ public class MyInputProcessor implements InputProcessor {
 		if(keycode == Keys.ESCAPE)
 		{
 			GMl.dispose();
+			if(!GMl.survival)
 			GMl.MainGame.setScreen(GMl.MainGame.questsScreen);
+			else
+				GMl.MainGame.setScreen(GMl.MainGame.mainmenu);
 		}
 
 		if(keycode == Keys.R)

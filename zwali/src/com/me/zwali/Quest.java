@@ -77,6 +77,7 @@ public class Quest implements Screen{
 	//maxWaves for current quest
 	int maxWaves;
 	
+	int maxScore = 7000;
 	boolean waveincoming = false;
 	RealCross Cross;
 	Crosshair Barril;
@@ -280,8 +281,9 @@ public class Quest implements Screen{
 					System.out.println("Wave "+waves.get(i).waveNR+"ended and there are "+nWavesCur );
 					if(waves.get(i).waveNR == maxWaves && !survival)
 					{
+						MainGame.questsScreen.setScore(getScore(),this.maxScore);
 						MainGame.setScreen(MainGame.questsScreen);
-						}
+					}
 					else {
 						waves.add(new Wave( waves.get(i).pos, Wavenr, 150));
 					}
@@ -773,8 +775,6 @@ public class Quest implements Screen{
 			
 			System.out.println("Estatisticas: \nDisparos - "+stats.PlayerDisparos+"\nDisparos acertados - "+stats.PlayerTirosNoEnemy+"\nScore - "+stats.PlayerScore+"\nAtingido "+ stats.PlayerAtingido +" vezes");
 			System.out.println("GAME OVER! O MUNDO TAMBEM FICA MELHOR SEM TI!!");
-			System.out.println("CARREGA Y PARA RECOMECAR, N PARA TE ACORBARDARES E FUGIRES COM O RABINHO ENTRE AS PERNAS!");
-			Sounds.zo_ahaha.play();
 			MainGame.setScreen(MainGame.questsScreen);
 			this.hide();
 		}
@@ -860,6 +860,11 @@ public class Quest implements Screen{
 		}
 		
 		
+	}
+
+	private int getScore() {
+		// TODO Auto-generated method stub
+		return 1;
 	}
 
 	private void updateLog()

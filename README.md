@@ -30,3 +30,15 @@ Scene2d  -> FC & Ricardo
 Ideia:
 Jogar como zombie
 
+=========
+Achievements list: (é para ir adicionando)
+- kid (< 500 kills)
+- rockie (< 1000 kills)
+- killer (< 2000 kills)
+- cop (> 10 buys na shop)
+- suite (> 20 buys na shop)
+- ignitor (machine gun buy)
+- boss (shotgun buy)
+- virgin not! (survivel wave > 30)
+...
+
