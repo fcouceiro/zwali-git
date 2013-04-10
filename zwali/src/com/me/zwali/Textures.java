@@ -142,8 +142,12 @@ public class Textures {
 	 static Sprite ruthlessLogo;
 	 
 	 static Sprite sound,no_sound;
+	 static Sprite scroll_box_bg;
+	 static Sprite bg_sangue;
 	public static void loadTextures() throws FileNotFoundException
 	{
+		scroll_box_bg = loadTexture("/other/box_achiev_scroll");
+		bg_sangue = loadTexture("/menus/bg_sangue");
 		sound = loadTexture("/other/withsound");
 		no_sound = loadTexture("/other/nosound");
 		game_over_bg = loadTexture("/menus/gameoverbg");
@@ -214,12 +218,7 @@ public class Textures {
 		builder_bar = loadTexture("/other/builder/barra");
 		builder_bar_btm = loadTexture("/other/builder/barra_btm");
 		shopIM = loadTexture("/menus/shop/shop");
-		mainmenu_dificuldade = loadTexture("/menus/dificuldade");
-		mainmenu_dificuldade_rockie = loadTexture("/menus/dificuldade_rockie");
-		mainmenu_dificuldade_regular = loadTexture("/menus/dificuldade_regular");
-		mainmenu_dificuldade_veteran = loadTexture("/menus/dificuldade_veteran");
-		mainmenu_dificuldade_survival = loadTexture("/menus/dificuldade_survival");
-		mainmenu_dificuldade_nonsurvival = loadTexture("/menus/dificuldade_nonsurvival");
+	
 		//tutorial
 		page1 = loadTexture("/tutorial/page1");
 		page2 = loadTexture("/tutorial/page2");

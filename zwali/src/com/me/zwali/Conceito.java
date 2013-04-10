@@ -81,7 +81,7 @@ public class Conceito extends Game {
 		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.mainmenu,120);
 		gameover = new GameOver(this);
 		rdm = new Random();
-		setScreen(this.ruthlessLogoScreen);
+		setScreen(this.achievs_screen);
 
 	}
 

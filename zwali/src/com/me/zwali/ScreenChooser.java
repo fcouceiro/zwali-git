@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.ruthlessgames.api.StylesManager;
@@ -37,7 +38,6 @@ public class ScreenChooser extends UI{
 	private Slider slider;
 	private Vector2 qTHumbsPos[];
 	private ScrollPane scrollPane2;
-	private List list;
 	private boolean wait_for_score = false;
 	
 	public ScreenChooser(Conceito main)
@@ -111,8 +111,16 @@ public class ScreenChooser extends UI{
 		mach = Player1.hasGun[2] ? "yes" : "no";
 		
 		String[] listStats = {"Level: " + Player1.qLevel,"Health: " +Player1.Health,"Armor: "+Player1.armor,"Money: " + Player1.money,"XP: " + Player1.XP,"Pistol: " + pis,"Shotgun: " + shot, "Machine gun: " + mach};
-		list = new List(listStats, StylesManager.skin);
-		scrollPane2.setWidget(list);
+		
+		VerticalGroup vg = new VerticalGroup();
+		for(int i=0;i<8;i++)
+		{
+			Label temp = new Label(listStats[i],StylesManager.skin);
+			vg.addActor(temp);
+		}
+		
+		listStats = null;
+		scrollPane2.setWidget(vg);
 		stage.setScrollFocus(scrollPane2);
 	}
 
@@ -265,8 +273,9 @@ public class ScreenChooser extends UI{
 
 		//scroll pane test
 		scrollPane2 = new ScrollPane(null, StylesManager.skin);
-		scrollPane2.setHeight(90);
-		scrollPane2.setPosition(50, Gdx.graphics.getHeight()-145);
+		scrollPane2.setHeight(100);
+		scrollPane2.setWidth(160);
+		scrollPane2.setPosition(50, Gdx.graphics.getHeight()-150);
 		scrollPane2.setSmoothScrolling(true);
 		scrollPane2.setFadeScrollBars(true);
 		scrollPane2.setFlickScroll(false);
