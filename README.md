@@ -3,9 +3,9 @@ zwali-git
  TODO:
 
 Esta semana:
-Score system
-Evolution system (quests completas etc)
-Game over
+Score system -/-
+Evolution system (quests completas etc) +/-
+Game over - check 
 Shop (acabar e implementar no Survival)
 Francisco Machado: refinar as colisões
 Francisco Machado: achievements
@@ -17,7 +17,7 @@ Acabar Screens -> Basics/About
 
 Facebook & Site
 
-Gajo das Texturas (desaparecido)
+Gajo das Texturas (desaparecido) (em frequencias)
 
 Som +/-
 
