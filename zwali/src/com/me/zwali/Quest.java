@@ -21,7 +21,6 @@ public class Quest implements Screen{
 	List <CharSequence> Log = new ArrayList<CharSequence>();
 	List <Long> act_sounds = new ArrayList<Long>(10);
 	
-	Shop shop;
 	Textures t = new Textures();
 	Constants consts = new Constants();
 	Background backG;
@@ -181,8 +180,6 @@ public class Quest implements Screen{
 		
 		if(WarmUp)
 		{
-			if(!Shop.wizardmode)
-			{
 				if((timerWarmup - timeWarmup)%60 == 0 )
 				{
 					Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
@@ -198,12 +195,6 @@ public class Quest implements Screen{
 					waveincoming = false;
 					
 					}
-			}
-			else
-			{
-				
-				
-			}
 		}
 		
 		if(timeWarmup >= timerWarmup && WarmUp){
@@ -254,6 +245,23 @@ public class Quest implements Screen{
 		{
 			for(int i = 0; i<nWavesCur; i++)
 			{
+				if (waves.get(i).empty()) 
+				{
+		
+					nWavesCur--;
+					nWave++;
+					System.out.println("Wave "+waves.get(i).waveNR+"ended and there are "+nWavesCur );
+					
+					waves.add(new Wave( waves.get(i).pos, Wavenr, 150)); //adiciona uma nova
+					
+					waves.remove(waves.get(i));	//remove actual (empty)
+				
+					if(waves.get(i).waveNR == maxWaves +1 && !survival){
+						MainGame.questsScreen.setScore(getScore(),this.maxScore);
+						MainGame.setScreen(MainGame.questsScreen);
+					}
+				}
+				
 				if (waves.get(i).Update()) 
 				{
 					int next = waves.get(i).addEnemy();
@@ -273,23 +281,6 @@ public class Quest implements Screen{
 									.get(i).pos), A, next, difficulty));
 				}
 				
-				if (waves.get(i).empty()) 
-				{
-		
-					nWavesCur--;
-					nWave++;
-					System.out.println("Wave "+waves.get(i).waveNR+"ended and there are "+nWavesCur );
-					if(waves.get(i).waveNR == maxWaves && !survival)
-					{
-						MainGame.questsScreen.setScore(getScore(),this.maxScore);
-						MainGame.setScreen(MainGame.questsScreen);
-					}
-					else {
-						waves.add(new Wave( waves.get(i).pos, Wavenr, 150));
-					}
-					waves.remove(waves.get(i));	
-				
-				}
 				
 				if( nWavesCur == 0)
 				{
@@ -424,10 +415,10 @@ public class Quest implements Screen{
 						switch(rdm.nextInt(2))
 						{
 							case 0:
-								act_sounds.add(Sounds.zo_hurt2.play());
+								Sounds.zo_hurt2.play();
 								break;
 							case 1:
-								act_sounds.add(Sounds.zo_hurt1.play());
+								Sounds.zo_hurt1.play();
 								break;
 						}
 						
@@ -460,6 +451,18 @@ public class Quest implements Screen{
 							sangues.add(new sangue(a,new Vector((float)(enimio.pos.x -a.getWidth()/2),(float)(enimio.pos.y - a.getHeight()/2))));
 						
 						}
+						else{
+							switch(rdm.nextInt(2))
+							{
+							case 0:
+								Sounds.zo_bone_crush.play(0.1f);
+								break;
+							case 1:
+								Sounds.zo_neck.play(0.1f);
+								break;
+							}
+						}
+						
 						
 						stats.PlayerTirosNoEnemy++;
 						bilio.kill(false);
@@ -693,6 +696,7 @@ public class Quest implements Screen{
 			else
 			{
 				dead_enemies.add(enimio);
+				
 			}
 
 			if(enimio.getAlive() && enimio.Collide(Player1))
@@ -775,7 +779,7 @@ public class Quest implements Screen{
 			
 			System.out.println("Estatisticas: \nDisparos - "+stats.PlayerDisparos+"\nDisparos acertados - "+stats.PlayerTirosNoEnemy+"\nScore - "+stats.PlayerScore+"\nAtingido "+ stats.PlayerAtingido +" vezes");
 			System.out.println("GAME OVER! O MUNDO TAMBEM FICA MELHOR SEM TI!!");
-			MainGame.setScreen(MainGame.questsScreen);
+			MainGame.setScreen(MainGame.gameover);
 			this.hide();
 		}
 		
@@ -893,7 +897,7 @@ public class Quest implements Screen{
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		if(!Sounds.main_s.isPlaying()) Sounds.main_s.play();
+		if(!Sounds.main_s.isPlaying() && this.MainGame.sound) Sounds.main_s.play();
 		Gdx.app.log("wave", "Ended in wave " + this.Wavenr);
 	}
 
@@ -1034,7 +1038,6 @@ public class Quest implements Screen{
 		// TODO Auto-generated method stub
 		backG = null;
 		Player1 = null;
-		shop = null;
 		enem.clear();
 		bul.clear();
 		stats = null;

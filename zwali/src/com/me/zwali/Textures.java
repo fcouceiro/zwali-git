@@ -23,6 +23,7 @@ public class Textures {
 	
 	static Sprite qHome;
 	static Sprite questsBG;
+	static Sprite game_over_bg;
 	static Sprite control_menu;
 	 static Sprite enemy1_falling;
 	 static Sprite radar;
@@ -139,9 +140,13 @@ public class Textures {
 	 static Sprite questThumb;
 	 static Sprite buttonsRegion;
 	 static Sprite ruthlessLogo;
+	 
+	 static Sprite sound,no_sound;
 	public static void loadTextures() throws FileNotFoundException
 	{
-		
+		sound = loadTexture("/other/withsound");
+		no_sound = loadTexture("/other/nosound");
+		game_over_bg = loadTexture("/menus/gameoverbg");
 		ruthlessLogo = loadTexture("/other/rlogo");
 		buttonsRegion = loadTexture("/other/buttons");
 		qHome = loadTexture("/gameplay/quest-bgs/Home");

@@ -20,8 +20,9 @@ public class Conceito extends Game {
 	public static boolean hasKeyboard;
 	public BitmapFont font;
 	public static Random rdm;
-	
+	public boolean sound = true;
 	private FlashScreen ruthlessLogoScreen;
+	GameOver gameover;
 	Howtoplay howtoplaymenu;
 	Shop shop;
 	ScreenChooser questsScreen;
@@ -78,6 +79,7 @@ public class Conceito extends Game {
 		//flash screens
 		
 		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.mainmenu,120);
+		gameover = new GameOver(this);
 		rdm = new Random();
 		setScreen(this.ruthlessLogoScreen);
 

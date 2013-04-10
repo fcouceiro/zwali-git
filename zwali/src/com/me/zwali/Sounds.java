@@ -30,10 +30,14 @@ public class Sounds {
 	static Sound zo_ahaha;
 	static Sound zo_hurt1;
 	static Sound zo_hurt2;
+	static Sound zo_bone_crush;
+	static Sound zo_neck;
 	
 	//misc sounds
 	static Music main_s;
 	static Music mhover_s;
+	
+	
 	static void loadSounds()
 	{
 		// counter attack
@@ -53,6 +57,8 @@ public class Sounds {
 		zo_ahaha = getSound("ZO_Sounds/Hahaha");
 		zo_hurt1 = getSound("ZO_Sounds/Hurt1");
 		zo_hurt2 = getSound("ZO_Sounds/Hurt2");
+		zo_bone_crush = getSound("ZO_Sounds/bone_crush");
+		zo_neck = getSound("ZO_Sounds/neck_snap");
 		
 		//misc sounds
 		main_s = getMusic("misc/lost_village.ogg");

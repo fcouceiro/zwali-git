@@ -12,11 +12,13 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.ruthlessgames.api.StylesManager;
@@ -27,7 +29,7 @@ public class ScreenChooser extends UI{
 	Conceito maingame;
 	MyInputProcessor inputProcessor;
 	public static Player Player1;
-	Quest curQuest;
+	Cenario cur_cenario;
 	ArrayList<Cenario> quests = new ArrayList<Cenario>();
 	ArrayList<TextButton> btns_Q = new ArrayList<TextButton>();
 	
@@ -69,9 +71,10 @@ public class ScreenChooser extends UI{
 		temp.Player1 = Player1;
 		temp.Player1.pos.x = temp.backG.size.x / 2;
 		temp.Player1.pos.y = temp.backG.size.y / 2;
+		temp.Player1.vel.x = 0;
+		temp.Player1.vel.y = 0;
 		temp.difficulty = 1;
 		Gdx.input.setInputProcessor(inputProcessor);
-		temp.shop = this.maingame.shop;
 		System.out.println("Quest created successfuly");
 		return temp;
 	}
@@ -81,17 +84,22 @@ public class ScreenChooser extends UI{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public void reset_player()
+	{
+		if(Player1.Health <= 0){
+			Player1.Health = Player1.MaxHp;
+			Player1.alive = true;
+			}
+	}
+	
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(stage);
-		if(Player1.Health <= 0){
-		Player1.Health = Player1.MaxHp;
-		Player1.alive = true;
-		}
+		this.reset_player();
 		
-		if(!Sounds.main_s.isPlaying()){
+		if(!Sounds.main_s.isPlaying() && maingame.sound){
 		Sounds.main_s.setLooping(true);
 		Sounds.main_s.play();
 		}
@@ -284,6 +292,7 @@ public class ScreenChooser extends UI{
 				public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 					if(x < btnQ.getWidth() && x >0 && y<btnQ.getHeight() && y > 0){
 						wait_for_score = true;
+						cur_cenario = c;
 						maingame.setScreen(generateScreen(c));
 					}
 				}
@@ -292,6 +301,39 @@ public class ScreenChooser extends UI{
 			table.addActor(btnQ);
 		}
 
+		TextureRegion n_s = new TextureRegion(Textures.sound,0,0,128,128);	//with sound texture
+        TextureRegionDrawable n_s_d = new TextureRegionDrawable(n_s);
+        n_s = new TextureRegion(Textures.no_sound,0,0,128,128); //no sound texture
+        TextureRegionDrawable n_s_d2 = new TextureRegionDrawable(n_s);
+        ImageButtonStyle style = new ImageButtonStyle(); //create the style
+        style.up = n_s_d;
+        style.checked = n_s_d2;
+        
+		final ImageButton no_sound = new ImageButton(style);
+	
+		no_sound.addListener(new InputListener() {
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+	        
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < no_sound.getWidth() && x >0 && y<no_sound.getHeight() && y > 0){
+	        		if(maingame.sound){
+	        			Sounds.main_s.stop();
+	        			maingame.sound = false;
+	        		}
+	        		else{
+	        			Sounds.main_s.setLooping(true);
+	        			Sounds.main_s.play();
+	        			maingame.sound=true;
+	        		}
+	        	}
+	        }
+		});
+		no_sound.setBounds(726, 10, 64, 64);
+		table.addActor(no_sound);
+		
 		//update first position
 		slider.setValue(170);
 		this.updatePos(170);

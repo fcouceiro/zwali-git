@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.ruthlessgames.api.StylesManager;
@@ -34,7 +36,7 @@ public class MainMenu extends UI{
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(stage);
 		
-		if(!Sounds.main_s.isPlaying())
+		if(!Sounds.main_s.isPlaying()&& maingame.sound)
 		{
 			Sounds.main_s.setLooping(true);
 			Sounds.main_s.play();
@@ -68,14 +70,14 @@ public class MainMenu extends UI{
 		// TODO Auto-generated method stub
 		final TextButton btnOpt= new TextButton("Options", StylesManager.btnGray);
 		final TextButton btnCloud=new TextButton("Cloud", StylesManager.btnGray);
-		final TextButton btnPlay= new TextButton("Play", Textures.btnBlue);
+		final TextButton btnPlay= new TextButton("Play", StylesManager.btnBlue);
 		final TextButton btnZomb = new TextButton("Zombie", StylesManager.btnLock);
-		final TextButton btnSur = new TextButton("Survival", Textures.btnGreen);
+		final TextButton btnSur = new TextButton("Survival", StylesManager.btnGreen);
 		final TextButton btnCamp = new TextButton("Campaign", StylesManager.btnGreen);
 		
 		//game modes btns
 		
-		btnSur.setBounds(155*2 +20, 180, 150, 35);
+		btnSur.setBounds(155, 180, 150, 35);
 		btnSur.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	               	
@@ -97,7 +99,7 @@ public class MainMenu extends UI{
 		table.addActor(btnSur);
 
 		
-		btnCamp.setBounds(155, 180, 150, 35);
+		btnCamp.setBounds(155*2 +20, 180, 150, 35);
 		btnCamp.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	               	

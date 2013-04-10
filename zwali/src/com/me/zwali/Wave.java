@@ -60,7 +60,7 @@ public class Wave {
 	
 	public boolean empty()
 	{
-		return (index == MAX);
+		return (index >= MAX);
 	}
 	
 	
