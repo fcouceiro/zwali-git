@@ -17,7 +17,6 @@ public class Conceito extends Game {
 	public static SpriteBatch batch;
 	public static ShapeRenderer shapeRenderer;
 	public static Preferences prefs;
-	public static AchieveChecker achive_checker;
 	public static boolean hasKeyboard;
 	public BitmapFont font;
 	public static Random rdm;
@@ -63,8 +62,6 @@ public class Conceito extends Game {
 		
 		//create achiev screen
 		achievs_screen = new Achievements(this);
-		achive_checker = new AchieveChecker();
-		achive_checker.loadAch();
 		
 		//add all campaign quests and populate the questsScreen
 		questsScreen = new ScreenChooser(this);
