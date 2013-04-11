@@ -461,6 +461,7 @@ public class Quest implements Screen{
 								Sounds.zo_neck.play(0.1f);
 								break;
 							}
+							Conceito.achive_checker.update(Constants.achiev_types.Thekiller, 1);
 						}
 						
 						
@@ -837,6 +838,8 @@ public class Quest implements Screen{
 			font.setColor(Color.WHITE);
 		}
 		Conceito.batch.end();
+		
+		Conceito.achive_checker.updateAll();
 
 		
 		if(debug)
@@ -861,6 +864,7 @@ public class Quest implements Screen{
 		Conceito.shapeRenderer.line(0,590,800,590);
 		Conceito.shapeRenderer.line(790,10,0,10);
 		Conceito.shapeRenderer.end();
+		
 		}
 		
 		
