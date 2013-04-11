@@ -461,6 +461,8 @@ public class Quest implements Screen{
 								Sounds.zo_neck.play(0.1f);
 								break;
 							}
+							
+							Conceito.achiev_checker.update(Constants.achiev_types.Thekiller, 1);
 						}
 						
 						
@@ -829,6 +831,8 @@ public class Quest implements Screen{
 			font.draw(Conceito.batch,"Wave incomming! Number: " + Integer.toString(Wavenr),425, 508);
 		}
 		
+		
+		
 		if(debug)
 		{
 			font.setColor(Color.RED);
@@ -838,6 +842,7 @@ public class Quest implements Screen{
 		}
 		Conceito.batch.end();
 
+		Conceito.achiev_checker.updateAll();
 		
 		if(debug)
 		{
@@ -892,6 +897,9 @@ public class Quest implements Screen{
 	public void show() {
 		// TODO Auto-generated method stub
 		if(Sounds.main_s.isPlaying()) Sounds.main_s.stop();
+		MyInputProcessor inputProcessor = new MyInputProcessor(this);
+		Gdx.input.setInputProcessor(inputProcessor);
+		
 	}
 
 	@Override

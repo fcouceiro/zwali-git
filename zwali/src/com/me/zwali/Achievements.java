@@ -33,7 +33,10 @@ public class Achievements extends UI
 	public void setAchiev(Constants.achiev_types type)
 	{
 		for(AchievBtn btn:list)
-			if(btn.type == type) btn.setObtained(true);
+			if(btn.type == type){
+				btn.setObtained(true);
+				btn.setColor(0, 1, 0.6f, 1);
+			}
 	}
 	
 	private void popButtons()
@@ -46,8 +49,7 @@ public class Achievements extends UI
 		int x_init=70;
 		
 		int counter=0;
-		for(int i=0;i<30;i++){
-		
+	
 		for(Constants.achiev_types type:Constants.achiev_types.values())
 		{
 			AchievBtn btn = new AchievBtn(type.toString(),StylesManager.skin,type);
@@ -64,7 +66,7 @@ public class Achievements extends UI
 			
 			counter++;
 		}
-		}
+		
 		
 		//add back button
 				final TextButton btn = new TextButton("Back",StylesManager.btnGray);

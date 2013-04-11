@@ -29,6 +29,7 @@ public class Conceito extends Game {
 	MainMenu mainmenu;
 	Constants constDump = new Constants();
 	public static Achievements achievs_screen;
+	public static AchieveChecker achiev_checker;
 	
 	@Override
 	public void create() {		
@@ -63,6 +64,9 @@ public class Conceito extends Game {
 		//create achiev screen
 		achievs_screen = new Achievements(this);
 		
+		achiev_checker = new AchieveChecker();
+		achiev_checker.loadAch();
+		
 		//add all campaign quests and populate the questsScreen
 		questsScreen = new ScreenChooser(this);
 		questsScreen.quests.add(constDump.Home());
@@ -81,7 +85,7 @@ public class Conceito extends Game {
 		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.mainmenu,120);
 		gameover = new GameOver(this);
 		rdm = new Random();
-		setScreen(this.achievs_screen);
+		setScreen(this.ruthlessLogoScreen);
 
 	}
 
@@ -156,6 +160,7 @@ public class Conceito extends Game {
 	public void dispose() {
 		
 		Savegame();
+		this.achiev_checker.saveAch();
 		batch.dispose();
 		Textures.dispose();
 		questsScreen.dispose();

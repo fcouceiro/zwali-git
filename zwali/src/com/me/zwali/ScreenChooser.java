@@ -28,7 +28,6 @@ import com.ruthlessgames.api.UI;
 public class ScreenChooser extends UI{
 
 	Conceito maingame;
-	MyInputProcessor inputProcessor;
 	public static Player Player1;
 	Cenario cur_cenario;
 	ArrayList<Cenario> quests = new ArrayList<Cenario>();
@@ -65,16 +64,12 @@ public class ScreenChooser extends UI{
 			}
 		}
 		
-		inputProcessor = null;
-		inputProcessor = new MyInputProcessor(temp);
-		
 		temp.Player1 = Player1;
 		temp.Player1.pos.x = temp.backG.size.x / 2;
 		temp.Player1.pos.y = temp.backG.size.y / 2;
 		temp.Player1.vel.x = 0;
 		temp.Player1.vel.y = 0;
 		temp.difficulty = 1;
-		Gdx.input.setInputProcessor(inputProcessor);
 		System.out.println("Quest created successfuly");
 		return temp;
 	}
@@ -110,7 +105,7 @@ public class ScreenChooser extends UI{
 		shot = Player1.hasGun[1] ? "yes" : "no";
 		mach = Player1.hasGun[2] ? "yes" : "no";
 		
-		String[] listStats = {"Level: " + Player1.qLevel,"Health: " +Player1.Health,"Armor: "+Player1.armor,"Money: " + Player1.money,"XP: " + Player1.XP,"Pistol: " + pis,"Shotgun: " + shot, "Machine gun: " + mach};
+		String[] listStats = {"Level: " + (int)Player1.qLevel,"Health: " +Player1.Health,"Armor: "+Player1.armor,"Money: " + Player1.money,"XP: " + Player1.XP,"Pistol: " + pis,"Shotgun: " + shot, "Machine gun: " + mach};
 		
 		VerticalGroup vg = new VerticalGroup();
 		for(int i=0;i<8;i++)
