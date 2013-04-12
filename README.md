@@ -1,4 +1,4 @@
-zwali-git
+﻿zwali-git
 =========
  TODO:
 
@@ -12,6 +12,10 @@ Francisco Machado: achievements
 
 
 Ver bugs
+
+Não grava Acuraccy
+
+Fazer texture region com as armas -> shop mais slick no unselect (sizes)
 
 Acabar Screens -> Basics/About
 

@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -68,16 +70,16 @@ public class Shop extends UI{
 		
 		
 		//Buy
-		TextButton buttonBuy = new TextButton("Buy", Textures.btnGreen);
+		final TextButton buttonBuy = new TextButton("Buy", Textures.btnGreen);
 		buttonBuy.setBounds((float)btnExitPos.x+130, (float)btnExitPos.y, 110, 65);
 		buttonBuy.addListener(new InputListener() {
 			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	               	
+				 
 	                return true;
 	        }
 			 
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	        	if(x < buttonExit.getWidth() && x >0 && y<buttonExit.getHeight() && y > 0)
+	        	if(x < buttonBuy.getWidth() && x >0 && y<buttonBuy.getHeight() && y > 0)
 		        	{
 			        	if(selected[0])
 			        	{
@@ -201,7 +203,7 @@ public class Shop extends UI{
 	        	}
 	        });
 		
-		TextButton buttonEquip = new TextButton("Equip", Textures.btnBlue);
+		final TextButton buttonEquip = new TextButton("Equip", Textures.btnBlue);
 		buttonEquip.addListener(new InputListener() {
 			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	               	
@@ -209,7 +211,7 @@ public class Shop extends UI{
 	        }
 			 
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	        	if(x < buttonExit.getWidth() && x >0 && y<buttonExit.getHeight() && y > 0)
+	        	if(x < buttonEquip.getWidth() && x >0 && y<buttonEquip.getHeight() && y > 0)
 	        		if(ScreenChooser.Player1.hasGun[0] && selected[0]) 
 	        			ScreenChooser.Player1.setCurGun(0);
 	        		else if(ScreenChooser.Player1.hasGun[2] && selected[1])
@@ -220,6 +222,133 @@ public class Shop extends UI{
 	        });
 		buttonEquip.setBounds((float)btnExitPos.x+260, (float)btnExitPos.y, 110, 65);
 		
+		//Minigun
+		TextButton imgMinigun = new TextButton("", Textures.btnMinigun);
+		imgMinigun.setBounds(210, 350 , 140, 140);
+		imgMinigun.setRotation(140);
+		
+		final TextButton buttonMinigun = new TextButton("", Textures.imgMinigun);
+		buttonMinigun.setBounds(210, 350 , 140, 140);
+		buttonMinigun.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < buttonMinigun.getWidth() && x >0 && y<buttonMinigun.getHeight() && y > 0)
+	        		selected[2] = true;
+	        	}
+	        });
+		
+		//Shotgun
+		TextButton imgShotgun = new TextButton("", Textures.btnShotgun);
+		imgShotgun.setBounds(135, 350 , 70, 120);
+		imgShotgun.setRotation(140);
+		
+		final TextButton buttonShotgun = new TextButton("", Textures.imgShotgun);
+		buttonShotgun.setBounds(135, 350 ,70, 120);
+		buttonShotgun.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < buttonShotgun.getWidth() && x >0 && y<buttonShotgun.getHeight() && y > 0)
+	        		selected[1] = true;
+	        	}
+	        });
+		
+		TextButton imgPistol = new TextButton("", Textures.btnPistol);
+		imgPistol.setBounds(70, 375 , 50, 90);
+		imgPistol.setRotation(140);
+		
+		final TextButton buttonPistol = new TextButton("", Textures.imgPistol);
+		buttonPistol.setBounds(70, 375 ,50, 90);
+		buttonPistol.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < buttonPistol.getWidth() && x >0 && y<buttonPistol.getHeight() && y > 0)
+	        		selected[0] = true;
+	        	}
+	        });
+		
+		final TextButton buttonHealth = new TextButton("", Textures.btnHealth);
+		buttonHealth.setBounds(375, 295 ,50, 50);
+		buttonHealth.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < buttonHealth.getWidth() && x >0 && y<buttonHealth.getHeight() && y > 0)
+	        		selected[3] = true;
+	        	}
+	        });
+		
+		final TextButton buttonArmor = new TextButton("", Textures.btnArmor);
+		buttonArmor.setBounds(575, 295 ,50, 50);
+		buttonArmor.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < buttonArmor.getWidth() && x >0 && y<buttonArmor.getHeight() && y > 0)
+	        		selected[4] = true;
+	        	}
+	        });
+		
+		final TextButton buttonAmmo = new TextButton("", Textures.btnAmmo);
+		buttonAmmo.setBounds(575, 245 ,50, 50);
+		buttonAmmo.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < buttonAmmo.getWidth() && x >0 && y<buttonAmmo.getHeight() && y > 0)
+	        		selected[5] = true;
+	        	}
+	        });
+		
+		final TextButton buttonRes = new TextButton("", Textures.btnRes);
+		buttonRes.setBounds(375, 245 ,50, 50);
+		buttonRes.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < buttonRes.getWidth() && x >0 && y<buttonRes.getHeight() && y > 0)
+	        		selected[6] = true;
+	        	}
+	        });
+		
+		final TextButton buttonACC = new TextButton("", Textures.btnACC);
+		buttonACC.setBounds(475, 245 ,50, 50);
+		buttonACC.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	               	
+	                return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < buttonACC.getWidth() && x >0 && y<buttonACC.getHeight() && y > 0)
+	        		selected[7] = true;
+	        	}
+	        });
+		
+		
 		table.debug();
 		stage.addActor(table);
 		
@@ -229,7 +358,17 @@ public class Shop extends UI{
 		table.addActor(buttonEquip);
 		table.addActor(buttonBuy);
 		table.addActor(buttonExit);
-		
+		table.addActor(imgMinigun);
+		table.addActor(buttonMinigun);
+		table.addActor(imgShotgun);
+		table.addActor(buttonShotgun);
+		table.addActor(imgPistol);
+		table.addActor(buttonPistol);
+		table.addActor(buttonHealth);
+		table.addActor(buttonArmor);
+		table.addActor(buttonAmmo);
+		table.addActor(buttonRes);
+		table.addActor(buttonACC);
 		
 		populateItens();
 	}
@@ -248,7 +387,9 @@ public class Shop extends UI{
 		Conceito.batch.begin();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
+        
+   
+        
         Conceito.batch.end();
         Conceito.batch.begin();
         this.update();
@@ -264,6 +405,7 @@ public class Shop extends UI{
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
+		
 		Gdx.input.setInputProcessor(stage);
 	}
 
@@ -296,7 +438,7 @@ public class Shop extends UI{
 		mpos.x= Gdx.input.getX();
 		mpos.y= Gdx.input.getY();
 		
-		System.out.println(mpos.x + "    " + mpos.y);
+		System.out.println("mpos: "+ Gdx.input.getX() + " " + Gdx.input.getY() + "selected 3 = " + selected[3]);
 		
 		
 		shopfont.draw(Conceito.batch,"Money = " + ScreenChooser.Player1.money + "$" ,650, 580); 
@@ -304,109 +446,63 @@ public class Shop extends UI{
 		shopfont.draw(Conceito.batch,"Health = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp ,650, 540); 
 		shopfont.draw(Conceito.batch,"Armor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor ,650, 520); 
 		
-		Textures.minigun.setPosition(70, 250);
-		Textures.minigun.setSize(140, 140);
-		Textures.minigun.setRotation(160);
-		Textures.minigun.draw(Conceito.batch);
+//		Textures.minigun.setPosition(70, 250);
+//		Textures.minigun.setSize(140, 140);
+//		Textures.minigun.setRotation(160);
+//		Textures.minigun.draw(Conceito.batch);
 		
-		Textures.shotgun.setPosition(135, 365);
-		Textures.shotgun.setSize(70, 120);
-		Textures.shotgun.draw(Conceito.batch);
+//		Textures.shotgun.setPosition(135, 365);
+//		Textures.shotgun.setSize(70, 120);
+//		Textures.shotgun.draw(Conceito.batch);
 		
-		Textures.pistol.setPosition(70, 375);
-		Textures.pistol.setSize(40, 80);
-		Textures.pistol.draw(Conceito.batch);
+//		Textures.pistol.setPosition(70, 375);
+//		Textures.pistol.setSize(40, 80);
+//		Textures.pistol.draw(Conceito.batch);
 		
-		Textures.Medkit.setPosition(375, 297); //380 - 420, 255 - 300
-		Textures.Medkit.setSize(50, 50);
-		Textures.Medkit.draw(Conceito.batch);
+//		Textures.Medkit.setPosition(375, 297); //380 - 420, 255 - 300
+//		Textures.Medkit.setSize(50, 50);
+//		Textures.Medkit.draw(Conceito.batch);
 		
-		Textures.Armor.setPosition(575, 297); // 575 - 620, 255 - 300
-		Textures.Armor.setSize(50, 50);
-		Textures.Armor.draw(Conceito.batch);
+//		Textures.Armor.setPosition(575, 297); // 575 - 620, 255 - 300
+//		Textures.Armor.setSize(50, 50);
+//		Textures.Armor.draw(Conceito.batch);
 		
-		Textures.Ammo.setPosition(575, 242); //575- 620, 310-350
-		Textures.Ammo.setSize(50, 50);
-		Textures.Ammo.draw(Conceito.batch);
+//		Textures.Ammo.setPosition(575, 242); //575- 620, 310-350
+//		Textures.Ammo.setSize(50, 50);
+//		Textures.Ammo.draw(Conceito.batch);
 		
-		Textures.Resources.setPosition(375, 242); //380-420, 310-350
-		Textures.Resources.setSize(50, 50);
-		Textures.Resources.draw(Conceito.batch);
+//		Textures.Resources.setPosition(375, 242); //380-420, 310-350
+//		Textures.Resources.setSize(50, 50);
+//		Textures.Resources.draw(Conceito.batch);
 		
-		Textures.Accuracy.setPosition(475, 242); //475- 525, 310-350
-		Textures.Accuracy.setSize(50, 50);
-		Textures.Accuracy.draw(Conceito.batch);
+//		Textures.Accuracy.setPosition(475, 242); //475- 525, 310-350
+//		Textures.Accuracy.setSize(50, 50);
+//		Textures.Accuracy.draw(Conceito.batch);
 		
 		Textures.rdmBuff.setPosition(475, 193); //475-525, 360-400
 		Textures.rdmBuff.setSize(50, 50);
 		Textures.rdmBuff.draw(Conceito.batch);
 		
-		boolean changed = false;
+		if(Gdx.input.justTouched())
+		{
+			if( (stage.hit((float)mpos.x, (float)mpos.y, true) == null))
+			for(int i = 0; i <9 ; i++)
+				selected[i] = false;
+			
+		}
 		
 		
 		if(selected[0]== false && selected[1] == false && selected[2] == false && selected[3] == false  && selected[4] == false && selected[5] == false && selected[6] == false && selected[7] == false)
 		{
 			shopfont.draw(Conceito.batch,"Welcome Adventurer... Looking for any goods?" ,450, 135);
 			shopfont.draw(Conceito.batch,"Just check on the item you are interested in!" ,450, 110);
-
-			if(mpos.x > 55 && mpos.x < 130 && mpos.y < 260 && mpos.y > 100 )
-			{
-				if( Gdx.input.justTouched())
-					{
-						selected[0] = true;	
-					}
-			}
-			else if(mpos.x > 130 && mpos.x < 210 && mpos.y < 260 && mpos.y > 100) //2nd cabide
-			{
-				if( Gdx.input.justTouched())
-				{	
-					selected[1] = true;	
-				}	
-			}
-			else if(mpos.x > 210 && mpos.x < 350 && mpos.y < 260 && mpos.y > 100)
-			{
-				if( Gdx.input.justTouched())
-				{	
-					selected[2] = true;
-				}	
-				
-			}
-			else if(mpos.x > 380 && mpos.x < 420 && mpos.y > 255 && mpos.y < 300)
-			{
-				if (Gdx.input.justTouched()) {
-					selected[3] = true;
-				}
-			}
-			else if(mpos.x > 575 && mpos.x < 620 && mpos.y > 255 && mpos.y<300)// 575 - 620, 255 - 300
-			{
-				if (Gdx.input.justTouched()) {
-					selected[4] = true;
-				}
-			}
-			else if(mpos.x > 575 && mpos.x < 620 && mpos.y >310 && mpos.y < 350)//575- 620, 310-350
-			{
-				if (Gdx.input.justTouched()) {
-					selected[5] = true;
-				}
-			}
-			else if(mpos.x > 380 && mpos.x < 420 && mpos.y > 310 && mpos.y < 350)//380-420, 310-350
-			{
-				if (Gdx.input.justTouched()) {
-					selected[6] = true;
-				}
-			}
-			else if (mpos.x> 475 && mpos.x <525 && mpos.y >310 && mpos.y < 350)//475- 525, 310-350
-			{
-				if (Gdx.input.justTouched()) {
-					selected[7] = true;
-				}
-			}
-			else if (mpos.x> 475 && mpos.x <525 && mpos.y >360 && mpos.y < 400)//475-525, 360-400
-			{
-				if (Gdx.input.justTouched()) {
-					selected[8] = true;
-				}
-			}
+//rdmbuff
+//			if (mpos.x> 475 && mpos.x <525 && mpos.y >360 && mpos.y < 400)//475-525, 360-400
+//			{
+//				if (Gdx.input.justTouched()) {
+//					selected[8] = true;
+//				}
+//			}
 			
 		}		
 		else
@@ -482,9 +578,14 @@ public class Shop extends UI{
 			}
 			else if(selected[7] == true)
 			{
-				shopfont.draw(Conceito.batch,"Accuracy" ,450, 135);
-				shopfont.draw(Conceito.batch,"Price: " + itens.get(5).price + "XP" ,450, 95);
-				shopfont.draw(Conceito.batch,"Description: Adds 1 to your current accuracy" ,450, 65);						
+				shopfont.draw(Conceito.batch,"Accuracy " + ScreenChooser.Player1.UpgACC + "/3" ,450, 135);
+				if(ScreenChooser.Player1.UpgACC < 3){
+					
+					shopfont.draw(Conceito.batch,"Price: " + ((ScreenChooser.Player1.UpgACC+1)*100 + (ScreenChooser.Player1.UpgACC*250)) + "XP" ,450, 95);
+					shopfont.draw(Conceito.batch,"Description: Adds 1 to your current accuracy" ,450, 65);	
+				}
+				else
+					shopfont.draw(Conceito.batch,"Maxed out" ,450, 65);
 			}
 			else if(selected[8] == true)
 			{
@@ -493,13 +594,7 @@ public class Shop extends UI{
 				shopfont.draw(Conceito.batch,"Description: Adds a random boon. It can be power, acc, extra money, etc." ,450, 65);
 			}
 		}
-		//if(Gdx.input.isTouched() && stage.hit((float)mpos.x, (float)mpos.y, true) == null && changed == true)
-		if(Gdx.input.isKeyPressed(Keys.ESCAPE))
-		{
-			for(int i = 0; i <9 ; i++)
-				selected[i] = false;
-			changed = false;
-		}
+		
 	
 	}
 		

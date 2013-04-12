@@ -17,7 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Textures {
 	
-	static TextButtonStyle btnGreen,btnBlue,btnGray;
+	static TextButtonStyle btnGreen,btnBlue,btnGray,btnMinigun, imgMinigun, btnShotgun, imgShotgun, btnPistol, imgPistol;
+	static TextButtonStyle btnHealth, btnArmor, btnAmmo, btnRes, btnACC;
 	
 	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
 	
@@ -241,6 +242,17 @@ public class Textures {
 		btnGreen = new TextButtonStyle();
 		btnBlue = new TextButtonStyle();
 		btnGray = new TextButtonStyle();
+		btnMinigun = new TextButtonStyle();
+		imgMinigun =  new TextButtonStyle();
+		btnShotgun = new TextButtonStyle();
+		imgShotgun =  new TextButtonStyle();
+		btnPistol = new TextButtonStyle();
+		imgPistol =  new TextButtonStyle();
+		btnHealth = new TextButtonStyle();
+		btnArmor = new TextButtonStyle(); 
+		btnAmmo = new TextButtonStyle(); 
+		btnRes = new TextButtonStyle();
+		btnACC= new TextButtonStyle();
 		
 		BitmapFont buttonFont = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
 		         Gdx.files.internal("assets/fonts/arial.png"), false);
@@ -266,6 +278,33 @@ public class Textures {
 		btnGray.up = new TextureRegionDrawable(normal);
 		btnGray.down = new TextureRegionDrawable(normal_h);
 		btnGray.font = buttonFont;
+		
+		btnMinigun.up = new TextureRegionDrawable(Textures.minigun);
+		btnMinigun.font = buttonFont;
+		imgMinigun.font = buttonFont;
+		
+		btnShotgun.up = new TextureRegionDrawable(Textures.shotgun);
+		btnShotgun.font = buttonFont;
+		imgShotgun.font = buttonFont;
+		
+		btnPistol.up = new TextureRegionDrawable(Textures.pistol);
+		btnPistol.font = buttonFont;
+		imgPistol.font = buttonFont;
+		
+		btnHealth.up =  new TextureRegionDrawable(Textures.Medkit);
+		btnHealth.font = buttonFont;
+		
+		btnArmor.up =  new TextureRegionDrawable(Textures.Armor);
+		btnArmor.font = buttonFont;
+		
+		btnAmmo.up =  new TextureRegionDrawable(Textures.Ammo);
+		btnAmmo.font = buttonFont;
+		
+		btnRes.up =  new TextureRegionDrawable(Textures.Resources);
+		btnRes.font = buttonFont;
+		
+		btnACC.up =  new TextureRegionDrawable(Textures.Accuracy);
+		btnACC.font = buttonFont;
 	}
 	
 	private static Sprite loadTexture(String key) throws FileNotFoundException
