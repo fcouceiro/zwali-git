@@ -358,6 +358,7 @@ public class Shop extends UI{
 		table.addActor(buttonEquip);
 		table.addActor(buttonBuy);
 		table.addActor(buttonExit);
+		
 		table.addActor(imgMinigun);
 		table.addActor(buttonMinigun);
 		table.addActor(imgShotgun);
@@ -369,7 +370,7 @@ public class Shop extends UI{
 		table.addActor(buttonAmmo);
 		table.addActor(buttonRes);
 		table.addActor(buttonACC);
-		
+		table.addActor(buttonHealth);
 		populateItens();
 	}
 	
@@ -399,21 +400,9 @@ public class Shop extends UI{
 	@Override
 	public void resize(int width, int height) {
 		stage.setViewport(width, height, true);
-		
 	}
 
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-		
-		Gdx.input.setInputProcessor(stage);
-	}
 
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void pause() {

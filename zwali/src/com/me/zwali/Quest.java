@@ -463,6 +463,7 @@ public class Quest implements Screen{
 							}
 							
 							Conceito.achiev_checker.update(Constants.achiev_types.Thekiller, 1);
+							
 						}
 						
 						

@@ -94,6 +94,8 @@ public class ScreenChooser extends UI{
 		Gdx.input.setInputProcessor(stage);
 		this.reset_player();
 		
+		
+		
 		if(!Sounds.main_s.isPlaying() && maingame.sound){
 		Sounds.main_s.setLooping(true);
 		Sounds.main_s.play();
@@ -326,6 +328,7 @@ public class ScreenChooser extends UI{
 	        		if(maingame.sound){
 	        			Sounds.main_s.stop();
 	        			maingame.sound = false;
+	        			showToast("Toast example - no sound", 2,new Vector2(200,400));
 	        		}
 	        		else{
 	        			Sounds.main_s.setLooping(true);
