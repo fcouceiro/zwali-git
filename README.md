@@ -4,18 +4,18 @@
 
 Esta semana:
 Score system -/-
-Evolution system (quests completas etc) +/-
-Game over - check 
-Shop (acabar e implementar no Survival)
-Francisco Machado: refinar as colisões
-Francisco Machado: achievements
 
+Evolution system (quests completas etc) +/-
+
+implementar shop no Survival
+
+refinar as colisões
+
+achievements
 
 Ver bugs
 
 Não grava Acuraccy
-
-Fazer texture region com as armas -> shop mais slick no unselect (sizes)
 
 Acabar Screens -> Basics/About
 
@@ -28,8 +28,6 @@ Som +/-
 Fazer Níveis
 
 Fazer Plot
-
-Scene2d  -> FC & Ricardo
 
 Ideia:
 Jogar como zombie
