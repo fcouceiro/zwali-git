@@ -11,8 +11,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import com.ruthlessgames.api.UI;
 
-public class Quest implements Screen{
+public class Quest extends UI{
 	
 	public static BitmapFont font;
 
@@ -93,6 +94,7 @@ public class Quest implements Screen{
 	
 	public Quest(Conceito main, Vector Wave1Pos, Vector Wave2Pos,int maxWaves)
 	{
+		super(Conceito.batch,font,false);
 		this.MainGame = main;
 		this.maxWaves = maxWaves;
 		
@@ -207,7 +209,9 @@ public class Quest implements Screen{
 			if(Wavenr % 5 == 0)
 			{
 			Log.add("Chegou a ronda " + Wavenr);
-			Log.add("Bonus gold + 150");
+			Log.add("Bonus: +150$");
+			this.showToast("Bonus: +150$", 3, new Vector2(200,500),true);
+			
 			/*for(int i = 0; i < 7; i++)
 			{
 				int size;
@@ -829,8 +833,10 @@ public class Quest implements Screen{
 		
 		if(waveincoming)
 		{
-			font.draw(Conceito.batch,"Wave incomming! Number: " + Integer.toString(Wavenr),425, 508);
+			//font.draw(Conceito.batch,"Wave incomming! Number: " + Integer.toString(Wavenr),425, 508);
+			this.showToast("Wave incomming! Number: " + Integer.toString(Wavenr), 5, new Vector2(200,500),false);
 		}
+		else toastHandler.setVisible(false);
 		
 		
 		
@@ -869,6 +875,8 @@ public class Quest implements Screen{
 		Conceito.shapeRenderer.end();
 		}
 		
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
 		
 	}
 

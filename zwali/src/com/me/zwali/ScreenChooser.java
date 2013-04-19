@@ -328,7 +328,7 @@ public class ScreenChooser extends UI{
 	        		if(maingame.sound){
 	        			Sounds.main_s.stop();
 	        			maingame.sound = false;
-	        			showToast("Toast example - no sound", 2,new Vector2(200,400));
+	        			showToast("Toast example - no sound", 2,new Vector2(200,400),true);
 	        		}
 	        		else{
 	        			Sounds.main_s.setLooping(true);
