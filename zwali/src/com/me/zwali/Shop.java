@@ -46,9 +46,11 @@ public class Shop extends UI{
 	
 	
 	Label Lwelcome = new Label("", StylesManager.skin);
+	Label Lpstats = new Label("", StylesManager.skin);
 	Label Lpistol = new Label("", StylesManager.skin);
 	Label Lshotgun = new Label("", StylesManager.skin);
 	Label Lminigun = new Label("", StylesManager.skin);
+	Label Lmisc = new Label("", StylesManager.skin);
 	
 	
 	public Shop(Conceito Main)
@@ -234,7 +236,6 @@ public class Shop extends UI{
 		//Minigun
 		Image imgMinigun = new Image(Textures.minigun);
 		imgMinigun.setBounds(210, 350 , 140, 140);
-		imgMinigun.setRotation(140);
 		
 		final TextButton buttonMinigun = new TextButton("", Textures.imgMinigun);
 		buttonMinigun.setBounds(210, 350 , 140, 140);
@@ -253,7 +254,6 @@ public class Shop extends UI{
 		//Shotgun
 		Image imgShotgun = new Image(Textures.shotgun);
 		imgShotgun.setBounds(135, 350 , 70, 120);
-		imgShotgun.setRotation(140);
 		
 		final TextButton buttonShotgun = new TextButton("", Textures.imgShotgun);
 		buttonShotgun.setBounds(135, 350 ,70, 120);
@@ -271,13 +271,11 @@ public class Shop extends UI{
 		
 		Image imgPistol = new Image(Textures.pistol);
 		imgPistol.setBounds(70, 375 , 50, 90);
-		imgPistol.setRotation(140);
 		
 		final TextButton buttonPistol = new TextButton("", Textures.imgPistol);
 		buttonPistol.setBounds(70, 375 ,50, 90);
 		buttonPistol.addListener(new InputListener() {
-			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	               	
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {	               	
 	                return true;
 	        }
 			 
@@ -290,8 +288,7 @@ public class Shop extends UI{
 		final TextButton buttonHealth = new TextButton("", Textures.btnHealth);
 		buttonHealth.setBounds(375, 295 ,50, 50);
 		buttonHealth.addListener(new InputListener() {
-			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	               	
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {	               	
 	                return true;
 	        }
 			 
@@ -304,8 +301,7 @@ public class Shop extends UI{
 		final TextButton buttonArmor = new TextButton("", Textures.btnArmor);
 		buttonArmor.setBounds(575, 295 ,50, 50);
 		buttonArmor.addListener(new InputListener() {
-			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	               	
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {	               	
 	                return true;
 	        }
 			 
@@ -318,8 +314,7 @@ public class Shop extends UI{
 		final TextButton buttonAmmo = new TextButton("", Textures.btnAmmo);
 		buttonAmmo.setBounds(575, 245 ,50, 50);
 		buttonAmmo.addListener(new InputListener() {
-			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	               	
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {	               	
 	                return true;
 	        }
 			 
@@ -332,8 +327,7 @@ public class Shop extends UI{
 		final TextButton buttonRes = new TextButton("", Textures.btnRes);
 		buttonRes.setBounds(375, 245 ,50, 50);
 		buttonRes.addListener(new InputListener() {
-			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	               	
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {	               	
 	                return true;
 	        }
 			 
@@ -347,7 +341,6 @@ public class Shop extends UI{
 		buttonACC.setBounds(475, 245 ,50, 50);
 		buttonACC.addListener(new InputListener() {
 			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	               	
 	                return true;
 	        }
 			 
@@ -383,6 +376,8 @@ public class Shop extends UI{
 		table.addActor(Lpistol);
 		table.addActor(Lshotgun);
 		table.addActor(Lminigun);
+		table.addActor(Lmisc);
+		table.addActor(Lpstats);
 		populateItens();
 	}
 	
@@ -439,37 +434,35 @@ public class Shop extends UI{
 		mpos.x= Gdx.input.getX();
 		mpos.y= Gdx.input.getY();
 		
-		System.out.println("mpos: "+ Gdx.input.getX() + " " + Gdx.input.getY() + "selected 3 = " + selected[3]);
+		System.out.println("mpos: "+ Gdx.input.getX() + " " + Gdx.input.getY());
 		
-		
-		shopfont.draw(Conceito.batch,"Money = " + ScreenChooser.Player1.money + "$" ,650, 580); 
-		shopfont.draw(Conceito.batch,"XP = " + ScreenChooser.Player1.XP ,650, 560); 
-		shopfont.draw(Conceito.batch,"Health = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp ,650, 540); 
-		shopfont.draw(Conceito.batch,"Armor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor ,650, 520); 
-
+		Lpstats.setText("Money = " + ScreenChooser.Player1.money + "$\nXP = " + ScreenChooser.Player1.XP + "\nHealth = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp + "\nArmor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor);
+		Lpstats.setPosition(650, 550);
 		
 		Textures.rdmBuff.setPosition(475, 193); //475-525, 360-400
 		Textures.rdmBuff.setSize(50, 50);
 		Textures.rdmBuff.draw(Conceito.batch);
 		String aux;
-		if(Gdx.input.justTouched())
-		{
-			if( (stage.hit((float)mpos.x, (float)mpos.y, true) == null))
-			for(int i = 0; i <9 ; i++)
-				selected[i] = false;
-			
+		
+		if(Gdx.input.isTouched())
+		{			
+				if( (stage.hit((float)mpos.x, (float)mpos.y, true) == null))
+					for(int i = 0; i <9 ; i++)
+						selected[i] = false;
 		}
 		
 		
 		if(selected[0]== false && selected[1] == false && selected[2] == false && selected[3] == false  && selected[4] == false && selected[5] == false && selected[6] == false && selected[7] == false)
 		{
-//			shopfont.draw(Conceito.batch,"Welcome Adventurer... Looking for any goods?" ,450, 135);
-//			shopfont.draw(Conceito.batch,"Just check on the item you are interested in!" ,450, 110);
 			Lwelcome.setText("Welcome Adveturer...\nLooking for any goods?\nCheck on the item you are interested in!");
 			Lwelcome.setPosition(450, 115);
 			Lwelcome.setVisible(true);
 			
 			Lpistol.setVisible(false);
+			Lshotgun.setVisible(false);
+			Lminigun.setVisible(false);
+			Lmisc.setVisible(false);
+			Lmisc.setPosition(450, 115); //Para evitar por a posição em cada if
 //rdmbuff
 //			if (mpos.x> 475 && mpos.x <525 && mpos.y >360 && mpos.y < 400)//475-525, 360-400
 //			{
@@ -486,15 +479,11 @@ public class Shop extends UI{
 			{
 				aux = "Pistol\nPower: "+ ScreenChooser.Player1.UpgPwrPistol +"/" + "3\nAmmo: " + (ScreenChooser.Player1.InvListWeapons.get(0).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(0).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(0).Maxammo;
 				
-//				shopfont.draw(Conceito.batch,"Pistol" ,450, 135); 
-//				shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrPistol +"/" + "3" ,450, 110);
-//				shopfont.draw(Conceito.batch,"Ammo: " + (ScreenChooser.Player1.InvListWeapons.get(0).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(0).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(0).Maxammo ,450, 65);
 				if(ScreenChooser.Player1.UpgPwrPistol < 3)
-					//shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100)) + "XP" ,450, 95);
 					aux = aux + "\nUpgrade price: " + ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100)) + "XP";
 				else
 					aux = aux + "\nMaxed out";
-					//shopfont.draw(Conceito.batch,"Maxed out",450, 95);		
+				
 				Lpistol.setText(aux);
 				Lpistol.setPosition(450, 115);
 				Lpistol.setVisible(true);
@@ -507,14 +496,10 @@ public class Shop extends UI{
 				Lshotgun.setVisible(true);
 				if(ScreenChooser.Player1.hasGun[2])
 				{
-//					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrShotgun +"/" + "3" ,450, 110);
-//					shopfont.draw(Conceito.batch,"Ammo: " + (ScreenChooser.Player1.InvListWeapons.get(2).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(2).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(2).Maxammo ,450, 65);
 					aux += "\nPower: " + ScreenChooser.Player1.UpgPwrShotgun +"/" + "3\nAmmo: " + (ScreenChooser.Player1.InvListWeapons.get(2).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(2).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(2).Maxammo;
 					if(ScreenChooser.Player1.UpgPwrShotgun < 3)
-						//shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrShotgun+1*250) + (ScreenChooser.Player1.UpgPwrShotgun*100)) + "XP" ,450, 95);
 						aux += "\nUpgrade price: " + ((ScreenChooser.Player1.UpgPwrShotgun+1*250) + (ScreenChooser.Player1.UpgPwrShotgun*100)) + "XP";
 					else
-						//shopfont.draw(Conceito.batch,"Maxed out",450, 95);
 						aux += "\nMaxed out";
 					
 					
@@ -522,67 +507,76 @@ public class Shop extends UI{
 				else
 					//shopfont.draw(Conceito.batch,"Price: " + itens.get(7).price + "$" ,450, 110);
 					aux += "Price: " + itens.get(7).price + "$";
-					Lshotgun.setText(aux);
+				Lshotgun.setText(aux);
 
 			}
 
 			else if(selected[2] == true)
 			{
-				shopfont.draw(Conceito.batch,"Minigun" ,450, 135);
+				//shopfont.draw(Conceito.batch,"Minigun" ,450, 135);
+				aux = "Minigun";
+				Lminigun.setPosition(450, 115);
+				Lminigun.setVisible(true);
 				if(ScreenChooser.Player1.hasGun[1])
 				{
-					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrMinigun +"/" + "3" ,450, 110);
-					shopfont.draw(Conceito.batch,"Ammo: " + (ScreenChooser.Player1.InvListWeapons.get(1).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(1).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(1).Maxammo ,450, 65);
+					aux += "\nPower: " + ScreenChooser.Player1.UpgPwrMinigun +"/" + "3\nAmmo: " + (ScreenChooser.Player1.InvListWeapons.get(1).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(1).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(1).Maxammo;
+					//shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrMinigun +"/" + "3" ,450, 110);
+					//shopfont.draw(Conceito.batch,"Ammo: " + (ScreenChooser.Player1.InvListWeapons.get(1).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(1).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(1).Maxammo ,450, 65);
 					if(ScreenChooser.Player1.UpgPwrMinigun < 3)
-						shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrMinigun+1*250) + (ScreenChooser.Player1.UpgPwrMinigun*100)) + "XP" ,450, 95);
+						//shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrMinigun+1*250) + (ScreenChooser.Player1.UpgPwrMinigun*100)) + "XP" ,450, 95);
+						aux += "\nUpgrade price: " + ((ScreenChooser.Player1.UpgPwrMinigun+1*250) + (ScreenChooser.Player1.UpgPwrMinigun*100)) + "XP";
 					else
-						shopfont.draw(Conceito.batch,"Maxed out",450, 95);
+						aux += "\nMaxed out";
+						//shopfont.draw(Conceito.batch,"Maxed out",450, 95);
+					
 				}
 				else
 				{
-					shopfont.draw(Conceito.batch,"Price: " + itens.get(8).price + "$"  ,450, 110);			
+					//shopfont.draw(Conceito.batch,"Price: " + itens.get(8).price + "$"  ,450, 110);
+					aux += "\nPrice: " + itens.get(8).price + "$";
 				}
+				Lminigun.setText(aux);
 			}
 			else if(selected[3] == true)
 			{
-				shopfont.draw(Conceito.batch,"Medic Kit" ,450, 135);
-				shopfont.draw(Conceito.batch,"Price: " + itens.get(0).price +"$" ,450, 95);
-				shopfont.draw(Conceito.batch,"Description: +20 hp to you current." ,450, 65);	
+				Lmisc.setVisible(true);
+				aux = ("Medic Kit\nPrice: " + itens.get(0).price +"$\nDescription: +20 hp to you current.");
+				Lmisc.setText(aux);
 			}
 			else if(selected[4] == true)
 			{
-				shopfont.draw(Conceito.batch,"Armor" ,450, 135);
-				shopfont.draw(Conceito.batch,"Price: " + itens.get(3).price + "$",450, 95);
-				shopfont.draw(Conceito.batch,"Description: +10 Armor to you current." ,450, 65);
+				Lmisc.setVisible(true);
+				aux = "Armor\nPrice: " + itens.get(3).price + "$\nDescription: +10 Armor to you current";
+				Lmisc.setText(aux);				
 			}
 			else if(selected[5] == true)
 			{
-				shopfont.draw(Conceito.batch,"Ammo" ,450, 135);
-				shopfont.draw(Conceito.batch,"Price: " + itens.get(1).price ,450, 95);
-				shopfont.draw(Conceito.batch,"Description: Temos de ver como fazer para as varias armas" ,450, 65);
+				Lmisc.setVisible(true);
+				aux = "Ammo\nPrice: " + itens.get(1).price + "$\nDescription: Temos de ver como fazer para as varias armas";
+				Lmisc.setText(aux);
 			}
 			else if(selected[6] == true)
 			{
-				shopfont.draw(Conceito.batch,"Resources" ,450, 135);
-				shopfont.draw(Conceito.batch,"Price: " + itens.get(2).price + "$" ,450, 95);
-				shopfont.draw(Conceito.batch,"Description: Adds 1 Resource for building purposes" ,450, 65);						
+				Lmisc.setVisible(true);
+				aux = "Resources\nPrice: " + itens.get(2).price + "$\nDescription: Adds 1 Resource for building purposes";
+				Lmisc.setText(aux);						
 			}
 			else if(selected[7] == true)
 			{
-				shopfont.draw(Conceito.batch,"Accuracy " + ScreenChooser.Player1.UpgACC + "/3" ,450, 135);
+				Lmisc.setVisible(true);
+				aux = "Accuracy " + ScreenChooser.Player1.UpgACC + "/3";
 				if(ScreenChooser.Player1.UpgACC < 3){
-					
-					shopfont.draw(Conceito.batch,"Price: " + ((ScreenChooser.Player1.UpgACC+1)*100 + (ScreenChooser.Player1.UpgACC*250)) + "XP" ,450, 95);
-					shopfont.draw(Conceito.batch,"Description: Adds 1 to your current accuracy" ,450, 65);	
+					aux += "Price: " + ((ScreenChooser.Player1.UpgACC+1)*100 + (ScreenChooser.Player1.UpgACC*250)) + "XP\nDescription: Adds 1 to your current accuracy";
 				}
 				else
-					shopfont.draw(Conceito.batch,"Maxed out" ,450, 65);
+					aux += "Maxed out";
+				Lmisc.setText(aux);	
 			}
 			else if(selected[8] == true)
 			{
-				shopfont.draw(Conceito.batch,"Random" ,450, 135);
-				shopfont.draw(Conceito.batch,"Price: " + itens.get(6).price ,450, 95);
-				shopfont.draw(Conceito.batch,"Description: Adds a random boon. It can be power, acc, extra money, etc." ,450, 65);
+				Lmisc.setVisible(true);
+				aux = "Random buff\nPrice: " + itens.get(6).price + "\nDescription: Adds a random boon. It can be power, acc, extra money, etc.";
+				Lmisc.setText(aux);
 			}
 		}
 		
