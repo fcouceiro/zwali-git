@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<cutscene name="Say hello">
+    <pane d='180'>
+        <actor type="label" text="Hi from xml" x="400" y="100">
+            <action type="fadein" d='1'/>
+            <action type="delay" d='1'/>
+            <action type="fadeout" d='1'/>
+        </actor>
+        <actor type="textbutton" text="Hi from xml" x="20" y="100">
+            <action type="fadein" d='1'/>
+            <action type="delay" d='1'/>
+            <action type="fadeout" d='1'/>
+        </actor>
+    </pane>
+</cutscene>
