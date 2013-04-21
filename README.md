@@ -1,34 +1,34 @@
-﻿zwali-git
+﻿zwali-git :: DEADLINE->Inicios de junho 
 =========
  TODO:
 
 Esta semana:
-Score system -/-
 
-Evolution system (quests completas etc) +/-
+Plot: (sexta às 17h) - FC,FM,RM
+	-> Cutscenes - FC
+	-> Score
+	-> Evolution (quests)
+	-> Niveis
 
-refinar as colisões
+Screens:
+	-> Basics/About - FC
+	-> Acabar shop - RM
 
-achievements
+Gameplay:
+	-> refinar as colisões - FM
+	-> texturas - MAN
+	-> Som - MP
 
-Ver bugs
+Public:
+	-> Facebook & Site
 
-Acabar Screens -> Basics/About
 
-Facebook & Site
 
-Gajo das Texturas (desaparecido) (em frequencias)
-
-Som +/-
-
-Fazer Níveis
-
-Fazer Plot
 
 Ideia:
 Jogar como zombie
 
-=========
+==========================================
 Achievements list: (é para ir adicionando)
 - Hello world! (> 100 kills)
 - kid (> 500 kills)
