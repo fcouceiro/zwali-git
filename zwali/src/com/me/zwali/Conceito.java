@@ -125,6 +125,7 @@ public class Conceito extends Game {
 			temp.UpgPwrPistol = prefs.getInteger("UpgPistol", 0);
 			temp.UpgPwrShotgun = prefs.getInteger("UpgShotgun", 0);
 			temp.UpgPwrMinigun = prefs.getInteger("UpgMinigun", 0);
+			temp.UpgACC = prefs.getInteger("UpgACC", 0);
 			
 			Gdx.app.log("Savegame", "loaded");
 			return temp;
@@ -151,6 +152,7 @@ public class Conceito extends Game {
 		prefs.putInteger("UpgPistol", ScreenChooser.Player1.UpgPwrPistol);
 		prefs.putInteger("UpgShotgun", ScreenChooser.Player1.UpgPwrShotgun);
 		prefs.putInteger("UpgMinigun", ScreenChooser.Player1.UpgPwrMinigun);
+		prefs.putInteger("UpgACC", ScreenChooser.Player1.UpgACC);
 		prefs.putFloat("qLevel", ScreenChooser.Player1.qLevel);
 		prefs.flush();
 		Gdx.app.log("savegame","saved");
