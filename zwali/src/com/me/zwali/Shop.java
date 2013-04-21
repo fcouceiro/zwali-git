@@ -16,9 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.ruthlessgames.api.StylesManager;
 import com.ruthlessgames.api.UI;
 
 
@@ -40,6 +42,13 @@ public class Shop extends UI{
 	boolean selected[] = new boolean[9];
 	static boolean wizardmode = false;
 	static Random rdm = new Random();
+	
+	
+	
+	Label Lwelcome = new Label("", StylesManager.skin);
+	Label Lpistol = new Label("", StylesManager.skin);
+	Label Lshotgun = new Label("", StylesManager.skin);
+	Label Lminigun = new Label("", StylesManager.skin);
 	
 	
 	public Shop(Conceito Main)
@@ -223,7 +232,7 @@ public class Shop extends UI{
 		buttonEquip.setBounds((float)btnExitPos.x+260, (float)btnExitPos.y, 110, 65);
 		
 		//Minigun
-		TextButton imgMinigun = new TextButton("", Textures.btnMinigun);
+		Image imgMinigun = new Image(Textures.minigun);
 		imgMinigun.setBounds(210, 350 , 140, 140);
 		imgMinigun.setRotation(140);
 		
@@ -242,7 +251,7 @@ public class Shop extends UI{
 	        });
 		
 		//Shotgun
-		TextButton imgShotgun = new TextButton("", Textures.btnShotgun);
+		Image imgShotgun = new Image(Textures.shotgun);
 		imgShotgun.setBounds(135, 350 , 70, 120);
 		imgShotgun.setRotation(140);
 		
@@ -260,7 +269,7 @@ public class Shop extends UI{
 	        	}
 	        });
 		
-		TextButton imgPistol = new TextButton("", Textures.btnPistol);
+		Image imgPistol = new Image(Textures.pistol);
 		imgPistol.setBounds(70, 375 , 50, 90);
 		imgPistol.setRotation(140);
 		
@@ -352,13 +361,12 @@ public class Shop extends UI{
 		table.debug();
 		stage.addActor(table);
 		
-		LabelStyle a = new LabelStyle();
-		a.font = this.shopfont;
+		LabelStyle labelstyle = new LabelStyle();
+		labelstyle.font = this.shopfont;
 		
 		table.addActor(buttonEquip);
 		table.addActor(buttonBuy);
-		table.addActor(buttonExit);
-		
+		table.addActor(buttonExit);	
 		table.addActor(imgMinigun);
 		table.addActor(buttonMinigun);
 		table.addActor(imgShotgun);
@@ -371,6 +379,10 @@ public class Shop extends UI{
 		table.addActor(buttonRes);
 		table.addActor(buttonACC);
 		table.addActor(buttonHealth);
+		table.addActor(Lwelcome);
+		table.addActor(Lpistol);
+		table.addActor(Lshotgun);
+		table.addActor(Lminigun);
 		populateItens();
 	}
 	
@@ -434,44 +446,12 @@ public class Shop extends UI{
 		shopfont.draw(Conceito.batch,"XP = " + ScreenChooser.Player1.XP ,650, 560); 
 		shopfont.draw(Conceito.batch,"Health = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp ,650, 540); 
 		shopfont.draw(Conceito.batch,"Armor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor ,650, 520); 
-		
-//		Textures.minigun.setPosition(70, 250);
-//		Textures.minigun.setSize(140, 140);
-//		Textures.minigun.setRotation(160);
-//		Textures.minigun.draw(Conceito.batch);
-		
-//		Textures.shotgun.setPosition(135, 365);
-//		Textures.shotgun.setSize(70, 120);
-//		Textures.shotgun.draw(Conceito.batch);
-		
-//		Textures.pistol.setPosition(70, 375);
-//		Textures.pistol.setSize(40, 80);
-//		Textures.pistol.draw(Conceito.batch);
-		
-//		Textures.Medkit.setPosition(375, 297); //380 - 420, 255 - 300
-//		Textures.Medkit.setSize(50, 50);
-//		Textures.Medkit.draw(Conceito.batch);
-		
-//		Textures.Armor.setPosition(575, 297); // 575 - 620, 255 - 300
-//		Textures.Armor.setSize(50, 50);
-//		Textures.Armor.draw(Conceito.batch);
-		
-//		Textures.Ammo.setPosition(575, 242); //575- 620, 310-350
-//		Textures.Ammo.setSize(50, 50);
-//		Textures.Ammo.draw(Conceito.batch);
-		
-//		Textures.Resources.setPosition(375, 242); //380-420, 310-350
-//		Textures.Resources.setSize(50, 50);
-//		Textures.Resources.draw(Conceito.batch);
-		
-//		Textures.Accuracy.setPosition(475, 242); //475- 525, 310-350
-//		Textures.Accuracy.setSize(50, 50);
-//		Textures.Accuracy.draw(Conceito.batch);
+
 		
 		Textures.rdmBuff.setPosition(475, 193); //475-525, 360-400
 		Textures.rdmBuff.setSize(50, 50);
 		Textures.rdmBuff.draw(Conceito.batch);
-		
+		String aux;
 		if(Gdx.input.justTouched())
 		{
 			if( (stage.hit((float)mpos.x, (float)mpos.y, true) == null))
@@ -483,8 +463,13 @@ public class Shop extends UI{
 		
 		if(selected[0]== false && selected[1] == false && selected[2] == false && selected[3] == false  && selected[4] == false && selected[5] == false && selected[6] == false && selected[7] == false)
 		{
-			shopfont.draw(Conceito.batch,"Welcome Adventurer... Looking for any goods?" ,450, 135);
-			shopfont.draw(Conceito.batch,"Just check on the item you are interested in!" ,450, 110);
+//			shopfont.draw(Conceito.batch,"Welcome Adventurer... Looking for any goods?" ,450, 135);
+//			shopfont.draw(Conceito.batch,"Just check on the item you are interested in!" ,450, 110);
+			Lwelcome.setText("Welcome Adveturer...\nLooking for any goods?\nCheck on the item you are interested in!");
+			Lwelcome.setPosition(450, 115);
+			Lwelcome.setVisible(true);
+			
+			Lpistol.setVisible(false);
 //rdmbuff
 //			if (mpos.x> 475 && mpos.x <525 && mpos.y >360 && mpos.y < 400)//475-525, 360-400
 //			{
@@ -496,31 +481,48 @@ public class Shop extends UI{
 		}		
 		else
 		{
-			shopfont.draw(Conceito.batch,"Press Esc to unselect the item" ,450, 45);
+			Lwelcome.setVisible(false);
 			if(selected[0] == true)
 			{
-				shopfont.draw(Conceito.batch,"Pistol" ,450, 135); 
-				shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrPistol +"/" + "3" ,450, 110);
-				shopfont.draw(Conceito.batch,"Ammo: " + (ScreenChooser.Player1.InvListWeapons.get(0).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(0).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(0).Maxammo ,450, 65);
+				aux = "Pistol\nPower: "+ ScreenChooser.Player1.UpgPwrPistol +"/" + "3\nAmmo: " + (ScreenChooser.Player1.InvListWeapons.get(0).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(0).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(0).Maxammo;
+				
+//				shopfont.draw(Conceito.batch,"Pistol" ,450, 135); 
+//				shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrPistol +"/" + "3" ,450, 110);
+//				shopfont.draw(Conceito.batch,"Ammo: " + (ScreenChooser.Player1.InvListWeapons.get(0).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(0).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(0).Maxammo ,450, 65);
 				if(ScreenChooser.Player1.UpgPwrPistol < 3)
-					shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100)) + "XP" ,450, 95);
+					//shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100)) + "XP" ,450, 95);
+					aux = aux + "\nUpgrade price: " + ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100)) + "XP";
 				else
-					shopfont.draw(Conceito.batch,"Maxed out",450, 95);					
+					aux = aux + "\nMaxed out";
+					//shopfont.draw(Conceito.batch,"Maxed out",450, 95);		
+				Lpistol.setText(aux);
+				Lpistol.setPosition(450, 115);
+				Lpistol.setVisible(true);
 			}
 			else if(selected[1] == true)
 			{
-				shopfont.draw(Conceito.batch,"Shotgun" ,450, 135); 
+				//shopfont.draw(Conceito.batch,"Shotgun" ,450, 135); 
+				aux = "Shotgun";
+				Lshotgun.setPosition(450, 115);
+				Lshotgun.setVisible(true);
 				if(ScreenChooser.Player1.hasGun[2])
 				{
-					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrShotgun +"/" + "3" ,450, 110);
-					shopfont.draw(Conceito.batch,"Ammo: " + (ScreenChooser.Player1.InvListWeapons.get(2).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(2).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(2).Maxammo ,450, 65);
+//					shopfont.draw(Conceito.batch,"Power: " + ScreenChooser.Player1.UpgPwrShotgun +"/" + "3" ,450, 110);
+//					shopfont.draw(Conceito.batch,"Ammo: " + (ScreenChooser.Player1.InvListWeapons.get(2).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(2).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(2).Maxammo ,450, 65);
+					aux += "\nPower: " + ScreenChooser.Player1.UpgPwrShotgun +"/" + "3\nAmmo: " + (ScreenChooser.Player1.InvListWeapons.get(2).ammoTotal + ScreenChooser.Player1.InvListWeapons.get(2).ammo) + "/" + ScreenChooser.Player1.InvListWeapons.get(2).Maxammo;
 					if(ScreenChooser.Player1.UpgPwrShotgun < 3)
-						shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrShotgun+1*250) + (ScreenChooser.Player1.UpgPwrShotgun*100)) + "XP" ,450, 95);
+						//shopfont.draw(Conceito.batch,"Upgrade price: " + ((ScreenChooser.Player1.UpgPwrShotgun+1*250) + (ScreenChooser.Player1.UpgPwrShotgun*100)) + "XP" ,450, 95);
+						aux += "\nUpgrade price: " + ((ScreenChooser.Player1.UpgPwrShotgun+1*250) + (ScreenChooser.Player1.UpgPwrShotgun*100)) + "XP";
 					else
-						shopfont.draw(Conceito.batch,"Maxed out",450, 95);	
+						//shopfont.draw(Conceito.batch,"Maxed out",450, 95);
+						aux += "\nMaxed out";
+					
+					
 				}
 				else
-					shopfont.draw(Conceito.batch,"Price: " + itens.get(7).price + "$" ,450, 110);
+					//shopfont.draw(Conceito.batch,"Price: " + itens.get(7).price + "$" ,450, 110);
+					aux += "Price: " + itens.get(7).price + "$";
+					Lshotgun.setText(aux);
 
 			}
 
