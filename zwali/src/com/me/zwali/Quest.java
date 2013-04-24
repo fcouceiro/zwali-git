@@ -4,13 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.ruthlessgames.api.StylesManager;
 import com.ruthlessgames.api.UI;
 
 public class Quest extends UI{
@@ -28,16 +44,19 @@ public class Quest extends UI{
 	Stats stats = new Stats();
 	Stats stats2;
 	Random rdm;
-	InvMenu invmenu;
 	ItemDrop drop;
 	Builder obra;
 	Kick KKick;
 	static boolean pausecoco = true;
 	
+	
 	Collision col;
 	
 	List <Wave> waves = new ArrayList<Wave>(10);
 	
+	Slider Hbar,Abar;
+	Image Himg,Aimg,Amimg,curgunimg;
+	Label labAmmo;
 	
 	static boolean buildMode;
 	boolean WarmUp = true;
@@ -95,6 +114,10 @@ public class Quest extends UI{
 	public Quest(Conceito main, Vector Wave1Pos, Vector Wave2Pos,int maxWaves)
 	{
 		super(Conceito.batch,font,false);
+		this.pop_Table1();
+		this.pop_Table2();
+		//TextButton hi = new TextButton("Hello",StylesManager.skin);
+		//table.addActor(hi);
 		this.MainGame = main;
 		this.maxWaves = maxWaves;
 		
@@ -138,7 +161,6 @@ public class Quest extends UI{
 		
 		rdm = new Random();
 		
-		invmenu = new InvMenu(Conceito.batch);
 		
 		/*for(int i = 0; i < 15; i++)
 		{
@@ -805,8 +827,6 @@ public class Quest extends UI{
 	
 		
 		//String draw area
-		
-		invmenu.update(buildMode);
 		updateLog();
 		font.draw(Conceito.batch,Integer.toString(Player1.Health) + " / " + Integer.toString(Player1.armor), 265,20);
 		font.draw(Conceito.batch,Integer.toString(Player1.buildQuant), 460,53);
@@ -815,21 +835,6 @@ public class Quest extends UI{
 		font.draw(Conceito.batch,(Integer.toString(Player1.InvListWeapons.get(Player1.CurGun).ammo) + "/" + Player1.InvListWeapons.get(Player1.CurGun).ammoTotal), 20,20);
 		//End
 		
-		
-		
-		//weapons on bar
-		switch(Player1.CurGun)
-		{
-		case 0:
-			Textures.draw(Textures.pistol,Conceito.batch);
-			break;
-		case 1:
-			Textures.draw(Textures.minigun, Conceito.batch);
-			break;
-		case 2:
-			Textures.draw(Textures.shotgun, Conceito.batch);
-			break;
-		}
 		
 		if(waveincoming)
 		{
@@ -875,6 +880,25 @@ public class Quest extends UI{
 		Conceito.shapeRenderer.end();
 		}
 		
+		//weapons on bar
+				switch(Player1.CurGun)
+				{
+				case 0:
+					curgunimg.setDrawable(Textures.pistol);
+					break;
+				case 1:
+					curgunimg.setDrawable(Textures.minigun);
+					break;
+				case 2:
+					curgunimg.setDrawable(Textures.shotgun);
+					break;
+				}
+				
+		
+		Hbar.setValue(Player1.getHealth());
+		Abar.setValue(Player1.armor);
+		labAmmo.setText(Player1.InvListWeapons.get(Player1.CurGun).ammo +"/"+Player1.InvListWeapons.get(Player1.CurGun).ammoTotal);
+		
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		
@@ -896,6 +920,280 @@ public class Quest extends UI{
 		font.draw(Conceito.batch, tres, 583, 22);
 	}
 	
+	private void pop_Table1()
+	{
+		Table table1 = new Table();//table with helath and ammo
+		SliderStyle a = new SliderStyle();
+		a.background = new TextureRegionDrawable(new TextureRegion(Textures.progressbar,0,20,140,10));
+		a.knob = null;
+		a.knobBefore = new TextureRegionDrawable(new TextureRegion(Textures.progressbar,0,10,140,10));
+		
+		SliderStyle b = new SliderStyle();
+		b.background = new TextureRegionDrawable(new TextureRegion(Textures.progressbar,0,20,140,10));
+		b.knob = null;
+		b.knobBefore = new TextureRegionDrawable(new TextureRegion(Textures.progressbar,0,0,140,10));
+		
+		Hbar = new Slider(0,100,1,false,a);
+		Hbar.setTouchable(null);
+		table1.addActor(Hbar);
+		
+		Hbar.setValue(50);
+		Hbar.setY(50);
+		Hbar.setX(20);
+		Hbar.getColor().a = 0.7f;
+		
+		Abar = new Slider(0,100,1,false,b);
+		Abar.setTouchable(null);
+		table1.addActor(Abar);
+		
+		Abar.setValue(50);
+		Abar.setY(30);
+		Abar.setX(20);
+		Abar.getColor().a = 0.7f;
+		
+		Himg = new Image(new TextureRegionDrawable(Textures.Medkit));
+		Himg.setSize(16, 16);
+		Himg.setY(50);
+		
+		Aimg = new Image(new TextureRegionDrawable(Textures.Armor));
+		Aimg.setSize(16, 16);
+		Aimg.setY(30);
+		
+		final TextButton hide = new TextButton("",Textures.btnHide);
+		hide.setSize(20, 20);
+		hide.setY(70);
+		hide.getColor().a = 0.5f;
+		
+		final TextButton show = new TextButton("",Textures.btnShow);
+		show.setSize(20, 20);
+		show.setY(70);
+		show.setVisible(false);
+		show.getColor().a = 0.5f;
+		
+		final MoveToAction hideHbar = Actions.action(MoveToAction.class);
+		hideHbar.setActor(hide);
+		hideHbar.setPosition(-200, 50);
+		hideHbar.setDuration(1.5f);
+		hideHbar.setInterpolation(Interpolation.fade);
+	
+		final MoveToAction hideAbar = Actions.action(MoveToAction.class);
+		hideAbar.setActor(hide);
+		hideAbar.setPosition(-200, 30);
+		hideAbar.setDuration(1.5f);
+		hideAbar.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showAbar = Actions.action(MoveToAction.class);
+		showAbar.setActor(hide);
+		showAbar.setPosition(20, 30);
+		showAbar.setDuration(1.5f);
+		showAbar.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showHbar = Actions.action(MoveToAction.class);
+		showHbar.setActor(hide);
+		showHbar.setPosition(20, 50);
+		showHbar.setDuration(1.5f);
+		showHbar.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction hideHimg = Actions.action(MoveToAction.class);
+		hideHimg.setActor(hide);
+		hideHimg.setPosition(-40,50);
+		hideHimg.setDuration(1.5f);
+		hideHimg.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showHimg = Actions.action(MoveToAction.class);
+		showHimg.setActor(hide);
+		showHimg.setPosition(0,50);
+		showHimg.setDuration(1.5f);
+		showHimg.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction hideAimg = Actions.action(MoveToAction.class);
+		hideAimg.setActor(hide);
+		hideAimg.setPosition(-40,30);
+		hideAimg.setDuration(1.5f);
+		hideAimg.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showAimg = Actions.action(MoveToAction.class);
+		showAimg.setActor(hide);
+		showAimg.setPosition(0,30);
+		showAimg.setDuration(1.5f);
+		showAimg.setInterpolation(Interpolation.fade);
+		
+		
+		hide.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < hide.getWidth() && x >0 && y<hide.getHeight() && y > 0){
+					Hbar.addAction(hideHbar);
+					Abar.addAction(hideAbar);
+					Himg.addAction(hideHimg);
+					Aimg.addAction(hideAimg);
+					hide.setVisible(false);
+					show.setVisible(true);
+				}
+			}
+		});
+		
+		show.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < show.getWidth() && x >0 && y<show.getHeight() && y > 0){
+					Hbar.addAction(showHbar);
+					Abar.addAction(showAbar);
+					Himg.addAction(showHimg);
+					Aimg.addAction(showAimg);
+					hide.setVisible(true);
+					show.setVisible(false);
+				}
+			}
+		});
+		
+		
+		table1.addActor(Himg);
+		table1.addActor(Aimg);
+		table1.addActor(hide);
+		table1.addActor(show);
+		table1.setY(500);
+		table1.setX(10);
+		stage.addActor(table1);
+	}
+
+	private void pop_Table2()
+	{
+		Table table2 = new Table();
+		
+		final TextButton hide = new TextButton("",Textures.btnShow);
+		hide.setSize(20, 20);
+		hide.setY(90);
+		hide.getColor().a = 0.5f;
+		
+		final Image backframe = new Image(new TextureRegionDrawable(Textures.backframe_ui));
+		backframe.setSize(100, 100);
+		backframe.setX(30);
+		backframe.getColor().a = 0.6f;
+		
+		curgunimg = new Image(new TextureRegionDrawable(Textures.ruthlessLogo));
+		curgunimg.setSize(90, 90);
+		curgunimg.setX(35);
+		curgunimg.getColor().a = 0.6f;
+		
+		Amimg = new Image(new TextureRegionDrawable(Textures.Ammo));
+		Amimg.setSize(16, 16);
+		Amimg.setY(-20);
+		Amimg.setX(30);
+		
+		labAmmo = new Label("stuff",StylesManager.arial15);
+		labAmmo.setX(50);
+		labAmmo.setY(-23);
+		labAmmo.getColor().a = 0.8f;
+		
+		final MoveToAction hideAmimg = Actions.action(MoveToAction.class);
+		hideAmimg.setActor(Amimg);
+		hideAmimg.setPosition(160,-20);
+		hideAmimg.setDuration(1.5f);
+		hideAmimg.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction hideLabel = Actions.action(MoveToAction.class);
+		hideLabel.setActor(labAmmo);
+		hideLabel.setPosition(160,-23);
+		hideLabel.setDuration(1.5f);
+		hideLabel.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction hideBf = Actions.action(MoveToAction.class);
+		hideBf.setActor(backframe);
+		hideBf.setPosition(160,0);
+		hideBf.setDuration(1.5f);
+		hideBf.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction hideHide = Actions.action(MoveToAction.class);
+		hideHide.setActor(hide);
+		hideHide.setPosition(120,90);
+		hideHide.setDuration(1.5f);
+		hideHide.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction hideWp = Actions.action(MoveToAction.class);
+		hideWp.setActor(curgunimg);
+		hideWp.setPosition(160,0);
+		hideWp.setDuration(1.5f);
+		hideWp.setInterpolation(Interpolation.fade);
+		//show actions
+		
+		final MoveToAction showAmimg = Actions.action(MoveToAction.class);
+		showAmimg.setActor(Amimg);
+		showAmimg.setPosition(30,-20);
+		showAmimg.setDuration(1.5f);
+		showAmimg.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showLabel = Actions.action(MoveToAction.class);
+		showLabel.setActor(labAmmo);
+		showLabel.setPosition(50,-23);
+		showLabel.setDuration(1.5f);
+		showLabel.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showBf = Actions.action(MoveToAction.class);
+		showBf.setActor(backframe);
+		showBf.setPosition(30,0);
+		showBf.setDuration(1.5f);
+		showBf.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showHide = Actions.action(MoveToAction.class);
+		showHide.setActor(hide);
+		showHide.setPosition(0,90);
+		showHide.setDuration(1.5f);
+		showHide.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showWp = Actions.action(MoveToAction.class);
+		showWp.setActor(curgunimg);
+		showWp.setPosition(35,0);
+		showWp.setDuration(1.5f);
+		showWp.setInterpolation(Interpolation.fade);
+		
+		hide.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < hide.getWidth() && x >0 && y<hide.getHeight() && y > 0){
+					if(hide.getStyle() == Textures.btnShow){
+						backframe.addAction(hideBf);
+						Amimg.addAction(hideAmimg);
+						labAmmo.addAction(hideLabel);
+						hide.addAction(hideHide);
+						curgunimg.addAction(hideWp);
+						hide.setStyle(Textures.btnHide);
+					}
+					else{
+						backframe.addAction(showBf);
+						Amimg.addAction(showAmimg);
+						labAmmo.addAction(showLabel);
+						hide.addAction(showHide);
+						curgunimg.addAction(showWp);
+						hide.setStyle(Textures.btnShow);
+					}
+				}
+			}
+		});
+		
+		table2.addActor(backframe);
+		table2.addActor(hide);
+		table2.addActor(Amimg);
+		table2.addActor(labAmmo);
+		table2.addActor(curgunimg);
+		table2.setX(650);
+		table2.setY(480);
+		
+		stage.addActor(table2);
+		
+	}
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
@@ -907,8 +1205,9 @@ public class Quest extends UI{
 		// TODO Auto-generated method stub
 		if(Sounds.main_s.isPlaying()) Sounds.main_s.stop();
 		MyInputProcessor inputProcessor = new MyInputProcessor(this);
-		Gdx.input.setInputProcessor(inputProcessor);
-		
+		InputMultiplexer mult_in = new InputMultiplexer(inputProcessor,stage);
+		Gdx.input.setInputProcessor(mult_in);
+		//Gdx.input.setCursorCatched(true);
 	}
 
 	@Override
@@ -916,6 +1215,8 @@ public class Quest extends UI{
 		// TODO Auto-generated method stub
 		if(!Sounds.main_s.isPlaying() && this.MainGame.sound) Sounds.main_s.play();
 		Gdx.app.log("wave", "Ended in wave " + this.Wavenr);
+		
+		//Gdx.input.setCursorCatched(false);
 	}
 
 	private void input()

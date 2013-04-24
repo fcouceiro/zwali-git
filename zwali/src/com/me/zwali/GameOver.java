@@ -39,7 +39,7 @@ public class GameOver extends UI{
 		table.addActor(lGameover);
 		
 		final TextButton retry = new TextButton("Retry",StylesManager.skin);
-		final TextButton menu = new TextButton("Menu",StylesManager.btnGray);
+		final TextButton menu = new TextButton("Menu",StylesManager.skin);
 		final TextButton shop = new TextButton("Shop",StylesManager.btnGreen);
 		final TextButton buy = new TextButton("Buy this mission",StylesManager.btnLock);
 		

@@ -13,15 +13,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Textures {
 	
 	static TextButtonStyle btnGreen,btnBlue,btnGray,btnMinigun, imgMinigun, btnShotgun, imgShotgun, btnPistol, imgPistol;
-	static TextButtonStyle btnHealth, btnArmor, btnAmmo, btnRes, btnACC;
+	static TextButtonStyle btnHealth, btnArmor, btnAmmo, btnRes, btnACC,btnHide,btnShow;
 	
 	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
 	
+	static Sprite progressbar;
+	static Sprite backframe_ui;
 	static Sprite qHome;
 	static Sprite questsBG;
 	static Sprite game_over_bg;
@@ -65,9 +68,9 @@ public class Textures {
 	 static Sprite Power;
 	 static Sprite Accuracy;
 	 static Sprite Resources;
-	 static Sprite pistol;
-	 static Sprite minigun;
-	 static Sprite shotgun;
+	 static Drawable pistol;
+	 static Drawable minigun;
+	 static Drawable shotgun;
 	 static Sprite Medkit;
 	 static Sprite rdmBuff;
 	 //End of Items
@@ -145,8 +148,13 @@ public class Textures {
 	 static Sprite sound,no_sound;
 	 static Sprite scroll_box_bg;
 	 static Sprite bg_sangue;
+	 static Sprite hide_btn,show_btn;
 	public static void loadTextures() throws FileNotFoundException
 	{
+		progressbar = loadTexture("/other/progressbar");
+		backframe_ui = loadTexture("/other/backframe");
+		hide_btn = loadTexture("/other/hidebtn");
+		show_btn = loadTexture("/other/showbtn");
 		scroll_box_bg = loadTexture("/other/box_achiev_scroll");
 		bg_sangue = loadTexture("/menus/bg_sangue");
 		sound = loadTexture("/other/withsound");
@@ -195,9 +203,9 @@ public class Textures {
 		Accuracy = loadTexture("/menus/shop/items/accuracy");
 		Ammo = loadTexture("/menus/shop/items/ammo");
 		Resources = loadTexture("/menus/shop/items/resources");
-		pistol = loadTexture("/thumbs/weapons/wp1");
-		minigun = loadTexture("/thumbs/weapons/wp2");
-		shotgun = loadTexture("/thumbs/weapons/wp3");
+		pistol = new TextureRegionDrawable(loadTexture("/thumbs/weapons/wp1"));
+		minigun = new TextureRegionDrawable(loadTexture("/thumbs/weapons/wp2"));
+		shotgun = new TextureRegionDrawable(loadTexture("/thumbs/weapons/wp3"));
 		Medkit = loadTexture("/menus/shop/items/medkit");
 		rdmBuff = loadTexture("/menus/shop/items/randombuff");
 		barIM = loadTexture("/menus/invmenu");
@@ -253,6 +261,8 @@ public class Textures {
 		btnAmmo = new TextButtonStyle(); 
 		btnRes = new TextButtonStyle();
 		btnACC= new TextButtonStyle();
+		btnHide = new TextButtonStyle();
+		btnShow = new TextButtonStyle();
 		
 		BitmapFont buttonFont = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
 		         Gdx.files.internal("assets/fonts/arial.png"), false);
@@ -264,6 +274,22 @@ public class Textures {
 		btnGreen.up = new TextureRegionDrawable(normal);
 		btnGreen.down = new TextureRegionDrawable(normal_h);
 		btnGreen.font = buttonFont;
+		
+		normal = new TextureRegion(Textures.hide_btn,0,0,32,32);
+		normal_h = new TextureRegion(Textures.hide_btn,32,0,32,32);
+		
+		btnHide.up = new TextureRegionDrawable(normal);
+		btnHide.down = new TextureRegionDrawable(normal);
+		btnHide.font = buttonFont;
+		btnHide.over = new TextureRegionDrawable(normal_h);
+		
+		normal = new TextureRegion(Textures.show_btn,0,0,32,32);
+		normal_h = new TextureRegion(Textures.show_btn,32,0,32,32);
+		
+		btnShow.up = new TextureRegionDrawable(normal_h);
+		btnShow.down = new TextureRegionDrawable(normal_h);
+		btnShow.font = buttonFont;
+		btnShow.over = new TextureRegionDrawable(normal);
 		
 		normal = new TextureRegion(Textures.buttonsRegion,256,57,254,58);
 		normal_h = new TextureRegion(Textures.buttonsRegion,256,0,254,58);
@@ -279,15 +305,15 @@ public class Textures {
 		btnGray.down = new TextureRegionDrawable(normal_h);
 		btnGray.font = buttonFont;
 		
-		btnMinigun.up = new TextureRegionDrawable(Textures.minigun);
+		btnMinigun.up = Textures.minigun;
 		btnMinigun.font = buttonFont;
 		imgMinigun.font = buttonFont;
 		
-		btnShotgun.up = new TextureRegionDrawable(Textures.shotgun);
+		btnShotgun.up = Textures.shotgun;
 		btnShotgun.font = buttonFont;
 		imgShotgun.font = buttonFont;
 		
-		btnPistol.up = new TextureRegionDrawable(Textures.pistol);
+		btnPistol.up = Textures.pistol;
 		btnPistol.font = buttonFont;
 		imgPistol.font = buttonFont;
 		

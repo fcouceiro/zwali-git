@@ -41,7 +41,7 @@ public class ScreenChooser extends UI{
 	
 	public ScreenChooser(Conceito main)
 	{
-		super(Conceito.batch,main.font,true);
+		super(Conceito.batch,main.font,false);
 		TextureRegion bg = new TextureRegion(Textures.questsBG,0,0,(int)Textures.questsBG.getWidth(),(int)Textures.questsBG.getHeight());
         table.setBackground(new TextureRegionDrawable(bg));
         

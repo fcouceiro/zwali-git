@@ -70,12 +70,12 @@ public class Item
 		case 7: //Shotgun
 			this.price = 1500;
 			this.Name = "Shotgun";
-			this.img = Textures.shotgun;
+			//this.img = (Sprite) Textures.shotgun;
 			break;	
 		case 8: //Minigun
 			this.price = 7500;
 			this.Name = "Minigun";
-			this.img = Textures.minigun;
+			//this.img = (Sprite) Textures.minigun;
 			break;	
 		}
 		this.alive = true;
