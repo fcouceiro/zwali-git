@@ -58,7 +58,7 @@ public class Conceito extends Game {
 		font = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
 		         Gdx.files.internal("assets/fonts/arial.png"), false);
 		howtoplaymenu = new Howtoplay(this);
-		shop = new Shop(this);
+
 		
 		
 		//create achiev screen
@@ -77,7 +77,7 @@ public class Conceito extends Game {
 		questsScreen.popButtons();
 		
 		ScreenChooser.Player1 = getPlayer();
-
+		shop = new Shop(this);
 		mainmenu = new MainMenu(this);
 	
 		//flash screens
@@ -125,7 +125,7 @@ public class Conceito extends Game {
 			temp.UpgPwrPistol = prefs.getInteger("UpgPistol", 0);
 			temp.UpgPwrShotgun = prefs.getInteger("UpgShotgun", 0);
 			temp.UpgPwrMinigun = prefs.getInteger("UpgMinigun", 0);
-			temp.UpgACC = prefs.getInteger("UpgACC", 0);
+			//temp.UpgACC = prefs.getInteger("UpgACC", 0);
 			
 			Gdx.app.log("Savegame", "loaded");
 			return temp;

@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.ruthlessgames.api.StylesManager;
@@ -38,16 +39,18 @@ public class Shop extends UI{
 	
 	List <Item> itens = new ArrayList<Item>(10);
 	
+	
 	boolean highlight[] = new boolean[3];
 	static boolean wizardmode = false;
 	static Random rdm = new Random();
 	
-	
+	Table AmmoTable;
 	
 	Label LText = new Label("", StylesManager.arial15);
 	Label Lpstats = new Label("", StylesManager.arial15);
 	String aux;
 	int index;
+	int ammoindex;
 	
 	public Shop(Conceito Main)
 	{
@@ -60,7 +63,8 @@ public class Shop extends UI{
 		
 		TextureRegion bg = new TextureRegion(Textures.shopIM,0,0,(int)Textures.shopIM.getWidth(),(int)Textures.shopIM.getHeight());
         table.setBackground(new TextureRegionDrawable(bg));
-  
+        
+        
         Lpstats.setText("Money = " + ScreenChooser.Player1.money + "$\nXP = " + ScreenChooser.Player1.XP + "\nHealth = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp + "\nArmor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor);
 		Lpstats.setPosition(650, 550);
 		
@@ -117,7 +121,7 @@ public class Shop extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < buttonMinigun.getWidth() && x >0 && y<buttonMinigun.getHeight() && y > 0)
 	        		index = 2;
-	        	Labelhandler(index);
+	        	Labelhandler();
 	        	}
 	        });
 		
@@ -135,7 +139,7 @@ public class Shop extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < buttonShotgun.getWidth() && x >0 && y<buttonShotgun.getHeight() && y > 0)
 	        		index = 1;
-			 	Labelhandler(index);
+			 	Labelhandler();
 	        	}
 	        });
 		
@@ -152,7 +156,7 @@ public class Shop extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < buttonPistol.getWidth() && x >0 && y<buttonPistol.getHeight() && y > 0)
 	        		index = 0;
-               		Labelhandler(index);
+               		Labelhandler();
 	        	}
 	        });
 		
@@ -166,7 +170,7 @@ public class Shop extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < buttonHealth.getWidth() && x >0 && y<buttonHealth.getHeight() && y > 0)
 	        		index = 3;
-	        		Labelhandler(index); 
+	        		Labelhandler(); 
 	        	}
 	        });
 		
@@ -180,7 +184,7 @@ public class Shop extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < buttonArmor.getWidth() && x >0 && y<buttonArmor.getHeight() && y > 0)
 	        		index = 4;
-	        		Labelhandler(index);
+	        		Labelhandler();
 	        	}
 	        });
 		
@@ -194,9 +198,68 @@ public class Shop extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < buttonAmmo.getWidth() && x >0 && y<buttonAmmo.getHeight() && y > 0)
 	        		index = 5;
-	        		Labelhandler(index);
+	        		Labelhandler();
+	        		
 	        	}
 	        });
+		
+		final TextButton Pammo = new TextButton("Pistol", StylesManager.skin);
+		Pammo.setSize(70,30);
+		Pammo.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				 return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < Pammo.getWidth() && x >0 && y<Pammo.getHeight() && y > 0)
+	        	{
+	        		ammoindex = 0;
+	        		Labelhandler();
+	        	}
+	        	}
+	        });
+		
+		final TextButton Sammo = new TextButton("Shotgun", StylesManager.skin);
+		Sammo.setSize(70,30);
+		Sammo.setX(80);
+		Sammo.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				 return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < Sammo.getWidth() && x >0 && y<Sammo.getHeight() && y > 0)
+	        	{
+	        		ammoindex = 1;
+	        		Labelhandler();
+	        	}
+	        	}
+	        });
+		
+		final TextButton Mammo = new TextButton("Minigun", StylesManager.skin);
+		
+		Mammo.setSize(70,30);
+		Mammo.setX(160);
+		Mammo.addListener(new InputListener() {
+			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				 return true;
+	        }
+			 
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	if(x < Mammo.getWidth() && x >0 && y<Mammo.getHeight() && y > 0)
+	        	{
+	        		ammoindex = 2;
+	        		Labelhandler();
+	        	}
+	        	}
+	        });
+		
+		AmmoTable = new Table();
+		AmmoTable.setPosition(490, 45);
+		AmmoTable.addActor(Pammo);
+		AmmoTable.addActor(Sammo);
+		AmmoTable.addActor(Mammo);
+		AmmoTable.setVisible(false);
 		
 		final TextButton buttonRes = new TextButton("", Textures.btnRes);
 		buttonRes.setBounds(375, 245 ,50, 50);
@@ -208,7 +271,7 @@ public class Shop extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < buttonRes.getWidth() && x >0 && y<buttonRes.getHeight() && y > 0)
 	        		index = 6;
-	        	Labelhandler(index);
+	        	Labelhandler();
 	        	}
 	        });
 		
@@ -222,7 +285,7 @@ public class Shop extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < buttonACC.getWidth() && x >0 && y<buttonACC.getHeight() && y > 0)
 	        		index = 7;
-	        		Labelhandler(index);
+	        		Labelhandler();
 	        	}
 	        });
 		
@@ -328,16 +391,46 @@ public class Shop extends UI{
 									}	
 									break;
 					        	}
-			        		case 5:
+			        		case 5://ammo
 					        	{
 					        		
-									if(ScreenChooser.Player1.money > itens.get(1).price && ScreenChooser.Player1.Health < ScreenChooser.Player1.MaxHp)
+									switch(ammoindex){
+									case 0:
 									{
-										ScreenChooser.Player1.money -= itens.get(1).price;
-										ScreenChooser.Player1.Health += 20;
-										if(ScreenChooser.Player1.Health > ScreenChooser.Player1.MaxHp)
-											ScreenChooser.Player1.Health = ScreenChooser.Player1.MaxHp;
+										if(ScreenChooser.Player1.money > 50 && ScreenChooser.Player1.InvListWeapons.get(0).ammo < ScreenChooser.Player1.InvListWeapons.get(0).Maxammo )
+										{
+											ScreenChooser.Player1.money -= 50;
+											ScreenChooser.Player1.InvListWeapons.get(0).ammo += ScreenChooser.Player1.InvListWeapons.get(0).MAXCAR;
+											if(ScreenChooser.Player1.InvListWeapons.get(0).ammo > ScreenChooser.Player1.InvListWeapons.get(0).Maxammo)
+												ScreenChooser.Player1.InvListWeapons.get(0).ammo = ScreenChooser.Player1.InvListWeapons.get(0).Maxammo;
+										}
+										break;
 									}
+									case 1:
+									{
+											if(ScreenChooser.Player1.money > 120 && ScreenChooser.Player1.InvListWeapons.get(2).ammo < ScreenChooser.Player1.InvListWeapons.get(2).Maxammo )
+											{
+												ScreenChooser.Player1.money -= 120;
+												ScreenChooser.Player1.InvListWeapons.get(2).ammo += ScreenChooser.Player1.InvListWeapons.get(2).MAXCAR;
+												if(ScreenChooser.Player1.InvListWeapons.get(2).ammo > ScreenChooser.Player1.InvListWeapons.get(2).Maxammo)
+													ScreenChooser.Player1.InvListWeapons.get(2).ammo = ScreenChooser.Player1.InvListWeapons.get(2).Maxammo;
+											}
+											break;
+									}
+									case 2:
+									{
+										if(ScreenChooser.Player1.money > 300 && ScreenChooser.Player1.InvListWeapons.get(1).ammo < ScreenChooser.Player1.InvListWeapons.get(1).Maxammo )
+										{
+											ScreenChooser.Player1.money -= 300;
+											ScreenChooser.Player1.InvListWeapons.get(1).ammo += ScreenChooser.Player1.InvListWeapons.get(1).MAXCAR;
+											if(ScreenChooser.Player1.InvListWeapons.get(1).ammo > ScreenChooser.Player1.InvListWeapons.get(1).Maxammo)
+												ScreenChooser.Player1.InvListWeapons.get(1).ammo = ScreenChooser.Player1.InvListWeapons.get(1).Maxammo;
+										}
+										break;
+									}
+									
+									}
+									
 									break;
 								}
 			        		case 6:
@@ -363,13 +456,15 @@ public class Shop extends UI{
 					        	}
 					        
 			        		}
-				        	Labelhandler(index);
+				        	Labelhandler();
 				        	}
 			        	}
 			        });
 		
 		table.debug();
-		stage.addActor(table);
+		
+
+		stage.addActor(AmmoTable);
 		
 		LabelStyle labelstyle = new LabelStyle();
 		labelstyle.font = this.shopfont;
@@ -400,8 +495,9 @@ public class Shop extends UI{
 			itens.add(new Item(i, ScreenChooser.Player1));
 	}
 	
-	public void Labelhandler(int index){
+	public void Labelhandler(){
 		Lpstats.setText("Money = " + ScreenChooser.Player1.money + "$\nXP = " + ScreenChooser.Player1.XP + "\nHealth = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp + "\nArmor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor);
+		AmmoTable.setVisible(false);
 		switch (index){
 			case 0:
 			{
@@ -461,19 +557,31 @@ public class Shop extends UI{
 			}
 			case 5:
 			{
-				aux = "Ammo\nPrice: " + itens.get(1).price + "$\nDescription: Temos de ver como fazer para as varias armas";
+				
+				AmmoTable.setVisible(true);
+				switch (ammoindex){
+				case 0:
+					aux = "Ammo\nPrice: " + 50 + "$\nDescription: Pistol Ammo selected";
+					break;
+				case 1:
+					aux = "Ammo\nPrice: " + 120 + "$\nDescription: Shotgun Ammo selected";
+					break;
+				case 2:
+					aux = "Ammo\nPrice: " + 300 + "$\nDescription: Minigun Ammo selected";
+					break;
+				}
 				break;
 			}
 			case 6:
 			{
-				aux = "Resources\nPrice: " + itens.get(2).price + "$\nDescription: Adds 1 Resource for building purposes"; 
+				aux = "Resources\nPrice: " + itens.get(2).price + "$\nDescription: +1 Resource for building purposes"; 
 				break;
 			}
 			case 7:
 			{
 				aux = "Accuracy " + ScreenChooser.Player1.UpgACC + "/3";
 				if(ScreenChooser.Player1.UpgACC < 3){
-					aux += "\nPrice: " + ((ScreenChooser.Player1.UpgACC+1)*100 + (ScreenChooser.Player1.UpgACC*250)) + "XP\nDescription: Adds 1 to your current accuracy";
+					aux += "\nPrice: " + ((ScreenChooser.Player1.UpgACC+1)*100 + (ScreenChooser.Player1.UpgACC*250)) + "XP\nDescription: +1 to your current accuracy";
 				}
 				else
 					aux += "Maxed out";
