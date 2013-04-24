@@ -58,7 +58,11 @@ public class Conceito extends Game {
 		font = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
 		         Gdx.files.internal("assets/fonts/arial.png"), false);
 		howtoplaymenu = new Howtoplay(this);
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> UI updated
 		
 		
 		//create achiev screen

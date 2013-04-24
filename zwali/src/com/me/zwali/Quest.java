@@ -1,7 +1,6 @@
 package com.me.zwali;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -21,10 +20,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.ruthlessgames.api.StylesManager;
 import com.ruthlessgames.api.UI;
@@ -35,8 +37,7 @@ public class Quest extends UI{
 
 	
 	Player Player1;
-	List <CharSequence> Log = new ArrayList<CharSequence>();
-	List <Long> act_sounds = new ArrayList<Long>(10);
+	ArrayList <Long> act_sounds = new ArrayList<Long>(10);
 	
 	Textures t = new Textures();
 	Constants consts = new Constants();
@@ -52,11 +53,13 @@ public class Quest extends UI{
 	
 	Collision col;
 	
-	List <Wave> waves = new ArrayList<Wave>(10);
+	ArrayList <Wave> waves = new ArrayList<Wave>(10);
 	
 	Slider Hbar,Abar;
 	Image Himg,Aimg,Amimg,curgunimg;
-	Label labAmmo;
+	Label labAmmo,labLog;
+	ScrollPane log;
+	VerticalGroup logVg;
 	
 	static boolean buildMode;
 	boolean WarmUp = true;
@@ -103,11 +106,11 @@ public class Quest extends UI{
 	
 	
 	Vector MPOS;
-	List <Bullet> bul = new ArrayList<Bullet>(10);
-	List <Enemy> enem = new ArrayList<Enemy>(10);
-	List <sangue> sangues = new ArrayList<sangue>(5);
-	List<Enemy> dead_enemies = new ArrayList<Enemy>(5);
-	List<Explosion> explo = new ArrayList<Explosion>(5);
+	ArrayList <Bullet> bul = new ArrayList<Bullet>(10);
+	ArrayList <Enemy> enem = new ArrayList<Enemy>(10);
+	ArrayList <sangue> sangues = new ArrayList<sangue>(5);
+	ArrayList<Enemy> dead_enemies = new ArrayList<Enemy>(5);
+	ArrayList<Explosion> explo = new ArrayList<Explosion>(5);
 	
 	Conceito MainGame;
 	
@@ -116,6 +119,7 @@ public class Quest extends UI{
 		super(Conceito.batch,font,false);
 		this.pop_Table1();
 		this.pop_Table2();
+		this.pop_Table3();
 		//TextButton hi = new TextButton("Hello",StylesManager.skin);
 		//table.addActor(hi);
 		this.MainGame = main;
@@ -126,9 +130,9 @@ public class Quest extends UI{
 			Gdx.app.log("Survival", "On");
 		}
 		
-		Log.add("Bem-vindo ao Zwali! ");
-		Log.add("Teste ");
-		Log.add("Teste");
+		addToLog("Bem-vindo ao Zwali! ");
+		addToLog("Teste ");
+		addToLog("Teste");
 
 		font = main.font;
 		Cross = new RealCross( new Vector(0,0), new Vector(2,20), Textures.CrossSide);
@@ -206,7 +210,7 @@ public class Quest extends UI{
 		{
 				if((timerWarmup - timeWarmup)%60 == 0 )
 				{
-					Log.add("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
+					addToLog("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
 				}
 				timeWarmup++;
 				//System.out.println("Ta em warm up" + timeWarmup);
@@ -226,12 +230,12 @@ public class Quest extends UI{
 			justended = false;
 			WarmUpBegins = false;
 			timeWarmup = 0;
-			Log.add("Warm Up finished");
+			addToLog("Warm Up finished");
 			
 			if(Wavenr % 5 == 0)
 			{
-			Log.add("Chegou a ronda " + Wavenr);
-			Log.add("Bonus: +150$");
+			addToLog("Chegou a ronda " + Wavenr);
+			addToLog("Bonus: +150$");
 			this.showToast("Bonus: +150$", 3, new Vector2(200,500),true);
 			
 			/*for(int i = 0; i < 7; i++)
@@ -533,19 +537,19 @@ public class Quest extends UI{
 				{
 					Player1.ragemode = true;
 					stats.killstreakCont = 0;
-					this.Log.add("Rage on!");
+					this.addToLog("Rage on!");
 				}
 				if(Player1.ragemode)
 				{
-					Log.add("Enemy died with rage");
+					addToLog("Enemy died with rage");
 					Player1.ragemode = true;
 				}
 				else
 				{
-					Log.add("Enemy died");
+					addToLog("Enemy died");
 				}
 				
-				Log.add("KillStreak "+ stats.killstreakCont);
+				addToLog("KillStreak "+ stats.killstreakCont);
 			}
 		}
 		
@@ -645,19 +649,19 @@ public class Quest extends UI{
 										obra.addItem(backG, MPOS);
 										Player1.buildQuant--;
 										timebuild = 0;
-										Log.add("Resource built");
+										addToLog("Resource built");
 									} else 
 									{
 										obra.drawbar(MPOS, timebuild, timerbuilt,Conceito.batch);
-										Log.add("Building...");
+										addToLog("Building...");
 										timebuild++;
 										
 									}
 								}
 								else
 								{
-									Log.add("You dont have ");
-									Log.add("enough resources");
+									addToLog("You dont have ");
+									addToLog("enough resources");
 								}	
 							}
 						}
@@ -827,7 +831,7 @@ public class Quest extends UI{
 	
 		
 		//String draw area
-		updateLog();
+		
 		font.draw(Conceito.batch,Integer.toString(Player1.Health) + " / " + Integer.toString(Player1.armor), 265,20);
 		font.draw(Conceito.batch,Integer.toString(Player1.buildQuant), 460,53);
 		font.draw(Conceito.batch,Integer.toString(Player1.money), 460,37);	
@@ -909,15 +913,14 @@ public class Quest extends UI{
 		return 1;
 	}
 
-	private void updateLog()
+	private void addToLog(String next)
 	{
-		CharSequence tres = Log.get(Log.size() -1);
-		CharSequence dois = Log.get(Log.size() -2);
-		CharSequence um = Log.get(Log.size()-3);
-		//Vector(583, 553)
-		font.draw(Conceito.batch, um, 583, 50);
-		font.draw(Conceito.batch, dois, 583, 36);
-		font.draw(Conceito.batch, tres, 583, 22);
+		labLog = new Label(next,StylesManager.arial15);
+
+		logVg.addActor(labLog);
+		
+		log.setWidget(logVg);
+		log.setScrollPercentY(100);
 	}
 	
 	private void pop_Table1()
@@ -942,7 +945,7 @@ public class Quest extends UI{
 		Hbar.setX(20);
 		Hbar.getColor().a = 0.7f;
 		
-		Abar = new Slider(0,100,1,false,b);
+		Abar = new Slider(0,50,1,false,b);
 		Abar.setTouchable(null);
 		table1.addActor(Abar);
 		
@@ -1194,6 +1197,35 @@ public class Quest extends UI{
 		stage.addActor(table2);
 		
 	}
+	
+	private void pop_Table3()
+	{
+		logVg = new VerticalGroup();
+		Table table3 = new Table();
+		
+		Label labMoney = new Label("0",StylesManager.arial15);
+		Label labXP = new Label("0",StylesManager.arial15);
+		Label labRes = new Label("0",StylesManager.arial15);
+		TextButton buff1 = new TextButton(" ",StylesManager.btnClose);
+		TextButton buff2 = new TextButton(" ",StylesManager.btnClose);
+		
+		
+		Label aux = new Label("Good luck!",StylesManager.arial15);
+		logVg.addActor(aux);
+		log = new ScrollPane(logVg,StylesManager.skin);
+		log.setSize(200, 50);
+		log.setSmoothScrolling(true);
+		log.setFadeScrollBars(true);
+		log.setFlickScroll(false);
+		log.setScrollbarsOnTop(true);
+		log.setupFadeScrollBars(2, 1.5f);
+		table3.addActor(log);
+		table3.setPosition(300, 0);
+		
+		
+		stage.addActor(table3);
+	}
+	
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
