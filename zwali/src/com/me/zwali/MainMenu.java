@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -87,15 +88,16 @@ public class MainMenu extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < btnSur.getWidth() && x >0 && y<btnSur.getHeight() && y > 0){
 	        		maingame.setScreen(maingame.questsScreen.generateScreen(maingame.constDump.Survival(maingame.constDump.Home())));
-	        		btnZomb.setVisible(false);
-	        		btnSur.setVisible(false);
-	        		btnCamp.setVisible(false);
+	        		btnZomb.addAction(Actions.fadeOut(1));
+	        		btnSur.addAction(Actions.fadeOut(1));
+	        		btnCamp.addAction(Actions.fadeOut(1));
 	        		btnPlay.setVisible(true);
+	        		btnPlay.addAction(Actions.fadeIn(1));
 	        	}
 	      
 	        }
 		});
-		btnSur.setVisible(false);
+		btnSur.getColor().a = 0;
 		table.addActor(btnSur);
 
 		
@@ -109,20 +111,21 @@ public class MainMenu extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < btnCamp.getWidth() && x >0 && y<btnCamp.getHeight() && y > 0){
 	        	maingame.setScreen(maingame.questsScreen);
-	        	btnZomb.setVisible(false);
-        		btnSur.setVisible(false);
-        		btnCamp.setVisible(false);
+	        	btnZomb.addAction(Actions.fadeOut(1));
+        		btnSur.addAction(Actions.fadeOut(1));
+        		btnCamp.addAction(Actions.fadeOut(1));
         		btnPlay.setVisible(true);
+        		btnPlay.addAction(Actions.fadeIn(1));
 	        	}
 	        
 	        }
 		});
-		btnCamp.setVisible(false);
+		btnCamp.getColor().a = 0;
 		table.addActor(btnCamp);
 		
 		
 		btnZomb.setBounds(3*155 + 40, 180, 150, 35);
-		btnZomb.setVisible(false);
+		btnZomb.getColor().a = 0;
 		table.addActor(btnZomb);
 		
 		//other btns
@@ -136,10 +139,11 @@ public class MainMenu extends UI{
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < btnOpt.getWidth() && x >0 && y<btnOpt.getHeight() && y > 0)
 	        	{
-	        		btnZomb.setVisible(false);
-	        		btnSur.setVisible(false);
-	        		btnCamp.setVisible(false);
+	        		btnZomb.addAction(Actions.fadeOut(1));
+	        		btnSur.addAction(Actions.fadeOut(1));
+	        		btnCamp.addAction(Actions.fadeOut(1));
 	        		btnPlay.setVisible(true);
+	        		btnPlay.addAction(Actions.fadeIn(1));
 	        	}
 	        }
 		});
@@ -155,10 +159,12 @@ public class MainMenu extends UI{
 	        
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < btnCloud.getWidth() && x >0 && y<btnCloud.getHeight() && y > 0){
-	        		btnZomb.setVisible(false);
-	        		btnSur.setVisible(false);
-	        		btnCamp.setVisible(false);
+	        		btnZomb.addAction(Actions.fadeOut(1));
+	        		btnSur.addAction(Actions.fadeOut(1));
+	        		btnCamp.addAction(Actions.fadeOut(1));
 	        		btnPlay.setVisible(true);
+	        		btnPlay.addAction(Actions.fadeIn(1));
+	        		
 	        	}
 	        	
 	        }
@@ -175,9 +181,10 @@ public class MainMenu extends UI{
 	        
 	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(x < btnPlay.getWidth() && x >0 && y<btnPlay.getHeight() && y > 0){
-	        		btnZomb.setVisible(true);
-	        		btnSur.setVisible(true);
-	        		btnCamp.setVisible(true);
+	        		btnZomb.addAction(Actions.fadeIn(1));
+	        		btnSur.addAction(Actions.fadeIn(1));
+	        		btnCamp.addAction(Actions.fadeIn(1));
+	        		btnPlay.addAction(Actions.fadeOut(1));
 	        		btnPlay.setVisible(false);
 	        	}
 	        }

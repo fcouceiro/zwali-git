@@ -97,4 +97,8 @@ public class GameOver extends UI{
 		table.addActor(shop);
 	}
 
+	@Override
+	public void show() {
+		Sounds.zo_ahaha.play();
+	}
 }

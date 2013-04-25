@@ -57,9 +57,10 @@ public class Quest extends UI{
 	
 	Slider Hbar,Abar;
 	Image Himg,Aimg,Amimg,curgunimg;
-	Label labAmmo,labLog;
+	Label labAmmo,labLog,labMoney,labXP,labRes;
 	ScrollPane log;
 	VerticalGroup logVg;
+	Table bottomUI;
 	
 	static boolean buildMode;
 	boolean WarmUp = true;
@@ -130,9 +131,7 @@ public class Quest extends UI{
 			Gdx.app.log("Survival", "On");
 		}
 		
-		addToLog("Bem-vindo ao Zwali! ");
-		addToLog("Teste ");
-		addToLog("Teste");
+		//addToLog("Bem-vindo ao Zwali! ");
 
 		font = main.font;
 		Cross = new RealCross( new Vector(0,0), new Vector(2,20), Textures.CrossSide);
@@ -653,7 +652,6 @@ public class Quest extends UI{
 									} else 
 									{
 										obra.drawbar(MPOS, timebuild, timerbuilt,Conceito.batch);
-										addToLog("Building...");
 										timebuild++;
 										
 									}
@@ -828,17 +826,6 @@ public class Quest extends UI{
 		
 		Player1.InvListWeapons.get(Player1.CurGun).Update(Player1,backG.Display);
 		
-	
-		
-		//String draw area
-		
-		font.draw(Conceito.batch,Integer.toString(Player1.Health) + " / " + Integer.toString(Player1.armor), 265,20);
-		font.draw(Conceito.batch,Integer.toString(Player1.buildQuant), 460,53);
-		font.draw(Conceito.batch,Integer.toString(Player1.money), 460,37);	
-		font.draw(Conceito.batch,Integer.toString(Player1.XP), 460,20);
-		font.draw(Conceito.batch,(Integer.toString(Player1.InvListWeapons.get(Player1.CurGun).ammo) + "/" + Player1.InvListWeapons.get(Player1.CurGun).ammoTotal), 20,20);
-		//End
-		
 		
 		if(waveincoming)
 		{
@@ -897,8 +884,10 @@ public class Quest extends UI{
 					curgunimg.setDrawable(Textures.shotgun);
 					break;
 				}
-				
-		
+						
+				labRes.setText(Player1.buildQuant + "");
+				labMoney.setText(Player1.money+"");
+				labXP.setText(Player1.XP+"");
 		Hbar.setValue(Player1.getHealth());
 		Abar.setValue(Player1.armor);
 		labAmmo.setText(Player1.InvListWeapons.get(Player1.CurGun).ammo +"/"+Player1.InvListWeapons.get(Player1.CurGun).ammoTotal);
@@ -1201,11 +1190,20 @@ public class Quest extends UI{
 	private void pop_Table3()
 	{
 		logVg = new VerticalGroup();
-		Table table3 = new Table();
+		bottomUI = new Table();
 		
-		Label labMoney = new Label("0",StylesManager.arial15);
-		Label labXP = new Label("0",StylesManager.arial15);
-		Label labRes = new Label("0",StylesManager.arial15);
+		labMoney = new Label("0",StylesManager.arial15);
+		labMoney.setX(200);
+		labMoney.setY(20);
+		
+		labXP = new Label("0",StylesManager.arial15);
+		labXP.setX(200);
+		labXP.setY(0);
+		
+		labRes = new Label("0",StylesManager.arial15);
+		labRes.setX(100);
+		labRes.setY(0);
+		
 		TextButton buff1 = new TextButton(" ",StylesManager.btnClose);
 		TextButton buff2 = new TextButton(" ",StylesManager.btnClose);
 		
@@ -1213,17 +1211,58 @@ public class Quest extends UI{
 		Label aux = new Label("Good luck!",StylesManager.arial15);
 		logVg.addActor(aux);
 		log = new ScrollPane(logVg,StylesManager.skin);
-		log.setSize(200, 50);
+		log.setSize(200, 45);
 		log.setSmoothScrolling(true);
 		log.setFadeScrollBars(true);
 		log.setFlickScroll(false);
 		log.setScrollbarsOnTop(true);
 		log.setupFadeScrollBars(2, 1.5f);
-		table3.addActor(log);
-		table3.setPosition(300, 0);
+		log.setPosition(300, 0);
 		
+		final TextButton hide = new TextButton("",Textures.btnShow);
+		hide.setSize(20, 20);
+		hide.setY(70);
+		hide.setX(10);
+		hide.getColor().a = 0.5f;
 		
-		stage.addActor(table3);
+		final MoveToAction hideTable = Actions.action(MoveToAction.class);
+		hideTable.setActor(bottomUI);
+		hideTable.setPosition(0,-60);
+		hideTable.setDuration(1.5f);
+		hideTable.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showTable = Actions.action(MoveToAction.class);
+		showTable.setActor(bottomUI);
+		showTable.setPosition(0,0);
+		showTable.setDuration(1.5f);
+		showTable.setInterpolation(Interpolation.fade);
+		
+		hide.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < hide.getWidth() && x >0 && y<hide.getHeight() && y > 0){
+					if(hide.getStyle() == Textures.btnShow){
+						bottomUI.addAction(hideTable);
+						hide.setStyle(Textures.btnHide);
+					}
+					else{
+						bottomUI.addAction(showTable);
+						hide.setStyle(Textures.btnShow);
+					}
+				}
+			}
+		});
+		
+		bottomUI.addActor(log);
+		bottomUI.addActor(labMoney);
+		bottomUI.addActor(labXP);
+		bottomUI.addActor(labRes);
+		bottomUI.addActor(hide);
+		stage.addActor(bottomUI);
 	}
 	
 	@Override
@@ -1236,6 +1275,7 @@ public class Quest extends UI{
 	public void show() {
 		// TODO Auto-generated method stub
 		if(Sounds.main_s.isPlaying()) Sounds.main_s.stop();
+		
 		MyInputProcessor inputProcessor = new MyInputProcessor(this);
 		InputMultiplexer mult_in = new InputMultiplexer(inputProcessor,stage);
 		Gdx.input.setInputProcessor(mult_in);
