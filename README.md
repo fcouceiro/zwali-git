@@ -12,7 +12,7 @@ Plot: (sexta às 17h) - FC,FM,RM
 
 Screens:
 	-> Basics/About - FC
-	-> Acabar shop - RM
+
 
 Gameplay:
 	-> refinar as colisões - FM
@@ -22,7 +22,11 @@ Gameplay:
 Public:
 	-> Facebook & Site
 
-
+Bugs:
+	-> Quando morres e fazes restart recomeças com a velocidade anterior
+	-> Equip na shop funciona parcialmente: Ele inicia sempre com a pistol mas a currgun muda
+	-> Falta uma colision box no carro vermelho
+	
 
 
 Ideia:
