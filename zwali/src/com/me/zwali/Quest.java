@@ -60,7 +60,7 @@ public class Quest extends UI{
 	Label labAmmo,labLog,labMoney,labXP,labRes;
 	ScrollPane log;
 	VerticalGroup logVg;
-	Table bottomUI;
+	Table bottomUI,table1,table2;
 	
 	static boolean buildMode;
 	boolean WarmUp = true;
@@ -914,7 +914,7 @@ public class Quest extends UI{
 	
 	private void pop_Table1()
 	{
-		Table table1 = new Table();//table with helath and ammo
+		table1 = new Table();//table with helath and ammo
 		SliderStyle a = new SliderStyle();
 		a.background = new TextureRegionDrawable(new TextureRegion(Textures.progressbar,0,20,140,10));
 		a.knob = null;
@@ -951,64 +951,24 @@ public class Quest extends UI{
 		Aimg.setSize(16, 16);
 		Aimg.setY(30);
 		
-		final TextButton hide = new TextButton("",Textures.btnHide);
+		final TextButton hide = new TextButton("",Textures.btnArrLeft);
 		hide.setSize(20, 20);
-		hide.setY(70);
+		hide.setY(570);
+		hide.setX(10);
 		hide.getColor().a = 0.5f;
 		
-		final TextButton show = new TextButton("",Textures.btnShow);
-		show.setSize(20, 20);
-		show.setY(70);
-		show.setVisible(false);
-		show.getColor().a = 0.5f;
-		
-		final MoveToAction hideHbar = Actions.action(MoveToAction.class);
-		hideHbar.setActor(hide);
-		hideHbar.setPosition(-200, 50);
-		hideHbar.setDuration(1.5f);
-		hideHbar.setInterpolation(Interpolation.fade);
 	
-		final MoveToAction hideAbar = Actions.action(MoveToAction.class);
-		hideAbar.setActor(hide);
-		hideAbar.setPosition(-200, 30);
-		hideAbar.setDuration(1.5f);
-		hideAbar.setInterpolation(Interpolation.fade);
+		final MoveToAction hideTable = Actions.action(MoveToAction.class);
+		hideTable.setActor(table1);
+		hideTable.setPosition(-200,500);
+		hideTable.setDuration(1.5f);
+		hideTable.setInterpolation(Interpolation.fade);
 		
-		final MoveToAction showAbar = Actions.action(MoveToAction.class);
-		showAbar.setActor(hide);
-		showAbar.setPosition(20, 30);
-		showAbar.setDuration(1.5f);
-		showAbar.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction showHbar = Actions.action(MoveToAction.class);
-		showHbar.setActor(hide);
-		showHbar.setPosition(20, 50);
-		showHbar.setDuration(1.5f);
-		showHbar.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction hideHimg = Actions.action(MoveToAction.class);
-		hideHimg.setActor(hide);
-		hideHimg.setPosition(-40,50);
-		hideHimg.setDuration(1.5f);
-		hideHimg.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction showHimg = Actions.action(MoveToAction.class);
-		showHimg.setActor(hide);
-		showHimg.setPosition(0,50);
-		showHimg.setDuration(1.5f);
-		showHimg.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction hideAimg = Actions.action(MoveToAction.class);
-		hideAimg.setActor(hide);
-		hideAimg.setPosition(-40,30);
-		hideAimg.setDuration(1.5f);
-		hideAimg.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction showAimg = Actions.action(MoveToAction.class);
-		showAimg.setActor(hide);
-		showAimg.setPosition(0,30);
-		showAimg.setDuration(1.5f);
-		showAimg.setInterpolation(Interpolation.fade);
+		final MoveToAction showTable = Actions.action(MoveToAction.class);
+		showTable.setActor(table1);
+		showTable.setPosition(10,500);
+		showTable.setDuration(1.5f);
+		showTable.setInterpolation(Interpolation.fade);
 		
 		
 		hide.addListener(new InputListener() {
@@ -1019,49 +979,34 @@ public class Quest extends UI{
 
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 				if(x < hide.getWidth() && x >0 && y<hide.getHeight() && y > 0){
-					Hbar.addAction(hideHbar);
-					Abar.addAction(hideAbar);
-					Himg.addAction(hideHimg);
-					Aimg.addAction(hideAimg);
-					hide.setVisible(false);
-					show.setVisible(true);
+					if(hide.getStyle() == Textures.btnArrLeft)
+					{
+					table1.addAction(hideTable);
+					hide.setStyle(Textures.btnArrRight);
+					}
+					else{
+						table1.addAction(showTable);
+						hide.setStyle(Textures.btnArrLeft);
+					}
 				}
 			}
 		});
-		
-		show.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-
-				return true;
-			}
-
-			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-				if(x < show.getWidth() && x >0 && y<show.getHeight() && y > 0){
-					Hbar.addAction(showHbar);
-					Abar.addAction(showAbar);
-					Himg.addAction(showHimg);
-					Aimg.addAction(showAimg);
-					hide.setVisible(true);
-					show.setVisible(false);
-				}
-			}
-		});
-		
 		
 		table1.addActor(Himg);
 		table1.addActor(Aimg);
-		table1.addActor(hide);
-		table1.addActor(show);
+		//table1.addActor(hide);
 		table1.setY(500);
 		table1.setX(10);
+		
+		stage.addActor(hide);
 		stage.addActor(table1);
 	}
 
 	private void pop_Table2()
 	{
-		Table table2 = new Table();
+		table2 = new Table();
 		
-		final TextButton hide = new TextButton("",Textures.btnShow);
+		final TextButton hide = new TextButton("",Textures.btnArrRight);
 		hide.setSize(20, 20);
 		hide.setY(90);
 		hide.getColor().a = 0.5f;
@@ -1086,66 +1031,17 @@ public class Quest extends UI{
 		labAmmo.setY(-23);
 		labAmmo.getColor().a = 0.8f;
 		
-		final MoveToAction hideAmimg = Actions.action(MoveToAction.class);
-		hideAmimg.setActor(Amimg);
-		hideAmimg.setPosition(160,-20);
-		hideAmimg.setDuration(1.5f);
-		hideAmimg.setInterpolation(Interpolation.fade);
+		final MoveToAction hideTable = Actions.action(MoveToAction.class);
+		hideTable.setActor(table2);
+		hideTable.setPosition(770,480);
+		hideTable.setDuration(1.5f);
+		hideTable.setInterpolation(Interpolation.fade);
 		
-		final MoveToAction hideLabel = Actions.action(MoveToAction.class);
-		hideLabel.setActor(labAmmo);
-		hideLabel.setPosition(160,-23);
-		hideLabel.setDuration(1.5f);
-		hideLabel.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction hideBf = Actions.action(MoveToAction.class);
-		hideBf.setActor(backframe);
-		hideBf.setPosition(160,0);
-		hideBf.setDuration(1.5f);
-		hideBf.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction hideHide = Actions.action(MoveToAction.class);
-		hideHide.setActor(hide);
-		hideHide.setPosition(120,90);
-		hideHide.setDuration(1.5f);
-		hideHide.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction hideWp = Actions.action(MoveToAction.class);
-		hideWp.setActor(curgunimg);
-		hideWp.setPosition(160,0);
-		hideWp.setDuration(1.5f);
-		hideWp.setInterpolation(Interpolation.fade);
-		//show actions
-		
-		final MoveToAction showAmimg = Actions.action(MoveToAction.class);
-		showAmimg.setActor(Amimg);
-		showAmimg.setPosition(30,-20);
-		showAmimg.setDuration(1.5f);
-		showAmimg.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction showLabel = Actions.action(MoveToAction.class);
-		showLabel.setActor(labAmmo);
-		showLabel.setPosition(50,-23);
-		showLabel.setDuration(1.5f);
-		showLabel.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction showBf = Actions.action(MoveToAction.class);
-		showBf.setActor(backframe);
-		showBf.setPosition(30,0);
-		showBf.setDuration(1.5f);
-		showBf.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction showHide = Actions.action(MoveToAction.class);
-		showHide.setActor(hide);
-		showHide.setPosition(0,90);
-		showHide.setDuration(1.5f);
-		showHide.setInterpolation(Interpolation.fade);
-		
-		final MoveToAction showWp = Actions.action(MoveToAction.class);
-		showWp.setActor(curgunimg);
-		showWp.setPosition(35,0);
-		showWp.setDuration(1.5f);
-		showWp.setInterpolation(Interpolation.fade);
+		final MoveToAction showTable = Actions.action(MoveToAction.class);
+		showTable.setActor(table2);
+		showTable.setPosition(650,480);
+		showTable.setDuration(1.5f);
+		showTable.setInterpolation(Interpolation.fade);
 		
 		hide.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -1155,21 +1051,13 @@ public class Quest extends UI{
 
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 				if(x < hide.getWidth() && x >0 && y<hide.getHeight() && y > 0){
-					if(hide.getStyle() == Textures.btnShow){
-						backframe.addAction(hideBf);
-						Amimg.addAction(hideAmimg);
-						labAmmo.addAction(hideLabel);
-						hide.addAction(hideHide);
-						curgunimg.addAction(hideWp);
-						hide.setStyle(Textures.btnHide);
+					if(hide.getStyle() == Textures.btnArrRight){
+						table2.addAction(hideTable);
+						hide.setStyle(Textures.btnArrLeft);
 					}
 					else{
-						backframe.addAction(showBf);
-						Amimg.addAction(showAmimg);
-						labAmmo.addAction(showLabel);
-						hide.addAction(showHide);
-						curgunimg.addAction(showWp);
-						hide.setStyle(Textures.btnShow);
+						table2.addAction(showTable);
+						hide.setStyle(Textures.btnArrRight);
 					}
 				}
 			}
@@ -1182,6 +1070,7 @@ public class Quest extends UI{
 		table2.addActor(curgunimg);
 		table2.setX(650);
 		table2.setY(480);
+		
 		
 		stage.addActor(table2);
 		
@@ -1219,7 +1108,7 @@ public class Quest extends UI{
 		log.setupFadeScrollBars(2, 1.5f);
 		log.setPosition(300, 0);
 		
-		final TextButton hide = new TextButton("",Textures.btnShow);
+		final TextButton hide = new TextButton("",Textures.btnArrDown);
 		hide.setSize(20, 20);
 		hide.setY(70);
 		hide.setX(10);
@@ -1245,13 +1134,13 @@ public class Quest extends UI{
 
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 				if(x < hide.getWidth() && x >0 && y<hide.getHeight() && y > 0){
-					if(hide.getStyle() == Textures.btnShow){
+					if(hide.getStyle() == Textures.btnArrDown){
 						bottomUI.addAction(hideTable);
-						hide.setStyle(Textures.btnHide);
+						hide.setStyle(Textures.btnArrUp);
 					}
 					else{
 						bottomUI.addAction(showTable);
-						hide.setStyle(Textures.btnShow);
+						hide.setStyle(Textures.btnArrDown);
 					}
 				}
 			}

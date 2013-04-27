@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class Textures {
 	
 	static TextButtonStyle btnGreen,btnBlue,btnGray,btnMinigun, imgMinigun, btnShotgun, imgShotgun, btnPistol, imgPistol;
-	static TextButtonStyle btnHealth, btnArmor, btnAmmo, btnRes, btnACC,btnHide,btnShow;
+	static TextButtonStyle btnHealth, btnArmor, btnAmmo, btnRes, btnACC,btnArrUp,btnArrDown,btnArrLeft,btnArrRight;
 	
 	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
 	
@@ -148,13 +148,15 @@ public class Textures {
 	 static Sprite sound,no_sound;
 	 static Sprite scroll_box_bg;
 	 static Sprite bg_sangue;
-	 static Sprite hide_btn,show_btn;
+	 static Sprite arrUp,arrDown,arrLeft,arrRight;
 	public static void loadTextures() throws FileNotFoundException
 	{
 		progressbar = loadTexture("/other/progressbar");
 		backframe_ui = loadTexture("/other/backframe");
-		hide_btn = loadTexture("/other/hidebtn");
-		show_btn = loadTexture("/other/showbtn");
+		arrUp = loadTexture("/other/arrUp");
+		arrLeft = loadTexture("/other/arrLeft");
+		arrDown = loadTexture("/other/arrDown");
+		arrRight = loadTexture("/other/arrRight");
 		scroll_box_bg = loadTexture("/other/box_achiev_scroll");
 		bg_sangue = loadTexture("/menus/bg_sangue");
 		sound = loadTexture("/other/withsound");
@@ -261,8 +263,10 @@ public class Textures {
 		btnAmmo = new TextButtonStyle(); 
 		btnRes = new TextButtonStyle();
 		btnACC= new TextButtonStyle();
-		btnHide = new TextButtonStyle();
-		btnShow = new TextButtonStyle();
+		btnArrUp = new TextButtonStyle();
+		btnArrDown = new TextButtonStyle();
+		btnArrLeft = new TextButtonStyle();
+		btnArrRight = new TextButtonStyle();
 		
 		BitmapFont buttonFont = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
 		         Gdx.files.internal("assets/fonts/arial.png"), false);
@@ -275,21 +279,37 @@ public class Textures {
 		btnGreen.down = new TextureRegionDrawable(normal_h);
 		btnGreen.font = buttonFont;
 		
-		normal = new TextureRegion(Textures.hide_btn,0,0,32,32);
-		normal_h = new TextureRegion(Textures.hide_btn,32,0,32,32);
+		normal = new TextureRegion(Textures.arrDown,0,0,32,32);
+		normal_h = new TextureRegion(Textures.arrDown,32,0,32,32);
 		
-		btnHide.up = new TextureRegionDrawable(normal);
-		btnHide.down = new TextureRegionDrawable(normal);
-		btnHide.font = buttonFont;
-		btnHide.over = new TextureRegionDrawable(normal_h);
+		btnArrDown.up = new TextureRegionDrawable(normal);
+		btnArrDown.down = new TextureRegionDrawable(normal);
+		btnArrDown.font = buttonFont;
+		btnArrDown.over = new TextureRegionDrawable(normal_h);
 		
-		normal = new TextureRegion(Textures.show_btn,0,0,32,32);
-		normal_h = new TextureRegion(Textures.show_btn,32,0,32,32);
+		normal = new TextureRegion(Textures.arrUp,0,0,32,32);
+		normal_h = new TextureRegion(Textures.arrUp,32,0,32,32);
 		
-		btnShow.up = new TextureRegionDrawable(normal_h);
-		btnShow.down = new TextureRegionDrawable(normal_h);
-		btnShow.font = buttonFont;
-		btnShow.over = new TextureRegionDrawable(normal);
+		btnArrUp.up = new TextureRegionDrawable(normal);
+		btnArrUp.down = new TextureRegionDrawable(normal);
+		btnArrUp.font = buttonFont;
+		btnArrUp.over = new TextureRegionDrawable(normal_h);
+		
+		normal = new TextureRegion(Textures.arrLeft,0,0,32,32);
+		normal_h = new TextureRegion(Textures.arrLeft,32,0,32,32);
+		
+		btnArrLeft.up = new TextureRegionDrawable(normal);
+		btnArrLeft.down = new TextureRegionDrawable(normal);
+		btnArrLeft.font = buttonFont;
+		btnArrLeft.over = new TextureRegionDrawable(normal_h);
+		
+		normal = new TextureRegion(Textures.arrRight,0,0,32,32);
+		normal_h = new TextureRegion(Textures.arrRight,32,0,32,32);
+		
+		btnArrRight.up = new TextureRegionDrawable(normal);
+		btnArrRight.down = new TextureRegionDrawable(normal);
+		btnArrRight.font = buttonFont;
+		btnArrRight.over = new TextureRegionDrawable(normal_h);
 		
 		normal = new TextureRegion(Textures.buttonsRegion,256,57,254,58);
 		normal_h = new TextureRegion(Textures.buttonsRegion,256,0,254,58);
