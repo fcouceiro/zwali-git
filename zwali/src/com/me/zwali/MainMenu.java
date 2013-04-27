@@ -37,16 +37,20 @@ public class MainMenu extends UI{
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(stage);
 		
+		table.getColor().a = 0;
+		table.addAction(Actions.fadeIn(0.5f));
+		
 		if(!Sounds.main_s.isPlaying()&& maingame.sound)
 		{
 			Sounds.main_s.setLooping(true);
 			Sounds.main_s.play();
 		}
+	
 	}
 
 	@Override
 	public void hide() {
-
+		
 	}
 
 	@Override

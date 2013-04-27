@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -94,6 +95,8 @@ public class ScreenChooser extends UI{
 		Gdx.input.setInputProcessor(stage);
 		this.reset_player();
 		
+		table.getColor().a = 0;
+		table.addAction(Actions.fadeIn(0.5f));
 		
 		
 		if(!Sounds.main_s.isPlaying() && maingame.sound){
