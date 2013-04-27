@@ -26,7 +26,10 @@ Bugs:
 	-> Quando morres e fazes restart recomeças com a velocidade anterior
 	-> Equip na shop funciona parcialmente: Ele inicia sempre com a pistol mas a currgun muda
 	-> Falta uma colision box no carro vermelho
-	
+	-> A animação do fogo de shoot está um pouco fora de posição
+	-> A explosão do gordo está com muita duração
+	-> Dá para disparar enquanto mandas um pontapé
+	-> Muito range/duração no pontapé e muito dano também (pontapé em geral não aleija um zombie)
 
 
 Ideia:
