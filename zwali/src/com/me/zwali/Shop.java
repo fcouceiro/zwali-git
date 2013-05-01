@@ -7,7 +7,6 @@ import java.util.Random;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -66,13 +64,13 @@ public class Shop extends UI{
         table.setBackground(new TextureRegionDrawable(bg));
         
         
-        Lpstats.setText("Money = " + ScreenChooser.Player1.money + "$\nXP = " + ScreenChooser.Player1.XP + "\nHealth = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp + "\nArmor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor);
+        Lpstats.setText("Money = " + ScreenChooser.Player1.getMoney() + "$\nXP = " + ScreenChooser.Player1.getXP() + "\nHealth = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp + "\nArmor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor);
 		Lpstats.setPosition(650, 550);
 		
 		LText.setPosition(450, 105);
         
 		//exit
-		final TextButton buttonExit = new TextButton("Exit", Textures.btnGray);
+		final TextButton buttonExit = new TextButton("Exit", StylesManager.btnGray);
 		buttonExit.setBounds((float)btnExitPos.x, (float)btnExitPos.y, 110, 65);
 		buttonExit.addListener(new InputListener() {
 			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -89,7 +87,7 @@ public class Shop extends UI{
 		
 		
 		
-		final TextButton buttonEquip = new TextButton("Equip", Textures.btnBlue);
+		final TextButton buttonEquip = new TextButton("Equip", StylesManager.btnBlue);
 		buttonEquip.addListener(new InputListener() {
 			 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	                return true;
@@ -292,7 +290,7 @@ public class Shop extends UI{
 		
 		
 		//Buy
-				final TextButton buttonBuy = new TextButton("Buy", Textures.btnGreen);
+				final TextButton buttonBuy = new TextButton("Buy", StylesManager.btnGreen);
 				buttonBuy.setBounds((float)btnExitPos.x+130, (float)btnExitPos.y, 110, 65);
 				buttonBuy.addListener(new InputListener() {
 					 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -307,10 +305,11 @@ public class Shop extends UI{
 			        		{
 			        		case 0:
 					        	{
-					        		if(ScreenChooser.Player1.UpgPwrPistol < 3 && ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100+ (ScreenChooser.Player1.UpgPwrPistol*100)))
+					        		if(ScreenChooser.Player1.UpgPwrPistol < 3 && ScreenChooser.Player1.getXP() >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100+ (ScreenChooser.Player1.UpgPwrPistol*100)))
 					        		{
 					        			
-					        			ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100) ;
+					        			ScreenChooser.Player1.setXP(ScreenChooser.Player1
+												.getXP() - ((ScreenChooser.Player1.UpgPwrPistol+1*100) + (ScreenChooser.Player1.UpgPwrPistol*100))) ;
 										ScreenChooser.Player1.UpgPwrPistol += 1;	
 										ScreenChooser.Player1.InvListWeapons.get(0).power += 5;
 										ScreenChooser.Player1.InvListWeapons.get(0).power2 += 5;
@@ -322,11 +321,14 @@ public class Shop extends UI{
 			        		{
 						        	if(ScreenChooser.Player1.hasGun[2])
 						        	{
-						        		if(ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100))
+						        		if(ScreenChooser.Player1.getXP() >= ((ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100))
 										{
-											if(ScreenChooser.Player1.UpgPwrShotgun < 3 && ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100*2))
+											if(ScreenChooser.Player1.UpgPwrShotgun < 3 && ScreenChooser.Player1.getXP() >= ((ScreenChooser.Player1.UpgPwrPistol+1)*100*2))
 											{
-												ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100 ;
+												ScreenChooser.Player1
+														.setXP(ScreenChooser.Player1
+																.getXP()
+																- ((ScreenChooser.Player1.UpgPwrShotgun+1)*250 + ScreenChooser.Player1.UpgPwrShotgun*100)) ;
 												ScreenChooser.Player1.UpgPwrShotgun += 1;	
 												ScreenChooser.Player1.InvListWeapons.get(2).power += 3;
 												ScreenChooser.Player1.InvListWeapons.get(2).power2 += 3;
@@ -336,9 +338,9 @@ public class Shop extends UI{
 						        	}
 						        	else
 						        	{
-						        		if(ScreenChooser.Player1.money >= itens.get(7).price ) 
+						        		if(ScreenChooser.Player1.getMoney() >= itens.get(7).price ) 
 										{
-												ScreenChooser.Player1.money -= itens.get(7).price;
+												ScreenChooser.Player1.addMoney(-1*itens.get(7).price);
 												ScreenChooser.Player1.CurGun = 2;
 												ScreenChooser.Player1.hasGun[2] = true;
 										}
@@ -349,11 +351,14 @@ public class Shop extends UI{
 			        		{
 					        		if(ScreenChooser.Player1.hasGun[1])
 						        	{
-					        			if( ScreenChooser.Player1.XP >= ((ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200))
+					        			if( ScreenChooser.Player1.getXP() >= ((ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200))
 										{
 											if(ScreenChooser.Player1.UpgPwrMinigun < 3)
 											{
-												ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200 ;
+												ScreenChooser.Player1
+														.setXP(ScreenChooser.Player1
+																.getXP()
+																- ((ScreenChooser.Player1.UpgPwrMinigun+1)*500 + ScreenChooser.Player1.UpgPwrMinigun*200)) ;
 												ScreenChooser.Player1.UpgPwrMinigun += 1;	
 												ScreenChooser.Player1.InvListWeapons.get(2).power += 1;
 												ScreenChooser.Player1.InvListWeapons.get(2).power2 += 1;
@@ -362,9 +367,10 @@ public class Shop extends UI{
 						        	}
 					        		else
 					        		{
-					        			if(ScreenChooser.Player1.money >= itens.get(8).price) //add botoes
+					        			if(ScreenChooser.Player1.getMoney() >= itens.get(8).price) //add botoes
 										{
-											ScreenChooser.Player1.money -= itens.get(8).price;
+										
+											ScreenChooser.Player1.addMoney(-1*itens.get(8).price);
 											ScreenChooser.Player1.hasGun[1] = true;
 										}
 					        		}
@@ -372,9 +378,10 @@ public class Shop extends UI{
 					        	}
 			        		case 3:
 					        	{			        		
-									if(ScreenChooser.Player1.money > itens.get(0).price && ScreenChooser.Player1.Health < ScreenChooser.Player1.MaxHp)
+									if(ScreenChooser.Player1.getMoney() > itens.get(0).price && ScreenChooser.Player1.Health < ScreenChooser.Player1.MaxHp)
 									{
-										ScreenChooser.Player1.money -= itens.get(0).price;
+										
+										ScreenChooser.Player1.addMoney(-1*itens.get(0).price);
 										ScreenChooser.Player1.Health += 20;
 										if(ScreenChooser.Player1.Health > ScreenChooser.Player1.MaxHp)
 											ScreenChooser.Player1.Health = ScreenChooser.Player1.MaxHp;
@@ -383,9 +390,10 @@ public class Shop extends UI{
 					        	}
 			        		case 4:
 					        	{
-									if(ScreenChooser.Player1.money > itens.get(3).price && ScreenChooser.Player1.armor < ScreenChooser.Player1.MaxArmor)
+									if(ScreenChooser.Player1.getMoney() > itens.get(3).price && ScreenChooser.Player1.armor < ScreenChooser.Player1.MaxArmor)
 									{
-										ScreenChooser.Player1.money -= itens.get(3).price;
+										
+										ScreenChooser.Player1.addMoney(-1*itens.get(3).price);
 										ScreenChooser.Player1.armor += 10;
 										if(ScreenChooser.Player1.armor > ScreenChooser.Player1.MaxArmor)
 											ScreenChooser.Player1.armor = ScreenChooser.Player1.MaxArmor;
@@ -398,9 +406,10 @@ public class Shop extends UI{
 									switch(ammoindex){
 									case 0:
 									{
-										if(ScreenChooser.Player1.money > 50 && ScreenChooser.Player1.InvListWeapons.get(0).ammo < ScreenChooser.Player1.InvListWeapons.get(0).Maxammo )
+										if(ScreenChooser.Player1.getMoney() > 50 && ScreenChooser.Player1.InvListWeapons.get(0).ammo < ScreenChooser.Player1.InvListWeapons.get(0).Maxammo )
 										{
-											ScreenChooser.Player1.money -= 50;
+										
+											ScreenChooser.Player1.addMoney(-50);
 											ScreenChooser.Player1.InvListWeapons.get(0).ammo += ScreenChooser.Player1.InvListWeapons.get(0).MAXCAR;
 											if(ScreenChooser.Player1.InvListWeapons.get(0).ammo > ScreenChooser.Player1.InvListWeapons.get(0).Maxammo)
 												ScreenChooser.Player1.InvListWeapons.get(0).ammo = ScreenChooser.Player1.InvListWeapons.get(0).Maxammo;
@@ -409,9 +418,10 @@ public class Shop extends UI{
 									}
 									case 1:
 									{
-											if(ScreenChooser.Player1.money > 120 && ScreenChooser.Player1.InvListWeapons.get(2).ammo < ScreenChooser.Player1.InvListWeapons.get(2).Maxammo )
+											if(ScreenChooser.Player1.getMoney() > 120 && ScreenChooser.Player1.InvListWeapons.get(2).ammo < ScreenChooser.Player1.InvListWeapons.get(2).Maxammo )
 											{
-												ScreenChooser.Player1.money -= 120;
+												
+												ScreenChooser.Player1.addMoney(-120);
 												ScreenChooser.Player1.InvListWeapons.get(2).ammo += ScreenChooser.Player1.InvListWeapons.get(2).MAXCAR;
 												if(ScreenChooser.Player1.InvListWeapons.get(2).ammo > ScreenChooser.Player1.InvListWeapons.get(2).Maxammo)
 													ScreenChooser.Player1.InvListWeapons.get(2).ammo = ScreenChooser.Player1.InvListWeapons.get(2).Maxammo;
@@ -420,9 +430,10 @@ public class Shop extends UI{
 									}
 									case 2:
 									{
-										if(ScreenChooser.Player1.money > 300 && ScreenChooser.Player1.InvListWeapons.get(1).ammo < ScreenChooser.Player1.InvListWeapons.get(1).Maxammo )
+										if(ScreenChooser.Player1.getMoney() > 300 && ScreenChooser.Player1.InvListWeapons.get(1).ammo < ScreenChooser.Player1.InvListWeapons.get(1).Maxammo )
 										{
-											ScreenChooser.Player1.money -= 300;
+										
+											ScreenChooser.Player1.addMoney(-300);
 											ScreenChooser.Player1.InvListWeapons.get(1).ammo += ScreenChooser.Player1.InvListWeapons.get(1).MAXCAR;
 											if(ScreenChooser.Player1.InvListWeapons.get(1).ammo > ScreenChooser.Player1.InvListWeapons.get(1).Maxammo)
 												ScreenChooser.Player1.InvListWeapons.get(1).ammo = ScreenChooser.Player1.InvListWeapons.get(1).Maxammo;
@@ -437,9 +448,9 @@ public class Shop extends UI{
 			        		case 6:
 					        	{
 					        		
-									if(ScreenChooser.Player1.money > itens.get(2).price && ScreenChooser.Player1.buildQuant < 10)
+									if(ScreenChooser.Player1.getMoney() > itens.get(2).price && ScreenChooser.Player1.buildQuant < 10)
 									{
-										ScreenChooser.Player1.money -= itens.get(2).price;
+										ScreenChooser.Player1.addMoney(-1*itens.get(2).price);
 										ScreenChooser.Player1.buildQuant += 1;
 									}
 									break;
@@ -447,9 +458,10 @@ public class Shop extends UI{
 					        	}
 			        		case 7:
 					        	{
-									if(ScreenChooser.Player1.XP > (ScreenChooser.Player1.UpgACC+1)*100 + (ScreenChooser.Player1.UpgACC*250) && ScreenChooser.Player1.UpgACC < 3)
+									if(ScreenChooser.Player1.getXP() > (ScreenChooser.Player1.UpgACC+1)*100 + (ScreenChooser.Player1.UpgACC*250) && ScreenChooser.Player1.UpgACC < 3)
 									{
-										ScreenChooser.Player1.XP -= (ScreenChooser.Player1.UpgACC+1)*100 + (ScreenChooser.Player1.UpgACC*250);
+										ScreenChooser.Player1.setXP(ScreenChooser.Player1
+												.getXP() - ((ScreenChooser.Player1.UpgACC+1)*100 + (ScreenChooser.Player1.UpgACC*250)));
 										ScreenChooser.Player1.ACCdefault -= 2;
 										ScreenChooser.Player1.UpgACC += 1;
 									}	
@@ -497,7 +509,7 @@ public class Shop extends UI{
 	}
 	
 	public void Labelhandler(){
-		Lpstats.setText("Money = " + ScreenChooser.Player1.money + "$\nXP = " + ScreenChooser.Player1.XP + "\nHealth = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp + "\nArmor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor);
+		Lpstats.setText("Money = " + ScreenChooser.Player1.getMoney() + "$\nXP = " + ScreenChooser.Player1.getXP() + "\nHealth = " + ScreenChooser.Player1.Health + "/" + ScreenChooser.Player1.MaxHp + "\nArmor = " + ScreenChooser.Player1.armor + "/" + ScreenChooser.Player1.MaxArmor);
 		AmmoTable.setVisible(false);
 		switch (index){
 			case 0:

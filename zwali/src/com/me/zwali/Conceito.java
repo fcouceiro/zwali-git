@@ -21,6 +21,7 @@ public class Conceito extends Game {
 	public BitmapFont font;
 	public static Random rdm;
 	public boolean sound = true;
+	public static boolean debug = false;
 	private FlashScreen ruthlessLogoScreen;
 	GameOver gameover;
 	Howtoplay howtoplaymenu;
@@ -53,10 +54,10 @@ public class Conceito extends Game {
 		batch.setProjectionMatrix(camera.combined);
 		
 		//create styles for UI's
-		StylesManager.create("assets/gfx/other/");
+		StylesManager stylesmanager = new StylesManager("assets");
 		
-		font = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
-		         Gdx.files.internal("assets/fonts/arial.png"), false);
+		font = new BitmapFont(Gdx.files.internal("assets/UI/fonts/arial.fnt"),
+		         Gdx.files.internal("assets/UI/fonts/arial.png"), false);
 		howtoplaymenu = new Howtoplay(this);
 		
 		//create achiev screen
@@ -111,8 +112,8 @@ public class Conceito extends Game {
 			Player temp = new Player(new Vector(256, 256),armor);
 			temp.qLevel = qLevel;
 			temp.Health = health;
-			temp.XP = xp;
-			temp.money = money;
+			temp.setXP(xp);
+			temp.setMoney(money);
 			
 			
 			temp.addGun(wp1);
@@ -142,8 +143,8 @@ public class Conceito extends Game {
 		prefs.putBoolean("savegame", true);
 		prefs.putInteger("Phealth",ScreenChooser.Player1.Health);
 		prefs.putInteger("Parmor",ScreenChooser.Player1.armor);
-		prefs.putInteger("Pmoney",ScreenChooser.Player1.money);
-		prefs.putInteger("Pexp",ScreenChooser.Player1.XP);
+		prefs.putInteger("Pmoney",ScreenChooser.Player1.getMoney());
+		prefs.putInteger("Pexp",ScreenChooser.Player1.getXP());
 		prefs.putBoolean("hasgun0", ScreenChooser.Player1.hasGun[0]);
 		prefs.putBoolean("hasgun1", ScreenChooser.Player1.hasGun[1]);
 		prefs.putBoolean("hasgun2", ScreenChooser.Player1.hasGun[2]);

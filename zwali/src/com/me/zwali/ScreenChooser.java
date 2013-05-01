@@ -1,6 +1,5 @@
 package com.me.zwali;
 
-import java.awt.Event;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -18,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -110,7 +108,7 @@ public class ScreenChooser extends UI{
 		shot = Player1.hasGun[1] ? "yes" : "no";
 		mach = Player1.hasGun[2] ? "yes" : "no";
 		
-		String[] listStats = {"Level: " + (int)Player1.qLevel,"Health: " +Player1.Health,"Armor: "+Player1.armor,"Money: " + Player1.money,"XP: " + Player1.XP,"Pistol: " + pis,"Shotgun: " + shot, "Machine gun: " + mach};
+		String[] listStats = {"Level: " + (int)Player1.qLevel,"Health: " +Player1.Health,"Armor: "+Player1.armor,"Money: " + Player1.getMoney(),"XP: " + Player1.getXP(),"Pistol: " + pis,"Shotgun: " + shot, "Machine gun: " + mach};
 		
 		VerticalGroup vg = new VerticalGroup();
 		for(int i=0;i<8;i++)
@@ -331,7 +329,7 @@ public class ScreenChooser extends UI{
 	        		if(maingame.sound){
 	        			Sounds.main_s.stop();
 	        			maingame.sound = false;
-	        			showToast("Toast example - no sound", 2,new Vector2(200,400),true);
+	        			showToast("Toast example - no sound", 0,new Vector2(200,400),true);
 	        		}
 	        		else{
 	        			Sounds.main_s.setLooping(true);

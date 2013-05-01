@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Textures {
 	
-	static TextButtonStyle btnGreen,btnBlue,btnGray,btnMinigun, imgMinigun, btnShotgun, imgShotgun, btnPistol, imgPistol;
+	static TextButtonStyle btnMinigun, imgMinigun, btnShotgun, imgShotgun, btnPistol, imgPistol;
 	static TextButtonStyle btnHealth, btnArmor, btnAmmo, btnRes, btnACC,btnArrUp,btnArrDown,btnArrLeft,btnArrRight;
 	
 	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
@@ -142,15 +142,25 @@ public class Textures {
 	 //static Sprite expl1,expl2,expl3;
 	 static Sprite bul_art;
 	 static Sprite questThumb;
-	 static Sprite buttonsRegion;
 	 static Sprite ruthlessLogo;
 	 
 	 static Sprite sound,no_sound;
 	 static Sprite scroll_box_bg;
 	 static Sprite bg_sangue;
 	 static Sprite arrUp,arrDown,arrLeft,arrRight;
+	 static Sprite logbg;
+	 
+	 static Sprite money,xp,hit,money_bar,barrel_bar,balloon;
+	 
 	public static void loadTextures() throws FileNotFoundException
 	{
+		balloon = loadTexture("/gameplay/balloon");
+		barrel_bar = loadTexture("/gameplay/barrel_bar");
+		money = loadTexture("/gameplay/money");
+		xp = loadTexture("/gameplay/xp");
+		hit = loadTexture("/gameplay/hit");
+		money_bar = loadTexture("/gameplay/money_bar");
+		logbg = loadTexture("/other/logbg");
 		progressbar = loadTexture("/other/progressbar");
 		backframe_ui = loadTexture("/other/backframe");
 		arrUp = loadTexture("/other/arrUp");
@@ -163,7 +173,6 @@ public class Textures {
 		no_sound = loadTexture("/other/nosound");
 		game_over_bg = loadTexture("/menus/gameoverbg");
 		ruthlessLogo = loadTexture("/other/rlogo");
-		buttonsRegion = loadTexture("/other/buttons");
 		qHome = loadTexture("/gameplay/quest-bgs/Home");
 		tHome = loadTexture("/thumbs/Home");
 		questThumb = loadTexture("/thumbs/questThumbnail");
@@ -249,9 +258,6 @@ public class Textures {
 	
 	private static void loadStyles()
 	{
-		btnGreen = new TextButtonStyle();
-		btnBlue = new TextButtonStyle();
-		btnGray = new TextButtonStyle();
 		btnMinigun = new TextButtonStyle();
 		imgMinigun =  new TextButtonStyle();
 		btnShotgun = new TextButtonStyle();
@@ -268,16 +274,13 @@ public class Textures {
 		btnArrLeft = new TextButtonStyle();
 		btnArrRight = new TextButtonStyle();
 		
-		BitmapFont buttonFont = new BitmapFont(Gdx.files.internal("assets/fonts/arial.fnt"),
-		         Gdx.files.internal("assets/fonts/arial.png"), false);
+		BitmapFont buttonFont = new BitmapFont(Gdx.files.internal("assets/UI/fonts/arial.fnt"),
+		         Gdx.files.internal("assets/UI/fonts/arial.png"), false);
 		
 		
-		TextureRegion normal = new TextureRegion(Textures.buttonsRegion,0,57,256,58);
-		TextureRegion normal_h = new TextureRegion(Textures.buttonsRegion,0,0,256,58);
+		TextureRegion normal;
+		TextureRegion normal_h;
 		
-		btnGreen.up = new TextureRegionDrawable(normal);
-		btnGreen.down = new TextureRegionDrawable(normal_h);
-		btnGreen.font = buttonFont;
 		
 		normal = new TextureRegion(Textures.arrDown,0,0,32,32);
 		normal_h = new TextureRegion(Textures.arrDown,32,0,32,32);
@@ -310,20 +313,6 @@ public class Textures {
 		btnArrRight.down = new TextureRegionDrawable(normal);
 		btnArrRight.font = buttonFont;
 		btnArrRight.over = new TextureRegionDrawable(normal_h);
-		
-		normal = new TextureRegion(Textures.buttonsRegion,256,57,254,58);
-		normal_h = new TextureRegion(Textures.buttonsRegion,256,0,254,58);
-		
-		btnBlue.up = new TextureRegionDrawable(normal);
-		btnBlue.down = new TextureRegionDrawable(normal_h);
-		btnBlue.font = buttonFont;
-		
-		normal_h = new TextureRegion(Textures.buttonsRegion,2*255,56,256,58);
-		normal = new TextureRegion(Textures.buttonsRegion,2*255,0,256,58);
-		
-		btnGray.up = new TextureRegionDrawable(normal);
-		btnGray.down = new TextureRegionDrawable(normal_h);
-		btnGray.font = buttonFont;
 		
 		btnMinigun.up = Textures.minigun;
 		btnMinigun.font = buttonFont;

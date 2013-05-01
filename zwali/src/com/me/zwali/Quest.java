@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -17,10 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
@@ -60,7 +58,7 @@ public class Quest extends UI{
 	Label labAmmo,labLog,labMoney,labXP,labRes;
 	ScrollPane log;
 	VerticalGroup logVg;
-	Table bottomUI,table1,table2;
+	Table bottomUI,table1,table2,ingame_faders;
 	
 	static boolean buildMode;
 	boolean WarmUp = true;
@@ -80,7 +78,7 @@ public class Quest extends UI{
 	int timebuild = 0;
 	int timerbuilt = 120;
 	int timeWarmup = 0;
-	int timerWarmup = 600;
+	int timerWarmup = 300;
 	
 	int timeKick = 0;
 	int timerKick = 60;
@@ -121,6 +119,11 @@ public class Quest extends UI{
 		this.pop_Table1();
 		this.pop_Table2();
 		this.pop_Table3();
+		
+		ingame_faders = new Table();
+		stage.addActor(ingame_faders);
+		
+
 		//TextButton hi = new TextButton("Hello",StylesManager.skin);
 		//table.addActor(hi);
 		this.MainGame = main;
@@ -263,7 +266,9 @@ public class Quest extends UI{
 			timeWarmup = 0;
 			if(Wavenr % 5 == 0)
 			{
-				Player1.money += 150;
+				
+				Player1.addMoney(150,ingame_faders);
+				Player1.addXP(10, ingame_faders);
 			}
 		}
 		
@@ -441,6 +446,21 @@ public class Quest extends UI{
 					if(enimio.getAlive() && bilio.Collide(enimio))
 					{				
 
+						//check accuracy status for crit shot
+						
+						//create image
+						Image hit = new Image(Textures.hit);
+						hit.setPosition((float)(bilio.pos.x - backG.Display.x), (float)(bilio.pos.y - backG.Display.y));
+						hit.setSize(Textures.hit.getWidth() /2, Textures.hit.getHeight() /2);
+						hit.getColor().a = 0.6f;
+						//create anim
+						ParallelAction act = new ParallelAction();
+						act.addAction(Actions.fadeOut(0.5f));
+						act.addAction(Actions.moveTo(hit.getX() + 10, hit.getY()+50,0.5f));
+						hit.addAction(act);
+						
+						ingame_faders.addActor(hit);
+						
 						switch(rdm.nextInt(2))
 						{
 							case 0:
@@ -516,10 +536,10 @@ public class Quest extends UI{
 				switch(enimio.type)
 				{
 				case 1:
-					Player1.XP += Player1.xpenemy1;
+					Player1.setXP(Player1.getXP() + Player1.xpenemy1);
 					break;
 				case 2:
-					Player1.XP += Player1.xpenemy2;
+					Player1.setXP(Player1.getXP() + Player1.xpenemy2);
 					break;
 				case 3:
 					Explosion A = new Explosion( enimio.pos, new Vector (20*enimio.power,20*enimio.power), Textures.Sangue_3 );
@@ -529,7 +549,8 @@ public class Quest extends UI{
 					break;
 				}
 				
-				Player1.money += rdm.nextInt(10) + Wavenr + Player1.moneybuff;
+				
+				Player1.addMoney(rdm.nextInt(10) + Wavenr + Player1.moneybuff,ingame_faders);
 				stats.killstreakCont++;
 				stats.PlayerScore++;
 				if(stats.killstreakCont == 15)
@@ -658,8 +679,7 @@ public class Quest extends UI{
 								}
 								else
 								{
-									addToLog("You dont have ");
-									addToLog("enough resources");
+									//
 								}	
 							}
 						}
@@ -791,7 +811,21 @@ public class Quest extends UI{
 			}
 		}
 		
-		
+		if(Player1.InvListWeapons.get(Player1.CurGun).reloading)
+		{
+			switch(rdm.nextInt(2)){
+			case 0:
+				Player1.setText("Reloading...");
+				break;
+			case 1:
+				Player1.setText("Wait!");
+				break;
+			case 2:
+				Player1.setText("WAIIIT!!");
+				break;
+			}
+			
+		}
 		
 		for(int i = 0; i<bul.size(); i++)
 		{
@@ -886,8 +920,8 @@ public class Quest extends UI{
 				}
 						
 				labRes.setText(Player1.buildQuant + "");
-				labMoney.setText(Player1.money+"");
-				labXP.setText(Player1.XP+"");
+				labMoney.setText(Player1.getMoney()+"");
+				labXP.setText(Player1.getXP()+"");
 		Hbar.setValue(Player1.getHealth());
 		Abar.setValue(Player1.armor);
 		labAmmo.setText(Player1.InvListWeapons.get(Player1.CurGun).ammo +"/"+Player1.InvListWeapons.get(Player1.CurGun).ammoTotal);
@@ -1085,13 +1119,25 @@ public class Quest extends UI{
 		labMoney.setX(200);
 		labMoney.setY(20);
 		
+		Image imgMoney = new Image(Textures.money_bar);
+		imgMoney.setPosition(175, 24);
+		imgMoney.setSize(16, 16);
+		
 		labXP = new Label("0",StylesManager.arial15);
 		labXP.setX(200);
 		labXP.setY(0);
 		
+		Image imgXP = new Image(Textures.xp);
+		imgXP.setPosition(175, 4);
+		imgXP.setSize(20, 20);
+		
 		labRes = new Label("0",StylesManager.arial15);
-		labRes.setX(100);
-		labRes.setY(0);
+		labRes.setX(120);
+		labRes.setY(2);
+		
+		Image imgRes = new Image(Textures.barrel_bar);
+		imgRes.setPosition(95, 4);
+		imgRes.setSize(20, 20);
 		
 		TextButton buff1 = new TextButton(" ",StylesManager.btnClose);
 		TextButton buff2 = new TextButton(" ",StylesManager.btnClose);
@@ -1148,8 +1194,11 @@ public class Quest extends UI{
 		
 		bottomUI.addActor(log);
 		bottomUI.addActor(labMoney);
+		bottomUI.addActor(imgMoney);
 		bottomUI.addActor(labXP);
+		bottomUI.addActor(imgXP);
 		bottomUI.addActor(labRes);
+		bottomUI.addActor(imgRes);
 		bottomUI.addActor(hide);
 		stage.addActor(bottomUI);
 	}
@@ -1164,6 +1213,8 @@ public class Quest extends UI{
 	public void show() {
 		// TODO Auto-generated method stub
 		if(Sounds.main_s.isPlaying()) Sounds.main_s.stop();
+		
+		stage.addActor(Player1.balloon);
 		
 		MyInputProcessor inputProcessor = new MyInputProcessor(this);
 		InputMultiplexer mult_in = new InputMultiplexer(inputProcessor,stage);

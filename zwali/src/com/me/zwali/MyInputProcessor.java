@@ -165,6 +165,7 @@ public class MyInputProcessor implements InputProcessor {
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
 		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

@@ -2,9 +2,10 @@ package com.me.zwali;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 
-public class Entity {
+public class Entity extends Actor{
 	
 	Vector pos;
 	Vector prevpos;
@@ -41,10 +42,6 @@ public class Entity {
 		this.exp = false;
 	}
 	
-	public boolean Update()
-	{
-		return true;
-	}
 	
 	public void UpdatePos( Background BACK)
 	{
@@ -171,6 +168,7 @@ public class Entity {
 		pos.x += deltaPos.x;
 		pos.y += deltaPos.y;
 		
+		this.setPosition((float)pos.x, (float)pos.y);
 	}
 	
 	
