@@ -1,11 +1,11 @@
 
 package com.me.zwali;
-import java.io.FileNotFoundException;
 import java.util.Random;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,7 +22,7 @@ public class Conceito extends Game {
 	public static Random rdm;
 	public boolean sound = true;
 	public static boolean debug = false;
-	private FlashScreen ruthlessLogoScreen;
+
 	GameOver gameover;
 	Howtoplay howtoplaymenu;
 	Shop shop;
@@ -32,18 +32,14 @@ public class Conceito extends Game {
 	public static Achievements achievs_screen;
 	public static AchieveChecker achiev_checker;
 	
+	LoadScreen loading_screen;
+	AssetManager assetsManager;
 	@Override
 	public void create() {		
 		
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
-		try {
-			Textures.loadTextures();
-			Sounds.loadSounds();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		camera = new OrthographicCamera(w, h);
 		System.out.print(w + " " +h);
 		batch = new SpriteBatch();
@@ -58,34 +54,11 @@ public class Conceito extends Game {
 		
 		font = new BitmapFont(Gdx.files.internal("assets/UI/fonts/arial.fnt"),
 		         Gdx.files.internal("assets/UI/fonts/arial.png"), false);
-		howtoplaymenu = new Howtoplay(this);
 		
-		//create achiev screen
-		achievs_screen = new Achievements(this);
+		assetsManager = new AssetManager();
+		loading_screen = new LoadScreen(this,this.assetsManager);
 		
-		achiev_checker = new AchieveChecker();
-		achiev_checker.loadAch();
-		
-		//add all campaign quests and populate the questsScreen
-		questsScreen = new ScreenChooser(this);
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-		questsScreen.quests.add(constDump.Home());
-	
-		questsScreen.popButtons();
-		
-		ScreenChooser.Player1 = getPlayer();
-		shop = new Shop(this);
-		mainmenu = new MainMenu(this);
-	
-		//flash screens
-		
-		ruthlessLogoScreen = new FlashScreen(this,Textures.ruthlessLogo,this.mainmenu,120);
-		gameover = new GameOver(this);
-		rdm = new Random();
-		setScreen(this.ruthlessLogoScreen);
-
+		setScreen(loading_screen);
 	}
 
 	
@@ -161,14 +134,15 @@ public class Conceito extends Game {
 	public void dispose() {
 		
 		Savegame();
-		this.achiev_checker.saveAch();
+		achiev_checker.saveAch();
 		batch.dispose();
-		Textures.dispose();
+		loading_screen.textures_inst.dispose();
+		loading_screen.sounds_inst.dispose();
 		questsScreen.dispose();
 		shop.dispose();
 		howtoplaymenu.dispose();
 		mainmenu.dispose();
-		Sounds.dispose();
+		
 	}
 
 }

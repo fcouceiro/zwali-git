@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -36,8 +37,7 @@ public class Quest extends UI{
 	
 	Player Player1;
 	ArrayList <Long> act_sounds = new ArrayList<Long>(10);
-	
-	Textures t = new Textures();
+
 	Constants consts = new Constants();
 	Background backG;
 	Stats stats = new Stats();
@@ -142,7 +142,7 @@ public class Quest extends UI{
 		Barril = new Crosshair( new Vector(0,0), new Vector(80,80), Textures.BarrelUnIM);
 		
 		col = new Collision();
-		drop = new ItemDrop(t);
+		drop = new ItemDrop();
 		
 		KKick = new Kick(new Vector(0,0), new Vector(50, 50), true,Textures.BarrelIM);
 		
@@ -813,6 +813,7 @@ public class Quest extends UI{
 		
 		if(Player1.InvListWeapons.get(Player1.CurGun).reloading)
 		{
+			Gdx.app.log("stuff", "true");
 			switch(rdm.nextInt(2)){
 			case 0:
 				Player1.setText("Reloading...");
@@ -1115,28 +1116,34 @@ public class Quest extends UI{
 		logVg = new VerticalGroup();
 		bottomUI = new Table();
 		
+		Image bg = new Image(Textures.bottomui);
+		bg.setPosition(70, 0);
+		bg.setSize(Textures.bottomui.getWidth(), Textures.bottomui.getHeight() - 20);
+		
+		bottomUI.addActor(bg);
+		
 		labMoney = new Label("0",StylesManager.arial15);
-		labMoney.setX(200);
+		labMoney.setX(210);
 		labMoney.setY(20);
 		
 		Image imgMoney = new Image(Textures.money_bar);
-		imgMoney.setPosition(175, 24);
+		imgMoney.setPosition(185, 24);
 		imgMoney.setSize(16, 16);
 		
 		labXP = new Label("0",StylesManager.arial15);
-		labXP.setX(200);
+		labXP.setX(210);
 		labXP.setY(0);
 		
 		Image imgXP = new Image(Textures.xp);
-		imgXP.setPosition(175, 4);
+		imgXP.setPosition(185, 4);
 		imgXP.setSize(20, 20);
 		
 		labRes = new Label("0",StylesManager.arial15);
-		labRes.setX(120);
+		labRes.setX(140);
 		labRes.setY(2);
 		
 		Image imgRes = new Image(Textures.barrel_bar);
-		imgRes.setPosition(95, 4);
+		imgRes.setPosition(115, 4);
 		imgRes.setSize(20, 20);
 		
 		TextButton buff1 = new TextButton(" ",StylesManager.btnClose);
@@ -1145,14 +1152,21 @@ public class Quest extends UI{
 		
 		Label aux = new Label("Good luck!",StylesManager.arial15);
 		logVg.addActor(aux);
+		
+		ScrollPaneStyle style = new ScrollPaneStyle();
+		
 		log = new ScrollPane(logVg,StylesManager.skin);
-		log.setSize(200, 45);
+		style = log.getStyle();
+		style.background = null;
+		log.setStyle(style);
+		
+		log.setSize(180, 60);
 		log.setSmoothScrolling(true);
 		log.setFadeScrollBars(true);
 		log.setFlickScroll(false);
 		log.setScrollbarsOnTop(true);
 		log.setupFadeScrollBars(2, 1.5f);
-		log.setPosition(300, 0);
+		log.setPosition(310, -2);
 		
 		final TextButton hide = new TextButton("",Textures.btnArrDown);
 		hide.setSize(20, 20);
@@ -1213,7 +1227,7 @@ public class Quest extends UI{
 	public void show() {
 		// TODO Auto-generated method stub
 		if(Sounds.main_s.isPlaying()) Sounds.main_s.stop();
-		
+
 		stage.addActor(Player1.balloon);
 		
 		MyInputProcessor inputProcessor = new MyInputProcessor(this);

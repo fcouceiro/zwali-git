@@ -1,5 +1,6 @@
 package com.me.zwali;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,12 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 public class Sounds {
-
+	
+	public Sounds() throws FileNotFoundException
+	{
+		this.loadSounds();
+	}
+	
 	static Audio sm = Gdx.audio;
 	static List<Sound> disposable = new ArrayList<Sound>();
 	
@@ -38,7 +44,7 @@ public class Sounds {
 	static Music mhover_s;
 	
 	
-	static void loadSounds()
+	void loadSounds()
 	{
 		// counter attack
 		ca_yah = getSound("MC_Attack/Attack1");
@@ -65,21 +71,21 @@ public class Sounds {
 		mhover_s = getMusic("misc/mouse.mp3");
 	}
 	
-	static Sound getSound(String key)
+	Sound getSound(String key)
 	{
 		Sound temp = sm.newSound(Gdx.files.internal("assets/sfx/" + key +".mp3"));
 		disposable.add(temp);
 		return temp;
 	}
 	
-	static Music getMusic(String key)
+	Music getMusic(String key)
 	{
 		Music temp = sm.newMusic(Gdx.files.internal("assets/sfx/" + key));
 		return temp;
 	}
 	
-	static void dispose()
+	public void dispose()
 	{
-		for(Sound a:disposable) a.dispose();
+		for(Sound s:disposable) s.dispose();
 	}
 }

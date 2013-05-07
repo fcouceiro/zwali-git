@@ -2,15 +2,11 @@ package com.me.zwali;
 
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -18,10 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Textures {
 	
+	AssetManager asm;
+	
+	public Textures(AssetManager asm) throws FileNotFoundException
+	{
+		this.asm = asm;
+		this.loadTextures();
+	}
+	
 	static TextButtonStyle btnMinigun, imgMinigun, btnShotgun, imgShotgun, btnPistol, imgPistol;
 	static TextButtonStyle btnHealth, btnArmor, btnAmmo, btnRes, btnACC,btnArrUp,btnArrDown,btnArrLeft,btnArrRight;
-	
-	private static List<Sprite> disposable = new ArrayList<Sprite>(5);
 	
 	static Sprite progressbar;
 	static Sprite backframe_ui;
@@ -151,9 +153,11 @@ public class Textures {
 	 static Sprite logbg;
 	 
 	 static Sprite money,xp,hit,money_bar,barrel_bar,balloon;
+	 static Sprite bottomui;
 	 
-	public static void loadTextures() throws FileNotFoundException
+	public void loadTextures() throws FileNotFoundException
 	{
+		bottomui = loadTexture("/menus/bottomui");
 		balloon = loadTexture("/gameplay/balloon");
 		barrel_bar = loadTexture("/gameplay/barrel_bar");
 		money = loadTexture("/gameplay/money");
@@ -221,42 +225,19 @@ public class Textures {
 		rdmBuff = loadTexture("/menus/shop/items/randombuff");
 		barIM = loadTexture("/menus/invmenu");
 		bar_ammo = loadTexture("/menus/invmenu_ammo");
-		//bar_medkit = loadTexture("/menus/invmenu_medkit");
-		bar_outofammo = loadTexture("/menus/invmenu_outofammo");
-		bar_stroke = loadTexture("/menus/invmenu_stroke");
-		bar_buildmodeon = loadTexture("/menus/invmenu_buildmodeon");
-		bar_buildmodeoff = loadTexture("/menus/invmenu_buildmodeoff");
+
+
 		mainmenuIM = loadTexture("/menus/mainmenu");
-		mainmenu_btnPlay = loadTexture("/menus/mainmenu_playbtn");
-		mainmenu_btnPlay_h = loadTexture("/menus/mainmenu_playbtn_h");
-		mainmenu_btnHowtoPlay = loadTexture("/menus/mainmenu_htpbtn");
-		mainmenu_btnHowtoPlay_h = loadTexture("/menus/mainmenu_htpbtn_h");
-		mainmenu_btnAbout = loadTexture("/menus/mainmenu_aboutbtn");
-		mainmenu_btnAbout_h = loadTexture("/menus/mainmenu_aboutbtn_h");
-		pausemenu = loadTexture("/menus/pausemenu");
-		environment_Tree = loadTexture("/environment/tree");
+	
 		builder_bar = loadTexture("/other/builder/barra");
 		builder_bar_btm = loadTexture("/other/builder/barra_btm");
 		shopIM = loadTexture("/menus/shop/shop");
 	
-		//tutorial
-		page1 = loadTexture("/tutorial/page1");
-		page2 = loadTexture("/tutorial/page2");
-		page3 = loadTexture("/tutorial/page3");
-		page4 = loadTexture("/tutorial/page4");
-		page5 = loadTexture("/tutorial/page5");
-		page6 = loadTexture("/Red");
-		btnNext = loadTexture("/tutorial/btnNext");
-		btnNext_h = loadTexture("/tutorial/btnNext_h");
-		btnPrev = loadTexture("/tutorial/btnPrev");
-		btnPrev_h = loadTexture("/tutorial/btnPrev_h");
-		btnmainMenu = loadTexture("/tutorial/btnMainmenu");
-		btnmainMenu_h = loadTexture("/tutorial/btnMainmenu_h");
 		
 		loadStyles();
 	}
 	
-	private static void loadStyles()
+	private void loadStyles()
 	{
 		btnMinigun = new TextButtonStyle();
 		imgMinigun =  new TextButtonStyle();
@@ -342,32 +323,20 @@ public class Textures {
 		btnACC.font = buttonFont;
 	}
 	
-	private static Sprite loadTexture(String key) throws FileNotFoundException
+	private Sprite loadTexture(String key)
 	{
+		
 		try{
-		Texture a = new Texture(Gdx.files.internal("assets/gfx" + key +".png"));
-		a.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		Sprite b = new Sprite(a);
-		disposable.add(b);
-		return (b);
+			Sprite temp = new Sprite(asm.get("assets/gfx" + key +".png", Texture.class));
+			return temp;
 		}
 		finally{
 		
 		}
 	}
 	
-	public static void dispose()
+	public void dispose()
 	{
-		for(Sprite a:disposable) a.getTexture().dispose();
-		
-	}
-	
-	public static void draw(Sprite t, SpriteBatch batch)
-	{
-	
-	t.setSize(50, 50);
-	t.setPosition((float)(160),(float)(3));
-	t.draw(batch);
-	
+		asm.clear();
 	}
 }

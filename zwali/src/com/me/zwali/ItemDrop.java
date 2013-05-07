@@ -7,15 +7,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ItemDrop
 {
-	Textures T;
+	
 	Random rdm;
 	List<Item> itemstodrop = new ArrayList<Item>(10);
 	List<Item> itemsdropped = new ArrayList<Item>(10);
 	
 	
-	public ItemDrop(Textures t) 
+	public ItemDrop() 
 	{
-		this.T = t;
+		
 		rdm = new Random();
 		//add items
 	}

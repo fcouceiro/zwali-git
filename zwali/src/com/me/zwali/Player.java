@@ -6,9 +6,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.ruthlessgames.api.StylesManager;
 
 
@@ -70,6 +72,11 @@ class Player extends Entity
 		{
 			super( pos, new Vector (90,90), true,  Textures.playerPistolIM );
 			balloon = new Table();
+			balloon.setBackground(new TextureRegionDrawable(Textures.balloon));
+			balloon.setSize(140,100);
+			balloon.setVisible(false);
+			balloon.getColor().a = 0.7f;
+			
 			this.kick = false;
 			this.walk = new Animacao(2,2,Textures.player_walking,new Vector(256,128),new Vector(90,90));
 			this.idle = new Animacao(5,1,Textures.player_idle,new Vector(256,128),new Vector(90,90));
@@ -272,7 +279,7 @@ class Player extends Entity
 				}
 			}
 			
-			balloon.setPosition((float)(pos.x - BACK.Display.x),(float)(pos.y -BACK.Display.y));
+			balloon.setPosition((float)(pos.x - BACK.Display.x - 35),(float)(pos.y -BACK.Display.y+35));
 			
 			return alive;
 		}
@@ -439,16 +446,25 @@ class Player extends Entity
 		
 		public void setText(String text)
 		{
-			if(!balloon.isVisible())
-			balloon.getColor().a = 0;
-			
+			if(balloon.getActions().size == 0){
 			Label labText = new Label((CharSequence) text,StylesManager.skin);
+			labText.setPosition(15,30);
 			balloon.addActor(labText);
 			
-			balloon.addAction(Actions.fadeIn(0.5f));
-			balloon.addAction(Actions.delay(0.5f));
-			balloon.addAction(Actions.fadeOut(0.5f));
-			balloon.addAction(Actions.hide());
+				if(!balloon.isVisible())
+				{
+					balloon.setVisible(true);
+					balloon.getColor().a = 0;
+				}
+			
+			SequenceAction fade = new SequenceAction();
+			fade.addAction(Actions.fadeIn(0.5f));
+			fade.addAction(Actions.delay(0.5f));
+			fade.addAction(Actions.fadeOut(0.5f));
+			fade.addAction(Actions.hide());
+			fade.addAction(Actions.removeActor(labText));
+			balloon.addAction(fade);
+			}
 		}
 
 		public void draw( Vector Disp, SpriteBatch batch)
