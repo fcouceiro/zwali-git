@@ -26,6 +26,7 @@ public class Conceito extends Game {
 	GameOver gameover;
 	Howtoplay howtoplaymenu;
 	Shop shop;
+	public static Stats stats;
 	ScreenChooser questsScreen;
 	MainMenu mainmenu;
 	Constants constDump = new Constants();
@@ -57,7 +58,7 @@ public class Conceito extends Game {
 		
 		assetsManager = new AssetManager();
 		loading_screen = new LoadScreen(this,this.assetsManager);
-		
+		stats = new Stats();
 		setScreen(loading_screen);
 	}
 

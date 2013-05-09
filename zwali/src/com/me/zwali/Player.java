@@ -39,7 +39,7 @@ class Player extends Entity
 		//UI ui;
 		int STATE;
 		private int XP;
-		private int money;
+		int money;
 		
 		boolean timeron;
 		boolean ragemode;

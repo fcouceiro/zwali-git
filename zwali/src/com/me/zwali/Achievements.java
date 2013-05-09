@@ -32,6 +32,7 @@ public class Achievements extends UI
 	
 	public void setAchiev(Constants.achiev_types type)
 	{
+		System.out.println("ACHIVEMENT UNLOCKED " + type.name() );
 		for(AchievBtn btn:list)
 			if(btn.type == type){
 				btn.setObtained(true);
