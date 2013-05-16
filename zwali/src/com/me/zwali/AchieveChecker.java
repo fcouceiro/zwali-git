@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import java.math.*;
 
 public class AchieveChecker {
 	
@@ -62,27 +63,165 @@ public class AchieveChecker {
 			{
 				switch(tri.type)
 				{
-				case Killstreak1:
-					if(tri.value >= 10){
-						Conceito.achievs_screen.setAchiev(tri.type);
-						tri.done = true;}
-					break;
-				
-				case HealthMaster:
-					if(tri.value >= 10){
+				case Boss:
+				case Ignitor:
+				case Expert_Gunner:
+				case Im_Still_Alive:
+				case Virgin_not:
+				case Zombie_Anihalator:
+					if(tri.value ==1){
 						Conceito.achievs_screen.setAchiev(tri.type);
 						tri.done = true;
 					}
 					break;
+				}
+			}
+		}
+	}
+	
+	public void UpdateAll( Stats stats)
+	{
+		for(Triplet tri: achive)
+		{
+			if(tri.done == false)
+			{
+				switch(tri.type)
+				{
+				case Relentless:
+					if(stats.killstreakCont >= 10){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						tri.done = true;}
+					break;
+				case Pretty_damn_Good:
+					if(stats.killstreakCont >= 20){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						tri.done = true;}
+					break;
+				case Unstopable:
+					if(stats.killstreakCont >= 40){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						tri.done = true;}
+					break;
+				case GodLike:
+					if(stats.killstreakCont >= 60){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						tri.done = true;}
+					break;
 				
-				case Thekiller:
-					if(tri.value >= 10){
+					
+				case Hello_world:
+					if(tri.begin + stats.enemieskilled >= 100){
 						Conceito.achievs_screen.setAchiev(tri.type);
 						System.out.println("ACHIEVEMENT UNLOCKED " + tri.type.toString());
 						tri.done = true;}
 					break;
+					
+				case Kid:
+					if(tri.begin + stats.enemieskilled >= 500){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						System.out.println("ACHIEVEMENT UNLOCKED " + tri.type.toString());
+						tri.done = true;}
+					break;
+					
+				case Rookie:
+					if(tri.begin + stats.enemieskilled >= 1000){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						System.out.println("ACHIEVEMENT UNLOCKED " + tri.type.toString());
+						tri.done = true;}
+					break;
+					
+				case Killer:
+					if(tri.begin + stats.enemieskilled >= 2000){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						System.out.println("ACHIEVEMENT UNLOCKED " + tri.type.toString());
+						tri.done = true;}
+					break;
+					
+				case Exterminator:
+					if(tri.begin + stats.enemieskilled >= 5000){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						System.out.println("ACHIEVEMENT UNLOCKED " + tri.type.toString());
+						tri.done = true;}
+					break;
+					
+				case Cop:
+					if(tri.begin + stats.buys >=10){
+						tri.done = true;
+						Conceito.achievs_screen.setAchiev(tri.type);
+					}
+					break;
+				case Entreperneur:
+					if(tri.begin + stats.buys >=20){
+						tri.done = true;
+						Conceito.achievs_screen.setAchiev(tri.type);
+					}
+					break;
+				case Millionaire:
+					if(tri.begin + stats.buys >=100){
+						tri.done = true;
+						Conceito.achievs_screen.setAchiev(tri.type);
+					}
+					break;
+					
 				}
 			}
+			
+			switch(tri.type)
+			{
+			case Relentless:
+				tri.value = Math.max(tri.value, stats.killstreakCont);
+				break;
+			case Pretty_damn_Good:
+				tri.value = Math.max(tri.value, stats.killstreakCont);
+				break;
+			case Unstopable:
+				tri.value = Math.max(tri.value, stats.killstreakCont);
+				break;
+			case GodLike:
+				tri.value = Math.max(tri.value, stats.killstreakCont);
+				break;
+			
+				
+			case Hello_world:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Kid:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Rookie:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Killer:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Exterminator:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Cop:
+				tri.value = tri.begin + stats.buys;
+
+				break;
+			case Entreperneur:
+				tri.value = tri.begin + stats.buys;
+
+				break;
+			case Millionaire:
+				tri.value = tri.begin + stats.buys;
+
+				break;
+				
+			}
+		
 		}
 	}
 	
@@ -92,12 +231,14 @@ class Triplet{
 	
 	Constants.achiev_types type;
 	int value;
+	int begin;
 	boolean done;
 	
 	public Triplet ( Constants.achiev_types type, int value, int done)
 	{
 		this.type = type;
 		this.value = value;
+		this.begin = value;
 		if( done == 1){
 			this.done = true;
 			Conceito.achievs_screen.setAchiev(this.type);
