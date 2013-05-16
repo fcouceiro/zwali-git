@@ -2,32 +2,7 @@ package com.me.zwali;
 
 public class Constants {
 	
-	static enum achiev_types {Hello_world //100 kills 
-								,Kid //500 kills
-								,Rookie // 1000 kills
-								,Killer // 2000 kills
-								,Exterminator //5000 kills
-								,Relentless //10killstreak
-								,Pretty_damn_Good // 20killstreak
-								,Unstopable //40 killstreak
-								,GodLike //60 killstreak
-								,Cop	// 10 buys
-								,Entreperneur //20buys
-								,Millionaire  //100 buys
-								,Ignitor	// Machinegun Buy
-								,Boss   //Shotgun Buy
-								,Expert_Gunner //all upgrades
-								,Im_Still_Alive //survive wave 10
-								,Virgin_not //survive wave 30
-								,Zombie_Anihalator // survive wave 60
-								,Welcome_to_Zwali // 1hour
-								,Enjoyable //2 hours
-								,Aint_Zombies_Finite // 5 hours
-								,Shit_I_missed_3_days_of_work //10 hours
-								,Come_For_The_Zombies_Stay_For_The_Story // Story completed
-								};
-	
-
+	static enum achiev_types {Killstreak1,HealthMaster,Thekiller};
 	
 	int HEIGHT = 600;
 	int WIDTH = 800;

@@ -40,6 +40,8 @@ public class Quest extends UI{
 
 	Constants consts = new Constants();
 	Background backG;
+	Stats stats = new Stats();
+	Stats stats2;
 	Random rdm;
 	ItemDrop drop;
 	Builder obra;
@@ -147,7 +149,11 @@ public class Quest extends UI{
 		waves.add(new Wave(new Vector( Wave1Pos.x, Wave1Pos.y), 1,150));
 		waves.add(new Wave(new Vector( Wave2Pos.x, Wave2Pos.y), 1,150));
 		
-
+		stats.PlayerAtingido = 0;
+		stats.PlayerDisparos = 0;
+		stats.PlayerScore = 0;
+		stats.PlayerTirosNoEnemy = 0;
+		
 		//Generating the background
 		backG = new Background( Textures.Red, new Vector( 1024, 1024) );
 		
@@ -250,9 +256,7 @@ public class Quest extends UI{
 			}*/
 			}
 			Wavenr++;
-			if(Wavenr == 11) Conceito.achiev_checker.update(Constants.achiev_types.Im_Still_Alive, 1);
-			if(Wavenr == 31) Conceito.achiev_checker.update(Constants.achiev_types.Virgin_not, 1);
-			if(Wavenr == 61) Conceito.achiev_checker.update(Constants.achiev_types.Zombie_Anihalator, 1);
+			
 			
 		}
 		
@@ -507,12 +511,12 @@ public class Quest extends UI{
 								break;
 							}
 							
-							//Conceito.achiev_checker.update(Constants.achiev_types.Thekiller, 1);
+							Conceito.achiev_checker.update(Constants.achiev_types.Thekiller, 1);
 							
 						}
 						
 						
-						Conceito.stats.PlayerTirosNoEnemy++;
+						stats.PlayerTirosNoEnemy++;
 						bilio.kill(false);
 						break;
 					}
@@ -547,13 +551,12 @@ public class Quest extends UI{
 				
 				
 				Player1.addMoney(rdm.nextInt(10) + Wavenr + Player1.moneybuff,ingame_faders);
-				Conceito.stats.killstreakCont++;
-				Conceito.stats.enemieskilled++;
-				Conceito.stats.PlayerScore++;
-				if(Conceito.stats.killstreakCont == 15)
+				stats.killstreakCont++;
+				stats.PlayerScore++;
+				if(stats.killstreakCont == 15)
 				{
 					Player1.ragemode = true;
-					Conceito.stats.killstreakCont = 0;
+					stats.killstreakCont = 0;
 					this.addToLog("Rage on!");
 				}
 				if(Player1.ragemode)
@@ -566,7 +569,7 @@ public class Quest extends UI{
 					addToLog("Enemy died");
 				}
 				
-				addToLog("KillStreak "+ Conceito.stats.killstreakCont);
+				addToLog("KillStreak "+ stats.killstreakCont);
 			}
 		}
 		
@@ -746,9 +749,7 @@ public class Quest extends UI{
 				dead_enemies.add(enimio);
 				
 			}
-			
-			
-			
+
 			if(enimio.getAlive() && enimio.Collide(Player1))
 			{
 				switch(rdm.nextInt(4))
@@ -776,8 +777,8 @@ public class Quest extends UI{
 				Player1.subHealth(enimio.power);
 				Player1.recoil(dir, 30);
 					
-				Conceito.stats.killstreakCont = 0;
-				Conceito.stats.PlayerAtingido++;
+				stats.killstreakCont = 0;
+				stats.PlayerAtingido++;
 				
 				enimio.Attack();
 			}
@@ -842,7 +843,7 @@ public class Quest extends UI{
 			Player1.timeron = false;
 			Player1.speed = Player1.nSpeed;
 			
-			System.out.println("Estatisticas: \nDisparos - "+Conceito.stats.PlayerDisparos+"\nDisparos acertados - "+Conceito.stats.PlayerTirosNoEnemy+"\nScore - "+Conceito.stats.PlayerScore+"\nAtingido "+ Conceito.stats.PlayerAtingido +" vezes");
+			System.out.println("Estatisticas: \nDisparos - "+stats.PlayerDisparos+"\nDisparos acertados - "+stats.PlayerTirosNoEnemy+"\nScore - "+stats.PlayerScore+"\nAtingido "+ stats.PlayerAtingido +" vezes");
 			System.out.println("GAME OVER! O MUNDO TAMBEM FICA MELHOR SEM TI!!");
 			MainGame.setScreen(MainGame.gameover);
 			this.hide();
@@ -878,11 +879,8 @@ public class Quest extends UI{
 			font.setColor(Color.WHITE);
 		}
 		Conceito.batch.end();
-		if(Player1.UpgPwrMinigun ==3 && Player1.UpgPwrPistol == 3 && Player1.UpgPwrShotgun == 3)
-			Conceito.achiev_checker.update(Constants.achiev_types.Expert_Gunner, 1);
+
 		Conceito.achiev_checker.updateAll();
-		Conceito.achiev_checker.UpdateAll(Conceito.stats);
-		
 		
 		if(debug)
 		{
@@ -1301,7 +1299,7 @@ public class Quest extends UI{
 							Player1.accuracy=Player1.ACCMAX;
 						}
 						
-						Conceito.stats.PlayerDisparos++;
+						stats.PlayerDisparos++;
 					}
 				}
 			}
@@ -1360,7 +1358,7 @@ public class Quest extends UI{
 							Player1.accuracy=Player1.ACCMAX;
 						}
 						
-						Conceito.stats.PlayerDisparos++;
+						stats.PlayerDisparos++;
 					}
 				}
 			}
@@ -1386,6 +1384,7 @@ public class Quest extends UI{
 		Player1 = null;
 		enem.clear();
 		bul.clear();
+		stats = null;
 		Wavenr = 1;
 		nWavesCur = 2;
 		nWavesMAX = 2;

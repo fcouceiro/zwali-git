@@ -299,8 +299,6 @@ public class Shop extends UI{
 			        }
 					 
 			        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-			        	
-			        	int moneyprev = ScreenChooser.Player1.money;
 			        	if(x < buttonBuy.getWidth() && x >0 && y<buttonBuy.getHeight() && y > 0)
 				        	{
 			        		switch (index)
@@ -345,7 +343,6 @@ public class Shop extends UI{
 												ScreenChooser.Player1.addMoney(-1*itens.get(7).price);
 												ScreenChooser.Player1.CurGun = 2;
 												ScreenChooser.Player1.hasGun[2] = true;
-												Conceito.achiev_checker.update(Constants.achiev_types.Boss, 1);
 										}
 						        	}
 						        	break;
@@ -375,7 +372,6 @@ public class Shop extends UI{
 										
 											ScreenChooser.Player1.addMoney(-1*itens.get(8).price);
 											ScreenChooser.Player1.hasGun[1] = true;
-											Conceito.achiev_checker.update(Constants.achiev_types.Ignitor, 1);
 										}
 					        		}
 					        		break;
@@ -473,10 +469,8 @@ public class Shop extends UI{
 					        	}
 					        
 			        		}
-			        		if(moneyprev > ScreenChooser.Player1.money) Conceito.stats.buys++;
 				        	Labelhandler();
 				        	}
-			        	
 			        	}
 			        });
 		
