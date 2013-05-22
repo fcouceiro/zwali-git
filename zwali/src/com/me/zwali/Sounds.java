@@ -11,8 +11,11 @@ import com.badlogic.gdx.audio.Sound;
 
 public class Sounds {
 	
-	public Sounds() throws FileNotFoundException
+	Conceito maingame;
+	
+	public Sounds(Conceito main) throws FileNotFoundException
 	{
+		this.maingame = main;
 		this.loadSounds();
 	}
 	
@@ -70,6 +73,30 @@ public class Sounds {
 		main_s = getMusic("misc/lost_village.ogg");
 		mhover_s = getMusic("misc/mouse.mp3");
 	}
+	
+	void play(Sound sound)
+	{
+		if(maingame.sound) sound.play();
+	}
+	
+	void play(Sound sound,float volume)
+	{
+		if(maingame.sound) sound.play(volume);
+	}
+	
+	void play(Music sound)
+	{
+		if(maingame.sound) sound.play();
+	}
+	
+	void play(Music sound,float volume)
+	{
+		if(maingame.sound){
+			sound.setVolume(volume);
+			sound.play();
+		}
+	}
+	
 	
 	Sound getSound(String key)
 	{

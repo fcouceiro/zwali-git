@@ -36,7 +36,6 @@ public class Quest extends UI{
 
 	
 	Player Player1;
-	ArrayList <Long> act_sounds = new ArrayList<Long>(10);
 
 	Constants consts = new Constants();
 	Background backG;
@@ -56,8 +55,10 @@ public class Quest extends UI{
 	Label labAmmo,labLog,labMoney,labXP,labRes;
 	ScrollPane log;
 	VerticalGroup logVg;
-	Table bottomUI,table1,table2,ingame_faders;
+	Table bottomUI,table1,table2,ingame_faders,pause_menu;
 	
+	boolean paused = false;
+	Sounds sounds;
 	static boolean buildMode;
 	boolean WarmUp = true;
 	boolean WarmUpBegins = false;
@@ -114,10 +115,10 @@ public class Quest extends UI{
 	public Quest(Conceito main, Vector Wave1Pos, Vector Wave2Pos,int maxWaves)
 	{
 		super(Conceito.batch,font,false);
-		this.pop_Table1();
-		this.pop_Table2();
-		this.pop_Table3();
-		
+		this.pop_Table1();	//health ui
+		this.pop_Table2();	//weapon ui
+		this.pop_Table3();	//bottom ui
+		this.pop_Table4(); //pause menu
 		ingame_faders = new Table();
 		stage.addActor(ingame_faders);
 		
@@ -178,20 +179,42 @@ public class Quest extends UI{
 		}*/
 				
 		obra = new Builder();
+		
+		MPOS = new Vector(0,0);
 	}
 	
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		MouseX = Gdx.input.getX();
-		MouseY = 600 - Gdx.input.getY();
-		input();
-		//hasKeyboard = false;
-		Conceito.batch.begin();		
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		MPOS = new Vector( MouseX, MouseY);
+		
+		MouseX = Gdx.input.getX();
+		MouseY = 600 - Gdx.input.getY();
+		
+		MPOS.x = MouseX;
+		MPOS.y = MouseY;
+		
+		
+		Conceito.batch.begin();	
+		if(!paused){
+			input();
+			backG.Update( Player1.pos, MPOS );
+		}
+		else{
+			backG.draw(Conceito.batch);
+			backG.draw_objs(Conceito.batch);
+			Conceito.batch.end();	
+			stage.act(delta);
+			stage.draw();
+			
+			return;
+		}
+	
+		backG.draw(Conceito.batch);
+		
+		//hasKeyboard = false;
+		
 		Cross.setPos( MPOS);
 		timerGun++;
 		timerEnem++;		
@@ -250,9 +273,9 @@ public class Quest extends UI{
 			}*/
 			}
 			Wavenr++;
-			if(Wavenr == 11) Conceito.achiev_checker.update(Constants.achiev_types.Im_Still_Alive, 1);
-			if(Wavenr == 31) Conceito.achiev_checker.update(Constants.achiev_types.Virgin_not, 1);
-			if(Wavenr == 61) Conceito.achiev_checker.update(Constants.achiev_types.Zombie_Anihalator, 1);
+			if(Wavenr == 11 && survival) Conceito.achiev_checker.update(Constants.achiev_types.Im_Still_Alive, 1);
+			if(Wavenr == 31 && survival) Conceito.achiev_checker.update(Constants.achiev_types.Virgin_not, 1);
+			if(Wavenr == 61 && survival) Conceito.achiev_checker.update(Constants.achiev_types.Zombie_Anihalator, 1);
 			
 		}
 		
@@ -347,13 +370,13 @@ public class Quest extends UI{
 			switch(Conceito.rdm.nextInt(4))
 			{
 				case 0:
-					Sounds.ca_uhh.play();
+					sounds.play(Sounds.ca_uhh);
 					break;
 				case 1:
-					Sounds.ca_woa.play();
+					sounds.play(Sounds.ca_woa);
 					break;
 				case 2:
-					Sounds.ca_yah.play();
+					sounds.play(Sounds.ca_yah);
 					break;
 			}
 			kick = true;
@@ -460,10 +483,10 @@ public class Quest extends UI{
 						switch(rdm.nextInt(2))
 						{
 							case 0:
-								Sounds.zo_hurt2.play();
+								sounds.play(Sounds.zo_hurt2);
 								break;
 							case 1:
-								Sounds.zo_hurt1.play();
+								sounds.play(Sounds.zo_hurt1);
 								break;
 						}
 						
@@ -500,10 +523,10 @@ public class Quest extends UI{
 							switch(rdm.nextInt(2))
 							{
 							case 0:
-								Sounds.zo_bone_crush.play(0.1f);
+								sounds.play(Sounds.zo_bone_crush,0.1f);
 								break;
 							case 1:
-								Sounds.zo_neck.play(0.1f);
+								sounds.play(Sounds.zo_neck,0.1f);
 								break;
 							}
 							
@@ -587,13 +610,7 @@ public class Quest extends UI{
 			
 		}
 		
-		backG.Update( Player1.pos, MPOS );
-		
-
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		backG.draw(Conceito.batch);
+	
 		
 		for(sangue b:sangues)
 		{
@@ -754,19 +771,19 @@ public class Quest extends UI{
 				switch(rdm.nextInt(4))
 				{
 					case 0:
-						act_sounds.add(Sounds.gh_aii.play());
+						sounds.play(Sounds.gh_aii);
 						break;
 					case 1:
-						act_sounds.add(Sounds.gh_eeaah.play());
+						sounds.play(Sounds.gh_eeaah);
 						break;
 					case 2:
-						act_sounds.add(Sounds.gh_hah.play());
+						sounds.play(Sounds.gh_hah);
 						break;
 					case 3:
-						act_sounds.add(Sounds.gh_huh.play());
+						sounds.play(Sounds.gh_huh);
 						break;
 					case 4:
-						act_sounds.add(Sounds.gh_uhh.play());
+						sounds.play(Sounds.gh_uhh);
 						break;
 				}
 				
@@ -1155,10 +1172,10 @@ public class Quest extends UI{
 		Label aux = new Label("Good luck!",StylesManager.arial15);
 		logVg.addActor(aux);
 		
-		ScrollPaneStyle style = new ScrollPaneStyle();
+		
 		
 		log = new ScrollPane(logVg,StylesManager.skin);
-		style = log.getStyle();
+		ScrollPaneStyle style = new ScrollPaneStyle(log.getStyle());
 		style.background = null;
 		log.setStyle(style);
 		
@@ -1219,6 +1236,63 @@ public class Quest extends UI{
 		stage.addActor(bottomUI);
 	}
 	
+	private void pop_Table4(){
+		pause_menu = new Table();
+		final TextButton btnResume = new TextButton("Resume",StylesManager.btnGray);
+		final TextButton btnStats = new TextButton("Stats",StylesManager.btnGray);
+		final TextButton btnQuit = new TextButton("Quit",StylesManager.btnGreen);
+		
+		btnQuit.setPosition(10, 10);
+		btnStats.setPosition(10,40);
+		btnResume.setPosition(10, 70);
+		
+		btnQuit.setSize(100, 30);
+		btnStats.setSize(100, 30);
+		btnResume.setSize(100, 30);
+		
+		btnResume.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < btnResume.getWidth() && x >0 && y<btnResume.getHeight() && y > 0){
+					paused = false;
+					pause_menu.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.hide()));
+					
+				}
+			}
+		});
+		
+		btnQuit.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < btnResume.getWidth() && x >0 && y<btnResume.getHeight() && y > 0){
+					
+					if(!survival)
+					MainGame.setScreen(MainGame.questsScreen);
+					else
+						MainGame.setScreen(MainGame.mainmenu);
+					dispose();
+				}
+			}
+		});
+		
+		pause_menu.addActor(btnResume);
+		pause_menu.addActor(btnStats);
+		pause_menu.addActor(btnQuit);
+		
+		pause_menu.setPosition(340, 240);
+		pause_menu.setVisible(false);
+		
+		stage.addActor(pause_menu);
+	
+	}
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
@@ -1241,7 +1315,7 @@ public class Quest extends UI{
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		if(!Sounds.main_s.isPlaying() && this.MainGame.sound) Sounds.main_s.play();
+		if(!Sounds.main_s.isPlaying() && this.MainGame.sound) sounds.play(Sounds.main_s);
 		Gdx.app.log("wave", "Ended in wave " + this.Wavenr);
 		
 		//Gdx.input.setCursorCatched(false);

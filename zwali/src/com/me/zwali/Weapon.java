@@ -15,7 +15,7 @@ public class Weapon
 	private int speed;
 	private int fireTimer;
 	private int reloadTimer;
-	private int RELOADTIME;
+	int RELOADTIME;
 	public boolean buff;
 	boolean reloading;
 	boolean lethalarea;

@@ -46,7 +46,7 @@ public class LoadScreen extends UI implements LoadingScreen{
 			try {
 				
 				textures_inst = new Textures(asm);
-				sounds_inst = new Sounds();
+				sounds_inst = new Sounds(maingame);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

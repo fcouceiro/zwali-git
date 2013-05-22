@@ -1,6 +1,7 @@
 package com.me.zwali;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class MyInputProcessor implements InputProcessor {
 
@@ -78,11 +79,17 @@ public class MyInputProcessor implements InputProcessor {
 		}
 		if(keycode == Keys.ESCAPE)
 		{
-			GMl.dispose();
-			if(!GMl.survival)
-			GMl.MainGame.setScreen(GMl.MainGame.questsScreen);
-			else
-				GMl.MainGame.setScreen(GMl.MainGame.mainmenu);
+			if(!GMl.paused){
+			GMl.pause_menu.setVisible(true);
+			GMl.paused = true;
+			GMl.pause_menu.getColor().a = 0;
+			GMl.pause_menu.addAction(Actions.fadeIn(0.5f));
+			}
+			else{
+				GMl.paused = false;
+				GMl.pause_menu.addAction(Actions.sequence(Actions.fadeOut(0.5f),Actions.hide()));
+			}
+
 		}
 
 		if(keycode == Keys.R)

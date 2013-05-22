@@ -69,6 +69,8 @@ public class ScreenChooser extends UI{
 		temp.Player1.vel.x = 0;
 		temp.Player1.vel.y = 0;
 		temp.difficulty = 1;
+		
+		temp.sounds = maingame.loading_screen.sounds_inst;
 		System.out.println("Quest created successfuly");
 		return temp;
 	}
