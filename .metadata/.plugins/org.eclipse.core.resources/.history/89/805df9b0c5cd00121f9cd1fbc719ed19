@@ -473,15 +473,11 @@ public class Shop extends UI{
 					        	}
 					        
 			        		}
-			        		Conceito.achiev_checker.updateAll();
-							Conceito.achiev_checker.UpdateAll(Conceito.stats);
 			        		if(moneyprev > ScreenChooser.Player1.money) Conceito.stats.buys++;
 				        	Labelhandler();
 				        	}
 			        	
 			        	}
-			    
-					
 			        });
 		
 		table.debug();
@@ -623,7 +619,7 @@ public class Shop extends UI{
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         
-        
+   
         
         Conceito.batch.end();
         Conceito.batch.begin();
