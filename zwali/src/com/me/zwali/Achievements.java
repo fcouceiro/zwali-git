@@ -33,12 +33,12 @@ public class Achievements extends UI
 	
 	public void setAchiev(Constants.achiev_types type)
 	{
-		//if(!loading){
+	
 			if(maingame.getScreen().getClass() == UI.class){
 			
 				((UI)maingame.getScreen()).showToast("ACHIVEMENT UNLOCKED " + type.name(), 5, new Vector2(200,500), false);
 			}
-		//}
+		
 		for(AchievBtn btn:list)
 			if(btn.type == type){
 				btn.setObtained(true);

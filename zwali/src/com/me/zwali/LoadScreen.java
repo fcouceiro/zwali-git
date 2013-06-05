@@ -239,9 +239,8 @@ public class LoadScreen extends UI implements LoadingScreen{
 		//create achiev screen
 		Conceito.achievs_screen = new Achievements(maingame);
 		
-		Conceito.achiev_prefs = Gdx.app.getPreferences("AchiveLists");
 		Conceito.achiev_checker = new AchieveChecker(Conceito.achiev_prefs);
-		maingame.achiev_checker.loadAch();
+		Conceito.achiev_checker.loadAch();
 		
 		//add all campaign quests and populate the questsScreen
 		maingame.questsScreen = new ScreenChooser(maingame);

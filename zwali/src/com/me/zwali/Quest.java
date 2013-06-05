@@ -296,7 +296,9 @@ public class Quest extends UI{
 		//Spawn waves.
 		if (waves.size()!=0 && !WarmUp && !justended)
 		{
-			for(int i = 0; i<nWavesCur && i<waves.size(); i++)
+
+			for(int i = 0; i<waves.size(); i++)
+
 			{
 				if (waves.get(i).empty()) 
 				{
@@ -888,7 +890,7 @@ public class Quest extends UI{
 			hasshown = true;
 		}
 		
-		if(toastHandler.getActions().size == 0)toasting = false;
+		
 		
 		
 		if(debug)

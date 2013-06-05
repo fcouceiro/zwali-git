@@ -48,6 +48,7 @@ public class Conceito extends Game {
 		batch.getTransformMatrix().setToTranslation(-1*(w/2), -1*(h/2), 0);
 		shapeRenderer = new ShapeRenderer();
 		prefs = Gdx.app.getPreferences("Player-prefs");
+		achiev_prefs = Gdx.app.getPreferences("AchiveLists");
 		
 		batch.setProjectionMatrix(camera.combined);
 		
@@ -130,19 +131,24 @@ public class Conceito extends Game {
 		prefs.putFloat("qLevel", ScreenChooser.Player1.qLevel);
 		prefs.flush();
 		Gdx.app.log("savegame","saved");
-
+		
+		achiev_checker.saveAch();
+		
+		this.ClearAchievData();
 	}
 	
 	void ClearSaveData()
 	{
 		prefs.clear();
 		prefs.flush();
+		Gdx.app.log("savedata", "wiped");
 	}
 	
 	void ClearAchievData()
 	{
-		achiev_prefs.clear();
-		achiev_prefs.flush();
+		achiev_checker.achisave.clear();
+		achiev_checker.achisave.flush();
+		Gdx.app.log("achievements data", "wiped");
 	}
 	
 	void ClearUserData()
@@ -155,7 +161,7 @@ public class Conceito extends Game {
 	public void dispose() {
 		
 		Savegame();
-		achiev_checker.saveAch();
+		
 		batch.dispose();
 		loading_screen.textures_inst.dispose();
 		loading_screen.sounds_inst.dispose();
