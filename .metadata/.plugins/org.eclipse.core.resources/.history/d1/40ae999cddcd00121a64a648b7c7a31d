@@ -90,7 +90,7 @@ public class Quest extends UI{
 	int time_wiz = 0;
 	int timer_wiz = 15;
 	int nWavesCur = 2;
-	int nWavesMAX = 3;
+	int nWavesMAX = 2;
 	int nWave =2;
 	int Wavenr = 1;
 	

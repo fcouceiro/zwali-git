@@ -130,7 +130,10 @@ public class Conceito extends Game {
 		prefs.putFloat("qLevel", ScreenChooser.Player1.qLevel);
 		prefs.flush();
 		Gdx.app.log("savegame","saved");
-
+<<<<<<< HEAD
+		
+=======
+>>>>>>> FM
 	}
 	
 	void ClearSaveData()
