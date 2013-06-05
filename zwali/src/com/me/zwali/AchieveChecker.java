@@ -15,7 +15,6 @@ public class AchieveChecker {
 	public AchieveChecker()
 	{
 		achisave = Gdx.app.getPreferences("AchiveLists");
-		achive = new ArrayList<Triplet> (30);
 	}
 	
 	public void loadAch()
