@@ -98,7 +98,8 @@ public class Quest extends UI{
 	int maxWaves;
 	
 	int maxScore = 7000;
-	boolean waveincoming = false;
+	boolean showtoast = false;
+	boolean hasshown = false;
 	RealCross Cross;
 	Crosshair Barril;
 	
@@ -148,6 +149,7 @@ public class Quest extends UI{
 		waves.add(new Wave(new Vector( Wave1Pos.x, Wave1Pos.y), 1,150));
 		waves.add(new Wave(new Vector( Wave2Pos.x, Wave2Pos.y), 1,150));
 		
+		nWavesCur = 2;
 
 		//Generating the background
 		backG = new Background( Textures.Red, new Vector( 1024, 1024) );
@@ -233,15 +235,11 @@ public class Quest extends UI{
 				}
 				timeWarmup++;
 				//System.out.println("Ta em warm up" + timeWarmup);
-				if (timeWarmup >= 300 && timeWarmup < 600) {
-					waveincoming = true;
+				if (timeWarmup >= 300 && timeWarmup < 600 && !hasshown) {
+					showtoast = true;
 					
 				}
-				else 
-					{
-					waveincoming = false;
-					
-					}
+
 		}
 		
 		if(timeWarmup >= timerWarmup && WarmUp){
@@ -282,6 +280,7 @@ public class Quest extends UI{
 		else if(!WarmUp && WarmUpBegins)
 		{
 			WarmUp = true;
+			hasshown = false;
 			timeWarmup = 0;
 			if(Wavenr % 5 == 0)
 			{
@@ -296,11 +295,12 @@ public class Quest extends UI{
 		//Spawn waves.
 		if (waves.size()!=0 && !WarmUp && !justended)
 		{
+
 			for(int i = 0; i<waves.size(); i++)
+
 			{
 				if (waves.get(i).empty()) 
 				{
-		
 					nWavesCur--;
 					nWave++;
 					System.out.println("Wave "+waves.get(i).waveNR+"ended and there are "+nWavesCur );
@@ -309,7 +309,7 @@ public class Quest extends UI{
 					
 					waves.remove(waves.get(i));	//remove actual (empty)
 				
-					if(waves.get(i).waveNR == maxWaves +1 && !survival && enem.size() == 0){
+					if(waves.get(i).waveNR == maxWaves +1 && !survival){
 						MainGame.setScreen(MainGame.questsScreen);
 					}
 				}
@@ -877,13 +877,16 @@ public class Quest extends UI{
 		Player1.InvListWeapons.get(Player1.CurGun).Update(Player1,backG.Display);
 		
 		
-		if(waveincoming)
+		if(showtoast)
 		{
+			//System.out.println("ASDASD");
 			//font.draw(Conceito.batch,"Wave incomming! Number: " + Integer.toString(Wavenr),425, 508);
-			this.showToast("Wave incomming! Number: " + Integer.toString(Wavenr), 5, new Vector2(200,500),false);
+			this.showToast("Wave incomming! Number: " + Integer.toString(Wavenr), 2, new Vector2(200,500),false);
+			showtoast = false;
+			hasshown = true;
 		}
-		else toastHandler.setVisible(false);
 		
+		if(toastHandler.getActions().size == 0)toasting = false;
 		
 		
 		if(debug)
@@ -1461,7 +1464,7 @@ public class Quest extends UI{
 		bul.clear();
 		Wavenr = 1;
 		nWavesCur = 2;
-		nWavesMAX = 2;
+		nWavesMAX = 3;
 		nWave =2;
 		WarmUp = true;
 		
