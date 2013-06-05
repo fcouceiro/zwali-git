@@ -44,7 +44,7 @@ public class Background
 		}
 	
 		
-		if( Display.y <-60) {Display.y = -60;}
+		if( Display.y <0) {Display.y = 0;}
 		else if( Display.y > size.y - consts.HEIGHT) 
 		{
 			Display.y = size.y - consts.HEIGHT;
