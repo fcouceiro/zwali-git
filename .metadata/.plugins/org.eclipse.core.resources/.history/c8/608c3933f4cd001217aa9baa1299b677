@@ -1,0 +1,16 @@
+package com.me.zwali;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Nivel {
+	
+	
+	List <Cenario> levels = new ArrayList<Cenario>(10);
+	
+	public Nivel(int type){
+		
+		
+	}
+	
+}
