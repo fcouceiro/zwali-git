@@ -886,7 +886,7 @@ public class Quest extends UI{
 			hasshown = true;
 		}
 		
-		if(toastHandler.getActions().size == 0)toasting = false;
+		
 		
 		
 		if(debug)
