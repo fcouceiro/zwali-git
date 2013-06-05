@@ -92,7 +92,7 @@ public class Quest extends UI{
 	int nWavesCur = 2;
 	int nWavesMAX = 3;
 	int nWave =2;
-	int Wavenr = 1;
+	int Wavenr = 0;
 	
 	//maxWaves for current quest
 	int maxWaves;
