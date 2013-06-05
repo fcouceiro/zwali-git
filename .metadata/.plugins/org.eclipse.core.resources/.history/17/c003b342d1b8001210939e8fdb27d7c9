@@ -1,0 +1,1397 @@
+package com.me.zwali;
+
+import java.util.ArrayList;
+import java.util.Random;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.ruthlessgames.api.StylesManager;
+import com.ruthlessgames.api.UI;
+
+public class Quest extends UI{
+	
+	public static BitmapFont font;
+
+	
+	Player Player1;
+	ArrayList <Long> act_sounds = new ArrayList<Long>(10);
+
+	Constants consts = new Constants();
+	Background backG;
+	Random rdm;
+	ItemDrop drop;
+	Builder obra;
+	Kick KKick;
+	static boolean pausecoco = true;
+	
+	
+	Collision col;
+	
+	ArrayList <Wave> waves = new ArrayList<Wave>(10);
+	
+	Slider Hbar,Abar;
+	Image Himg,Aimg,Amimg,curgunimg;
+	Label labAmmo,labLog,labMoney,labXP,labRes;
+	ScrollPane log;
+	VerticalGroup logVg;
+	Table bottomUI,table1,table2,ingame_faders;
+	
+	static boolean buildMode;
+	boolean WarmUp = true;
+	boolean WarmUpBegins = false;
+	boolean justended = false;
+	boolean survival = false;
+	boolean debug = false;
+	boolean kick = false;
+	
+	int difficulty;
+	
+	int MouseX, MouseY;	
+	int HealthReg = 0;
+	int timerGun = 0;
+	int timerEnem = 0;
+	int timerRegeneration = 0;
+	int timebuild = 0;
+	int timerbuilt = 120;
+	int timeWarmup = 0;
+	int timerWarmup = 300;
+	
+	int timeKick = 0;
+	int timerKick = 60;
+	int timenotkick = 0;
+	int timernotkick = 20;
+	
+	static int armaActual = 1;
+	int radioactivetime = 0;
+	int radioactivetimer = 60;
+	int time_wiz = 0;
+	int timer_wiz = 15;
+	int nWavesCur = 2;
+	int nWavesMAX = 2;
+	int nWave =2;
+	int Wavenr = 1;
+	
+	//maxWaves for current quest
+	int maxWaves;
+	
+	int maxScore = 7000;
+	boolean waveincoming = false;
+	RealCross Cross;
+	Crosshair Barril;
+	
+	
+	Vector MPOS;
+	ArrayList <Bullet> bul = new ArrayList<Bullet>(10);
+	ArrayList <Enemy> enem = new ArrayList<Enemy>(10);
+	ArrayList <sangue> sangues = new ArrayList<sangue>(5);
+	ArrayList<Enemy> dead_enemies = new ArrayList<Enemy>(5);
+	ArrayList<Explosion> explo = new ArrayList<Explosion>(5);
+	
+	Conceito MainGame;
+	
+	public Quest(Conceito main, Vector Wave1Pos, Vector Wave2Pos,int maxWaves)
+	{
+		super(Conceito.batch,font,false);
+		this.pop_Table1();
+		this.pop_Table2();
+		this.pop_Table3();
+		
+		ingame_faders = new Table();
+		stage.addActor(ingame_faders);
+		
+
+		//TextButton hi = new TextButton("Hello",StylesManager.skin);
+		//table.addActor(hi);
+		this.MainGame = main;
+		this.maxWaves = maxWaves;
+		
+		if(maxWaves == 0){
+			this.survival = true;
+			Gdx.app.log("Survival", "On");
+		}
+		
+		//addToLog("Bem-vindo ao Zwali! ");
+
+		font = main.font;
+		Cross = new RealCross( new Vector(0,0), new Vector(2,20), Textures.CrossSide);
+
+		Barril = new Crosshair( new Vector(0,0), new Vector(80,80), Textures.BarrelUnIM);
+		
+		col = new Collision();
+		drop = new ItemDrop();
+		
+		KKick = new Kick(new Vector(0,0), new Vector(50, 50), true,Textures.BarrelIM);
+		
+		waves.add(new Wave(new Vector( Wave1Pos.x, Wave1Pos.y), 1,150));
+		waves.add(new Wave(new Vector( Wave2Pos.x, Wave2Pos.y), 1,150));
+		
+
+		//Generating the background
+		backG = new Background( Textures.Red, new Vector( 1024, 1024) );
+		
+		/*barreiras laterais/superiores/inferiores*/
+		backG.addOBJ( new StaticObj( new Vector(800, 150), new Vector(  200, 120),40, Textures.Red ) );
+		backG.addOBJ( new StaticObj( new Vector( -20, backG.size.y/2), new Vector( 40, backG.size.y), 0,Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( backG.size.x +20, backG.size.y/2), new Vector( 40, backG.size.y),0, Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( backG.size.x/2, -20), new Vector( backG.size.x, 40),0, Textures.BarrelIM ));
+		backG.addOBJ( new StaticObj( new Vector( backG.size.x/2, backG.size.y + 20), new Vector(  backG.size.x, 40),0, Textures.BarrelIM ));
+		
+		
+		rdm = new Random();
+		
+		
+		/*for(int i = 0; i < 15; i++)
+		{
+			int size;
+			size = rdm.nextInt(50) +50;
+			
+			int x =  rdm.nextInt(1800);
+			int y =  rdm.nextInt(1800);
+			while(((x >= 800 && x <= 1250) && (y >= 760 && y <= 1250)) || ((x >= 1414 && x <= 2050) && ( y >= 0 && y <= 453)))
+			{
+				x = rdm.nextInt(1800);
+				y = rdm.nextInt(1800);
+			}
+			backG.addUnOBJ( new UnStaticObj(new Vector(x, y), new Vector( size, size), Textures.environment_Tree ,  (size+size) * 2) );
+		}*/
+				
+		obra = new Builder();
+	}
+	
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		MouseX = Gdx.input.getX();
+		MouseY = 600 - Gdx.input.getY();
+		input();
+		//hasKeyboard = false;
+		Conceito.batch.begin();		
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		MPOS = new Vector( MouseX, MouseY);
+		Cross.setPos( MPOS);
+		timerGun++;
+		timerEnem++;		
+		time_wiz++;
+		
+		if(!kick)
+		{
+			timenotkick++;
+		}
+		
+		if(WarmUp)
+		{
+				if((timerWarmup - timeWarmup)%60 == 0 )
+				{
+					addToLog("Warmup - "+ (timerWarmup - timeWarmup)/60 + " secs left");
+				}
+				timeWarmup++;
+				//System.out.println("Ta em warm up" + timeWarmup);
+				if (timeWarmup >= 300 && timeWarmup < 600) {
+					waveincoming = true;
+					
+				}
+				else 
+					{
+					waveincoming = false;
+					
+					}
+		}
+		
+		if(timeWarmup >= timerWarmup && WarmUp){
+			WarmUp = false;
+			justended = false;
+			WarmUpBegins = false;
+			timeWarmup = 0;
+			addToLog("Warm Up finished");
+			
+			if(Wavenr % 5 == 0)
+			{
+			addToLog("Chegou a ronda " + Wavenr);
+			addToLog("Bonus: +150$");
+			this.showToast("Bonus: +150$", 3, new Vector2(200,500),true);
+			
+			/*for(int i = 0; i < 7; i++)
+			{
+				int size;
+				size = rdm.nextInt(50) +50;
+				
+				int x =  rdm.nextInt(1800);
+				int y =  rdm.nextInt(1800);
+				while(((x >= 800 && x <= 1250) && (y >= 760 && y <= 1250)) || ((x >= 1440 && x <= 2050) && ( y >= 0 && y <= 453)) || x == Player1.pos.x && y == Player1.pos.y)
+				{
+					x = rdm.nextInt(1800);
+					y = rdm.nextInt(1800);
+				}
+				backG.addUnOBJ( new UnStaticObj(new Vector(x, y), new Vector( size, size), Textures.environment_Tree ,  (size+size) * 2) );
+			}*/
+			}
+			Wavenr++;
+			
+			
+		}
+		
+		else if(!WarmUp && WarmUpBegins)
+		{
+			WarmUp = true;
+			timeWarmup = 0;
+			if(Wavenr % 5 == 0)
+			{
+				
+				Player1.addMoney(150,ingame_faders);
+				Player1.addXP(10, ingame_faders);
+			}
+		}
+		
+		
+		
+		//Spawn waves.
+		if (waves.size()!=0 && !WarmUp && !justended)
+		{
+			for(int i = 0; i<nWavesCur; i++)
+			{
+				if (waves.get(i).empty()) 
+				{
+		
+					nWavesCur--;
+					nWave++;
+					System.out.println("Wave "+waves.get(i).waveNR+"ended and there are "+nWavesCur );
+					
+					waves.add(new Wave( waves.get(i).pos, Wavenr, 150)); //adiciona uma nova
+					
+					waves.remove(waves.get(i));	//remove actual (empty)
+				
+					if(waves.get(i).waveNR == maxWaves +1 && !survival){
+						MainGame.questsScreen.setScore(getScore(),this.maxScore);
+						MainGame.setScreen(MainGame.questsScreen);
+					}
+				}
+				
+				if (waves.get(i).Update()) 
+				{
+					int next = waves.get(i).addEnemy();
+					Sprite A = Textures.zombie_type1;
+					switch(next)
+					{
+					case 1:
+						break;
+					case 2:
+						A = Textures.zombie_type2;
+						break;
+					case 3:
+						A = Textures.zombie_type3;
+						break;
+					}
+							enem.add(new Enemy(new Vector(waves
+									.get(i).pos), A, next, difficulty));
+				}
+				
+				
+				if( nWavesCur == 0)
+				{
+					justended = true;
+
+					timeWarmup = 0;
+					nWavesCur = nWavesMAX;
+			
+				}
+			}
+		}
+		
+		if(justended)
+		{
+			boolean A = true;
+			for(int i = 0; i< enem.size(); i++ )
+			{
+				if(enem.get(i).getAlive())
+				{
+					A = false;
+					break;
+				}
+			}
+			
+			if(A)
+			{
+				justended = false;
+				WarmUpBegins = true;
+			}
+		}
+		
+		if(Player1.kick && timenotkick > timernotkick)
+		{
+			switch(Conceito.rdm.nextInt(4))
+			{
+				case 0:
+					Sounds.ca_uhh.play();
+					break;
+				case 1:
+					Sounds.ca_woa.play();
+					break;
+				case 2:
+					Sounds.ca_yah.play();
+					break;
+			}
+			kick = true;
+			timeKick= 0;
+			timenotkick = 0;
+		}
+		
+		if(kick)
+		{
+			for(int i = 0; i< enem.size(); i++ )
+			{
+				if(enem.get(i).getAlive())
+				{
+					Vector Y =KKick.Impact(enem.get(i));
+					
+					if(Y.Size() > 0)
+					{
+						enem.get(i).recoil(Y);
+						enem.get(i).DecreaseHealth(Player1.kickPower, Y);
+					}
+				}
+			}
+		}
+		
+		for(Explosion ex:explo)
+		{
+			Vector Y = ex.Impact(Player1);
+			
+			if(Player1.STATE != 2 && Y.Size() > 0)
+			{
+				Player1.recoilExp(Y, 4);
+				Player1. subHealth((int)ex.power);
+			}
+			
+			for(Enemy en: enem)
+			{
+				if(en.getAlive())
+				{
+					Y =ex.Impact(en);
+					
+					if(Y.Size() > 0)
+					{
+						en.recoilExp(Y);
+						en.DecreaseHealth((int)ex.power, Y);
+					}
+				}
+			}
+		}
+		
+		for(int i = 0; i<explo.size(); i++)
+		{
+			explo.get(i).UP();
+			
+			if( explo.get(i).Alive == false)
+			{
+				explo.remove(i);
+				i--;
+			}
+		}
+		
+		
+		for(int i = 0; i< enem.size(); i++ )
+		{
+			if(enem.get(i).getAlive())
+			{
+				enem.get(i).Update(Player1.getPos(), enem, i, backG);
+			}
+			
+		}
+		
+		Vector Disp = backG.getDisp();
+		
+		MouseX = Gdx.input.getX();
+		MouseY = 600 -Gdx.input.getY();
+		
+		Barril.setPos( new Vector( MPOS.x + Disp.x, MPOS.y + Disp.y));
+
+		
+		for( Bullet bilio:bul)
+		{
+			if(bilio.getAlive())
+			{
+				bilio.Update(backG,Player1);
+				for( Enemy enimio:enem)
+				{
+					if(enimio.getAlive() && bilio.Collide(enimio))
+					{				
+
+						//check accuracy status for crit shot
+						
+						//create image
+						Image hit = new Image(Textures.hit);
+						hit.setPosition((float)(bilio.pos.x - backG.Display.x), (float)(bilio.pos.y - backG.Display.y));
+						hit.setSize(Textures.hit.getWidth() /2, Textures.hit.getHeight() /2);
+						hit.getColor().a = 0.6f;
+						//create anim
+						ParallelAction act = new ParallelAction();
+						act.addAction(Actions.fadeOut(0.5f));
+						act.addAction(Actions.moveTo(hit.getX() + 10, hit.getY()+50,0.5f));
+						hit.addAction(act);
+						
+						ingame_faders.addActor(hit);
+						
+						switch(rdm.nextInt(2))
+						{
+							case 0:
+								Sounds.zo_hurt2.play();
+								break;
+							case 1:
+								Sounds.zo_hurt1.play();
+								break;
+						}
+						
+						if(Player1.ragemode)
+						{
+							enimio.Health-=(bilio.power + 20);
+						}
+						else
+						{
+						enimio.Health-=bilio.power;
+						}
+						
+						if(enimio.Health > 0) 
+						{
+							Sprite a = null;
+							if(enimio.Health < 10)
+							{
+								a = new Sprite(Textures.Sangue_3);
+								}
+							else if(enimio.Health < 60)
+							{
+								a = new Sprite(Textures.Sangue_2);
+									}
+							else if(enimio.Health < enimio.MaxHealth)
+							{
+								a = new Sprite(Textures.Sangue_1);
+							}
+							a.setPosition((float)(enimio.pos.x  - a.getWidth()/2 -  backG.Display.x), (float)(enimio.pos.y- a.getHeight()/2 -  backG.Display.y));
+							a.setRotation((float)enimio.angle);
+							sangues.add(new sangue(a,new Vector((float)(enimio.pos.x -a.getWidth()/2),(float)(enimio.pos.y - a.getHeight()/2))));
+						
+						}
+						else{
+							switch(rdm.nextInt(2))
+							{
+							case 0:
+								Sounds.zo_bone_crush.play(0.1f);
+								break;
+							case 1:
+								Sounds.zo_neck.play(0.1f);
+								break;
+							}
+							
+							//Conceito.achiev_checker.update(Constants.achiev_types.Thekiller, 1);
+							
+						}
+						
+						
+						Conceito.stats.PlayerTirosNoEnemy++;
+						bilio.kill(false);
+						break;
+					}
+					
+				}
+			}
+		}
+		
+		for(Enemy enimio: enem)
+		{
+			
+			if(enimio.Health < 0)
+			{
+				drop.drop(new Vector(enimio.pos.x - Disp.x, enimio.pos.y - Disp.y), Disp, Player1);
+				enimio.kill();
+				
+				switch(enimio.type)
+				{
+				case 1:
+					Player1.setXP(Player1.getXP() + Player1.xpenemy1);
+					break;
+				case 2:
+					Player1.setXP(Player1.getXP() + Player1.xpenemy2);
+					break;
+				case 3:
+					Explosion A = new Explosion( enimio.pos, new Vector (20*enimio.power,20*enimio.power), Textures.Sangue_3 );
+					A.SetExp(enimio.power, 10*enimio.power);
+					explo.add(A);
+					//System.out.println("ASDASDASDASDA");
+					break;
+				}
+				
+				
+				Player1.addMoney(rdm.nextInt(10) + Wavenr + Player1.moneybuff,ingame_faders);
+				Conceito.stats.killstreakCont++;
+				Conceito.stats.enemieskilled++;
+				Conceito.stats.PlayerScore++;
+				if(Conceito.stats.killstreakCont == 15)
+				{
+					Player1.ragemode = true;
+					Conceito.stats.killstreakCont = 0;
+					this.addToLog("Rage on!");
+				}
+				if(Player1.ragemode)
+				{
+					addToLog("Enemy died with rage");
+					Player1.ragemode = true;
+				}
+				else
+				{
+					addToLog("Enemy died");
+				}
+				
+				addToLog("KillStreak "+ Conceito.stats.killstreakCont);
+			}
+		}
+		
+		boolean alive  = Player1.Update(Disp, backG);
+		
+		if(kick)
+		{
+			timeKick++;
+			
+			KKick.Up(Player1.pos, Player1.angle);
+			
+			if(timeKick >= timerKick)
+			{
+				kick = false;
+				timeKick =0;
+				timenotkick = 0;
+			}
+			
+		}
+		
+		backG.Update( Player1.pos, MPOS );
+		
+
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		backG.draw(Conceito.batch);
+		
+		for(sangue b:sangues)
+		{
+			b.update(backG);
+		}
+		
+		for(Enemy e:dead_enemies)
+		{
+			if(e != null)
+			{
+				if(!e.ready)
+				e.dead_anim(Disp);
+				else e = null;
+			}
+		}
+		
+		backG.draw_objs(Conceito.batch);
+		
+		
+		
+		//Build Mode
+		
+		if(buildMode)
+		{
+			Barril.draw(Disp,Conceito.batch);
+			
+			if(Gdx.input.isTouched())
+			{
+				boolean colision = false;
+				
+				if(  !col.BCool( Barril, Player1) )
+				{
+					for(Enemy ene: enem)
+					{
+						if( col.BCool(ene, Barril))
+						{
+							System.out.println("Inimigo");
+							colision = true;
+						}
+					}
+					
+					if( colision == false)
+					{
+						for( StaticObj obj: backG.Objects)
+						{
+							if( col.BCool(obj, Barril))
+							{
+								System.out.println("OBJECTS");
+								colision = true;
+							}
+						}
+						
+						if( colision == false)
+						{
+							for( UnStaticObj obj: backG.UnObjects)
+							{
+								if( col.BCool(obj, Barril))
+								{
+									System.out.println("UNSTATIC");
+									colision = true;
+								}
+							}
+							
+							if( colision == false)
+							{
+								if (Player1.buildQuant >= 1) 
+								{
+									if (timebuild == timerbuilt) 
+									{
+										obra.addItem(backG, MPOS);
+										Player1.buildQuant--;
+										timebuild = 0;
+										addToLog("Resource built");
+									} else 
+									{
+										obra.drawbar(MPOS, timebuild, timerbuilt,Conceito.batch);
+										timebuild++;
+										
+									}
+								}
+								else
+								{
+									//
+								}	
+							}
+						}
+					}
+				}
+			}
+		
+		}
+		else
+		{
+			Cross.setOpen(Player1, Disp);
+			Cross.draw(Conceito.batch);
+		}
+		
+	
+		
+		for( Bullet bilio:bul)
+		{
+			if(bilio.getAlive())
+			{
+				double x = bilio.getPos().x;
+				double y = bilio.getPos().y;
+				if( x> 2000)bilio.kill(false);
+				else if(x<56) bilio.kill(false);
+				else if(y<56) bilio.kill(false);
+				else if(y>backG.size.y) bilio.kill(false);
+				else
+					bilio.draw(Disp,Conceito.batch);
+			}
+		}
+		
+		drop.update(Player1, Disp,Conceito.batch);
+		
+		for(Enemy enimio: enem)
+		{
+			Vector2 enemy = new Vector2((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y-backG.Display.y) );
+			Vector2 player = new Vector2((float)(Player1.pos.x-backG.Display.x), (float)(Player1.pos.y-backG.Display.y));
+			
+			Vector2 radar = new Vector2((float)(enemy.x - player.x),(float) (enemy.y - player.y ));
+			radar.nor();
+			radar = radar.scl(70);
+			
+			float anlge = radar.angle();
+			
+			
+		
+			//Conceito.batch.draw(Textures.Red, (float)radar.x, (float)radar.y);
+			Textures.radar.setPosition((float)(radar.x + (player.x) - 10),(float) (radar.y + (player.y) - 17));
+			Textures.radar.setSize(25, 25);
+			Textures.radar.setRotation(anlge - 90);
+			Textures.radar.draw(Conceito.batch,0.5f);
+			
+			
+			
+			
+			if(enimio.pos.x < 0) enimio.kill();
+			else if(enimio.pos.y < 0) enimio.kill();
+			else if(enimio.pos.x > 2000) enimio.kill();
+			else if(enimio.pos.y > backG.size.y) enimio.kill();
+			
+			if(enimio.getAlive())
+			{
+				enimio.draw(Disp,Conceito.batch);		
+			}
+			else
+			{
+				dead_enemies.add(enimio);
+				
+			}
+			
+			
+			
+			if(enimio.getAlive() && enimio.Collide(Player1))
+			{
+				switch(rdm.nextInt(4))
+				{
+					case 0:
+						act_sounds.add(Sounds.gh_aii.play());
+						break;
+					case 1:
+						act_sounds.add(Sounds.gh_eeaah.play());
+						break;
+					case 2:
+						act_sounds.add(Sounds.gh_hah.play());
+						break;
+					case 3:
+						act_sounds.add(Sounds.gh_huh.play());
+						break;
+					case 4:
+						act_sounds.add(Sounds.gh_uhh.play());
+						break;
+				}
+				
+			
+				Vector dir = new Vector( -(enimio.pos.x - Player1.pos.x), -(enimio.pos.y- Player1.pos.y));
+				dir.normalize();
+				Player1.subHealth(enimio.power);
+				Player1.recoil(dir, 30);
+					
+				Conceito.stats.killstreakCont = 0;
+				Conceito.stats.PlayerAtingido++;
+				
+				enimio.Attack();
+			}
+			
+			
+			for(UnStaticObj objecto: backG.UnObjects)
+				if(enimio.getAlive() && enimio.CollideUnstatic(objecto))
+				{
+					enimio.Attack();
+					objecto.Health -= enimio.power;
+					if(objecto.Health <= 0)
+					{
+						backG.UnObjects.remove(objecto);
+						break;
+					}
+				}
+		}
+		
+		for(Explosion ex:explo)
+		{
+			ex.draw(Disp, Conceito.batch);
+		}
+		
+		for(int i = 0; i<enem.size(); i++)
+		{
+			if( enem.get(i).getAlive() == false)
+			{
+				enem.remove(i);
+				i--;
+			}
+		}
+		
+		if(Player1.InvListWeapons.get(Player1.CurGun).reloading)
+		{
+			Gdx.app.log("stuff", "true");
+			switch(rdm.nextInt(2)){
+			case 0:
+				Player1.setText("Reloading...");
+				break;
+			case 1:
+				Player1.setText("Wait!");
+				break;
+			case 2:
+				Player1.setText("WAIIIT!!");
+				break;
+			}
+			
+		}
+		
+		for(int i = 0; i<bul.size(); i++)
+		{
+			if( bul.get(i).getAlive() == false)
+			{
+				bul.remove(i);
+				i--;
+			}
+		}
+
+
+		if( ! alive)
+		{
+			Player1.timeron = false;
+			Player1.speed = Player1.nSpeed;
+			
+			System.out.println("Estatisticas: \nDisparos - "+Conceito.stats.PlayerDisparos+"\nDisparos acertados - "+Conceito.stats.PlayerTirosNoEnemy+"\nScore - "+Conceito.stats.PlayerScore+"\nAtingido "+ Conceito.stats.PlayerAtingido +" vezes");
+			System.out.println("GAME OVER! O MUNDO TAMBEM FICA MELHOR SEM TI!!");
+			MainGame.setScreen(MainGame.gameover);
+			this.hide();
+		}
+		
+		
+		
+		
+
+		Player1.draw(Disp,Conceito.batch);
+		if(kick)
+		{
+			KKick.draw(Disp, Conceito.batch);
+		}
+		
+		Player1.InvListWeapons.get(Player1.CurGun).Update(Player1,backG.Display);
+		
+		
+		if(waveincoming)
+		{
+			//font.draw(Conceito.batch,"Wave incomming! Number: " + Integer.toString(Wavenr),425, 508);
+			this.showToast("Wave incomming! Number: " + Integer.toString(Wavenr), 5, new Vector2(200,500),false);
+		}
+		else toastHandler.setVisible(false);
+		
+		
+		
+		if(debug)
+		{
+			font.setColor(Color.RED);
+			font.draw(Conceito.batch, "PPos.x: "+ Player1.pos.x, 15, 90);
+			font.draw(Conceito.batch, "PPos.y: " + Player1.pos.y, 15, 75);
+			font.setColor(Color.WHITE);
+		}
+		Conceito.batch.end();
+		if(Player1.UpgPwrMinigun ==3 && Player1.UpgPwrPistol == 3 && Player1.UpgPwrShotgun == 3)
+			Conceito.achiev_checker.update(Constants.achiev_types.Expert_Gunner, 1);
+		Conceito.achiev_checker.updateAll();
+		Conceito.achiev_checker.UpdateAll(Conceito.stats);
+		
+		
+		if(debug)
+		{
+		
+		for(Enemy enimio:enem)
+		{
+			Conceito.shapeRenderer.begin(ShapeType.Line);
+			Conceito.shapeRenderer.setColor(Color.RED);
+			Vector2 enemy = new Vector2((float)(enimio.pos.x - backG.Display.x), (float)(enimio.pos.y-backG.Display.y) );
+			Vector2 player = new Vector2((float)(Player1.pos.x-backG.Display.x), (float)(Player1.pos.y-backG.Display.y));
+			
+		
+			Conceito.shapeRenderer.line(player.x,player.y,enemy.x,enemy.y);
+			Conceito.shapeRenderer.end();
+		}
+		
+		Conceito.shapeRenderer.begin(ShapeType.Line);
+		Conceito.shapeRenderer.setColor(Color.RED);
+		Conceito.shapeRenderer.line(790,0,790,600);
+		Conceito.shapeRenderer.line(10,0,10,600);
+		Conceito.shapeRenderer.line(0,590,800,590);
+		Conceito.shapeRenderer.line(790,10,0,10);
+		Conceito.shapeRenderer.end();
+		}
+		
+		//weapons on bar
+				switch(Player1.CurGun)
+				{
+				case 0:
+					curgunimg.setDrawable(Textures.pistol);
+					break;
+				case 1:
+					curgunimg.setDrawable(Textures.minigun);
+					break;
+				case 2:
+					curgunimg.setDrawable(Textures.shotgun);
+					break;
+				}
+						
+				labRes.setText(Player1.buildQuant + "");
+				labMoney.setText(Player1.getMoney()+"");
+				labXP.setText(Player1.getXP()+"");
+		Hbar.setValue(Player1.getHealth());
+		Abar.setValue(Player1.armor);
+		labAmmo.setText(Player1.InvListWeapons.get(Player1.CurGun).ammo +"/"+Player1.InvListWeapons.get(Player1.CurGun).ammoTotal);
+		
+		stage.act(Gdx.graphics.getDeltaTime());
+		stage.draw();
+		
+	}
+
+	private int getScore() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
+	private void addToLog(String next)
+	{
+		labLog = new Label(next,StylesManager.arial15);
+
+		logVg.addActor(labLog);
+		
+		log.setWidget(logVg);
+		log.setScrollPercentY(100);
+	}
+	
+	private void pop_Table1()
+	{
+		table1 = new Table();//table with helath and ammo
+		SliderStyle a = new SliderStyle();
+		a.background = new TextureRegionDrawable(new TextureRegion(Textures.progressbar,0,20,140,10));
+		a.knob = null;
+		a.knobBefore = new TextureRegionDrawable(new TextureRegion(Textures.progressbar,0,10,140,10));
+		
+		SliderStyle b = new SliderStyle();
+		b.background = new TextureRegionDrawable(new TextureRegion(Textures.progressbar,0,20,140,10));
+		b.knob = null;
+		b.knobBefore = new TextureRegionDrawable(new TextureRegion(Textures.progressbar,0,0,140,10));
+		
+		Hbar = new Slider(0,100,1,false,a);
+		Hbar.setTouchable(null);
+		table1.addActor(Hbar);
+		
+		Hbar.setValue(50);
+		Hbar.setY(50);
+		Hbar.setX(20);
+		Hbar.getColor().a = 0.7f;
+		
+		Abar = new Slider(0,50,1,false,b);
+		Abar.setTouchable(null);
+		table1.addActor(Abar);
+		
+		Abar.setValue(50);
+		Abar.setY(30);
+		Abar.setX(20);
+		Abar.getColor().a = 0.7f;
+		
+		Himg = new Image(new TextureRegionDrawable(Textures.Medkit));
+		Himg.setSize(16, 16);
+		Himg.setY(50);
+		
+		Aimg = new Image(new TextureRegionDrawable(Textures.Armor));
+		Aimg.setSize(16, 16);
+		Aimg.setY(30);
+		
+		final TextButton hide = new TextButton("",Textures.btnArrLeft);
+		hide.setSize(20, 20);
+		hide.setY(570);
+		hide.setX(10);
+		hide.getColor().a = 0.5f;
+		
+	
+		final MoveToAction hideTable = Actions.action(MoveToAction.class);
+		hideTable.setActor(table1);
+		hideTable.setPosition(-200,500);
+		hideTable.setDuration(1.5f);
+		hideTable.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showTable = Actions.action(MoveToAction.class);
+		showTable.setActor(table1);
+		showTable.setPosition(10,500);
+		showTable.setDuration(1.5f);
+		showTable.setInterpolation(Interpolation.fade);
+		
+		
+		hide.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < hide.getWidth() && x >0 && y<hide.getHeight() && y > 0){
+					if(hide.getStyle() == Textures.btnArrLeft)
+					{
+					table1.addAction(hideTable);
+					hide.setStyle(Textures.btnArrRight);
+					}
+					else{
+						table1.addAction(showTable);
+						hide.setStyle(Textures.btnArrLeft);
+					}
+				}
+			}
+		});
+		
+		table1.addActor(Himg);
+		table1.addActor(Aimg);
+		//table1.addActor(hide);
+		table1.setY(500);
+		table1.setX(10);
+		
+		stage.addActor(hide);
+		stage.addActor(table1);
+	}
+
+	private void pop_Table2()
+	{
+		table2 = new Table();
+		
+		final TextButton hide = new TextButton("",Textures.btnArrRight);
+		hide.setSize(20, 20);
+		hide.setY(90);
+		hide.getColor().a = 0.5f;
+		
+		final Image backframe = new Image(new TextureRegionDrawable(Textures.backframe_ui));
+		backframe.setSize(100, 100);
+		backframe.setX(30);
+		backframe.getColor().a = 0.6f;
+		
+		curgunimg = new Image(new TextureRegionDrawable(Textures.ruthlessLogo));
+		curgunimg.setSize(90, 90);
+		curgunimg.setX(35);
+		curgunimg.getColor().a = 0.6f;
+		
+		Amimg = new Image(new TextureRegionDrawable(Textures.Ammo));
+		Amimg.setSize(16, 16);
+		Amimg.setY(-20);
+		Amimg.setX(30);
+		
+		labAmmo = new Label("stuff",StylesManager.arial15);
+		labAmmo.setX(50);
+		labAmmo.setY(-23);
+		labAmmo.getColor().a = 0.8f;
+		
+		final MoveToAction hideTable = Actions.action(MoveToAction.class);
+		hideTable.setActor(table2);
+		hideTable.setPosition(770,480);
+		hideTable.setDuration(1.5f);
+		hideTable.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showTable = Actions.action(MoveToAction.class);
+		showTable.setActor(table2);
+		showTable.setPosition(650,480);
+		showTable.setDuration(1.5f);
+		showTable.setInterpolation(Interpolation.fade);
+		
+		hide.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < hide.getWidth() && x >0 && y<hide.getHeight() && y > 0){
+					if(hide.getStyle() == Textures.btnArrRight){
+						table2.addAction(hideTable);
+						hide.setStyle(Textures.btnArrLeft);
+					}
+					else{
+						table2.addAction(showTable);
+						hide.setStyle(Textures.btnArrRight);
+					}
+				}
+			}
+		});
+		
+		table2.addActor(backframe);
+		table2.addActor(hide);
+		table2.addActor(Amimg);
+		table2.addActor(labAmmo);
+		table2.addActor(curgunimg);
+		table2.setX(650);
+		table2.setY(480);
+		
+		
+		stage.addActor(table2);
+		
+	}
+	
+	private void pop_Table3()
+	{
+		logVg = new VerticalGroup();
+		bottomUI = new Table();
+		
+		Image bg = new Image(Textures.bottomui);
+		bg.setPosition(70, 0);
+		bg.setSize(Textures.bottomui.getWidth(), Textures.bottomui.getHeight() - 20);
+		
+		bottomUI.addActor(bg);
+		
+		labMoney = new Label("0",StylesManager.arial15);
+		labMoney.setX(210);
+		labMoney.setY(20);
+		
+		Image imgMoney = new Image(Textures.money_bar);
+		imgMoney.setPosition(185, 24);
+		imgMoney.setSize(16, 16);
+		
+		labXP = new Label("0",StylesManager.arial15);
+		labXP.setX(210);
+		labXP.setY(0);
+		
+		Image imgXP = new Image(Textures.xp);
+		imgXP.setPosition(185, 4);
+		imgXP.setSize(20, 20);
+		
+		labRes = new Label("0",StylesManager.arial15);
+		labRes.setX(140);
+		labRes.setY(2);
+		
+		Image imgRes = new Image(Textures.barrel_bar);
+		imgRes.setPosition(115, 4);
+		imgRes.setSize(20, 20);
+		
+		TextButton buff1 = new TextButton(" ",StylesManager.btnClose);
+		TextButton buff2 = new TextButton(" ",StylesManager.btnClose);
+		
+		
+		Label aux = new Label("Good luck!",StylesManager.arial15);
+		logVg.addActor(aux);
+		
+		ScrollPaneStyle style = new ScrollPaneStyle();
+		
+		log = new ScrollPane(logVg,StylesManager.skin);
+		style = log.getStyle();
+		style.background = null;
+		log.setStyle(style);
+		
+		log.setSize(180, 60);
+		log.setSmoothScrolling(true);
+		log.setFadeScrollBars(true);
+		log.setFlickScroll(false);
+		log.setScrollbarsOnTop(true);
+		log.setupFadeScrollBars(2, 1.5f);
+		log.setPosition(310, -2);
+		
+		final TextButton hide = new TextButton("",Textures.btnArrDown);
+		hide.setSize(20, 20);
+		hide.setY(70);
+		hide.setX(10);
+		hide.getColor().a = 0.5f;
+		
+		final MoveToAction hideTable = Actions.action(MoveToAction.class);
+		hideTable.setActor(bottomUI);
+		hideTable.setPosition(0,-60);
+		hideTable.setDuration(1.5f);
+		hideTable.setInterpolation(Interpolation.fade);
+		
+		final MoveToAction showTable = Actions.action(MoveToAction.class);
+		showTable.setActor(bottomUI);
+		showTable.setPosition(0,0);
+		showTable.setDuration(1.5f);
+		showTable.setInterpolation(Interpolation.fade);
+		
+		hide.addListener(new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				if(x < hide.getWidth() && x >0 && y<hide.getHeight() && y > 0){
+					if(hide.getStyle() == Textures.btnArrDown){
+						bottomUI.addAction(hideTable);
+						hide.setStyle(Textures.btnArrUp);
+					}
+					else{
+						bottomUI.addAction(showTable);
+						hide.setStyle(Textures.btnArrDown);
+					}
+				}
+			}
+		});
+		
+		bottomUI.addActor(log);
+		bottomUI.addActor(labMoney);
+		bottomUI.addActor(imgMoney);
+		bottomUI.addActor(labXP);
+		bottomUI.addActor(imgXP);
+		bottomUI.addActor(labRes);
+		bottomUI.addActor(imgRes);
+		bottomUI.addActor(hide);
+		stage.addActor(bottomUI);
+	}
+	
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		if(Sounds.main_s.isPlaying()) Sounds.main_s.stop();
+
+		stage.addActor(Player1.balloon);
+		
+		MyInputProcessor inputProcessor = new MyInputProcessor(this);
+		InputMultiplexer mult_in = new InputMultiplexer(inputProcessor,stage);
+		Gdx.input.setInputProcessor(mult_in);
+		//Gdx.input.setCursorCatched(true);
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		if(!Sounds.main_s.isPlaying() && this.MainGame.sound) Sounds.main_s.play();
+		Gdx.app.log("wave", "Ended in wave " + this.Wavenr);
+		
+		//Gdx.input.setCursorCatched(false);
+	}
+
+	private void input()
+	{
+		if(!Player1.InvListWeapons.get(Player1.CurGun).lethalarea)
+		{
+			if(Gdx.input.isTouched())
+			{
+				if( !buildMode)
+				{
+					if(Player1.Shoot())
+					{
+						
+						
+						timerGun = 0;
+						Vector p = Player1.getPos();
+						Vector d = backG.getDisp(); 
+						Vector c = new Vector(MouseX - p.x  + d.x , MouseY- p.y + d.y);
+						c.normalize();
+						Vector dir = new Vector(p.x  + c.x*30, p.y + c.y*30 );
+										
+						c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
+						
+					
+						bul.add ( new Bullet( dir, c, Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()));
+							switch(Player1.InvListWeapons.get(Player1.CurGun).Type)
+							{
+							case 0:
+								//this.soundmanager.playFX(soundmanager.shot);
+								break;
+							case 1:
+								//this.soundmanager.playFX(soundmanager.shot2);
+								break;
+							}
+						
+				
+						
+						int AddAC = 0;
+						switch(Player1.CurGun)
+						{
+						case 0:
+							AddAC = 10;
+							break;
+						case 1:
+							AddAC = 3;
+							break;
+						case 2:
+							AddAC = 7;
+							break;
+						}
+						Player1.accuracy += AddAC;
+						if(Player1.accuracy>Player1.ACCMAX)
+						{
+							Player1.accuracy=Player1.ACCMAX;
+						}
+						
+						Conceito.stats.PlayerDisparos++;
+					}
+				}
+			}
+	
+		}
+		else
+		{
+			if(Gdx.input.justTouched())
+			{
+				if( !buildMode)
+				{
+					if(Player1.Shoot())
+					{
+						timerGun = 0;
+						Vector p = Player1.getPos();
+						Vector d = backG.getDisp(); 
+						Vector c = new Vector(MouseX - p.x + d.x , MouseY- p.y + d.y);
+						c.normalize();
+						Vector dir = new Vector(p.x + c.x*30, p.y + c.y*30 );
+										
+						c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
+						
+					
+							c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);
+							Vector k1 = new Vector( c );
+							k1.rotate(10);
+							Vector k2 = c;
+							Vector k3 = new Vector( c);
+							k3.rotate(-10);
+							
+							bul.add ( new Bullet( new Vector(dir), k1, Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()) );
+							
+							bul.add ( new Bullet( new Vector(dir), k2, Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()) );
+		
+							bul.add ( new Bullet( new Vector(dir), k3 , Textures.bulletIM, Player1.ShootSpeed(), Player1.ShootPower()) );
+							//this.soundmanager.playFX(soundmanager.shot);
+					
+						
+						
+						int AddAC = 0;
+						switch(Player1.CurGun)
+						{
+						case 0:
+							AddAC = 10;
+							break;
+						case 1:
+							AddAC = 3;
+							break;
+						case 2:
+							AddAC = 7;
+							break;
+						}
+						Player1.accuracy += AddAC;
+						if(Player1.accuracy>Player1.ACCMAX)
+						{
+							Player1.accuracy=Player1.ACCMAX;
+						}
+						
+						Conceito.stats.PlayerDisparos++;
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		backG = null;
+		Player1 = null;
+		enem.clear();
+		bul.clear();
+		Conceito.stats = null;
+		Wavenr = 1;
+		nWavesCur = 2;
+		nWavesMAX = 2;
+		nWave =2;
+		WarmUp = true;
+		
+	}
+
+}
+

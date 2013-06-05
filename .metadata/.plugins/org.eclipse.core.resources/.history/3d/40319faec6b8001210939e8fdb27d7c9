@@ -1,0 +1,151 @@
+package com.me.zwali;
+
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+
+public class AchieveChecker {
+	
+	Preferences achisave;
+	ArrayList<Triplet> achive;
+	
+	public AchieveChecker()
+	{
+		achisave = Gdx.app.getPreferences("AchiveLists");
+		achive = new ArrayList<Triplet> (10);
+	}
+	
+	public void loadAch()
+	{
+		for(Constants.achiev_types type:Constants.achiev_types.values())
+		{
+			String value = achisave.getString(type.toString(), "#");
+			if( value.charAt(0) != '#')
+			{
+				String values[] = value.split(" ");		
+				//System.out.println(value + ": " + done + " " + val);
+				achive.add( new Triplet( type, Integer.parseInt(values[1]), Integer.parseInt(values[0]) ));
+			}
+			else{
+				achive.add( new Triplet( type, 0, 0));
+			}
+		}	
+		Gdx.app.log("Achievements", "loaded");
+	}
+		
+	public void saveAch()
+	{
+		for(Triplet tri: achive)
+		{
+			achisave.putString(tri.type.toString(), tri.toStr() );
+		}
+		Gdx.app.log("Achievements", "saved");
+		achisave.flush();
+	}
+	
+	public void update(Constants.achiev_types type, int dv)
+	{
+		for(Triplet tri: achive)
+		{
+			if(tri.type == type)
+				tri.value += dv;
+			System.out.println(tri.type.toString() + " " + tri.value);
+		}
+	}
+	
+	public void updateAll()
+	{
+		for(Triplet tri: achive)
+		{
+			if(tri.done == false)
+			{
+				switch(tri.type)
+				{
+				case Killstreak1:
+					if(tri.value >= 10){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						tri.done = true;}
+					break;
+				
+				case HealthMaster:
+					if(tri.value >= 10){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						tri.done = true;
+					}
+					break;
+				
+				case Thekiller:
+					if(tri.value >= 10){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						System.out.println("ACHIEVEMENT UNLOCKED " + tri.type.toString());
+						tri.done = true;}
+					break;
+				}
+			}
+		}
+	}
+	
+	public void UpdateAll( Stats stats)
+	{
+		for(Triplet tri: achive)
+		{
+			if(tri.done == false)
+			{
+				switch(tri.type)
+				{
+				case Killstreak1:
+					if(tri.value >= 10){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						tri.done = true;}
+					break;
+				
+				case HealthMaster:
+					if(tri.value >= 10){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						tri.done = true;
+					}
+					break;
+				
+				case Thekiller:
+					if(tri.value >= 10){
+						Conceito.achievs_screen.setAchiev(tri.type);
+						System.out.println("ACHIEVEMENT UNLOCKED " + tri.type.toString());
+						tri.done = true;}
+					break;
+				}
+			}
+		}
+	}
+	
+}
+
+class Triplet{
+	
+	Constants.achiev_types type;
+	int value;
+	int begin;
+	boolean done;
+	
+	public Triplet ( Constants.achiev_types type, int value, int done)
+	{
+		this.type = type;
+		this.value = value;
+		this.begin = value;
+		if( done == 1){
+			this.done = true;
+			Conceito.achievs_screen.setAchiev(this.type);
+		}
+		else
+			this.done = false;
+	}
+	
+	String toStr()
+	{
+		int a = 0;
+		if(done)
+			a = 1;
+		String temp = new String(a+" "+value);
+		return temp;
+	}
+}

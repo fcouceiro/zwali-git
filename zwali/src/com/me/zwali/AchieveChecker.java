@@ -164,6 +164,9 @@ public class AchieveChecker {
 					break;
 					
 				}
+				
+				if (tri.done == true)
+					Conceito.achievs_screen.setAchiev(tri.type);
 			}
 			
 			switch(tri.type)
