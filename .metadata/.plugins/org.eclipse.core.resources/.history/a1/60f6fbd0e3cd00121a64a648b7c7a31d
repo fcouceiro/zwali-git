@@ -299,6 +299,7 @@ public class Quest extends UI{
 			{
 				if (waves.get(i).empty()) 
 				{
+		
 					nWavesCur--;
 					nWave++;
 					System.out.println("Wave "+waves.get(i).waveNR+"ended and there are "+nWavesCur );
@@ -307,7 +308,7 @@ public class Quest extends UI{
 					
 					waves.remove(waves.get(i));	//remove actual (empty)
 				
-					if(waves.get(i).waveNR == maxWaves +1 && !survival){
+					if(waves.get(i).waveNR == maxWaves +1 && !survival && enem.size() == 0){
 						MainGame.setScreen(MainGame.questsScreen);
 					}
 				}
@@ -1462,7 +1463,7 @@ public class Quest extends UI{
 		bul.clear();
 		Wavenr = 1;
 		nWavesCur = 2;
-		nWavesMAX = 3;
+		nWavesMAX = 2;
 		nWave =2;
 		WarmUp = true;
 		

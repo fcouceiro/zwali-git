@@ -299,6 +299,7 @@ public class Quest extends UI{
 			{
 				if (waves.get(i).empty()) 
 				{
+		
 					nWavesCur--;
 					nWave++;
 					System.out.println("Wave "+waves.get(i).waveNR+"ended and there are "+nWavesCur );
@@ -307,7 +308,7 @@ public class Quest extends UI{
 					
 					waves.remove(waves.get(i));	//remove actual (empty)
 				
-					if(waves.get(i).waveNR == maxWaves +1 && !survival){
+					if(waves.get(i).waveNR == maxWaves +1 && !survival && enem.size() == 0){
 						MainGame.setScreen(MainGame.questsScreen);
 					}
 				}
@@ -879,7 +880,7 @@ public class Quest extends UI{
 		{
 			//System.out.println("ASDASD");
 			//font.draw(Conceito.batch,"Wave incomming! Number: " + Integer.toString(Wavenr),425, 508);
-			this.showToast("Wave incomming! Number: " + Integer.toString(Wavenr), 2, new Vector2(200,500),false);
+			this.showToast("Wave incomming! Number: " + Integer.toString(Wavenr-1), 2, new Vector2(200,500),false);
 			showtoast = false;
 			hasshown = true;
 		}
@@ -1462,7 +1463,7 @@ public class Quest extends UI{
 		bul.clear();
 		Wavenr = 1;
 		nWavesCur = 2;
-		nWavesMAX = 3;
+		nWavesMAX = 2;
 		nWave =2;
 		WarmUp = true;
 		
