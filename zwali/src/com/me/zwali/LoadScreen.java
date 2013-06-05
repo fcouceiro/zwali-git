@@ -147,6 +147,7 @@ public class LoadScreen extends UI implements LoadingScreen{
 		param.minFilter = TextureFilter.Linear;
 		param.magFilter = TextureFilter.Linear;
 		
+		asm.load("assets/gfx/menus/cloud.png",Texture.class,param);
 		asm.load("assets/gfx/menus/bottomui.png", Texture.class,param);
 		asm.load("assets/gfx/gameplay/balloon.png", Texture.class,param);
 		asm.load("assets/gfx/gameplay/barrel_bar.png", Texture.class,param);
@@ -215,7 +216,6 @@ public class LoadScreen extends UI implements LoadingScreen{
 		 asm.load("assets/gfx/menus/invmenu_ammo.png", Texture.class,param);
 	
 		 asm.load("assets/gfx/menus/mainmenu.png", Texture.class,param);
-		 asm.load("assets/gfx/menus/pausemenu.png", Texture.class,param);
 		 asm.load("assets/gfx/environment/tree.png", Texture.class,param);
 		 asm.load("assets/gfx/other/builder/barra.png", Texture.class,param);
 		 asm.load("assets/gfx/other/builder/barra_btm.png", Texture.class,param);
@@ -239,7 +239,8 @@ public class LoadScreen extends UI implements LoadingScreen{
 		//create achiev screen
 		Conceito.achievs_screen = new Achievements(maingame);
 		
-		Conceito.achiev_checker = new AchieveChecker();
+		Conceito.achiev_prefs = Gdx.app.getPreferences("AchiveLists");
+		Conceito.achiev_checker = new AchieveChecker(Conceito.achiev_prefs);
 		maingame.achiev_checker.loadAch();
 		
 		//add all campaign quests and populate the questsScreen

@@ -83,7 +83,6 @@ public class Textures {
 	 static Sprite wv1;
 	 static Sprite wv2;
 	 
-	 static Sprite pausemenu;
 	 static Sprite environment_Tree;
 	 static Sprite mainmenuIM;
 	 static Sprite mainmenu_btnPlay;
@@ -154,9 +153,11 @@ public class Textures {
 	 
 	 static Sprite money,xp,hit,money_bar,barrel_bar,balloon;
 	 static Sprite bottomui;
+	 static Sprite cloud;
 	 
 	public void loadTextures() throws FileNotFoundException
 	{
+		cloud = loadTexture("/menus/cloud");
 		bottomui = loadTexture("/menus/bottomui");
 		balloon = loadTexture("/gameplay/balloon");
 		barrel_bar = loadTexture("/gameplay/barrel_bar");

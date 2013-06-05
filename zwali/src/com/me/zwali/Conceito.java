@@ -16,7 +16,7 @@ public class Conceito extends Game {
 	public static OrthographicCamera camera;
 	public static SpriteBatch batch;
 	public static ShapeRenderer shapeRenderer;
-	public static Preferences prefs;
+	public static Preferences prefs,achiev_prefs;
 	public static boolean hasKeyboard;
 	public BitmapFont font;
 	public static Random rdm;
@@ -129,6 +129,25 @@ public class Conceito extends Game {
 		prefs.putFloat("qLevel", ScreenChooser.Player1.qLevel);
 		prefs.flush();
 		Gdx.app.log("savegame","saved");
+		this.ClearSaveData();
+	}
+	
+	void ClearSaveData()
+	{
+		prefs.clear();
+		prefs.flush();
+	}
+	
+	void ClearAchievData()
+	{
+		achiev_prefs.clear();
+		achiev_prefs.flush();
+	}
+	
+	void ClearUserData()
+	{
+		this.ClearUserData();
+		this.ClearAchievData();
 	}
 	
 	@Override
