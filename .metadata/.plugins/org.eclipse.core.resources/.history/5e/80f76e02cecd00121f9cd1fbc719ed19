@@ -113,6 +113,7 @@ public class AchieveChecker {
 				
 			}
 		
+			
 			if(tri.done == false)
 			{
 				switch(tri.type)
@@ -192,7 +193,8 @@ public class AchieveChecker {
 					break;
 					
 				case Enjoyable:
-					if( tri.value >= 120){
+					System.out.println("ADAGIO" + tri.value);
+					if( tri.value >= 1){
 						System.out.println("ADAGIOZINHO");
 						tri.done = true;
 						Conceito.achievs_screen.setAchiev(tri.type);

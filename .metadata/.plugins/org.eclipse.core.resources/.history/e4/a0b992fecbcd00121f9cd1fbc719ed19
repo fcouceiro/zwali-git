@@ -83,36 +83,6 @@ public class AchieveChecker {
 	{
 		for(Triplet tri: achive)
 		{
-			
-			switch(tri.type)
-			{
-			case Aint_Zombies_Finite: // 5 hours
-			case Shit_I_missed_3_days_of_work: //10 hours
-			case Enjoyable:
-				tri.value = tri.begin + Conceito.timeElapsed();
-				System.out.println(tri.value);
-				break;
-			case Relentless:
-			case Pretty_damn_Good:
-			case Unstopable:
-			case GodLike:
-				tri.value = Math.max(tri.value, stats.killstreakCont);
-				break;
-			case Hello_world:
-			case Kid:
-			case Rookie:
-			case Killer:
-			case Exterminator:
-				tri.value = tri.begin + stats.enemieskilled;
-				break;
-			case Cop:
-			case Entreperneur:
-			case Millionaire:
-				tri.value = tri.begin + stats.buys;
-				break;
-				
-			}
-		
 			if(tri.done == false)
 			{
 				switch(tri.type)
@@ -163,12 +133,14 @@ public class AchieveChecker {
 				case Killer:
 					if(tri.begin + stats.enemieskilled >= 2000){
 						Conceito.achievs_screen.setAchiev(tri.type);
+						System.out.println("ACHIEVEMENT UNLOCKED " + tri.type.toString());
 						tri.done = true;}
 					break;
 					
 				case Exterminator:
 					if(tri.begin + stats.enemieskilled >= 5000){
 						Conceito.achievs_screen.setAchiev(tri.type);
+						System.out.println("ACHIEVEMENT UNLOCKED " + tri.type.toString());
 						tri.done = true;}
 					break;
 					
@@ -192,14 +164,15 @@ public class AchieveChecker {
 					break;
 					
 				case Enjoyable:
+					tri.value = tri.begin + Conceito.timeElapsed();
 					if( tri.value >= 120){
-						System.out.println("ADAGIOZINHO");
 						tri.done = true;
 						Conceito.achievs_screen.setAchiev(tri.type);
 					}
 					break;
 				
 				case Aint_Zombies_Finite:
+					tri.value = tri.begin + Conceito.timeElapsed();
 					if( tri.value >= 300){
 						tri.done = true;
 						Conceito.achievs_screen.setAchiev(tri.type);
@@ -207,7 +180,8 @@ public class AchieveChecker {
 					break;
 					
 				case Shit_I_missed_3_days_of_work:
-					if( tri.value >= 600){
+					tri.value = tri.begin + Conceito.timeElapsed();
+					if( tri.value >= 120){
 						tri.done = true;
 						Conceito.achievs_screen.setAchiev(tri.type);
 					}
@@ -218,7 +192,60 @@ public class AchieveChecker {
 				if (tri.done == true)
 					Conceito.achievs_screen.setAchiev(tri.type);
 			}
-		
+			
+			switch(tri.type)
+			{
+			case Relentless:
+				tri.value = Math.max(tri.value, stats.killstreakCont);
+				break;
+			case Pretty_damn_Good:
+				tri.value = Math.max(tri.value, stats.killstreakCont);
+				break;
+			case Unstopable:
+				tri.value = Math.max(tri.value, stats.killstreakCont);
+				break;
+			case GodLike:
+				tri.value = Math.max(tri.value, stats.killstreakCont);
+				break;
+			case Hello_world:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Kid:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Rookie:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Killer:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Exterminator:
+				tri.value = tri.begin + stats.enemieskilled;
+
+				break;
+				
+			case Cop:
+				tri.value = tri.begin + stats.buys;
+
+				break;
+			case Entreperneur:
+				tri.value = tri.begin + stats.buys;
+
+				break;
+			case Millionaire:
+				tri.value = tri.begin + stats.buys;
+
+				break;
+				
+			}
 		
 		}
 	}

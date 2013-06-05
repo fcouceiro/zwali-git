@@ -22,7 +22,7 @@ public class Conceito extends Game {
 	public static Random rdm;
 	public boolean sound = true;
 	public static boolean debug = false;
-	public static long startTime =  System.currentTimeMillis()/60000;
+	public static long startTime =  System.currentTimeMillis();
 	
 	GameOver gameover;
 	Howtoplay howtoplaymenu;
@@ -145,10 +145,6 @@ public class Conceito extends Game {
 		howtoplaymenu.dispose();
 		mainmenu.dispose();
 		
-	}
-	
-	public static int timeElapsed(){
-		return (int)(System.currentTimeMillis()/60000 - startTime);
 	}
 
 }

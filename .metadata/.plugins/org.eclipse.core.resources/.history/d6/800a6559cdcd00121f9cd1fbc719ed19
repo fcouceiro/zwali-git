@@ -88,7 +88,7 @@ public class AchieveChecker {
 			{
 			case Aint_Zombies_Finite: // 5 hours
 			case Shit_I_missed_3_days_of_work: //10 hours
-			case Enjoyable:
+			case Come_For_The_Zombies_Stay_For_The_Story:
 				tri.value = tri.begin + Conceito.timeElapsed();
 				System.out.println(tri.value);
 				break;
@@ -112,7 +112,7 @@ public class AchieveChecker {
 				break;
 				
 			}
-		
+			
 			if(tri.done == false)
 			{
 				switch(tri.type)
@@ -192,8 +192,9 @@ public class AchieveChecker {
 					break;
 					
 				case Enjoyable:
-					if( tri.value >= 120){
-						System.out.println("ADAGIOZINHO");
+					System.out.println("ADAGIO");
+					if( tri.value >= 1){
+						System.out.println("ADAGIZINHO");
 						tri.done = true;
 						Conceito.achievs_screen.setAchiev(tri.type);
 					}

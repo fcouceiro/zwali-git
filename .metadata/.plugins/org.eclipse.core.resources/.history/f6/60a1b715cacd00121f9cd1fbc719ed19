@@ -147,7 +147,7 @@ public class Conceito extends Game {
 		
 	}
 	
-	public static int timeElapsed(){
+	int timeelapsed(){
 		return (int)(System.currentTimeMillis()/60000 - startTime);
 	}
 
