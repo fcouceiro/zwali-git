@@ -359,7 +359,7 @@ public class Quest extends UI{
 			
 			if(A)
 			{
-				if (waves.get(0).waveNR  > maxWaves)
+				if (waves.get(0).waveNR - 1 > maxWaves)
 					MainGame.setScreen(MainGame.questsScreen);
 				justended = false;
 				WarmUpBegins = true;

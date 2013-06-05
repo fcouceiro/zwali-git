@@ -128,7 +128,7 @@ public class Quest extends UI{
 		//table.addActor(hi);
 		this.MainGame = main;
 		this.maxWaves = maxWaves;
-		this.maxWaves = 2;
+		//this.maxWaves = 2;
 		
 		if(maxWaves == 0){
 			this.survival = true;
@@ -359,7 +359,7 @@ public class Quest extends UI{
 			
 			if(A)
 			{
-				if (waves.get(0).waveNR  > maxWaves)
+				if (waves.get(0).waveNR - 1 > maxWaves)
 					MainGame.setScreen(MainGame.questsScreen);
 				justended = false;
 				WarmUpBegins = true;
@@ -883,7 +883,7 @@ public class Quest extends UI{
 		{
 			//System.out.println("ASDASD");
 			//font.draw(Conceito.batch,"Wave incomming! Number: " + Integer.toString(Wavenr),425, 508);
-			this.showToast("Wave incomming! Number: " + Integer.toString(Wavenr-1), 2, new Vector2(200,500),false);
+			this.showToast("Wave incomming! Number: " + (Integer.toString(Wavenr)-1), 2, new Vector2(200,500),false);
 			showtoast = false;
 			hasshown = true;
 		}
