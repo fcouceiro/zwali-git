@@ -12,9 +12,11 @@ public class AchieveChecker {
 	ArrayList<Triplet> achive;
 	int checks = 0;
 	
-	public AchieveChecker()
+	public AchieveChecker(Preferences achi)
 	{
-		achisave = Gdx.app.getPreferences("AchiveLists");
+
+		this.achisave = achi;
+		achive = new ArrayList<Triplet> (10);
 	}
 	
 	public void loadAch()
