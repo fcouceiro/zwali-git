@@ -309,7 +309,8 @@ public class Quest extends UI{
 					
 					waves.remove(waves.get(i));	//remove actual (empty)
 				
-					if(waves.get(i).waveNR == maxWaves +1 && !survival && enem.size() == 0){
+					if(waves.get(i).waveNR == maxWaves +1 && !survival){
+						MainGame.questsScreen.setScore(getScore(),this.maxScore);
 						MainGame.setScreen(MainGame.questsScreen);
 					}
 				}

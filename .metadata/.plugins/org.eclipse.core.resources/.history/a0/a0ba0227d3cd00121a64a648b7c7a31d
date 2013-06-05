@@ -11,7 +11,6 @@ public class AchieveChecker {
 	Preferences achisave;
 	ArrayList<Triplet> achive;
 	int checks = 0;
-	
 	public AchieveChecker()
 	{
 		achisave = Gdx.app.getPreferences("AchiveLists");
@@ -82,7 +81,6 @@ public class AchieveChecker {
 	
 	public void UpdateAll( Stats stats)
 	{
-		checks++;
 		for(Triplet tri: achive)
 		{
 			
@@ -91,13 +89,9 @@ public class AchieveChecker {
 			case Aint_Zombies_Finite: // 5 hours
 			case Shit_I_missed_3_days_of_work: //10 hours
 			case Enjoyable:
-				if( checks >= 300){
-					tri.value = tri.begin + Conceito.timeElapsed();
-					System.out.println(tri.value);
-					checks = 0;
-				}
+				tri.value = tri.begin + Conceito.timeElapsed();
+				System.out.println(tri.value);
 				break;
-
 			case Relentless:
 			case Pretty_damn_Good:
 			case Unstopable:

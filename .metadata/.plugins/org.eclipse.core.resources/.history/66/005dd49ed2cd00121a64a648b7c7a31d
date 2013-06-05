@@ -35,8 +35,8 @@ public class Achievements extends UI
 	{
 		//if(!loading){
 			if(maingame.getScreen().getClass() == UI.class){
-			
-				((UI)maingame.getScreen()).showToast("ACHIVEMENT UNLOCKED " + type.name(), 5, new Vector2(200,500), false);
+				
+				((UI)maingame.getScreen())..showToast("ACHIVEMENT UNLOCKED " + type.name(), 5, new Vector2(200,500), false);
 			}
 		//}
 		for(AchievBtn btn:list)

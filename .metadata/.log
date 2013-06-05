@@ -605,3 +605,23 @@ org.eclipse.core.internal.resources.ResourceException: Resource is out of sync w
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1414)
 !SUBENTRY 1 org.eclipse.core.resources 4 274 2013-06-05 10:31:40.229
 !MESSAGE Resource is out of sync with the file system: '/zwali/src/com/me/zwali/Quest.java'.
+!SESSION 2013-06-05 12:07:20.118 -----------------------------------------------
+eclipse.buildId=v21.0.1-543035
+java.version=1.7.0_21
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.android.ide.eclipse.adt.package.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2013-06-05 12:07:27.551
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2013-06-05 12:22:33.615 -----------------------------------------------
+eclipse.buildId=v21.0.1-543035
+java.version=1.7.0_21
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.android.ide.eclipse.adt.package.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2013-06-05 12:22:38.202
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -31,14 +30,13 @@ public class Achievements extends UI
 		this.popButtons();
 	}
 	
-	public void setAchiev(Constants.achiev_types type)
+	public void setAchiev(Constants.achiev_types type, boolean loading)
 	{
-		//if(!loading){
+		if(!loading)
 			if(maingame.getScreen().getClass() == UI.class){
-			
-				((UI)maingame.getScreen()).showToast("ACHIVEMENT UNLOCKED " + type.name(), 5, new Vector2(200,500), false);
-			}
-		//}
+				
+				
+			} "ACHIVEMENT UNLOCKED " + type.name() );
 		for(AchievBtn btn:list)
 			if(btn.type == type){
 				btn.setObtained(true);
