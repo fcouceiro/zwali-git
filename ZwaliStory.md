@@ -14,13 +14,13 @@ Desde pequeno que nunca gostou de cenoures, o que o tornou o eleito para ajudar 
 -> Acorda num quarto após uma semana afastado, olha em volta e pergunta "Mas falta aqui algo... A minha namorada!"
 -> Sai pela porta e constacta os zombies no mundo e diz: "Dayum finalmente todo o meu traino vai ser útil. Kicking some god damn zombie ass".
 Área 1:
-(Primeiro lvl em casa)
+(Primeiro quest em casa)
 Depois desloca-se para a quinta em busca de meio de transporte
-(segundo lvl quinta)
+(segundo quest quinta)
 Chegado á quinta encontra uma bicicleta e um homem "supostamente morto" ao pé da bicicleta
 Quando pega na bicicleta o homem levanta-se e diz "Não devia ter bebido tanto ontem!" 
 ~!Nigga Stole my bike!~
-(terceiro lvl parque)
+(terceiro quest parque)
 Onde ele e a namorada costumavam passar o tempo. -> Será também a final scene. Ele com a PS no parque
 -------------------------------------------a estrada -> Área intermédia <- O caminho da aldeia para a cidade
 Área 2:
