@@ -1,10 +1,9 @@
 -----------------------------------------------------------------
 Zwali:
 - Níveis: Quais/quantos com história.
-- Bug da imagem do tiro
 - Erro UI
-- Retirar buy this mission
-- Add colision no carro superior
+- Survival -> Se morreres e entrares no survivel continuas morto. Se clicares retry dá erro.
+
 
 Texturas:
 - Mortes
@@ -16,10 +15,7 @@ Texturas:
 -----------------------------------------------------------------
 
 Meatify:
-- Bug ratio dos blocos/resolução
 - Player
-- Menus android
-- Músicas
 ------------------------------------------------------------------
 
 

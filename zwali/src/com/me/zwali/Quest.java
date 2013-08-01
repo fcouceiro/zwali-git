@@ -51,6 +51,7 @@ public class Quest extends UI{
 	ArrayList <Wave> waves = new ArrayList<Wave>(10);
 	
 	Slider Hbar,Abar;
+	TextButton hide;
 	Image Himg,Aimg,Amimg,curgunimg;
 	Label labAmmo,labLog,labMoney,labXP,labRes;
 	ScrollPane log;
@@ -156,7 +157,8 @@ public class Quest extends UI{
 		backG = new Background( Textures.Red, new Vector( 1024, 1024) );
 		
 		/*barreiras laterais/superiores/inferiores*/
-		backG.addOBJ( new StaticObj( new Vector(800, 150), new Vector(  200, 120),40, Textures.Red ) );
+		backG.addOBJ( new StaticObj( new Vector(780, 130), new Vector(220, 120),40, Textures.Red));
+		backG.addOBJ( new StaticObj( new Vector(320, 870), new Vector(280, 120),40, Textures.Red));
 		backG.addOBJ( new StaticObj( new Vector( -20, backG.size.y/2), new Vector( 40, backG.size.y), 0,Textures.BarrelIM ));
 		backG.addOBJ( new StaticObj( new Vector( backG.size.x +20, backG.size.y/2), new Vector( 40, backG.size.y),0, Textures.BarrelIM ));
 		backG.addOBJ( new StaticObj( new Vector( backG.size.x/2, -20), new Vector( backG.size.x, 40),0, Textures.BarrelIM ));
@@ -198,6 +200,7 @@ public class Quest extends UI{
 		MPOS.x = MouseX;
 		MPOS.y = MouseY;
 		
+		System.out.println("Mx = " + MouseX + "My = " + MouseY);
 		
 		Conceito.batch.begin();	
 		if(!paused){
@@ -891,7 +894,15 @@ public class Quest extends UI{
 		}
 		
 		
-		
+		if(table1.getActions().size>0)
+		{
+			//hide.setDisabled(true);
+			hide.setVisible(false);
+		}
+		else
+			//hide.setDisabled(false);
+			hide.setVisible(true);
+			
 		
 		if(debug)
 		{
@@ -952,7 +963,7 @@ public class Quest extends UI{
 		Abar.setValue(Player1.armor);
 		labAmmo.setText(Player1.InvListWeapons.get(Player1.CurGun).ammo +"/"+Player1.InvListWeapons.get(Player1.CurGun).ammoTotal);
 		
-		stage.act(Gdx.graphics.getDeltaTime());
+		stage.act(delta);
 		stage.draw();
 		
 	}
@@ -971,6 +982,9 @@ public class Quest extends UI{
 		log.setWidget(logVg);
 		log.setScrollPercentY(100);
 	}
+	
+	MoveToAction hideTable;
+	MoveToAction showTable;
 	
 	private void pop_Table1()
 	{
@@ -1011,20 +1025,20 @@ public class Quest extends UI{
 		Aimg.setSize(16, 16);
 		Aimg.setY(30);
 		
-		final TextButton hide = new TextButton("",Textures.btnArrLeft);
+		hide = new TextButton("",Textures.btnArrLeft);
 		hide.setSize(20, 20);
 		hide.setY(570);
 		hide.setX(10);
 		hide.getColor().a = 0.5f;
 		
 	
-		final MoveToAction hideTable = Actions.action(MoveToAction.class);
+		hideTable = Actions.action(MoveToAction.class);
 		hideTable.setActor(table1);
 		hideTable.setPosition(-200,500);
 		hideTable.setDuration(1.5f);
 		hideTable.setInterpolation(Interpolation.fade);
 		
-		final MoveToAction showTable = Actions.action(MoveToAction.class);
+		showTable = Actions.action(MoveToAction.class);
 		showTable.setActor(table1);
 		showTable.setPosition(10,500);
 		showTable.setDuration(1.5f);

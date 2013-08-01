@@ -37,11 +37,8 @@ public class GameOver extends UI{
 		final TextButton retry = new TextButton("Retry",StylesManager.skin);
 		final TextButton menu = new TextButton("Menu",StylesManager.skin);
 		final TextButton shop = new TextButton("Shop",StylesManager.btnGreen);
-		final TextButton buy = new TextButton("Buy this mission",StylesManager.btnLock);
 		
-		buy.setBounds(cx + 10, cy - 50, 185, 44);
-		buy.getLabel().setPosition(0, 0);
-		table.addActor(buy);
+		
 		
 		retry.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -57,7 +54,7 @@ public class GameOver extends UI{
 	        
 	        }
 		});
-		retry.setBounds(cx - 190, cy - 50, 180, 42);
+		retry.setBounds(cx - 90, cy - 50, 180, 42);
 		table.addActor(retry);
 		
 		menu.addListener(new InputListener() {
