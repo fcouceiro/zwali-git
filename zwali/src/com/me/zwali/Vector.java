@@ -2,7 +2,7 @@ package com.me.zwali;
 
 import java.lang.Math;
 
-public class Vector {
+public class Vector implements Cloneable {
 
 	double x, y;
 
@@ -78,6 +78,9 @@ public class Vector {
 		K.normalize();
 		double dot = this.dot(K);
 		return new Vector( K.x * dot, K.y*dot );
+	}
+	public Vector clone(){
+		return((Vector)this.clone());
 	}
 		
 }

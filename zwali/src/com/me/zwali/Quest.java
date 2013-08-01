@@ -1343,6 +1343,8 @@ public class Quest extends UI{
 						Vector p = Player1.getPos();
 						Vector d = backG.getDisp(); 
 						Vector c = new Vector(MouseX - p.x  + d.x , MouseY- p.y + d.y);
+						if(Player1.CurGun == 1)
+							c.rotate(-5);
 						c.normalize();
 						Vector dir = new Vector(p.x  + c.x*30, p.y + c.y*30 );
 										
@@ -1400,6 +1402,7 @@ public class Quest extends UI{
 						Vector d = backG.getDisp(); 
 						Vector c = new Vector(MouseX - p.x + d.x , MouseY- p.y + d.y);
 						c.normalize();
+						c.rotate(-6);
 						Vector dir = new Vector(p.x + c.x*30, p.y + c.y*30 );
 										
 						c.rotate(((float)(rdm.nextInt(201)-100))/100*Player1.accuracy);

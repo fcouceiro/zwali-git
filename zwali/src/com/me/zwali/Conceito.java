@@ -134,7 +134,7 @@ public class Conceito extends Game {
 		
 		achiev_checker.saveAch();
 		
-		this.ClearAchievData();
+		
 	}
 	
 	void ClearSaveData()

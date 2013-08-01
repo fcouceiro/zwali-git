@@ -168,17 +168,37 @@ public class Weapon
 			
 			int MouseX = Gdx.input.getX();
 			int MouseY = 600 - Gdx.input.getY();
-			Vector p = Player1.getPos();
+			Vector p =  Player1.getPos();
+
 			Vector d = Disp; 
 			Vector c = new Vector(MouseX - p.x + d.x , MouseY- p.y + d.y);
 			c.normalize();
-			//c.rotate(-6);
-			Vector dir = new Vector(p.x -d.x + c.x*55, p.y -d.y + c.y*55 );
+			c.rotate(-2);
+			
+			Vector dir = new Vector(p.x-d.x+c.x*52,p.y-d.y+c.y*52);
+			if(Player1.CurGun == 2)
+			{
+				c.rotate(-6);
+				dir.x = p.x-d.x+c.x*46;
+				dir.y = p.y-d.y+c.y*46;
+			}
+			else if(Player1.CurGun == 1)
+			{
+				c.rotate(-5);
+				dir.x = p.x-d.x+c.x*53;
+				dir.y = p.y-d.y+c.y*53;
+			}
+
 			
 			Textures.bul_art.setOrigin(Textures.bul_art.getWidth()/2,Textures.bul_art.getHeight()/2);
-			Textures.bul_art.setSize(20,20);
+			if(Player1.CurGun == 0)
+				Textures.bul_art.setSize(15,15);
+			else if(Player1.CurGun == 1)
+				Textures.bul_art.setSize(17,17);
+			else
+				Textures.bul_art.setSize(20,20);
 			Textures.bul_art.setRotation((float)Player1.angle);
-			Textures.bul_art.setPosition((float)(dir.x - Textures.bul_art.getWidth()/2 ),(float)(dir.y - Textures.bul_art.getHeight()/2));
+			Textures.bul_art.setPosition((float)(dir.x  - Textures.bul_art.getWidth()/2 ),(float)(dir.y - Textures.bul_art.getHeight()/2));
 			Textures.bul_art.draw(Conceito.batch);
 	
 		}
